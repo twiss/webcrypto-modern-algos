@@ -5,5 +5,6 @@ cryptographic algorithms in the Web Cryptography API, namely:
 
 - AES-OCB
 - ChaCha20-Poly1305
+- SHA-3
 
 See the [draft specification](https://twiss.github.io/webcrypto-modern-algos/).

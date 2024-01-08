@@ -26,6 +26,13 @@
       "JWA": {
         aliasOf: "RFC7518"
       },
+      // TODO: move to specref?
+      "FIPS-202": {
+        "title": "SHA-3 Standard: Permutation-Based Hash and Extendable-Output Functions",
+        "href": "https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.202.pdf",
+        "publisher": "NIST",
+        "date": "August 2015"
+      },
     },
   };
   </script>
@@ -35,7 +42,7 @@
   <section id="abstract">
     <p>
       This specification defines a number of modern cryptographic algorithms
-      for the [[[WebCryptoAPI]]], namely AES-OCB and ChaCha20-Poly1305.
+      for the [[[WebCryptoAPI]]], namely AES-OCB, ChaCha20-Poly1305, and SHA-3.
     </p>
   </section>
   <section id="sotd">
@@ -53,6 +60,7 @@
       <ul>
         <li>AES-OCB [[RFC7253]]</li>
         <li>ChaCha20-Poly1305 [[RFC8439]]</li>
+        <li>SHA3-256, SHA3-384, and SHA3-512 [[FIPS-202]]</li>
       </ul>
     </p>
   </section>
@@ -1159,6 +1167,95 @@ dictionary AeadParams : Algorithm {
             <li>
               <p>
                 Return 256.
+              </p>
+            </li>
+          </ol>
+        </dd>
+      </dl>
+    </section>
+  </section>
+  <section id="sha3">
+    <h3>SHA-3</h3>
+    <section id="sha3-description" class="informative">
+      <h4>Description</h4>
+      <p>
+        This describes the SHA-3 family of hash functions, as specified by
+        [[FIPS-202]].
+      </p>
+    </section>
+    <section id="sha3-registration">
+      <h4>Registration</h4>
+      <p>
+        The <a href="#recognized-algorithm-name">recognized algorithm names</a> are
+        "<code id="alg-sha3-256">SHA3-256</code>",
+        "<code id="alg-sha3-384">SHA3-384</code>", and
+        "<code id="alg-sha3-512">SHA3-512</code>" for the respective SHA-3 algorithms.
+      </p>
+      <table>
+        <thead>
+          <tr>
+            <th><a href="#supported-operations">Operation</a></th>
+            <th><a href="#algorithm-specific-params">Parameters</a></th>
+            <th><a href="#algorithm-result">Result</a></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>digest</td>
+            <td>None</td>
+            <td>{{ArrayBuffer}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+    <section id="sha3-operations">
+      <h4>Operations</h4>
+      <dl>
+        <dt>Digest</dt>
+        <dd>
+          <ol>
+            <li>
+              <dl class="switch">
+                <dt>
+                  If the {{Algorithm/name}} member of
+                  |normalizedAlgorithm| is a case-sensitive string match for
+                  "`SHA3-256`":
+                </dt>
+                <dd>
+                  Let |result| be the result of performing the SHA3-256 hash function
+                  defined in Section 6.1 of [[FIPS-202]] using
+                  |message| as the input message, |M|.
+                </dd>
+                <dt>
+                  If the {{Algorithm/name}} member of
+                  |normalizedAlgorithm| is a case-sensitive string match for
+                  "`SHA3-384`":
+                </dt>
+                <dd>
+                  Let |result| be the result of performing the SHA3-384 hash function
+                  defined in Section 6.1 of [[FIPS-202]] using
+                  |message| as the input message, |M|.
+                </dd>
+                <dt>
+                  If the {{Algorithm/name}} member of
+                  |normalizedAlgorithm| is a case-sensitive string match for
+                  "`SHA3-512`":
+                </dt>
+                <dd>
+                  Let |result| be the result of performing the SHA3-512 hash function
+                  defined in Section 6.1 of [[FIPS-202]] using
+                  |message| as the input message, |M|.
+                </dd>
+              </dl>
+            </li>
+            <li>
+              <p>
+                If performing the operation results in an error, then [= exception/throw =] an {{OperationError}}.
+              </p>
+            </li>
+            <li>
+              <p>
+                Return a new ArrayBuffer containing |result|.
               </p>
             </li>
           </ol>
