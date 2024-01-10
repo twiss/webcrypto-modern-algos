@@ -33,6 +33,13 @@
         "publisher": "NIST",
         "date": "August 2015"
       },
+      // TODO: move to specref?
+      "NIST-SP800-185": {
+        "title": "NIST Special Publication 800-185: SHA-3 Derived Functions: cSHAKE, KMAC, TupleHash and ParallelHash",
+        "href": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-185.pdf",
+        "publisher": "NIST",
+        "date": "December 2016"
+      },
     },
   };
   </script>
@@ -42,7 +49,7 @@
   <section id="abstract">
     <p>
       This specification defines a number of modern cryptographic algorithms
-      for the [[[WebCryptoAPI]]], namely AES-OCB, ChaCha20-Poly1305, and SHA-3.
+      for the [[[WebCryptoAPI]]], namely AES-OCB, ChaCha20-Poly1305, SHA-3, cSHAKE and KMAC.
     </p>
   </section>
   <section id="sotd">
@@ -61,6 +68,7 @@
         <li>AES-OCB [[RFC7253]]</li>
         <li>ChaCha20-Poly1305 [[RFC8439]]</li>
         <li>SHA3-256, SHA3-384, and SHA3-512 [[FIPS-202]]</li>
+        <li>cSHAKE128, cSHAKE256, KMAC128 and KMAC256 [[NIST-SP800-185]]</li>
       </ul>
     </p>
   </section>
@@ -1263,6 +1271,775 @@ dictionary AeadParams : Algorithm {
       </dl>
     </section>
   </section>
+  <section id="cshake">
+    <h3>cSHAKE</h3>
+    <section id="cshake-description" class="informative">
+      <h4>Description</h4>
+      <p>
+        This describes cSHAKE128 and cSHAKE256, as specified by
+        [[NIST-SP800-185]].
+      </p>
+    </section>
+    <section id="cshake-registration">
+      <h4>Registration</h4>
+      <p>
+        The <a href="#recognized-algorithm-name">recognized algorithm names</a> are
+        "<code id="alg-cshake128">cSHAKE128</code>" and
+        "<code id="alg-cshake256">cSHAKE256</code>".
+      </p>
+      <table>
+        <thead>
+          <tr>
+            <th><a href="#supported-operations">Operation</a></th>
+            <th><a href="#algorithm-specific-params">Parameters</a></th>
+            <th><a href="#algorithm-result">Result</a></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>digest</td>
+            <td>{{CShakeParams}}</td>
+            <td>{{ArrayBuffer}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+    <section id="cshake-params">
+      <h4><dfn data-idl id="dfn-CShakeParams">CShakeParams</dfn> dictionary</h4>
+      <pre class=idl>
+dictionary CShakeParams : Algorithm {
+  required [EnforceRange] unsigned long length;
+  BufferSource functionName;
+  BufferSource customization;
+};
+      </pre>
+      <p>The <dfn data-dfn-for=CShakeParams id=dfn-CShakeParams-length>length</dfn> member represents the requested output length in bits.</p>
+      <p>The <dfn data-dfn-for=CShakeParams id=dfn-CShakeParams-functionName>functionName</dfn> member represents the function name, used by NIST to define functions based on cSHAKE. When used, it should only be set to values defined by NIST.</p>
+      <p>The <dfn data-dfn-for=CShakeParams id=dfn-CShakeParams-customization>customization</dfn> member represents the customization string. The application selects this string to define a variant of the function.</p>
+    </section>
+    <section id="cshake-operations">
+      <h4>Operations</h4>
+      <dl>
+        <dt>Digest</dt>
+        <dd>
+          <ol>
+            <li>
+              <dl class="switch">
+                <dt>
+                  If the {{Algorithm/name}} member of
+                  |normalizedAlgorithm| is a case-sensitive string match for
+                  "`cSHAKE128`":
+                </dt>
+                <dd>
+                  Let |result| be the result of performing the cSHAKE128 function
+                  defined in Section 3 of [[NIST-SP800-185]] using
+                  |message| as the |X| input parameter,
+                  the {{CShakeParams/length}} member of |normalizedAlgorithm| as
+                  the |L| input parameter,
+                  <a href="#concept-contents-of-arraybuffer">the contents of</a> the {{CShakeParams/functionName}} member of |normalizedAlgorithm| as
+                  the |N| input parameter, and
+                  <a href="#concept-contents-of-arraybuffer">the contents of</a> the {{CShakeParams/customization}} member of |normalizedAlgorithm| as
+                  the |S| input parameter.
+                </dd>
+                <dt>
+                  If the {{Algorithm/name}} member of
+                  |normalizedAlgorithm| is a case-sensitive string match for
+                  "`cSHAKE256`":
+                </dt>
+                <dd>
+                  Let |result| be the result of performing the cSHAKE256 function
+                  defined in Section 3 of [[NIST-SP800-185]] using
+                  |message| as the |X| input parameter,
+                  the {{CShakeParams/length}} member of |normalizedAlgorithm| as
+                  the |L| input parameter,
+                  <a href="#concept-contents-of-arraybuffer">the contents of</a> the {{CShakeParams/functionName}} member of |normalizedAlgorithm| as
+                  the |N| input parameter, and
+                  <a href="#concept-contents-of-arraybuffer">the contents of</a> the {{CShakeParams/customization}} member of |normalizedAlgorithm| as
+                  the |S| input parameter.
+                </dd>
+              </dl>
+            </li>
+            <li>
+              <p>
+                If performing the operation results in an error, then [= exception/throw =] an {{OperationError}}.
+              </p>
+            </li>
+            <li>
+              <p>
+                Return a new ArrayBuffer containing |result|.
+              </p>
+            </li>
+          </ol>
+        </dd>
+      </dl>
+    </section>
+  </section>
+  <section id="kmac">
+    <h3>KMAC</h3>
+    <section id="kmac-description" class="informative">
+      <h4>Description</h4>
+      <p>
+        This describes KMAC128 and KMAC256, as specified by
+        [[NIST-SP800-185]].
+      </p>
+    </section>
+    <section id="kmac-registration">
+      <h4>Registration</h4>
+      <p>
+        The <a href="#recognized-algorithm-name">recognized algorithm names</a> are
+        "<code id="alg-kmac128">KMAC128</code>" and
+        "<code id="alg-kmac256">KMAC256</code>".
+      </p>
+      <table>
+        <thead>
+          <tr>
+            <th><a href="#supported-operations">Operation</a></th>
+            <th><a href="#algorithm-specific-params">Parameters</a></th>
+            <th><a href="#algorithm-result">Result</a></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>sign</td>
+            <td>{{KmacParams}}</td>
+            <td>{{ArrayBuffer}}</td>
+          </tr>
+          <tr>
+            <td>verify</td>
+            <td>{{KmacParams}}</td>
+            <td>boolean</td>
+          </tr>
+          <tr>
+            <td>generateKey</td>
+            <td>{{KmacKeyGenParams}}</td>
+            <td>{{CryptoKey}}</td>
+          </tr>
+          <tr>
+            <td>importKey</td>
+            <td>{{KmacImportParams}}</td>
+            <td>{{CryptoKey}}</td>
+          </tr>
+          <tr>
+            <td>exportKey</td>
+            <td>None</td>
+            <td>object</td>
+          </tr>
+          <tr>
+            <td>get key length</td>
+            <td>{{KmacImportParams}}</td>
+            <td>Integer</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+    <section id="kmac-keygen-params">
+      <h4><dfn data-idl id="dfn-KmacKeyGenParams">KmacKeyGenParams</dfn> dictionary</h4>
+      <pre class=idl>
+dictionary KmacKeyGenParams : Algorithm {
+  [EnforceRange] unsigned long length;
+};
+      </pre>
+      <p>The <dfn data-dfn-for=KmacKeyGenParams id=dfn-KmacKeyGenParams-length>length</dfn> member represents the length (in bits) of the key to generate. If unspecified, the recommended length will be used, which is 128 for KMAC128 and 256 for KMAC256.</p>
+    </section>
+    <section id="kmac-importparams">
+      <h4><dfn data-idl id="dfn-KmacImportParams">KmacImportParams</dfn> dictionary</h4>
+      <pre class=idl>
+dictionary KmacImportParams : Algorithm {
+  [EnforceRange] unsigned long length;
+};
+      </pre>
+      <p>The <dfn data-dfn-for=KmacImportParams id=dfn-KmacImportParams-length>length</dfn> member represents the length (in bits) of the key.</p>
+    </section>
+    <section id="KmacKeyAlgorithm-dictionary">
+      <h4><dfn data-idl id="dfn-KmacKeyAlgorithm">KmacKeyAlgorithm</dfn> dictionary</h4>
+      <pre class=idl>
+dictionary KmacKeyAlgorithm : KeyAlgorithm {
+  required unsigned long length;
+};
+      </pre>
+      <p>The <dfn data-dfn-for=KmacKeyAlgorithm id=dfn-KmacKeyAlgorithm-length>length</dfn> member represents the length (in bits) of the key.</p>
+    </section>
+    <section id="kmac-params">
+      <h4><dfn data-idl id="dfn-KmacParams">KmacParams</dfn> dictionary</h4>
+      <pre class=idl>
+dictionary KmacParams : Algorithm {
+  required [EnforceRange] unsigned long length;
+  BufferSource customization;
+};
+      </pre>
+      <p>The <dfn data-dfn-for=KmacParams id=dfn-KmacParams-length>length</dfn> member represents the requested output length in bits.</p>
+      <p>The <dfn data-dfn-for=KmacParams id=dfn-KmacParams-customization>customization</dfn> member represents the customization string. The application selects this string to define a variant of the function.</p>
+    </section>
+
+    <section id="kmac-operations">
+      <h4>Operations</h4>
+      <dl>
+        <dt>Sign</dt>
+        <dd>
+          <ol>
+            <li>
+              <p>
+                Let |customization| be the <a href="#concept-contents-of-arraybuffer">contents of</a> the {{KmacParams/customization}} member of
+                |normalizedAlgorithm| if present or the empty octet
+                string otherwise.
+              </p>
+            </li>
+            <li>
+              <dl class="switch">
+                <dt>
+                  If the {{Algorithm/name}} member of
+                  |normalizedAlgorithm| is a case-sensitive string match for
+                  "`KMAC128`":
+                </dt>
+                <dd>
+                  Let |mac| be the result of performing the KMAC128 function
+                  defined in Section 4 of [[NIST-SP800-185]] using
+                  the key represented by {{CryptoKey/[[handle]]}}
+                  internal slot of |key| as the |K| input parameter,
+                  |message| as the |X| input parameter,
+                  the {{KmacParams/length}} member of |normalizedAlgorithm| as
+                  the |L| input parameter, and
+                  |customization| as
+                  the |S| input parameter.
+                </dd>
+                <dt>
+                  If the {{Algorithm/name}} member of
+                  |normalizedAlgorithm| is a case-sensitive string match for
+                  "`KMAC256`":
+                </dt>
+                <dd>
+                  Let |mac| be the result of performing the KMAC256 function
+                  defined in Section 4 of [[NIST-SP800-185]] using
+                  the key represented by {{CryptoKey/[[handle]]}}
+                  internal slot of |key| as the |K| input parameter,
+                  |message| as the |X| input parameter,
+                  the {{KmacParams/length}} member of |normalizedAlgorithm| as
+                  the |L| input parameter, and
+                  |customization| as
+                  the |S| input parameter.
+                </dd>
+              </dl>
+            </li>
+            <li>
+              <p>
+                Return the result of [= ArrayBuffer/create | creating =]
+                an {{ArrayBuffer}} containing |mac|.
+              </p>
+            </li>
+          </ol>
+        </dd>
+        <dt>Verify</dt>
+        <dd>
+          <ol>
+            <li>
+              <p>
+                Let |customization| be the <a href="#concept-contents-of-arraybuffer">contents of</a> the {{KmacParams/customization}} member of
+                |normalizedAlgorithm| if present or the empty octet
+                string otherwise.
+              </p>
+            </li>
+            <li>
+              <dl class="switch">
+                <dt>
+                  If the {{Algorithm/name}} member of
+                  |normalizedAlgorithm| is a case-sensitive string match for
+                  "`KMAC128`":
+                </dt>
+                <dd>
+                  Let |mac| be the result of performing the KMAC128 function
+                  defined in Section 4 of [[NIST-SP800-185]] using
+                  the key represented by {{CryptoKey/[[handle]]}}
+                  internal slot of |key| as the |K| input parameter,
+                  |message| as the |X| input parameter,
+                  the {{KmacParams/length}} member of |normalizedAlgorithm| as
+                  the |L| input parameter, and
+                  |customization| as
+                  the |S| input parameter.
+                </dd>
+                <dt>
+                  If the {{Algorithm/name}} member of
+                  |normalizedAlgorithm| is a case-sensitive string match for
+                  "`KMAC256`":
+                </dt>
+                <dd>
+                  Let |mac| be the result of performing the KMAC256 function
+                  defined in Section 4 of [[NIST-SP800-185]] using
+                  the key represented by {{CryptoKey/[[handle]]}}
+                  internal slot of |key| as the |K| input parameter,
+                  |message| as the |X| input parameter,
+                  the {{KmacParams/length}} member of |normalizedAlgorithm| as
+                  the |L| input parameter, and
+                  |customization| as
+                  the |S| input parameter.
+                </dd>
+              </dl>
+            </li>
+            <li>
+              <p>
+                Return true if |mac| is equal to |signature| and false
+                otherwise.
+              </p>
+            </li>
+          </ol>
+        </dd>
+        <dt>Generate Key</dt>
+        <dd>
+          <ol>
+            <li>
+              <p>
+                If |usages| contains any entry which is not "`sign`" or
+                "`verify`", then [= exception/throw =] a {{SyntaxError}}.
+              </p>
+            </li>
+            <li>
+              <dl class="switch">
+                <dt>
+                  If the {{KmacKeyGenParams/length}} member of
+                  |normalizedAlgorithm| is present:
+                </dt>
+                <dd>
+                  Let |length| be equal to the
+                  {{KmacKeyGenParams/length}}
+                  member of |normalizedAlgorithm|.
+                </dd>
+                <dt>
+                  Otherwise, if the {{Algorithm/name}} member of
+                  |normalizedAlgorithm| is a case-sensitive string match for
+                  "`KMAC128`":
+                </dt>
+                <dd>
+                  Let |length| be 128.
+                </dd>
+                <dt>
+                  Otherwise, if the {{Algorithm/name}} member of
+                  |normalizedAlgorithm| is a case-sensitive string match for
+                  "`KMAC256`":
+                </dt>
+                <dd>
+                  Let |length| be 256.
+                </dd>
+              </dl>
+            </li>
+
+            <li>
+              <p>
+                Generate a key of length |length| bits.
+              </p>
+            </li>
+            <li>
+              <p>
+                If the key generation step fails,
+                then [= exception/throw =] an
+                {{OperationError}}.
+              </p>
+            </li>
+            <li>
+              <p>
+                Let |key| be a new
+                {{CryptoKey}} object representing the
+                generated key.
+              </p>
+            </li>
+            <li>
+              <p>
+                Let |algorithm| be a new
+                {{KmacKeyAlgorithm}}.
+              </p>
+            </li>
+            <li>
+              <p>
+                Set the {{KeyAlgorithm/name}} attribute of
+                |algorithm| to "`KMAC`".
+              </p>
+            </li>
+            <li>
+              <p>
+                Set the {{CryptoKey/[[algorithm]]}} internal
+                slot of |key| to |algorithm|.
+              </p>
+            </li>
+            <li>
+              <p>
+                Set the {{CryptoKey/[[extractable]]}} internal
+                slot of |key| to be |extractable|.
+              </p>
+            </li>
+            <li>
+              <p>
+                Set the {{CryptoKey/[[usages]]}} internal slot of
+                |key| to be |usages|.
+              </p>
+            </li>
+            <li>
+              <p>
+                Return |key|.
+              </p>
+            </li>
+          </ol>
+        </dd>
+        <dt>Import Key</dt>
+        <dd>
+          <ol>
+            <li>
+              <p>Let |keyData| be the key data to be imported.</p>
+            </li>
+            <li>
+              <p>
+                If |usages| contains an entry which is not
+                "`sign`" or "`verify`",
+                then [= exception/throw =] a
+                {{SyntaxError}}.
+              </p>
+            </li>
+            <li>
+              <dl class="switch">
+                <dt>If |format| is {{KeyFormat/"raw"}}:</dt>
+                <dd>
+                  <ol>
+                    <li>
+                      <p>
+                        Let |data| be the [= octet string =] contained in |keyData|.
+                      </p>
+                    </li>
+                  </ol>
+                </dd>
+                <dt>If |format| is {{KeyFormat/"jwk"}}:</dt>
+                <dd>
+                  <ol>
+                    <li>
+                      <dl class="switch">
+                        <dt>If |keyData| is a {{JsonWebKey}} dictionary:</dt>
+                        <dd><p>Let |jwk| equal |keyData|.</p></dd>
+                        <dt>Otherwise:</dt>
+                        <dd><p>[= exception/Throw =] a {{DataError}}.</p></dd>
+                      </dl>
+                    </li>
+                    <li>
+                      <p>
+                        If the {{JsonWebKey/kty}} field of |jwk| is not
+                        "`oct`",
+                        then [= exception/throw =] a
+                        {{DataError}}.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        If |jwk| does not meet the requirements of
+                        Section 6.4 of JSON Web Algorithms [[JWA]],
+                        then [= exception/throw =] a
+                        {{DataError}}.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Let |data| be the [= octet string =] obtained by decoding the
+                        {{JsonWebKey/k}} field of |jwk|.
+                      </p>
+                    </li>
+                    <li>
+                      <dl class="switch">
+                        <dt>
+                          If the {{Algorithm/name}} member of
+                          |normalizedAlgorithm| is a case-sensitive string match for
+                          "`KMAC128`":
+                        </dt>
+                        <dd>
+                          If the {{JsonWebKey/alg}} field of |jwk| is present
+                          and is not "`K128`",
+                          then [= exception/throw =] a
+                          {{DataError}}.
+                        </dd>
+                        <dt>
+                          If the {{Algorithm/name}} member of
+                          |normalizedAlgorithm| is a case-sensitive string match for
+                          "`KMAC256`":
+                        </dt>
+                        <dd>
+                          If the {{JsonWebKey/alg}} field of |jwk| is present
+                          and is not "`K256`",
+                          then [= exception/throw =] a
+                          {{DataError}}.
+                        </dd>
+                      </dl>
+                    </li>
+                    <li>
+                      <p>
+                        If |usages| is non-empty and the {{JsonWebKey/use}} field of |jwk| is present and is
+                        not "`sign`",
+                        then [= exception/throw =] a
+                        {{DataError}}.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        If the {{JsonWebKey/key_ops}} field of |jwk| is present, and
+                        is invalid according to the requirements of
+                        JSON Web Key [[JWK]] or
+                        does not contain all of the specified |usages| values,
+                        then [= exception/throw =] a
+                        {{DataError}}.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        If the {{JsonWebKey/ext}} field of |jwk| is present and
+                        has the value false and |extractable| is true,
+                        then [= exception/throw =] a
+                        {{DataError}}.
+                      </p>
+                    </li>
+                  </ol>
+                </dd>
+                <dt>Otherwise:</dt>
+                <dd>
+                  [= exception/throw =] a
+                  {{NotSupportedError}}.
+                </dd>
+              </dl>
+            </li>
+            <li>
+              <p>
+                Let |length| be equivalent to the length, in octets, of
+                |data|, multiplied by 8.
+              </p>
+            </li>
+            <li>
+              <p>
+                If |length| is zero
+                then [= exception/throw =] a
+                {{DataError}}.
+              </p>
+            </li>
+            <li>
+              <dl class="switch">
+                <dt>
+                  If the {{KmacImportParams/length}} member of
+                  |normalizedAlgorithm| is present:
+                </dt>
+                <dd>
+                  <dl class="switch">
+                    <dt>
+                      If the {{KmacImportParams/length}} member of
+                      |normalizedAlgorithm| is greater than |length|:
+                    </dt>
+                    <dd>
+                      [= exception/throw =] a
+                      {{DataError}}.
+                    </dd>
+                    <dt>
+                      If the {{KmacImportParams/length}} member of
+                      |normalizedAlgorithm|, is less than or equal to
+                      |length| minus eight:
+                    </dt>
+                    <dd>
+                      [= exception/throw =] a
+                      {{DataError}}.
+                    </dd>
+                    <dt>
+                      Otherwise:
+                    </dt>
+                    <dd>
+                      Set |length| equal to the {{KmacImportParams/length}}
+                      member of |normalizedAlgorithm|.
+                    </dd>
+                  </dl>
+                </dd>
+              </dl>
+            </li>
+            <li>
+              <p>
+                Let |key| be a new `{{CryptoKey}}`
+                object representing an KMAC key with the first |length|
+                bits of |data|.
+              </p>
+            </li>
+            <li>
+              <p>
+                Let |algorithm| be a new
+                {{KmacKeyAlgorithm}}.
+              </p>
+            </li>
+            <li>
+              <p>
+                Set the {{KeyAlgorithm/name}} attribute of
+                |algorithm| to "`KMAC`".
+              </p>
+            </li>
+            <li>
+              <p>
+                Set the {{KmacKeyAlgorithm/length}} attribute of
+                |algorithm| to |length|.
+              </p>
+            </li>
+            <li>
+              <p>
+                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-algorithm">[[\algorithm]]</a> internal
+                slot of |key| to |algorithm|.
+              </p>
+            </li>
+            <li>
+              <p>
+                Return |key|.
+              </p>
+            </li>
+          </ol>
+        </dd>
+        <dt>Export Key</dt>
+        <dd>
+          <ol>
+            <li>
+              <p>
+                If the underlying cryptographic key material represented by the {{CryptoKey/[[handle]]}} internal slot of |key|
+                cannot be accessed, then [= exception/throw =] an {{OperationError}}.
+              </p>
+            </li>
+            <li>
+              <p>
+                Let |bits| be the raw bits of the key represented by {{CryptoKey/[[handle]]}} internal slot of
+                |key|.
+              </p>
+            </li>
+            <li>
+              <p>
+                Let |data| be an [= octet string containing =] |bits|.
+              </p>
+            </li>
+            <li>
+              <dl class="switch">
+                <dt>If |format| is {{KeyFormat/"raw"}}:</dt>
+                <dd>
+                  <ol>
+                    <li>
+                      <p>
+                        Let |result| be the result of [= ArrayBuffer/create | creating =]
+                        an {{ArrayBuffer}} containing |data|.
+                      </p>
+                    </li>
+                  </ol>
+                </dd>
+                <dt>If |format| is {{KeyFormat/"jwk"}}:</dt>
+                <dd>
+                  <ol>
+                    <li>
+                      <p>
+                        Let |jwk| be a new {{JsonWebKey}}
+                        dictionary.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Set the `kty` attribute of |jwk| to the
+                        string "`oct`".
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Set the {{JsonWebKey/k}} attribute of |jwk| to be a string
+                        containing |data|, encoded according to Section 6.4 of JSON Web Algorithms [[JWA]].
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Let |algorithm| be the {{CryptoKey/[[algorithm]]}} internal slot of
+                        |key|.
+                      </p>
+                    </li>
+                    <li>
+                      <dl class="switch">
+                        <dt>
+                          If the {{Algorithm/name}} member of
+                          |normalizedAlgorithm| is a case-sensitive string match for
+                          "`KMAC128`":
+                        </dt>
+                        <dd>Set the `alg` attribute of |jwk| to
+                          the string "`K128`".</dd>
+                        <dt>
+                          If the {{Algorithm/name}} member of
+                          |normalizedAlgorithm| is a case-sensitive string match for
+                          "`KMAC256`":
+                        </dt>
+                        <dd>Set the `alg` attribute of |jwk| to
+                          the string "`K256`".</dd>
+                      </dl>
+                    </li>
+                    <li>
+                      <p>
+                        Set the `key_ops` attribute of |jwk| to equal the
+                        {{CryptoKey/usages}} attribute of |key|.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Set the `ext` attribute of |jwk| to equal the {{CryptoKey/[[extractable]]}} internal slot
+                        of |key|.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Let |result| be the result of converting |jwk|
+                        to an ECMAScript Object, as defined by [[WebIDL]].
+                      </p>
+                    </li>
+                  </ol>
+                </dd>
+                <dt>Otherwise:</dt>
+                <dd>
+                  <p>
+                    [= exception/throw =] a
+                    {{NotSupportedError}}.
+                  </p>
+                </dd>
+              </dl>
+            </li>
+            <li>
+              <p>
+                Return |result|.
+              </p>
+            </li>
+          </ol>
+        </dd>
+        <dt>Get key length</dt>
+        <dd>
+          <ol>
+            <li>
+              <dl class="switch">
+                <dt>
+                  If the {{KmacImportParams/length}} member of
+                  |normalizedAlgorithm| is present:
+                </dt>
+                <dd>
+                  Let |length| be equal to the
+                  {{KmacImportParams/length}}
+                  member of |normalizedAlgorithm|.
+                </dd>
+                <dt>
+                  Otherwise, if the {{Algorithm/name}} member of
+                  |normalizedAlgorithm| is a case-sensitive string match for
+                  "`KMAC128`":
+                </dt>
+                <dd>
+                  Let |length| be 128.
+                </dd>
+                <dt>
+                  Otherwise, if the {{Algorithm/name}} member of
+                  |normalizedAlgorithm| is a case-sensitive string match for
+                  "`KMAC256`":
+                </dt>
+                <dd>
+                  Let |length| be 256.
+                </dd>
+              </dl>
+            </li>
+            <li>
+              <p>
+                Return |length|.
+              </p>
+            </li>
+          </ol>
+        </dd>
+      </dl>
+    </section>
+  </section>
 
   <section>
     <h2>Usage Example</h2>
@@ -1356,9 +2133,35 @@ alg: "CC20P1305" }
 </pre>
           </td>
         </tr>
+        <tr>
+          <td>
+<pre class=js>
+{ kty: "oct",
+alg: "K128" }
+</pre>
+          </td>
+          <td>
+<pre class=js>
+{ name: "KMAC128" }
+</pre>
+          </td>
+        </tr>
+        <tr>
+          <td>
+<pre class=js>
+{ kty: "oct",
+alg: "K256" }
+</pre>
+          </td>
+          <td>
+<pre class=js>
+{ name: "KMAC256" }
+</pre>
+          </td>
+        </tr>
       </tbody>
     </table>
-    <div class="todo">TODO: register A128OCB, A192OCB, A256OCB, and CC20P1305(?) with IANA in the JSON Web Signature and Encryption Algorithms registry.</div>
+    <div class="todo">TODO: register A128OCB, A192OCB, A256OCB, CC20P1305, K128 and K256(?) with IANA in the JSON Web Signature and Encryption Algorithms registry.</div>
   </section>
 
   <section id="conformance"></section>
