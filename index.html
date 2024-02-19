@@ -159,7 +159,7 @@ partial interface SubtleCrypto {
         <li>
           <p>
             Let |normalizedAlgorithm| be the result of
-            <a href="#dfn-normalize-an-algorithm">normalizing an algorithm</a>, with
+            <a data-cite="WebCryptoAPI#dfn-normalize-an-algorithm">normalizing an algorithm</a>, with
             `alg` set to |alg| and `op` set to |op|.
           </p>
         </li>
@@ -279,15 +279,15 @@ partial interface SubtleCrypto {
     <section id="aes-ocb-registration">
       <h4>Registration</h4>
       <p>
-        The [= recognized algorithm name =] for
+        The <a data-cite="WebCryptoAPI#recognized-algorithm-name">recognized algorithm name</a> for
         this algorithm is "`AES-OCB`".
       </p>
       <table>
         <thead>
           <tr>
-            <th><a href="#supported-operations">Operation</a></th>
-            <th><a href="#algorithm-specific-params">Parameters</a></th>
-            <th><a href="#algorithm-result">Result</a></th>
+            <th><a data-cite="WebCryptoAPI#supported-operations">Operation</a></th>
+            <th><a data-cite="WebCryptoAPI#algorithm-specific-params">Parameters</a></th>
+            <th><a data-cite="WebCryptoAPI#algorithm-result">Result</a></th>
           </tr>
         </thead>
         <tbody>
@@ -387,7 +387,7 @@ dictionary AeadParams : Algorithm {
                 Let |C| be the output that results from performing
                 the OCB-ENCRYPT function described in Section 4.2 of
                 [[RFC7253]] using AES as the block cipher, using
-                the key represented by {{CryptoKey/[[handle]]}}
+                the key represented by <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">[[\handle]]</a>
                 internal slot of |key| as the |K| input parameter,
                 <a href="#concept-contents-of-arraybuffer">the contents of</a> the {{AeadParams/iv}} member of |normalizedAlgorithm| as
                 the |N| input parameter, <a href="#concept-contents-of-arraybuffer">the contents of
@@ -452,7 +452,7 @@ dictionary AeadParams : Algorithm {
               <p>
                 Perform the OCB-DECRYPT function described in Section 4.3 of
                 [[RFC7253]] using AES as the block cipher, using
-                the key represented by {{CryptoKey/[[handle]]}}
+                the key represented by <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">[[\handle]]</a>
                 internal slot of |key| as the |K| input parameter,
                 <a href="#concept-contents-of-arraybuffer">the contents of</a> the {{AeadParams/iv}} member of |normalizedAlgorithm| as
                 the |N| input parameter, <a href="#concept-contents-of-arraybuffer">the contents of
@@ -545,19 +545,19 @@ dictionary AeadParams : Algorithm {
             </li>
             <li>
               <p>
-                Set the {{CryptoKey/[[algorithm]]}} internal
+                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-algorithm">[[\algorithm]]</a> internal
                 slot of |key| to |algorithm|.
               </p>
             </li>
             <li>
               <p>
-                Set the {{CryptoKey/[[extractable]]}} internal
+                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-extractable">[[\extractable]]</a> internal
                 slot of |key| to be |extractable|.
               </p>
             </li>
             <li>
               <p>
-                Set the {{CryptoKey/[[usages]]}} internal slot of
+                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-usages">[[\usages]]</a> internal slot of
                 |key| to be |usages|.
               </p>
             </li>
@@ -717,7 +717,7 @@ dictionary AeadParams : Algorithm {
             </li>
             <li>
               <p>
-                Set the {{CryptoKey/[[algorithm]]}} internal
+                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-algorithm">[[\algorithm]]</a> internal
                 slot of |key| to |algorithm|.
               </p>
             </li>
@@ -733,7 +733,7 @@ dictionary AeadParams : Algorithm {
           <ol>
             <li>
               <p>
-                If the underlying cryptographic key material represented by the {{CryptoKey/[[handle]]}} internal slot of |key|
+                If the underlying cryptographic key material represented by the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">[[\handle]]</a> internal slot of |key|
                 cannot be accessed, then [= exception/throw =] an {{OperationError}}.
               </p>
             </li>
@@ -744,7 +744,7 @@ dictionary AeadParams : Algorithm {
                   <ol>
                     <li>
                       <p>
-                        Let |data| be the raw octets of the key represented by {{CryptoKey/[[handle]]}} internal slot of
+                        Let |data| be the raw octets of the key represented by <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">[[\handle]]</a> internal slot of
                         |key|.
                       </p>
                     </li>
@@ -774,7 +774,7 @@ dictionary AeadParams : Algorithm {
                     <li>
                       <p>
                         Set the {{JsonWebKey/k}} attribute of |jwk| to be a string
-                        containing the raw octets of the key represented by {{CryptoKey/[[handle]]}} internal slot of
+                        containing the raw octets of the key represented by <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">[[\handle]]</a> internal slot of
                         |key|, encoded according to Section 6.4 of JSON Web Algorithms [[JWA]].
                       </p>
                     </li>
@@ -803,7 +803,7 @@ dictionary AeadParams : Algorithm {
                     </li>
                     <li>
                       <p>
-                        Set the `ext` attribute of |jwk| to equal the {{CryptoKey/[[extractable]]}} internal slot
+                        Set the `ext` attribute of |jwk| to equal the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-extractable">[[\extractable]]</a> internal slot
                         of |key|.
                       </p>
                     </li>
@@ -865,15 +865,15 @@ dictionary AeadParams : Algorithm {
     <section id="chacha20-poly1305-registration">
       <h4>Registration</h4>
       <p>
-        The [= recognized algorithm name =] for
+        The <a data-cite="WebCryptoAPI#recognized-algorithm-name">recognized algorithm name</a> for
         this algorithm is "`ChaCha20-Poly1305`".
       </p>
       <table>
         <thead>
           <tr>
-            <th><a href="#supported-operations">Operation</a></th>
-            <th><a href="#algorithm-specific-params">Parameters</a></th>
-            <th><a href="#algorithm-result">Result</a></th>
+            <th><a data-cite="WebCryptoAPI#supported-operations">Operation</a></th>
+            <th><a data-cite="WebCryptoAPI#algorithm-specific-params">Parameters</a></th>
+            <th><a data-cite="WebCryptoAPI#algorithm-result">Result</a></th>
           </tr>
         </thead>
         <tbody>
@@ -944,7 +944,7 @@ dictionary AeadParams : Algorithm {
                 Let |ciphertext| be the output that results from
                 performing the AEAD_CHACHA20_POLY1305 encryption algorithm
                 described in Section 2.8 of [[RFC8439]], using
-                the key represented by {{CryptoKey/[[handle]]}}
+                the key represented by <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">[[\handle]]</a>
                 internal slot of |key| as the key input parameter,
                 <a href="#concept-contents-of-arraybuffer">the contents of</a> the {{AeadParams/iv}} member of |normalizedAlgorithm| as
                 the nonce input parameter,
@@ -1009,7 +1009,7 @@ dictionary AeadParams : Algorithm {
               <p>
                 Perform the AEAD_CHACHA20_POLY1305 decryption algorithm
                 described in Section 2.8 of [[RFC8439]], using
-                the key represented by {{CryptoKey/[[handle]]}}
+                the key represented by <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">[[\handle]]</a>
                 internal slot of |key| as the key input parameter,
                 <a href="#concept-contents-of-arraybuffer">the contents of</a> the {{AeadParams/iv}} member of |normalizedAlgorithm| as
                 the nonce input parameter,
@@ -1082,19 +1082,19 @@ dictionary AeadParams : Algorithm {
             </li>
             <li>
               <p>
-                Set the {{CryptoKey/[[algorithm]]}} internal
+                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-algorithm">[[\algorithm]]</a> internal
                 slot of |key| to |algorithm|.
               </p>
             </li>
             <li>
               <p>
-                Set the {{CryptoKey/[[extractable]]}} internal
+                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-extractable">[[\extractable]]</a> internal
                 slot of |key| to be |extractable|.
               </p>
             </li>
             <li>
               <p>
-                Set the {{CryptoKey/[[usages]]}} internal slot of
+                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-usages">[[\usages]]</a> internal slot of
                 |key| to be |usages|.
               </p>
             </li>
@@ -1232,7 +1232,7 @@ dictionary AeadParams : Algorithm {
             </li>
             <li>
               <p>
-                Set the {{CryptoKey/[[algorithm]]}} internal
+                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-algorithm">[[\algorithm]]</a> internal
                 slot of |key| to |algorithm|.
               </p>
             </li>
@@ -1248,7 +1248,7 @@ dictionary AeadParams : Algorithm {
           <ol>
             <li>
               <p>
-                If the underlying cryptographic key material represented by the {{CryptoKey/[[handle]]}} internal slot of |key|
+                If the underlying cryptographic key material represented by the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">[[\handle]]</a> internal slot of |key|
                 cannot be accessed, then [= exception/throw =] an {{OperationError}}.
               </p>
             </li>
@@ -1259,7 +1259,7 @@ dictionary AeadParams : Algorithm {
                   <ol>
                     <li>
                       <p>
-                        Let |data| be the raw octets of the key represented by {{CryptoKey/[[handle]]}} internal slot of
+                        Let |data| be the raw octets of the key represented by <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">[[\handle]]</a> internal slot of
                         |key|.
                       </p>
                     </li>
@@ -1289,7 +1289,7 @@ dictionary AeadParams : Algorithm {
                     <li>
                       <p>
                         Set the {{JsonWebKey/k}} attribute of |jwk| to be a string
-                        containing the raw octets of the key represented by {{CryptoKey/[[handle]]}} internal slot of
+                        containing the raw octets of the key represented by <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">[[\handle]]</a> internal slot of
                         |key|, encoded according to Section 6.4 of JSON Web Algorithms [[JWA]].
                       </p>
                     </li>
@@ -1308,7 +1308,7 @@ dictionary AeadParams : Algorithm {
                     </li>
                     <li>
                       <p>
-                        Set the `ext` attribute of |jwk| to equal the {{CryptoKey/[[extractable]]}} internal slot
+                        Set the `ext` attribute of |jwk| to equal the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-extractable">[[\extractable]]</a> internal slot
                         of |key|.
                       </p>
                     </li>
@@ -1361,7 +1361,7 @@ dictionary AeadParams : Algorithm {
     <section id="sha3-registration">
       <h4>Registration</h4>
       <p>
-        The <a href="#recognized-algorithm-name">recognized algorithm names</a> are
+        The <a data-cite="WebCryptoAPI#recognized-algorithm-name">recognized algorithm names</a> are
         "<code id="alg-sha3-256">SHA3-256</code>",
         "<code id="alg-sha3-384">SHA3-384</code>", and
         "<code id="alg-sha3-512">SHA3-512</code>" for the respective SHA-3 algorithms.
@@ -1369,9 +1369,9 @@ dictionary AeadParams : Algorithm {
       <table>
         <thead>
           <tr>
-            <th><a href="#supported-operations">Operation</a></th>
-            <th><a href="#algorithm-specific-params">Parameters</a></th>
-            <th><a href="#algorithm-result">Result</a></th>
+            <th><a data-cite="WebCryptoAPI#supported-operations">Operation</a></th>
+            <th><a data-cite="WebCryptoAPI#algorithm-specific-params">Parameters</a></th>
+            <th><a data-cite="WebCryptoAPI#algorithm-result">Result</a></th>
           </tr>
         </thead>
         <tbody>
@@ -1450,16 +1450,16 @@ dictionary AeadParams : Algorithm {
     <section id="cshake-registration">
       <h4>Registration</h4>
       <p>
-        The <a href="#recognized-algorithm-name">recognized algorithm names</a> are
+        The <a data-cite="WebCryptoAPI#recognized-algorithm-name">recognized algorithm names</a> are
         "<code id="alg-cshake128">cSHAKE128</code>" and
         "<code id="alg-cshake256">cSHAKE256</code>".
       </p>
       <table>
         <thead>
           <tr>
-            <th><a href="#supported-operations">Operation</a></th>
-            <th><a href="#algorithm-specific-params">Parameters</a></th>
-            <th><a href="#algorithm-result">Result</a></th>
+            <th><a data-cite="WebCryptoAPI#supported-operations">Operation</a></th>
+            <th><a data-cite="WebCryptoAPI#algorithm-specific-params">Parameters</a></th>
+            <th><a data-cite="WebCryptoAPI#algorithm-result">Result</a></th>
           </tr>
         </thead>
         <tbody>
@@ -1553,16 +1553,16 @@ dictionary CShakeParams : Algorithm {
     <section id="kmac-registration">
       <h4>Registration</h4>
       <p>
-        The <a href="#recognized-algorithm-name">recognized algorithm names</a> are
+        The <a data-cite="WebCryptoAPI#recognized-algorithm-name">recognized algorithm names</a> are
         "<code id="alg-kmac128">KMAC128</code>" and
         "<code id="alg-kmac256">KMAC256</code>".
       </p>
       <table>
         <thead>
           <tr>
-            <th><a href="#supported-operations">Operation</a></th>
-            <th><a href="#algorithm-specific-params">Parameters</a></th>
-            <th><a href="#algorithm-result">Result</a></th>
+            <th><a data-cite="WebCryptoAPI#supported-operations">Operation</a></th>
+            <th><a data-cite="WebCryptoAPI#algorithm-specific-params">Parameters</a></th>
+            <th><a data-cite="WebCryptoAPI#algorithm-result">Result</a></th>
           </tr>
         </thead>
         <tbody>
@@ -1661,7 +1661,7 @@ dictionary KmacParams : Algorithm {
                 <dd>
                   Let |mac| be the result of performing the KMAC128 function
                   defined in Section 4 of [[NIST-SP800-185]] using
-                  the key represented by {{CryptoKey/[[handle]]}}
+                  the key represented by <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">[[\handle]]</a>
                   internal slot of |key| as the |K| input parameter,
                   |message| as the |X| input parameter,
                   the {{KmacParams/length}} member of |normalizedAlgorithm| as
@@ -1677,7 +1677,7 @@ dictionary KmacParams : Algorithm {
                 <dd>
                   Let |mac| be the result of performing the KMAC256 function
                   defined in Section 4 of [[NIST-SP800-185]] using
-                  the key represented by {{CryptoKey/[[handle]]}}
+                  the key represented by <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">[[\handle]]</a>
                   internal slot of |key| as the |K| input parameter,
                   |message| as the |X| input parameter,
                   the {{KmacParams/length}} member of |normalizedAlgorithm| as
@@ -1715,7 +1715,7 @@ dictionary KmacParams : Algorithm {
                 <dd>
                   Let |mac| be the result of performing the KMAC128 function
                   defined in Section 4 of [[NIST-SP800-185]] using
-                  the key represented by {{CryptoKey/[[handle]]}}
+                  the key represented by <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">[[\handle]]</a>
                   internal slot of |key| as the |K| input parameter,
                   |message| as the |X| input parameter,
                   the {{KmacParams/length}} member of |normalizedAlgorithm| as
@@ -1731,7 +1731,7 @@ dictionary KmacParams : Algorithm {
                 <dd>
                   Let |mac| be the result of performing the KMAC256 function
                   defined in Section 4 of [[NIST-SP800-185]] using
-                  the key represented by {{CryptoKey/[[handle]]}}
+                  the key represented by <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">[[\handle]]</a>
                   internal slot of |key| as the |K| input parameter,
                   |message| as the |X| input parameter,
                   the {{KmacParams/length}} member of |normalizedAlgorithm| as
@@ -1821,19 +1821,19 @@ dictionary KmacParams : Algorithm {
             </li>
             <li>
               <p>
-                Set the {{CryptoKey/[[algorithm]]}} internal
+                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-algorithm">[[\algorithm]]</a> internal
                 slot of |key| to |algorithm|.
               </p>
             </li>
             <li>
               <p>
-                Set the {{CryptoKey/[[extractable]]}} internal
+                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-extractable">[[\extractable]]</a> internal
                 slot of |key| to be |extractable|.
               </p>
             </li>
             <li>
               <p>
-                Set the {{CryptoKey/[[usages]]}} internal slot of
+                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-usages">[[\usages]]</a> internal slot of
                 |key| to be |usages|.
               </p>
             </li>
@@ -2056,19 +2056,19 @@ dictionary KmacParams : Algorithm {
           <ol>
             <li>
               <p>
-                If the underlying cryptographic key material represented by the {{CryptoKey/[[handle]]}} internal slot of |key|
+                If the underlying cryptographic key material represented by the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">[[\handle]]</a> internal slot of |key|
                 cannot be accessed, then [= exception/throw =] an {{OperationError}}.
               </p>
             </li>
             <li>
               <p>
-                Let |bits| be the raw bits of the key represented by {{CryptoKey/[[handle]]}} internal slot of
+                Let |bits| be the raw bits of the key represented by <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">[[\handle]]</a> internal slot of
                 |key|.
               </p>
             </li>
             <li>
               <p>
-                Let |data| be an [= octet string containing =] |bits|.
+                Let |data| be an <a data-cite="WebCryptoAPI#octet-string-containing">octet string containing</a> |bits|.
               </p>
             </li>
             <li>
@@ -2107,7 +2107,7 @@ dictionary KmacParams : Algorithm {
                     </li>
                     <li>
                       <p>
-                        Let |algorithm| be the {{CryptoKey/[[algorithm]]}} internal slot of
+                        Let |algorithm| be the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-algorithm">[[\algorithm]]</a> internal slot of
                         |key|.
                       </p>
                     </li>
@@ -2137,7 +2137,7 @@ dictionary KmacParams : Algorithm {
                     </li>
                     <li>
                       <p>
-                        Set the `ext` attribute of |jwk| to equal the {{CryptoKey/[[extractable]]}} internal slot
+                        Set the `ext` attribute of |jwk| to equal the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-extractable">[[\extractable]]</a> internal slot
                         of |key|.
                       </p>
                     </li>
@@ -2219,7 +2219,7 @@ dictionary KmacParams : Algorithm {
     <section id="argon2-registration">
       <h4>Registration</h4>
       <p>
-        The <a href="#recognized-algorithm-name">recognized algorithm names</a> are
+        The <a data-cite="WebCryptoAPI#recognized-algorithm-name">recognized algorithm names</a> are
         "<code id="alg-argon2d">Argon2d</code>",
         "<code id="alg-argon2i">Argon2i</code>", and
         "<code id="alg-argon2id">Argon2id</code>" for the respective Argon2 types.
@@ -2227,9 +2227,9 @@ dictionary KmacParams : Algorithm {
       <table>
         <thead>
           <tr>
-            <th><a href="#supported-operations">Operation</a></th>
-            <th><a href="#algorithm-specific-params">Parameters</a></th>
-            <th><a href="#algorithm-result">Result</a></th>
+            <th><a data-cite="WebCryptoAPI#supported-operations">Operation</a></th>
+            <th><a data-cite="WebCryptoAPI#algorithm-specific-params">Parameters</a></th>
+            <th><a data-cite="WebCryptoAPI#algorithm-result">Result</a></th>
           </tr>
         </thead>
         <tbody>
@@ -2358,7 +2358,7 @@ dictionary Argon2Params : Algorithm {
               <p>
                 Let |result| be the result of performing the Argon2 function defined
                 in Section 3 of [[RFC9106]] using
-                the password represented by {{CryptoKey/[[handle]]}} internal slot of |key|
+                the password represented by <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">[[\handle]]</a> internal slot of |key|
                 as the message, |P|, <a href="#concept-contents-of-arraybuffer">the
                 contents of</a> the {{Argon2Params/nonce}} attribute of
                 |normalizedAlgorithm| as the nonce, |S|,
@@ -2419,13 +2419,13 @@ dictionary Argon2Params : Algorithm {
             </li>
             <li>
               <p>
-                Set the {{CryptoKey/[[type]]}} internal slot of
+                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-type">[[\type]]</a> internal slot of
                 |key| to {{KeyType/"secret"}}.
               </p>
             </li>
             <li>
               <p>
-                Set the {{CryptoKey/[[extractable]]}} internal slot of
+                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-extractable">[[\extractable]]</a> internal slot of
                 |key| to `false`.
               </p>
             </li>
@@ -2444,7 +2444,7 @@ dictionary Argon2Params : Algorithm {
             </li>
             <li>
               <p>
-                Set the {{CryptoKey/[[algorithm]]}} internal
+                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-algorithm">[[\algorithm]]</a> internal
                 slot of |key| to |algorithm|.
               </p>
             </li>
