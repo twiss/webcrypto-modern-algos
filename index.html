@@ -72,6 +72,12 @@
         <li>Argon2d, Argon2i, and Argon2id [[RFC9106]]</li>
       </ul>
     </p>
+    <p>
+      Additionally, this proposal aims to make feature detection easier,
+      by adding a `crypto.subtle.isSupported(operation, algorithm)` function,
+      which can be used to detect whether a given algorithm identifier
+      (including any parameters) is supported for the given operation.
+    </p>
   </section>
   <section id="specification-conventions">
     <h2>Specification Conventions</h3>
@@ -98,6 +104,166 @@
       [= get a copy of the buffer source | getting a copy of the bytes =]
       held |data|.
     </p>
+  </section>
+
+  <section id="partial-subtlecrypto-interface">
+    <h2>Partial SubtleCrypto interface</h2>
+    <p>
+      This section extends the {{SubtleCrypto}} interface of [[WebCryptoAPI]].
+    </p>
+    <pre class="idl">
+[SecureContext,Exposed=(Window,Worker)]
+partial interface SubtleCrypto {
+  boolean isSupported(DOMString operation,
+                      AlgorithmIdentifier algorithm);
+};
+    </pre>
+
+    <section id="partial-subtlecrypto-interface-methods">
+      <h3>Methods and Parameters</h3>
+      <section id="SubtleCrypto-method-isSupported">
+        <h4>The isSupported method</h4>
+        <p>
+          The <dfn id="dfn-SubtleCrypto-method-isSupported" data-dfn-for=SubtleCrypto>isSupported</dfn>
+          method returns a boolean indicating whether the implementation
+          supports the given operation using the specified {{AlgorithmIdentifier}}.
+          It returns the result of [= check support for an algorithm | checking support for an algorithm =],
+          with `op` set to |operation|, and `alg` set to |algorithm|.
+        </p>
+      </section>
+    </section>
+
+    <section id="partial-subtlecrypto-interface-checking-support-for-algorithm">
+      <h3>Checking support for an algorithm</h3>
+      <p>
+        The <dfn id="dfn-check-support-for-algorithm">check support for an algorithm</dfn> algorithm
+        defines a process for checking whether the given algorithm is supported for the given operation.
+        Its input is an operation name |op| and an {{AlgorithmIdentifier}} |alg|. Its output is a boolean.
+        It behaves as follows:
+      </p>
+      <ol>
+        <li>
+          <p>
+            If |op| is not one of
+            "`encrypt`", "`decrypt`", "`sign`", "`verify`",
+            "`digest`", "`generateKey`", "`deriveKey`", "`deriveBits`",
+            "`importKey`", "`exportKey`", "`wrapKey`" or "`unwrapKey`",
+            return false.
+          </p>
+        </li>
+        <li>
+          <p>
+            If |op| is "`deriveKey`", set |op| to "`deriveBits`".
+          </p>
+        </li>
+        <li>
+          <p>
+            Let |normalizedAlgorithm| be the result of
+            <a href="#dfn-normalize-an-algorithm">normalizing an algorithm</a>, with
+            `alg` set to |alg| and `op` set to |op|.
+          </p>
+        </li>
+        <li>
+          <dl class="switch">
+            <dt>If an error occurred:</dt>
+            <dd>
+              <ol>
+                <li>
+                  <p>
+                    If |op| is "`wrapKey`",
+                    return the result of [= check support for an algorithm | checking support for an algorithm =]
+                    with `op` set to "`encrypt`"
+                    and `alg` set to |alg|.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    If |op| is "`unwrapKey`",
+                    return the result of [= check support for an algorithm | checking support for an algorithm =]
+                    with `op` set to "`decrypt`"
+                    and `alg` set to |alg|.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Otherwise, return false.
+                  </p>
+                </li>
+              </ol>
+            </dd>
+          </dl>
+        </li>
+        <li>
+          <p>
+            If |op| is "`generateKey`" or "`importKey`", let |usages| be the empty list.
+          </p>
+        </li>
+        <li>
+          <p>
+            For each of the steps of the operation specified by |op|
+            of the algorithm specified by |normalizedAlgorithm|:
+          </p>
+        </li>
+        <li>
+          <dl class="switch">
+            <dt>
+              If the step says to [= exception/throw =] an error:
+            </dt>
+            <dd>
+              Return false.
+            </dd>
+            <dt>
+              If the step relies on an unavailable parameter, such as `key`, `plaintext` or `ciphertext`:
+            </dt>
+            <dd>
+              Return true.
+            </dd>
+            <dt>
+              If the step says to generate a key, and the implementation is capable of generating the requested key:
+            </dt>
+            <dd>
+              Return true.
+            </dd>
+            <dt>
+              Otherwise:
+            </dt>
+            <dd>
+              Execute the step.
+            </dd>
+          </dl>
+        </li>
+        <li>
+          <p>
+            If the specified operation or algorithm (or one of its parameter values)
+            is known to be unsupported for another implementation-specific reason, return false.
+          </p>
+        </li>
+        <li>
+          <p>
+            Return true.
+          </p>
+        </li>
+      </ol>
+      <div class="note">
+        <p>
+          In the case of "`deriveKey`", this procedure only checks
+          that the algorithm is supported for deriving another key, not that the derived
+          key algorithm is also supported. Thus, to check that a deriveKey operation will
+          likely succeed, it may be necessary to check that the following resolves to true:
+        </p>
+        <pre class="js">
+          crypto.subtle.isSupported('deriveKey', algorithm) &&
+          crypto.subtle.isSupported('importKey', derivedKeyType)
+        </pre>
+        <p>
+          And similarly for "`unwrapKey`":
+        </p>
+        <pre class="js">
+          crypto.subtle.isSupported('unwrapKey', unwrapAlgorithm) &&
+          crypto.subtle.isSupported('importKey', unwrappedKeyAlgorithm)
+        </pre>
+      </p>
+    </section>
   </section>
 
   <section id="aes-ocb">
