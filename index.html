@@ -2668,24 +2668,72 @@ crypto.subtle.isSupported(<span class="hljs-string">'importKey'</span>, unwrappe
   <section id="usage-example"><div class="header-wrapper"><h2 id="x11-usage-example"><bdi class="secno">11. </bdi>Usage Example</h2><a class="self-link" href="#usage-example" aria-label="Permalink for Section 11."></a></div>
     
     <p>
-      This example encrypts and decrypts some data using AES-OCB.
+      This example derives a key from a password using Argon2, if available, or PBKDF2, otherwise;
+      and then encrypts and decrypts some text with it using AES-OCB, if available, and AES-GCM, otherwise.
     </p>
-    <div class="example" id="example-aes-ocb-encryption">
+    <div class="example" id="example-encrypt-some-data-using-a-key-derived-from-a-password">
         <div class="marker">
-    <a class="self-link" href="#example-aes-ocb-encryption">Example<bdi> 1</bdi></a><span class="example-title">: AES-OCB encryption</span>
-  </div> <pre aria-busy="false"><code class="hljs js"><span class="hljs-keyword">const</span> data = <span class="hljs-keyword">new</span> TextEncoder().encode(<span class="hljs-string">'Hello, world!'</span>);
-<span class="hljs-keyword">const</span> aesAlgorithmKeyGen = {
-  <span class="hljs-attr">name</span>: <span class="hljs-string">'AES-OCB'</span>,
-  <span class="hljs-comment">// AesKeyGenParams</span>
-  <span class="hljs-attr">length</span>: <span class="hljs-number">256</span>
-};
-<span class="hljs-keyword">const</span> aesAlgorithmEncrypt = {
-  <span class="hljs-attr">name</span>: <span class="hljs-string">'AES-OCB'</span>,
-  <span class="hljs-comment">// AeadParams</span>
-  <span class="hljs-attr">iv</span>: crypto.getRandomValues(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Uint8Array</span>(<span class="hljs-number">16</span>))
-};
-<span class="hljs-keyword">const</span> key = <span class="hljs-keyword">await</span> crypto.subtle.generateKey(aesAlgorithmKeyGen, <span class="hljs-literal">false</span>, [<span class="hljs-string">'encrypt'</span>]);
-<span class="hljs-keyword">const</span> encrypted = <span class="hljs-keyword">await</span> crypto.subtle.encrypt(aesAlgorithmEncrypt, key, data);</code></pre>
+    <a class="self-link" href="#example-encrypt-some-data-using-a-key-derived-from-a-password">Example<bdi> 1</bdi></a><span class="example-title">: Encrypt some data using a key derived from a password</span>
+  </div> <pre aria-busy="false"><code class="hljs js"><span class="hljs-keyword">const</span> password = <span class="hljs-string">'correct horse battery staple'</span>;
+<span class="hljs-keyword">const</span> derivationAlg =
+  crypto.subtle.isSupported?.(<span class="hljs-string">'importKey'</span>, <span class="hljs-string">'Argon2id'</span>) ?
+    <span class="hljs-string">'Argon2id'</span> :
+    <span class="hljs-string">'PBKDF2'</span>;
+<span class="hljs-keyword">const</span> encryptionAlg =
+  crypto.subtle.isSupported?.(<span class="hljs-string">'importKey'</span>, <span class="hljs-string">'AES-OCB'</span>) ?
+    <span class="hljs-string">'AES-OCB'</span> :
+    <span class="hljs-string">'AES-GCM'</span>;
+<span class="hljs-keyword">const</span> passwordKey = <span class="hljs-keyword">await</span> crypto.subtle.importKey(
+  <span class="hljs-string">'raw'</span>,
+  <span class="hljs-keyword">new</span> TextEncoder().encode(password),
+  derivationAlg,
+  <span class="hljs-comment">/* extractable: */</span> <span class="hljs-literal">false</span>,
+  [<span class="hljs-string">'deriveKey'</span>]
+);
+<span class="hljs-keyword">const</span> nonce = crypto.getRandomValues(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Uint8Array</span>(<span class="hljs-number">16</span>));
+<span class="hljs-keyword">const</span> derivationParams =
+  derivationAlg === <span class="hljs-string">'Argon2id'</span> ?
+    {
+      nonce,
+      <span class="hljs-attr">parallelism</span>: <span class="hljs-number">4</span>,
+      <span class="hljs-attr">memory</span>: <span class="hljs-number">2</span> ** <span class="hljs-number">21</span>,
+      <span class="hljs-attr">passes</span>: <span class="hljs-number">1</span>
+    } :
+    {
+      <span class="hljs-attr">salt</span>: nonce,
+      <span class="hljs-attr">iterations</span>: <span class="hljs-number">100_000</span>,
+      <span class="hljs-attr">hash</span>: <span class="hljs-string">'SHA-256'</span>
+    };
+<span class="hljs-keyword">const</span> key = <span class="hljs-keyword">await</span> crypto.subtle.deriveKey(
+  {
+    <span class="hljs-attr">name</span>: derivationAlg,
+    ...derivationParams
+  },
+  passwordKey,
+  {
+    <span class="hljs-attr">name</span>: encryptionAlg,
+    <span class="hljs-attr">length</span>: <span class="hljs-number">256</span>
+  },
+  <span class="hljs-comment">/* extractable: */</span> <span class="hljs-literal">false</span>,
+  [<span class="hljs-string">'encrypt'</span>, <span class="hljs-string">'decrypt'</span>]
+);
+<span class="hljs-keyword">const</span> plaintext = <span class="hljs-string">'Hello, world!'</span>;
+<span class="hljs-keyword">const</span> iv = crypto.getRandomValues(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Uint8Array</span>(<span class="hljs-number">16</span>));
+<span class="hljs-keyword">const</span> encrypted = <span class="hljs-keyword">await</span> crypto.subtle.encrypt(
+  { <span class="hljs-attr">name</span>: encryptionAlg, iv },
+  key,
+  <span class="hljs-keyword">new</span> TextEncoder().encode(plaintext)
+);
+<span class="hljs-comment">// Store the derivation and encryption algorithm and parameters</span>
+<span class="hljs-comment">// as well as the ciphertext (e.g. in IndexedDB or a database),</span>
+<span class="hljs-comment">// and retrieve them later. Then, derive the key using the</span>
+<span class="hljs-comment">// original parameters and the password. Here we immediately</span>
+<span class="hljs-comment">// use the same key object to decrypt again.</span>
+<span class="hljs-keyword">const</span> decrypted = <span class="hljs-keyword">new</span> TextDecoder().decode(<span class="hljs-keyword">await</span> crypto.subtle.decrypt(
+  { <span class="hljs-attr">name</span>: encryptionAlg, iv },
+  key,
+  encrypted
+));</code></pre>
       </div>
   </section>
 
