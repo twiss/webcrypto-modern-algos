@@ -409,6 +409,13 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
         </li>
         <li>
           <p>
+            If the specified operation or algorithm (or one of its parameter values)
+            is expected to fail (for any key and/or data) for an implementation-specific reason
+            (e.g. known nonconformance to the specification), return false.
+          </p>
+        </li>
+        <li>
+          <p>
             If <var>op</var> is "<code>generateKey</code>" or "<code>importKey</code>", let <var>usages</var> be the empty list.
           </p>
         </li>
@@ -433,7 +440,7 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
               Return true.
             </dd>
             <dt>
-              If the step says to generate a key, and the implementation is capable of generating the requested key:
+              If the step says to generate a key:
             </dt>
             <dd>
               Return true.
@@ -445,12 +452,6 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
               Execute the step.
             </dd>
           </dl>
-        </li>
-        <li>
-          <p>
-            If the specified operation or algorithm (or one of its parameter values)
-            is known to be unsupported for another implementation-specific reason, return false.
-          </p>
         </li>
         <li>
           <p>
