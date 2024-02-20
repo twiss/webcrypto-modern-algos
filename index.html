@@ -345,10 +345,26 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
           The <dfn id="dfn-SubtleCrypto-method-supports" data-dfn-for="SubtleCrypto" data-export="" data-dfn-type="method" data-idl="operation" data-title="supports" data-type="boolean" data-lt="supports()|supports(operation, algorithm)|supports(operation, algorithm, lengthOrDerivedKeyType)" data-local-lt="SubtleCrypto.supports|SubtleCrypto.supports()|supports" tabindex="0" aria-haspopup="dialog"><code>supports</code></dfn>
           method returns a boolean indicating whether the implementation
           supports the given operation using the specified <a data-link-type="idl" data-lt="AlgorithmIdentifier" data-type="typedef" href="https://www.w3.org/TR/WebCryptoAPI/#dom-algorithmidentifier"><code>AlgorithmIdentifier</code></a>.
-          It returns the result of <a data-link-type="dfn|abstract-op" data-lt="check support for an algorithm" href="#dfn-check-support-for-algorithm" class="internalDFN" id="ref-for-dfn-check-support-for-algorithm-1">checking support for an algorithm</a>,
-          with <code>op</code> set to <var>operation</var>, <code>alg</code> set to <var>algorithm</var>,
-          and <code>lengthOrDerivedKeyType</code> set to <var>lengthOrDerivedKeyType</var>.
+          It behaves as follows:
         </p>
+        <ol>
+          <li>
+            <p>
+              If <var>operation</var> is not one of
+              "<code>encrypt</code>", "<code>decrypt</code>", "<code>sign</code>", "<code>verify</code>",
+              "<code>digest</code>", "<code>generateKey</code>", "<code>deriveKey</code>", "<code>deriveBits</code>",
+              "<code>importKey</code>", "<code>exportKey</code>", "<code>wrapKey</code>" or "<code>unwrapKey</code>",
+              return false.
+            </p>
+          </li>
+          <li>
+            <p>
+              Return the result of <a data-link-type="dfn|abstract-op" data-lt="check support for an algorithm" href="#dfn-check-support-for-algorithm" class="internalDFN" id="ref-for-dfn-check-support-for-algorithm-1">checking support for an algorithm</a>,
+              with <code>op</code> set to <var>operation</var>, <code>alg</code> set to <var>algorithm</var>,
+              and <code>lengthOrDerivedKeyType</code> set to <var>lengthOrDerivedKeyType</var>.
+            </p>
+          </li>
+        </ol>
       </section>
     </section>
 
@@ -365,15 +381,6 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
       <ol>
         <li>
           <p>
-            If <var>op</var> is not one of
-            "<code>encrypt</code>", "<code>decrypt</code>", "<code>sign</code>", "<code>verify</code>",
-            "<code>digest</code>", "<code>generateKey</code>", "<code>deriveKey</code>", "<code>deriveBits</code>",
-            "<code>importKey</code>", "<code>exportKey</code>", "<code>wrapKey</code>" or "<code>unwrapKey</code>",
-            return false.
-          </p>
-        </li>
-        <li>
-          <p>
             If <var>op</var> is "<code>deriveBits</code>", and <code>lengthOrDerivedKeyType</code> is passed,
             set <var>length</var> to the result of <a data-link-type="dfn|abstract-op" data-lt="converted to an IDL value" data-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-convert-ecmascript-to-idl-value">converting</a>
             <code>lengthOrDerivedKeyType</code> to an IDL <a data-link-type="idl" data-lt="unsigned long" data-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long"><code>unsigned long</code></a> value.
@@ -381,7 +388,7 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
         </li>
         <li>
           <p>
-            If <var>op</var> is "<code>deriveKey</code>", set <var>derivedKeyType</var> to <code>lengthOrDerivedKeyType</code>, and set <var>op</var> is "<code>deriveKey</code>".
+            If <var>op</var> is "<code>deriveKey</code>", set <var>derivedKeyType</var> to <code>lengthOrDerivedKeyType</code>, and set <var>op</var> is "<code>deriveBits</code>".
           </p>
         </li>
         <li>
