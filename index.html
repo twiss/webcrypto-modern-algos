@@ -174,7 +174,8 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   "group": "wicg",
   "xref": [
     "WebIDL",
-    "WebCryptoAPI"
+    "WebCryptoAPI",
+    "infra"
   ],
   "localBiblio": {
     "JWA": {
@@ -200,7 +201,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
 }</script>
 <link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2021/cg-draft"></head>
 
-<body class="h-entry" data-cite="WEBIDL WebIDL WebCryptoAPI"><div class="head">
+<body class="h-entry" data-cite="WEBIDL WebIDL WebCryptoAPI infra"><div class="head">
     
     <h1 id="title" class="title">Modern Algorithms in the Web Cryptography API</h1> 
     <p id="w3c-state">
@@ -272,7 +273,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           discussion of this specification.
         
     
-  </p></section><nav id="toc"><h2 class="introductory" id="table-of-contents">Table of Contents</h2><ol class="toc"><li class="tocline"><a class="tocxref" href="#abstract">Abstract</a></li><li class="tocline"><a class="tocxref" href="#sotd">Status of This Document</a></li><li class="tocline"><a class="tocxref" href="#introduction"><bdi class="secno">1. </bdi>Introduction</a></li><li class="tocline"><a class="tocxref" href="#specification-conventions"><bdi class="secno">2. </bdi>Specification Conventions</a></li><li class="tocline"><a class="tocxref" href="#terminology"><bdi class="secno">3. </bdi>Terminology</a></li><li class="tocline"><a class="tocxref" href="#partial-subtlecrypto-interface"><bdi class="secno">4. </bdi>Partial SubtleCrypto interface</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#partial-subtlecrypto-interface-methods"><bdi class="secno">4.1 </bdi>Methods and Parameters</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#SubtleCrypto-method-isSupported"><bdi class="secno">4.1.1 </bdi>The isSupported method</a></li></ol></li><li class="tocline"><a class="tocxref" href="#partial-subtlecrypto-interface-checking-support-for-algorithm"><bdi class="secno">4.2 </bdi>Checking support for an algorithm</a></li></ol></li><li class="tocline"><a class="tocxref" href="#aes-ocb"><bdi class="secno">5. </bdi>AES-OCB</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#aes-ocb-description"><bdi class="secno">5.1 </bdi>Description</a></li><li class="tocline"><a class="tocxref" href="#aes-ocb-registration"><bdi class="secno">5.2 </bdi>Registration</a></li><li class="tocline"><a class="tocxref" href="#aead-params"><bdi class="secno">5.3 </bdi><span data-idl="dictionary" data-export="" data-dfn-type="dictionary" data-title="AeadParams" data-dfn-for=""><code>AeadParams</code></span> dictionary</a></li><li class="tocline"><a class="tocxref" href="#aes-ocb-operations"><bdi class="secno">5.4 </bdi>Operations</a></li></ol></li><li class="tocline"><a class="tocxref" href="#chacha20-poly1305"><bdi class="secno">6. </bdi>ChaCha20-Poly1305</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#chacha20-poly1305-description"><bdi class="secno">6.1 </bdi>Description</a></li><li class="tocline"><a class="tocxref" href="#chacha20-poly1305-registration"><bdi class="secno">6.2 </bdi>Registration</a></li><li class="tocline"><a class="tocxref" href="#chacha20-poly1305-operations"><bdi class="secno">6.3 </bdi>Operations</a></li></ol></li><li class="tocline"><a class="tocxref" href="#sha3"><bdi class="secno">7. </bdi>SHA-3</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#sha3-description"><bdi class="secno">7.1 </bdi>Description</a></li><li class="tocline"><a class="tocxref" href="#sha3-registration"><bdi class="secno">7.2 </bdi>Registration</a></li><li class="tocline"><a class="tocxref" href="#sha3-operations"><bdi class="secno">7.3 </bdi>Operations</a></li></ol></li><li class="tocline"><a class="tocxref" href="#cshake"><bdi class="secno">8. </bdi>cSHAKE</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#cshake-description"><bdi class="secno">8.1 </bdi>Description</a></li><li class="tocline"><a class="tocxref" href="#cshake-registration"><bdi class="secno">8.2 </bdi>Registration</a></li><li class="tocline"><a class="tocxref" href="#cshake-params"><bdi class="secno">8.3 </bdi><span data-idl="dictionary" data-export="" data-dfn-type="dictionary" data-title="CShakeParams" data-dfn-for=""><code>CShakeParams</code></span> dictionary</a></li><li class="tocline"><a class="tocxref" href="#cshake-operations"><bdi class="secno">8.4 </bdi>Operations</a></li></ol></li><li class="tocline"><a class="tocxref" href="#kmac"><bdi class="secno">9. </bdi>KMAC</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#kmac-description"><bdi class="secno">9.1 </bdi>Description</a></li><li class="tocline"><a class="tocxref" href="#kmac-registration"><bdi class="secno">9.2 </bdi>Registration</a></li><li class="tocline"><a class="tocxref" href="#kmac-keygen-params"><bdi class="secno">9.3 </bdi><span data-idl="dictionary" data-export="" data-dfn-type="dictionary" data-title="KmacKeyGenParams" data-dfn-for=""><code>KmacKeyGenParams</code></span> dictionary</a></li><li class="tocline"><a class="tocxref" href="#kmac-importparams"><bdi class="secno">9.4 </bdi><span data-idl="dictionary" data-export="" data-dfn-type="dictionary" data-title="KmacImportParams" data-dfn-for=""><code>KmacImportParams</code></span> dictionary</a></li><li class="tocline"><a class="tocxref" href="#KmacKeyAlgorithm-dictionary"><bdi class="secno">9.5 </bdi><span data-idl="dictionary" data-export="" data-dfn-type="dictionary" data-title="KmacKeyAlgorithm" data-dfn-for=""><code>KmacKeyAlgorithm</code></span> dictionary</a></li><li class="tocline"><a class="tocxref" href="#kmac-params"><bdi class="secno">9.6 </bdi><span data-idl="dictionary" data-export="" data-dfn-type="dictionary" data-title="KmacParams" data-dfn-for=""><code>KmacParams</code></span> dictionary</a></li><li class="tocline"><a class="tocxref" href="#kmac-operations"><bdi class="secno">9.7 </bdi>Operations</a></li></ol></li><li class="tocline"><a class="tocxref" href="#argon2"><bdi class="secno">10. </bdi>Argon2</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#argon2-description"><bdi class="secno">10.1 </bdi>Description</a></li><li class="tocline"><a class="tocxref" href="#argon2-registration"><bdi class="secno">10.2 </bdi>Registration</a></li><li class="tocline"><a class="tocxref" href="#argon2-params"><bdi class="secno">10.3 </bdi><span data-idl="dictionary" data-export="" data-dfn-type="dictionary" data-title="Argon2Params" data-dfn-for=""><code>Argon2Params</code></span> dictionary</a></li><li class="tocline"><a class="tocxref" href="#argon2-operations"><bdi class="secno">10.4 </bdi>Operations</a></li></ol></li><li class="tocline"><a class="tocxref" href="#usage-example"><bdi class="secno">11. </bdi>Usage Example</a></li><li class="tocline"><a class="tocxref" href="#jwk-mapping"><bdi class="secno">A. </bdi>Mapping between JSON Web Key / JSON Web Algorithm</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#algorithm-mappings"><bdi class="secno">A.1 </bdi>Algorithm mappings</a></li></ol></li><li class="tocline"><a class="tocxref" href="#conformance"><bdi class="secno">B. </bdi>Conformance</a></li><li class="tocline"><a class="tocxref" href="#references"><bdi class="secno">C. </bdi>References</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#normative-references"><bdi class="secno">C.1 </bdi>Normative references</a></li></ol></li></ol></nav>
+  </p></section><nav id="toc"><h2 class="introductory" id="table-of-contents">Table of Contents</h2><ol class="toc"><li class="tocline"><a class="tocxref" href="#abstract">Abstract</a></li><li class="tocline"><a class="tocxref" href="#sotd">Status of This Document</a></li><li class="tocline"><a class="tocxref" href="#introduction"><bdi class="secno">1. </bdi>Introduction</a></li><li class="tocline"><a class="tocxref" href="#specification-conventions"><bdi class="secno">2. </bdi>Specification Conventions</a></li><li class="tocline"><a class="tocxref" href="#terminology"><bdi class="secno">3. </bdi>Terminology</a></li><li class="tocline"><a class="tocxref" href="#partial-subtlecrypto-interface"><bdi class="secno">4. </bdi>Partial SubtleCrypto interface</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#partial-subtlecrypto-interface-methods"><bdi class="secno">4.1 </bdi>Methods and Parameters</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#SubtleCrypto-method-supports"><bdi class="secno">4.1.1 </bdi>The supports method</a></li></ol></li><li class="tocline"><a class="tocxref" href="#partial-subtlecrypto-interface-checking-support-for-algorithm"><bdi class="secno">4.2 </bdi>Checking support for an algorithm</a></li></ol></li><li class="tocline"><a class="tocxref" href="#aes-ocb"><bdi class="secno">5. </bdi>AES-OCB</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#aes-ocb-description"><bdi class="secno">5.1 </bdi>Description</a></li><li class="tocline"><a class="tocxref" href="#aes-ocb-registration"><bdi class="secno">5.2 </bdi>Registration</a></li><li class="tocline"><a class="tocxref" href="#aead-params"><bdi class="secno">5.3 </bdi><span data-idl="dictionary" data-export="" data-dfn-type="dictionary" data-title="AeadParams" data-dfn-for=""><code>AeadParams</code></span> dictionary</a></li><li class="tocline"><a class="tocxref" href="#aes-ocb-operations"><bdi class="secno">5.4 </bdi>Operations</a></li></ol></li><li class="tocline"><a class="tocxref" href="#chacha20-poly1305"><bdi class="secno">6. </bdi>ChaCha20-Poly1305</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#chacha20-poly1305-description"><bdi class="secno">6.1 </bdi>Description</a></li><li class="tocline"><a class="tocxref" href="#chacha20-poly1305-registration"><bdi class="secno">6.2 </bdi>Registration</a></li><li class="tocline"><a class="tocxref" href="#chacha20-poly1305-operations"><bdi class="secno">6.3 </bdi>Operations</a></li></ol></li><li class="tocline"><a class="tocxref" href="#sha3"><bdi class="secno">7. </bdi>SHA-3</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#sha3-description"><bdi class="secno">7.1 </bdi>Description</a></li><li class="tocline"><a class="tocxref" href="#sha3-registration"><bdi class="secno">7.2 </bdi>Registration</a></li><li class="tocline"><a class="tocxref" href="#sha3-operations"><bdi class="secno">7.3 </bdi>Operations</a></li></ol></li><li class="tocline"><a class="tocxref" href="#cshake"><bdi class="secno">8. </bdi>cSHAKE</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#cshake-description"><bdi class="secno">8.1 </bdi>Description</a></li><li class="tocline"><a class="tocxref" href="#cshake-registration"><bdi class="secno">8.2 </bdi>Registration</a></li><li class="tocline"><a class="tocxref" href="#cshake-params"><bdi class="secno">8.3 </bdi><span data-idl="dictionary" data-export="" data-dfn-type="dictionary" data-title="CShakeParams" data-dfn-for=""><code>CShakeParams</code></span> dictionary</a></li><li class="tocline"><a class="tocxref" href="#cshake-operations"><bdi class="secno">8.4 </bdi>Operations</a></li></ol></li><li class="tocline"><a class="tocxref" href="#kmac"><bdi class="secno">9. </bdi>KMAC</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#kmac-description"><bdi class="secno">9.1 </bdi>Description</a></li><li class="tocline"><a class="tocxref" href="#kmac-registration"><bdi class="secno">9.2 </bdi>Registration</a></li><li class="tocline"><a class="tocxref" href="#kmac-keygen-params"><bdi class="secno">9.3 </bdi><span data-idl="dictionary" data-export="" data-dfn-type="dictionary" data-title="KmacKeyGenParams" data-dfn-for=""><code>KmacKeyGenParams</code></span> dictionary</a></li><li class="tocline"><a class="tocxref" href="#kmac-importparams"><bdi class="secno">9.4 </bdi><span data-idl="dictionary" data-export="" data-dfn-type="dictionary" data-title="KmacImportParams" data-dfn-for=""><code>KmacImportParams</code></span> dictionary</a></li><li class="tocline"><a class="tocxref" href="#KmacKeyAlgorithm-dictionary"><bdi class="secno">9.5 </bdi><span data-idl="dictionary" data-export="" data-dfn-type="dictionary" data-title="KmacKeyAlgorithm" data-dfn-for=""><code>KmacKeyAlgorithm</code></span> dictionary</a></li><li class="tocline"><a class="tocxref" href="#kmac-params"><bdi class="secno">9.6 </bdi><span data-idl="dictionary" data-export="" data-dfn-type="dictionary" data-title="KmacParams" data-dfn-for=""><code>KmacParams</code></span> dictionary</a></li><li class="tocline"><a class="tocxref" href="#kmac-operations"><bdi class="secno">9.7 </bdi>Operations</a></li></ol></li><li class="tocline"><a class="tocxref" href="#argon2"><bdi class="secno">10. </bdi>Argon2</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#argon2-description"><bdi class="secno">10.1 </bdi>Description</a></li><li class="tocline"><a class="tocxref" href="#argon2-registration"><bdi class="secno">10.2 </bdi>Registration</a></li><li class="tocline"><a class="tocxref" href="#argon2-params"><bdi class="secno">10.3 </bdi><span data-idl="dictionary" data-export="" data-dfn-type="dictionary" data-title="Argon2Params" data-dfn-for=""><code>Argon2Params</code></span> dictionary</a></li><li class="tocline"><a class="tocxref" href="#argon2-operations"><bdi class="secno">10.4 </bdi>Operations</a></li></ol></li><li class="tocline"><a class="tocxref" href="#usage-example"><bdi class="secno">11. </bdi>Usage Example</a></li><li class="tocline"><a class="tocxref" href="#jwk-mapping"><bdi class="secno">A. </bdi>Mapping between JSON Web Key / JSON Web Algorithm</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#algorithm-mappings"><bdi class="secno">A.1 </bdi>Algorithm mappings</a></li></ol></li><li class="tocline"><a class="tocxref" href="#conformance"><bdi class="secno">B. </bdi>Conformance</a></li><li class="tocline"><a class="tocxref" href="#references"><bdi class="secno">C. </bdi>References</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#normative-references"><bdi class="secno">C.1 </bdi>Normative references</a></li></ol></li></ol></nav>
   <section id="introduction" class="informative"><div class="header-wrapper"><h2 id="x1-introduction"><bdi class="secno">1. </bdi>Introduction</h2><a class="self-link" href="#introduction" aria-label="Permalink for Section 1."></a></div><p><em>This section is non-normative.</em></p>
     
     <p>
@@ -290,7 +291,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     <p></p>
     <p>
       Additionally, this proposal aims to make feature detection easier,
-      by adding a <code>crypto.subtle.isSupported(operation, algorithm)</code> function,
+      by adding a <code>crypto.subtle.supports(operation, algorithm)</code> function,
       which can be used to detect whether a given algorithm identifier
       (including any parameters) is supported for the given operation.
     </p>
@@ -327,22 +328,26 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     <p>
       This section extends the <a data-link-type="idl" data-lt="SubtleCrypto" data-type="interface" href="https://www.w3.org/TR/WebCryptoAPI/#dfn-SubtleCrypto"><code>SubtleCrypto</code></a> interface of [<cite><a class="bibref" data-link-type="biblio" href="#bib-webcryptoapi" title="Web Cryptography API">WebCryptoAPI</a></cite>].
     </p>
-    <pre class="idl def" id="webidl-278138028"><span class="idlHeader"><a class="self-link" href="#webidl-278138028">WebIDL</a></span><code><span data-idl="" class="idlInterface" id="idl-def-subtlecrypto-partial-1" data-title="SubtleCrypto">[<span class="extAttr"><a data-type="extended-attribute" href="https://webidl.spec.whatwg.org/#SecureContext">SecureContext</a></span>,<span class="extAttr"><a data-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed">Exposed</a>=(Window,Worker)</span>]
-partial interface <a data-idl="partial" data-link-type="interface" data-title="SubtleCrypto" class="idlID" data-dfn-for="SubtleCrypto" data-type="interface" href="https://www.w3.org/TR/WebCryptoAPI/#dfn-SubtleCrypto">SubtleCrypto</a> {<span data-idl="" class="idlMethod" id="idl-def-subtlecrypto-issupported-operation-algorithm" data-title="isSupported" data-dfn-for="SubtleCrypto"><span class="idlType">
-  <a data-link-type="idl" data-type="interface" href="https://webidl.spec.whatwg.org/#idl-boolean">boolean</a></span> <a class="internalDFN idlName" data-link-type="method" href="#dfn-SubtleCrypto-method-isSupported" id="ref-for-dfn-SubtleCrypto-method-isSupported-1"><code>isSupported</code></a>(<span class="idlType"><a data-link-type="idl" data-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString">DOMString</a></span> <span class="idlParamName">operation</span>,<span class="idlType">
-                      <a data-link-type="idl" data-type="typedef" href="https://www.w3.org/TR/WebCryptoAPI/#dom-algorithmidentifier">AlgorithmIdentifier</a></span> <span class="idlParamName">algorithm</span>);</span>
+    <pre class="idl def" id="webidl-1825816304"><span class="idlHeader"><a class="self-link" href="#webidl-1825816304">WebIDL</a></span><code><span data-idl="" class="idlTypedef" id="idl-def-derivationparam" data-title="DerivationParam">typedef<span class="idlType"> (<a data-link-type="idl" data-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long">unsigned long</a> or <a data-link-type="idl" data-type="typedef" href="https://www.w3.org/TR/WebCryptoAPI/#dom-algorithmidentifier">AlgorithmIdentifier</a>)</span> <dfn data-export="" data-dfn-type="typedef" id="dom-derivationparam" data-idl="typedef" data-title="DerivationParam" data-dfn-for="" class="idlID" tabindex="0" aria-haspopup="dialog"><code>DerivationParam</code></dfn>;</span><span data-idl="" class="idlInterface" id="idl-def-subtlecrypto-partial-1" data-title="SubtleCrypto">
+
+[<span class="extAttr"><a data-type="extended-attribute" href="https://webidl.spec.whatwg.org/#SecureContext">SecureContext</a></span>,<span class="extAttr"><a data-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed">Exposed</a>=(Window,Worker)</span>]
+partial interface <a data-idl="partial" data-link-type="interface" data-title="SubtleCrypto" class="idlID" data-dfn-for="SubtleCrypto" data-type="interface" href="https://www.w3.org/TR/WebCryptoAPI/#dfn-SubtleCrypto">SubtleCrypto</a> {<span data-idl="" class="idlMethod" id="idl-def-subtlecrypto-supports-operation-algorithm-lengthorderivedkeytype" data-title="supports" data-dfn-for="SubtleCrypto"><span class="idlType">
+  <a data-link-type="idl" data-type="interface" href="https://webidl.spec.whatwg.org/#idl-boolean">boolean</a></span> <a class="internalDFN idlName" data-link-type="method" href="#dfn-SubtleCrypto-method-supports" id="ref-for-dfn-SubtleCrypto-method-supports-1"><code>supports</code></a>(<span class="idlType"><a data-link-type="idl" data-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString">DOMString</a></span> <span class="idlParamName">operation</span>,<span class="idlType">
+                   <a data-link-type="idl" data-type="typedef" href="https://www.w3.org/TR/WebCryptoAPI/#dom-algorithmidentifier">AlgorithmIdentifier</a></span> <span class="idlParamName">algorithm</span>,
+                   optional<span class="idlType"> <a data-link-type="idl" href="#dom-derivationparam" class="internalDFN" id="ref-for-dom-derivationparam-1"><code>DerivationParam</code></a></span> <span class="idlParamName">lengthOrDerivedKeyType</span>);</span>
 };</span></code></pre>
 
     <section id="partial-subtlecrypto-interface-methods"><div class="header-wrapper"><h3 id="x4-1-methods-and-parameters"><bdi class="secno">4.1 </bdi>Methods and Parameters</h3><a class="self-link" href="#partial-subtlecrypto-interface-methods" aria-label="Permalink for Section 4.1"></a></div>
       
-      <section id="SubtleCrypto-method-isSupported"><div class="header-wrapper"><h4 id="x4-1-1-the-issupported-method"><bdi class="secno">4.1.1 </bdi>The isSupported method</h4><a class="self-link" href="#SubtleCrypto-method-isSupported" aria-label="Permalink for Section 4.1.1"></a></div>
+      <section id="SubtleCrypto-method-supports"><div class="header-wrapper"><h4 id="x4-1-1-the-supports-method"><bdi class="secno">4.1.1 </bdi>The supports method</h4><a class="self-link" href="#SubtleCrypto-method-supports" aria-label="Permalink for Section 4.1.1"></a></div>
         
         <p>
-          The <dfn id="dfn-SubtleCrypto-method-isSupported" data-dfn-for="SubtleCrypto" data-export="" data-dfn-type="method" data-idl="operation" data-title="isSupported" data-type="boolean" data-lt="isSupported()|isSupported(operation, algorithm)" data-local-lt="SubtleCrypto.isSupported|SubtleCrypto.isSupported()|isSupported" tabindex="0" aria-haspopup="dialog"><code>isSupported</code></dfn>
+          The <dfn id="dfn-SubtleCrypto-method-supports" data-dfn-for="SubtleCrypto" data-export="" data-dfn-type="method" data-idl="operation" data-title="supports" data-type="boolean" data-lt="supports()|supports(operation, algorithm)|supports(operation, algorithm, lengthOrDerivedKeyType)" data-local-lt="SubtleCrypto.supports|SubtleCrypto.supports()|supports" tabindex="0" aria-haspopup="dialog"><code>supports</code></dfn>
           method returns a boolean indicating whether the implementation
           supports the given operation using the specified <a data-link-type="idl" data-lt="AlgorithmIdentifier" data-type="typedef" href="https://www.w3.org/TR/WebCryptoAPI/#dom-algorithmidentifier"><code>AlgorithmIdentifier</code></a>.
           It returns the result of <a data-link-type="dfn|abstract-op" data-lt="check support for an algorithm" href="#dfn-check-support-for-algorithm" class="internalDFN" id="ref-for-dfn-check-support-for-algorithm-1">checking support for an algorithm</a>,
-          with <code>op</code> set to <var>operation</var>, and <code>alg</code> set to <var>algorithm</var>.
+          with <code>op</code> set to <var>operation</var>, <code>alg</code> set to <var>algorithm</var>,
+          and <code>lengthOrDerivedKeyType</code> set to <var>lengthOrDerivedKeyType</var>.
         </p>
       </section>
     </section>
@@ -352,7 +357,9 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
       <p>
         The <dfn id="dfn-check-support-for-algorithm" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">check support for an algorithm</dfn> algorithm
         defines a process for checking whether the given algorithm is supported for the given operation.
-        Its input is an operation name <var>op</var> and an <a data-link-type="idl" data-lt="AlgorithmIdentifier" data-type="typedef" href="https://www.w3.org/TR/WebCryptoAPI/#dom-algorithmidentifier"><code>AlgorithmIdentifier</code></a> <var>alg</var>. Its output is a boolean.
+        Its input is an operation name <var>op</var>, an <a data-link-type="idl" data-lt="AlgorithmIdentifier" data-type="typedef" href="https://www.w3.org/TR/WebCryptoAPI/#dom-algorithmidentifier"><code>AlgorithmIdentifier</code></a> <var>alg</var>,
+        and a derivation parameter (unsigned long or <a data-link-type="idl" data-lt="AlgorithmIdentifier" data-type="typedef" href="https://www.w3.org/TR/WebCryptoAPI/#dom-algorithmidentifier"><code>AlgorithmIdentifier</code></a>)
+        <var>lengthOrDerivedKeyType</var>. Its output is a boolean.
         It behaves as follows:
       </p>
       <ol>
@@ -367,7 +374,28 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
         </li>
         <li>
           <p>
-            If <var>op</var> is "<code>deriveKey</code>", set <var>op</var> to "<code>deriveBits</code>".
+            If <var>op</var> is "<code>deriveBits</code>", and <code>lengthOrDerivedKeyType</code> is passed,
+            set <var>length</var> to the result of <a data-link-type="dfn|abstract-op" data-lt="converted to an IDL value" data-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-convert-ecmascript-to-idl-value">converting</a>
+            <code>lengthOrDerivedKeyType</code> to an IDL <a data-link-type="idl" data-lt="unsigned long" data-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long"><code>unsigned long</code></a> value.
+          </p>
+        </li>
+        <li>
+          <p>
+            If <var>op</var> is "<code>deriveKey</code>", set <var>derivedKeyType</var> to <code>lengthOrDerivedKeyType</code>, and set <var>op</var> is "<code>deriveKey</code>".
+          </p>
+        </li>
+        <li>
+          <p>
+            If <var>derivedKeyType</var> is set, and
+            the result of <a data-link-type="dfn|abstract-op" data-lt="check support for an algorithm" href="#dfn-check-support-for-algorithm" class="internalDFN" id="ref-for-dfn-check-support-for-algorithm-2">checking support for an algorithm</a>
+            with <code>op</code> set to "<code>importKey</code>"
+            and <code>alg</code> set to <var>derivedKeyType</var>
+            is false, or
+            the result of <a data-link-type="dfn|abstract-op" data-lt="check support for an algorithm" href="#dfn-check-support-for-algorithm" class="internalDFN" id="ref-for-dfn-check-support-for-algorithm-3">checking support for an algorithm</a>
+            with <code>op</code> set to "<code>get key length</code>"
+            and <code>alg</code> set to <var>derivedKeyType</var>
+            is false,
+            return false.
           </p>
         </li>
         <li>
@@ -385,7 +413,7 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
                 <li>
                   <p>
                     If <var>op</var> is "<code>wrapKey</code>",
-                    return the result of <a data-link-type="dfn|abstract-op" data-lt="check support for an algorithm" href="#dfn-check-support-for-algorithm" class="internalDFN" id="ref-for-dfn-check-support-for-algorithm-2">checking support for an algorithm</a>
+                    return the result of <a data-link-type="dfn|abstract-op" data-lt="check support for an algorithm" href="#dfn-check-support-for-algorithm" class="internalDFN" id="ref-for-dfn-check-support-for-algorithm-4">checking support for an algorithm</a>
                     with <code>op</code> set to "<code>encrypt</code>"
                     and <code>alg</code> set to <var>alg</var>.
                   </p>
@@ -393,7 +421,7 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
                 <li>
                   <p>
                     If <var>op</var> is "<code>unwrapKey</code>",
-                    return the result of <a data-link-type="dfn|abstract-op" data-lt="check support for an algorithm" href="#dfn-check-support-for-algorithm" class="internalDFN" id="ref-for-dfn-check-support-for-algorithm-3">checking support for an algorithm</a>
+                    return the result of <a data-link-type="dfn|abstract-op" data-lt="check support for an algorithm" href="#dfn-check-support-for-algorithm" class="internalDFN" id="ref-for-dfn-check-support-for-algorithm-5">checking support for an algorithm</a>
                     with <code>op</code> set to "<code>decrypt</code>"
                     and <code>alg</code> set to <var>alg</var>.
                   </p>
@@ -434,13 +462,19 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
               Return false.
             </dd>
             <dt>
+              If the step says to generate a key:
+            </dt>
+            <dd>
+              Return true.
+            </dd>
+            <dt>
               If the step relies on an unavailable parameter, such as <code>key</code>, <code>plaintext</code> or <code>ciphertext</code>:
             </dt>
             <dd>
               Return true.
             </dd>
             <dt>
-              If the step says to generate a key:
+              If the step says to return a value:
             </dt>
             <dd>
               Return true.
@@ -452,29 +486,21 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
               Execute the step.
             </dd>
           </dl>
+          <div class="note" role="note" id="issue-container-generatedID"><div role="heading" class="note-title marker" id="h-note" aria-level="4"><span>Note</span></div><p class="">
+            The steps in the referenced algorithm may access the <var>normalizedAlgorithm</var>,
+            <var>length</var>, and <var>usages</var> variables from this context.
+          </p></div>
         </li>
         <li>
           <p>
-            Return true.
+            <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://infra.spec.whatwg.org/#assert">Assert</a>: this step is never reached,
+            because one of the steps of the operation will have said
+            to return a value or throw an error, causing us to return
+            true or false, respectively.
           </p>
         </li>
       </ol>
-      <div class="note" role="note" id="issue-container-generatedID"><div role="heading" class="note-title marker" id="h-note" aria-level="4"><span>Note</span></div><div class="">
-        <p>
-          In the case of "<code>deriveKey</code>", this procedure only checks
-          that the algorithm is supported for deriving another key, not that the derived
-          key algorithm is also supported. Thus, to check that a deriveKey operation will
-          likely succeed, it may be necessary to check that the following resolves to true:
-        </p>
-        <pre aria-busy="false"><code class="hljs js">crypto.subtle.isSupported(<span class="hljs-string">'deriveKey'</span>, algorithm) &amp;&amp;
-crypto.subtle.isSupported(<span class="hljs-string">'importKey'</span>, derivedKeyType)</code></pre>
-        <p>
-          And similarly for "<code>unwrapKey</code>":
-        </p>
-        <pre aria-busy="false"><code class="hljs js">crypto.subtle.isSupported(<span class="hljs-string">'unwrapKey'</span>, unwrapAlgorithm) &amp;&amp;
-crypto.subtle.isSupported(<span class="hljs-string">'importKey'</span>, unwrappedKeyAlgorithm)</code></pre>
-      <p></p>
-    </div></div></section>
+    </section>
   </section>
 
   <section id="aes-ocb"><div class="header-wrapper"><h2 id="x5-aes-ocb"><bdi class="secno">5. </bdi>AES-OCB</h2><a class="self-link" href="#aes-ocb" aria-label="Permalink for Section 5."></a></div>
@@ -2677,11 +2703,11 @@ crypto.subtle.isSupported(<span class="hljs-string">'importKey'</span>, unwrappe
     <a class="self-link" href="#example-encrypt-some-data-using-a-key-derived-from-a-password">Example<bdi> 1</bdi></a><span class="example-title">: Encrypt some data using a key derived from a password</span>
   </div> <pre aria-busy="false"><code class="hljs js"><span class="hljs-keyword">const</span> password = <span class="hljs-string">'correct horse battery staple'</span>;
 <span class="hljs-keyword">const</span> derivationAlg =
-  crypto.subtle.isSupported?.(<span class="hljs-string">'importKey'</span>, <span class="hljs-string">'Argon2id'</span>) ?
+  crypto.subtle.supports?.(<span class="hljs-string">'importKey'</span>, <span class="hljs-string">'Argon2id'</span>) ?
     <span class="hljs-string">'Argon2id'</span> :
     <span class="hljs-string">'PBKDF2'</span>;
 <span class="hljs-keyword">const</span> encryptionAlg =
-  crypto.subtle.isSupported?.(<span class="hljs-string">'importKey'</span>, <span class="hljs-string">'AES-OCB'</span>) ?
+  crypto.subtle.supports?.(<span class="hljs-string">'importKey'</span>, <span class="hljs-string">'AES-OCB'</span>) ?
     <span class="hljs-string">'AES-OCB'</span> :
     <span class="hljs-string">'AES-GCM'</span>;
 <span class="hljs-keyword">const</span> passwordKey = <span class="hljs-keyword">await</span> crypto.subtle.importKey(
@@ -2829,6 +2855,8 @@ crypto.subtle.isSupported(<span class="hljs-string">'importKey'</span>, unwrappe
     
     <dl class="bibliography"><dt id="bib-fips-202">[FIPS-202]</dt><dd>
       <a href="https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.202.pdf"><cite>SHA-3 Standard: Permutation-Based Hash and Extendable-Output Functions</cite></a>.  NIST. August 2015. URL: <a href="https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.202.pdf">https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.202.pdf</a>
+    </dd><dt id="bib-infra">[infra]</dt><dd>
+      <a href="https://infra.spec.whatwg.org/"><cite>Infra Standard</cite></a>. Anne van Kesteren; Domenic Denicola.  WHATWG. Living Standard. URL: <a href="https://infra.spec.whatwg.org/">https://infra.spec.whatwg.org/</a>
     </dd><dt id="bib-jwa">[JWA]</dt><dd>
       <a href="https://www.rfc-editor.org/rfc/rfc7518"><cite>JSON Web Algorithms (JWA)</cite></a>. M. Jones.  IETF. May 2015. Proposed Standard. URL: <a href="https://www.rfc-editor.org/rfc/rfc7518">https://www.rfc-editor.org/rfc/rfc7518</a>
     </dd><dt id="bib-jwk">[JWK]</dt><dd>
@@ -2888,16 +2916,28 @@ crypto.subtle.isSupported(<span class="hljs-string">'importKey'</span>, unwrappe
       <a href="#ref-for-concept-contents-of-arraybuffer-23" title="§ 10.4 Operations">§ 10.4 Operations</a> <a href="#ref-for-concept-contents-of-arraybuffer-24" title="Reference 2">(2)</a> <a href="#ref-for-concept-contents-of-arraybuffer-25" title="Reference 3">(3)</a> 
     </li>
   </ul>
-    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-SubtleCrypto-method-isSupported" aria-label="Links in this document to definition: isSupported">
+    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dom-derivationparam" aria-label="Links in this document to definition: DerivationParam">
       <span class="caret"></span>
       <div>
-        <a class="self-link" href="#dfn-SubtleCrypto-method-isSupported" aria-label="Permalink for definition: isSupported. Activate to close this dialog.">Permalink</a>
-        <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> <a class="marker idl-block" title="Jump to IDL declaration" href="#webidl-278138028">IDL</a>
+        <a class="self-link" href="#dom-derivationparam" aria-label="Permalink for definition: DerivationParam. Activate to close this dialog.">Permalink</a>
+        <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> 
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-      <a href="#ref-for-dfn-SubtleCrypto-method-isSupported-1" title="§ 4. Partial SubtleCrypto interface">§ 4. Partial SubtleCrypto interface</a> 
+      <a href="#ref-for-dom-derivationparam-1" title="§ 4. Partial SubtleCrypto interface">§ 4. Partial SubtleCrypto interface</a> 
+    </li>
+  </ul>
+    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-SubtleCrypto-method-supports" aria-label="Links in this document to definition: supports">
+      <span class="caret"></span>
+      <div>
+        <a class="self-link" href="#dfn-SubtleCrypto-method-supports" aria-label="Permalink for definition: supports. Activate to close this dialog.">Permalink</a>
+        <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> <a class="marker idl-block" title="Jump to IDL declaration" href="#webidl-1825816304">IDL</a>
+      </div>
+      <p><b>Referenced in:</b></p>
+      <ul>
+    <li>
+      <a href="#ref-for-dfn-SubtleCrypto-method-supports-1" title="§ 4. Partial SubtleCrypto interface">§ 4. Partial SubtleCrypto interface</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-check-support-for-algorithm" aria-label="Links in this document to definition: check support for an algorithm">
@@ -2909,9 +2949,9 @@ crypto.subtle.isSupported(<span class="hljs-string">'importKey'</span>, unwrappe
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-      <a href="#ref-for-dfn-check-support-for-algorithm-1" title="§ 4.1.1 The isSupported method">§ 4.1.1 The isSupported method</a> 
+      <a href="#ref-for-dfn-check-support-for-algorithm-1" title="§ 4.1.1 The supports method">§ 4.1.1 The supports method</a> 
     </li><li>
-      <a href="#ref-for-dfn-check-support-for-algorithm-2" title="§ 4.2 Checking support for an algorithm">§ 4.2 Checking support for an algorithm</a> <a href="#ref-for-dfn-check-support-for-algorithm-3" title="Reference 2">(2)</a> 
+      <a href="#ref-for-dfn-check-support-for-algorithm-2" title="§ 4.2 Checking support for an algorithm">§ 4.2 Checking support for an algorithm</a> <a href="#ref-for-dfn-check-support-for-algorithm-3" title="Reference 2">(2)</a> <a href="#ref-for-dfn-check-support-for-algorithm-4" title="Reference 3">(3)</a> <a href="#ref-for-dfn-check-support-for-algorithm-5" title="Reference 4">(4)</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-AeadParams" aria-label="Links in this document to definition: AeadParams">
