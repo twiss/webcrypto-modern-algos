@@ -65,16 +65,16 @@
       make use of the most secure and performant options available.
       To this end, the following cryptographic algorithms are added:
       <ul>
-        <li>AES-OCB [[RFC7253]]</li>
-        <li>ChaCha20-Poly1305 [[RFC8439]]</li>
-        <li>SHA3-256, SHA3-384, and SHA3-512 [[FIPS-202]]</li>
-        <li>cSHAKE128, cSHAKE256, KMAC128 and KMAC256 [[NIST-SP800-185]]</li>
-        <li>Argon2d, Argon2i, and Argon2id [[RFC9106]]</li>
+        <li><a href="#aes-ocb">AES-OCB</a> [[RFC7253]]</li>
+        <li><a href="#chacha20-poly1305">ChaCha20-Poly1305</a> [[RFC8439]]</li>
+        <li><a href="#sha3">SHA3-256, SHA3-384, and SHA3-512</a> [[FIPS-202]]</li>
+        <li><a href="#cshake">cSHAKE128, cSHAKE256</a>, <a href="#kmac">KMAC128 and KMAC256</a> [[NIST-SP800-185]]</li>
+        <li><a href="#argon2">Argon2d, Argon2i, and Argon2id</a> [[RFC9106]]</li>
       </ul>
     </p>
     <p>
       Additionally, this proposal aims to make feature detection easier,
-      by adding a `crypto.subtle.supports(operation, algorithm)` function,
+      by adding a <a href="#dfn-SubtleCrypto-method-supports">`crypto.subtle.supports`</a> function,
       which can be used to detect whether a given algorithm identifier
       (including any parameters) is supported for the given operation.
     </p>
