@@ -362,7 +362,7 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
           <li>
             <p>
               Return the result of <a data-link-type="dfn|abstract-op" data-lt="check support for an algorithm" href="#dfn-check-support-for-algorithm" class="internalDFN" id="ref-for-dfn-check-support-for-algorithm-1">checking support for an algorithm</a>,
-              with <code>op</code> set to <var>operation</var> and <code>alg</code> set to <var>algorithm</var>,
+              with <code>op</code> set to <var>operation</var>, <code>alg</code> set to <var>algorithm</var>,
               and <code>length</code> set to <var>length</var>.
             </p>
           </li>
@@ -440,7 +440,7 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
         The <dfn id="dfn-check-support-for-algorithm" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">check support for an algorithm</dfn> algorithm
         defines a process for checking whether the given algorithm is supported for the given operation.
         Its input is an operation name <var>op</var>, an <a data-link-type="idl" data-lt="AlgorithmIdentifier" data-type="typedef" href="https://www.w3.org/TR/WebCryptoAPI/#dom-algorithmidentifier"><code>AlgorithmIdentifier</code></a> <var>alg</var>,
-        and a <var>length</var>. Its output is a boolean.
+        and an optional <var>length</var> parameter. Its output is a boolean.
         It behaves as follows:
       </p>
       <ol>
