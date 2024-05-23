@@ -74,7 +74,7 @@
     </p>
     <p>
       Additionally, this proposal aims to make feature detection easier,
-      by adding a <a href="#dfn-SubtleCrypto-method-supports">`crypto.subtle.supports`</a> function,
+      by adding a <a href="#dfn-SubtleCrypto-method-supports">`SubtleCrypto.supports`</a> function,
       which can be used to detect whether a given algorithm identifier
       (including any parameters) is supported for the given operation.
     </p>
@@ -114,10 +114,10 @@
     <pre class="idl">
 [SecureContext,Exposed=(Window,Worker)]
 partial interface SubtleCrypto {
-  boolean supports(DOMString operation,
+  static boolean supports(DOMString operation,
                    AlgorithmIdentifier algorithm,
                    optional unsigned long? length = null);
-  boolean supports(DOMString operation,
+  static boolean supports(DOMString operation,
                    AlgorithmIdentifier algorithm,
                    AlgorithmIdentifier additionalAlgorithm);
 };
@@ -155,7 +155,7 @@ partial interface SubtleCrypto {
         <p>
           The <dfn id="dfn-SubtleCrypto-method-supports-additionalAlgorithm" data-dfn-for=SubtleCrypto data-lt="supports!overload-1">supports(|operation|, |algorithm|, |additionalAlgorithm|)</dfn>
           method returns a boolean indicating whether the implementation
-          supports the given operation using the specified {{AlgorithmIdentifier}}s.
+          supports the given operation using the specified {{AlgorithmIdentifier}}.
           The additional algorithm indicates the type of key to be derived when `operation` is "`deriveKey`",
           the type of key to be exported before wrapping when `operation` is "`wrapKey`",
           and the type of key to be imported after unwrapping when `operation` is "`unwrapKey`".
@@ -288,8 +288,6 @@ partial interface SubtleCrypto {
             For each of the steps of the operation specified by |op|
             of the algorithm specified by |normalizedAlgorithm|:
           </p>
-        </li>
-        <li>
           <dl class="switch">
             <dt>
               If the step says to [= exception/throw =] an error:
@@ -2551,11 +2549,11 @@ dictionary Argon2Params : Algorithm {
     <pre class="example js" title="Encrypt some data using a key derived from a password">
       const password = 'correct horse battery staple';
       const derivationAlg =
-        crypto.subtle.supports?.('importKey', 'Argon2id') ?
+        SubtleCrypto.supports?.('importKey', 'Argon2id') ?
           'Argon2id' :
           'PBKDF2';
       const encryptionAlg =
-        crypto.subtle.supports?.('importKey', 'AES-OCB') ?
+        SubtleCrypto.supports?.('importKey', 'AES-OCB') ?
           'AES-OCB' :
           'AES-GCM';
       const passwordKey = await crypto.subtle.importKey(

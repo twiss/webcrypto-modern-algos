@@ -8,7 +8,7 @@ cryptographic algorithms in the Web Cryptography API, namely:
 - SHA-3, cSHAKE and KMAC
 - Argon2
 
-Additionally, it proposes to add a `crypto.subtle.supports` function,
+Additionally, it proposes to add a `SubtleCrypto.supports` function,
 for improved algorithm support detection.
 
 See the [draft specification](https://twiss.github.io/webcrypto-modern-algos/).
