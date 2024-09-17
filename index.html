@@ -1037,25 +1037,16 @@ dictionary AeadParams : Algorithm {
         <dd>
           <ol>
             <li>
-              <dl class="switch">
-                <dt>If the {{AeadParams/tagLength}} member of
-                |normalizedAlgorithm| is not present:</dt>
-                <dd>Let |tagLength| be 128.</dd>
-                <dt>If the {{AeadParams/tagLength}} member of
-                |normalizedAlgorithm| is one of 64, 96 or 128:</dt>
-                <dd>Let |tagLength| be equal to the
-                {{AeadParams/tagLength}} member of
-                 |normalizedAlgorithm|</dd>
-                <dt>Otherwise:</dt>
-                <dd>
-                  [= exception/throw =] an
-                  {{OperationError}}.
-                </dd>
-              </dl>
+              <p>
+                If the {{AeadParams/tagLength}} member
+                of |normalizedAlgorithm| is present and is not 128,
+                then [= exception/throw =] an
+                {{OperationError}}.
+              </p>
             </li>
             <li>
               <p>
-                If |ciphertext| has a length less than |tagLength| bits,
+                If |ciphertext| has a length less than 128 bits,
                 then [= exception/throw =] an
                 {{OperationError}}.
               </p>
@@ -1063,8 +1054,7 @@ dictionary AeadParams : Algorithm {
             <li>
               <p>
                 If the {{AeadParams/iv}} member of
-                |normalizedAlgorithm| has a length greater than 15
-                bytes,
+                |normalizedAlgorithm| does not have a length of 12 bytes,
                 then [= exception/throw =] an
                 {{OperationError}}.
               </p>
