@@ -1552,6 +1552,26 @@ dictionary CShakeParams : Algorithm {
         <dd>
           <ol>
             <li>
+              <p>
+                Let |length| be the {{CShakeParams/length}} member of
+                |normalizedAlgorithm|.
+              </p>
+            </li>
+            <li>
+              <p>
+                Let |functionName| be <a href="#concept-contents-of-arraybuffer">the contents of</a> the {{CShakeParams/functionName}} member of
+                |normalizedAlgorithm| if present or the empty octet
+                string otherwise.
+              </p>
+            </li>
+            <li>
+              <p>
+                Let |customization| be <a href="#concept-contents-of-arraybuffer">the contents of</a> the {{CShakeParams/customization}} member of
+                |normalizedAlgorithm| if present or the empty octet
+                string otherwise.
+              </p>
+            </li>
+            <li>
               <dl class="switch">
                 <dt>
                   If the {{Algorithm/name}} member of
@@ -1562,12 +1582,9 @@ dictionary CShakeParams : Algorithm {
                   Let |result| be the result of performing the cSHAKE128 function
                   defined in Section 3 of [[NIST-SP800-185]] using
                   |message| as the |X| input parameter,
-                  the {{CShakeParams/length}} member of |normalizedAlgorithm| as
-                  the |L| input parameter,
-                  <a href="#concept-contents-of-arraybuffer">the contents of</a> the {{CShakeParams/functionName}} member of |normalizedAlgorithm| as
-                  the |N| input parameter, and
-                  <a href="#concept-contents-of-arraybuffer">the contents of</a> the {{CShakeParams/customization}} member of |normalizedAlgorithm| as
-                  the |S| input parameter.
+                  |length| as the |L| input parameter,
+                  |functionName| as the |N| input parameter, and
+                  |customization| as the |S| input parameter.
                 </dd>
                 <dt>
                   If the {{Algorithm/name}} member of
@@ -1578,12 +1595,9 @@ dictionary CShakeParams : Algorithm {
                   Let |result| be the result of performing the cSHAKE256 function
                   defined in Section 3 of [[NIST-SP800-185]] using
                   |message| as the |X| input parameter,
-                  the {{CShakeParams/length}} member of |normalizedAlgorithm| as
-                  the |L| input parameter,
-                  <a href="#concept-contents-of-arraybuffer">the contents of</a> the {{CShakeParams/functionName}} member of |normalizedAlgorithm| as
-                  the |N| input parameter, and
-                  <a href="#concept-contents-of-arraybuffer">the contents of</a> the {{CShakeParams/customization}} member of |normalizedAlgorithm| as
-                  the |S| input parameter.
+                  |length| as the |L| input parameter,
+                  |functionName| as the |N| input parameter, and
+                  |customization| as the |S| input parameter.
                 </dd>
               </dl>
             </li>
