@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="en"><head>
 <meta charset="utf-8">
-<meta name="generator" content="ReSpec 35.0.2">
+<meta name="generator" content="ReSpec 35.1.2">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <style>
 span.example-title{text-transform:none}
@@ -185,8 +185,8 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       "id": "nist-sp800-185"
     }
   },
-  "publishISODate": "2024-05-23T00:00:00.000Z",
-  "generatedSubtitle": "Draft Community Group Report 23 May 2024"
+  "publishISODate": "2024-09-17T00:00:00.000Z",
+  "generatedSubtitle": "Draft Community Group Report 17 September 2024"
 }</script>
 <link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2021/cg-draft"></head>
 
@@ -195,7 +195,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     <h1 id="title" class="title">Modern Algorithms in the Web Cryptography API</h1> 
     <p id="w3c-state">
       <a href="https://www.w3.org/standards/types#reports">Draft Community Group Report</a>
-      <time class="dt-published" datetime="2024-05-23">23 May 2024</time>
+      <time class="dt-published" datetime="2024-09-17">17 September 2024</time>
     </p>
     <dl>
       
@@ -682,6 +682,15 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
         <dd>
           <ol>
             <li>
+              <p>
+                If the <a data-link-type="idl" href="#dfn-AeadParams-iv" class="internalDFN" id="ref-for-dfn-AeadParams-iv-4"><code>iv</code></a> member of
+                <var>normalizedAlgorithm</var> has a length greater than 15
+                bytes,
+                then <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an
+                <a data-link-type="idl" data-lt="OperationError" data-type="exception" href="https://webidl.spec.whatwg.org/#operationerror"><code>OperationError</code></a>.
+              </p>
+            </li>
+            <li>
               <dl class="switch">
                 <dt>If the <a data-link-type="idl" href="#dfn-AeadParams-tagLength" class="internalDFN" id="ref-for-dfn-AeadParams-tagLength-5"><code>tagLength</code></a> member of
                 <var>normalizedAlgorithm</var> is not present:</dt>
@@ -701,15 +710,6 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
             <li>
               <p>
                 If <var>ciphertext</var> has a length less than <var>tagLength</var> bits,
-                then <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an
-                <a data-link-type="idl" data-lt="OperationError" data-type="exception" href="https://webidl.spec.whatwg.org/#operationerror"><code>OperationError</code></a>.
-              </p>
-            </li>
-            <li>
-              <p>
-                If the <a data-link-type="idl" href="#dfn-AeadParams-iv" class="internalDFN" id="ref-for-dfn-AeadParams-iv-4"><code>iv</code></a> member of
-                <var>normalizedAlgorithm</var> has a length greater than 15
-                bytes,
                 then <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an
                 <a data-link-type="idl" data-lt="OperationError" data-type="exception" href="https://webidl.spec.whatwg.org/#operationerror"><code>OperationError</code></a>.
               </p>
@@ -1239,34 +1239,24 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
         <dd>
           <ol>
             <li>
-              <dl class="switch">
-                <dt>If the <a data-link-type="idl" href="#dfn-AeadParams-tagLength" class="internalDFN" id="ref-for-dfn-AeadParams-tagLength-9"><code>tagLength</code></a> member of
-                <var>normalizedAlgorithm</var> is not present:</dt>
-                <dd>Let <var>tagLength</var> be 128.</dd>
-                <dt>If the <a data-link-type="idl" href="#dfn-AeadParams-tagLength" class="internalDFN" id="ref-for-dfn-AeadParams-tagLength-10"><code>tagLength</code></a> member of
-                <var>normalizedAlgorithm</var> is one of 64, 96 or 128:</dt>
-                <dd>Let <var>tagLength</var> be equal to the
-                <a data-link-type="idl" href="#dfn-AeadParams-tagLength" class="internalDFN" id="ref-for-dfn-AeadParams-tagLength-11"><code>tagLength</code></a> member of
-                 <var>normalizedAlgorithm</var></dd>
-                <dt>Otherwise:</dt>
-                <dd>
-                  <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an
-                  <a data-link-type="idl" data-lt="OperationError" data-type="exception" href="https://webidl.spec.whatwg.org/#operationerror"><code>OperationError</code></a>.
-                </dd>
-              </dl>
-            </li>
-            <li>
               <p>
-                If <var>ciphertext</var> has a length less than <var>tagLength</var> bits,
+                If the <a data-link-type="idl" href="#dfn-AeadParams-iv" class="internalDFN" id="ref-for-dfn-AeadParams-iv-8"><code>iv</code></a> member of
+                <var>normalizedAlgorithm</var> does not have a length of 12 bytes,
                 then <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an
                 <a data-link-type="idl" data-lt="OperationError" data-type="exception" href="https://webidl.spec.whatwg.org/#operationerror"><code>OperationError</code></a>.
               </p>
             </li>
             <li>
               <p>
-                If the <a data-link-type="idl" href="#dfn-AeadParams-iv" class="internalDFN" id="ref-for-dfn-AeadParams-iv-8"><code>iv</code></a> member of
-                <var>normalizedAlgorithm</var> has a length greater than 15
-                bytes,
+                If the <a data-link-type="idl" href="#dfn-AeadParams-tagLength" class="internalDFN" id="ref-for-dfn-AeadParams-tagLength-9"><code>tagLength</code></a> member
+                of <var>normalizedAlgorithm</var> is present and is not 128,
+                then <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an
+                <a data-link-type="idl" data-lt="OperationError" data-type="exception" href="https://webidl.spec.whatwg.org/#operationerror"><code>OperationError</code></a>.
+              </p>
+            </li>
+            <li>
+              <p>
+                If <var>ciphertext</var> has a length less than 128 bits,
                 then <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an
                 <a data-link-type="idl" data-lt="OperationError" data-type="exception" href="https://webidl.spec.whatwg.org/#operationerror"><code>OperationError</code></a>.
               </p>
@@ -1762,6 +1752,26 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
         <dd>
           <ol>
             <li>
+              <p>
+                Let <var>length</var> be the <a data-link-type="idl" href="#dfn-CShakeParams-length" class="internalDFN" id="ref-for-dfn-CShakeParams-length-2"><code>length</code></a> member of
+                <var>normalizedAlgorithm</var>.
+              </p>
+            </li>
+            <li>
+              <p>
+                Let <var>functionName</var> be <a href="#concept-contents-of-arraybuffer" id="ref-for-concept-contents-of-arraybuffer-17">the contents</a> of the <a data-link-type="idl" href="#dfn-CShakeParams-functionName" class="internalDFN" id="ref-for-dfn-CShakeParams-functionName-2"><code>functionName</code></a> member of
+                <var>normalizedAlgorithm</var> if present or the empty octet
+                string otherwise.
+              </p>
+            </li>
+            <li>
+              <p>
+                Let <var>customization</var> be <a href="#concept-contents-of-arraybuffer" id="ref-for-concept-contents-of-arraybuffer-18">the contents</a> of the <a data-link-type="idl" href="#dfn-CShakeParams-customization" class="internalDFN" id="ref-for-dfn-CShakeParams-customization-2"><code>customization</code></a> member of
+                <var>normalizedAlgorithm</var> if present or the empty octet
+                string otherwise.
+              </p>
+            </li>
+            <li>
               <dl class="switch">
                 <dt>
                   If the <a data-link-type="idl" data-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-algorithm-name"><code>name</code></a> member of
@@ -1772,12 +1782,9 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
                   Let <var>result</var> be the result of performing the cSHAKE128 function
                   defined in Section 3 of [<cite><a class="bibref" data-link-type="biblio" href="#bib-nist-sp800-185" title="NIST Special Publication 800-185: SHA-3 Derived Functions: cSHAKE, KMAC, TupleHash and ParallelHash">NIST-SP800-185</a></cite>] using
                   <var>message</var> as the <var>X</var> input parameter,
-                  the <a data-link-type="idl" href="#dfn-CShakeParams-length" class="internalDFN" id="ref-for-dfn-CShakeParams-length-2"><code>length</code></a> member of <var>normalizedAlgorithm</var> as
-                  the <var>L</var> input parameter,
-                  <a href="#concept-contents-of-arraybuffer" id="ref-for-concept-contents-of-arraybuffer-17">the contents of</a> the <a data-link-type="idl" href="#dfn-CShakeParams-functionName" class="internalDFN" id="ref-for-dfn-CShakeParams-functionName-2"><code>functionName</code></a> member of <var>normalizedAlgorithm</var> as
-                  the <var>N</var> input parameter, and
-                  <a href="#concept-contents-of-arraybuffer" id="ref-for-concept-contents-of-arraybuffer-18">the contents of</a> the <a data-link-type="idl" href="#dfn-CShakeParams-customization" class="internalDFN" id="ref-for-dfn-CShakeParams-customization-2"><code>customization</code></a> member of <var>normalizedAlgorithm</var> as
-                  the <var>S</var> input parameter.
+                  <var>length</var> as the <var>L</var> input parameter,
+                  <var>functionName</var> as the <var>N</var> input parameter, and
+                  <var>customization</var> as the <var>S</var> input parameter.
                 </dd>
                 <dt>
                   If the <a data-link-type="idl" data-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-algorithm-name"><code>name</code></a> member of
@@ -1788,12 +1795,9 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
                   Let <var>result</var> be the result of performing the cSHAKE256 function
                   defined in Section 3 of [<cite><a class="bibref" data-link-type="biblio" href="#bib-nist-sp800-185" title="NIST Special Publication 800-185: SHA-3 Derived Functions: cSHAKE, KMAC, TupleHash and ParallelHash">NIST-SP800-185</a></cite>] using
                   <var>message</var> as the <var>X</var> input parameter,
-                  the <a data-link-type="idl" href="#dfn-CShakeParams-length" class="internalDFN" id="ref-for-dfn-CShakeParams-length-3"><code>length</code></a> member of <var>normalizedAlgorithm</var> as
-                  the <var>L</var> input parameter,
-                  <a href="#concept-contents-of-arraybuffer" id="ref-for-concept-contents-of-arraybuffer-19">the contents of</a> the <a data-link-type="idl" href="#dfn-CShakeParams-functionName" class="internalDFN" id="ref-for-dfn-CShakeParams-functionName-3"><code>functionName</code></a> member of <var>normalizedAlgorithm</var> as
-                  the <var>N</var> input parameter, and
-                  <a href="#concept-contents-of-arraybuffer" id="ref-for-concept-contents-of-arraybuffer-20">the contents of</a> the <a data-link-type="idl" href="#dfn-CShakeParams-customization" class="internalDFN" id="ref-for-dfn-CShakeParams-customization-3"><code>customization</code></a> member of <var>normalizedAlgorithm</var> as
-                  the <var>S</var> input parameter.
+                  <var>length</var> as the <var>L</var> input parameter,
+                  <var>functionName</var> as the <var>N</var> input parameter, and
+                  <var>customization</var> as the <var>S</var> input parameter.
                 </dd>
               </dl>
             </li>
@@ -1909,7 +1913,7 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
           <ol>
             <li>
               <p>
-                Let <var>customization</var> be the <a href="#concept-contents-of-arraybuffer" id="ref-for-concept-contents-of-arraybuffer-21">contents of</a> the <a data-link-type="idl" href="#dfn-KmacParams-customization" class="internalDFN" id="ref-for-dfn-KmacParams-customization-2"><code>customization</code></a> member of
+                Let <var>customization</var> be the <a href="#concept-contents-of-arraybuffer" id="ref-for-concept-contents-of-arraybuffer-19">contents of</a> the <a data-link-type="idl" href="#dfn-KmacParams-customization" class="internalDFN" id="ref-for-dfn-KmacParams-customization-2"><code>customization</code></a> member of
                 <var>normalizedAlgorithm</var> if present or the empty octet
                 string otherwise.
               </p>
@@ -1963,7 +1967,7 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
           <ol>
             <li>
               <p>
-                Let <var>customization</var> be the <a href="#concept-contents-of-arraybuffer" id="ref-for-concept-contents-of-arraybuffer-22">contents of</a> the <a data-link-type="idl" href="#dfn-KmacParams-customization" class="internalDFN" id="ref-for-dfn-KmacParams-customization-3"><code>customization</code></a> member of
+                Let <var>customization</var> be the <a href="#concept-contents-of-arraybuffer" id="ref-for-concept-contents-of-arraybuffer-20">contents of</a> the <a data-link-type="idl" href="#dfn-KmacParams-customization" class="internalDFN" id="ref-for-dfn-KmacParams-customization-3"><code>customization</code></a> member of
                 <var>normalizedAlgorithm</var> if present or the empty octet
                 string otherwise.
               </p>
@@ -2605,13 +2609,13 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
             </li>
             <li>
               <p>
-                Let <var>secretValue</var> be <a href="#concept-contents-of-arraybuffer" id="ref-for-concept-contents-of-arraybuffer-23">the contents of</a> the <a data-link-type="idl" href="#dfn-Argon2Params-secretValue" class="internalDFN" id="ref-for-dfn-Argon2Params-secretValue-2"><code>secretValue</code></a> member of
+                Let <var>secretValue</var> be <a href="#concept-contents-of-arraybuffer" id="ref-for-concept-contents-of-arraybuffer-21">the contents of</a> the <a data-link-type="idl" href="#dfn-Argon2Params-secretValue" class="internalDFN" id="ref-for-dfn-Argon2Params-secretValue-2"><code>secretValue</code></a> member of
                 <var>normalizedAlgorithm</var>, if present.
               </p>
             </li>
             <li>
               <p>
-                Let <var>associatedData</var> be <a href="#concept-contents-of-arraybuffer" id="ref-for-concept-contents-of-arraybuffer-24">the contents of</a> the <a data-link-type="idl" href="#dfn-Argon2Params-associatedData" class="internalDFN" id="ref-for-dfn-Argon2Params-associatedData-2"><code>associatedData</code></a> member of
+                Let <var>associatedData</var> be <a href="#concept-contents-of-arraybuffer" id="ref-for-concept-contents-of-arraybuffer-22">the contents of</a> the <a data-link-type="idl" href="#dfn-Argon2Params-associatedData" class="internalDFN" id="ref-for-dfn-Argon2Params-associatedData-2"><code>associatedData</code></a> member of
                 <var>normalizedAlgorithm</var>, if present.
               </p>
             </li>
@@ -2620,7 +2624,7 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
                 Let <var>result</var> be the result of performing the Argon2 function defined
                 in Section 3 of [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc9106" title="Argon2 Memory-Hard Function for Password Hashing and Proof-of-Work Applications">RFC9106</a></cite>] using
                 the password represented by <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-handle">[[handle]]</a> internal slot of <var>key</var>
-                as the message, <var>P</var>, <a href="#concept-contents-of-arraybuffer" id="ref-for-concept-contents-of-arraybuffer-25">the
+                as the message, <var>P</var>, <a href="#concept-contents-of-arraybuffer" id="ref-for-concept-contents-of-arraybuffer-23">the
                 contents of</a> the <a data-link-type="idl" href="#dfn-Argon2Params-nonce" class="internalDFN" id="ref-for-dfn-Argon2Params-nonce-2"><code>nonce</code></a> attribute of
                 <var>normalizedAlgorithm</var> as the nonce, <var>S</var>,
                 the value of the <a data-link-type="idl" href="#dfn-Argon2Params-parallelism" class="internalDFN" id="ref-for-dfn-Argon2Params-parallelism-4"><code>parallelism</code></a> attribute
@@ -2947,11 +2951,11 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
     </li><li>
       <a href="#ref-for-concept-contents-of-arraybuffer-9" title="§ 6.3 Operations">§ 6.3 Operations</a> <a href="#ref-for-concept-contents-of-arraybuffer-10" title="Reference 2">(2)</a> <a href="#ref-for-concept-contents-of-arraybuffer-11" title="Reference 3">(3)</a> <a href="#ref-for-concept-contents-of-arraybuffer-12" title="Reference 4">(4)</a> <a href="#ref-for-concept-contents-of-arraybuffer-13" title="Reference 5">(5)</a> <a href="#ref-for-concept-contents-of-arraybuffer-14" title="Reference 6">(6)</a> <a href="#ref-for-concept-contents-of-arraybuffer-15" title="Reference 7">(7)</a> <a href="#ref-for-concept-contents-of-arraybuffer-16" title="Reference 8">(8)</a> 
     </li><li>
-      <a href="#ref-for-concept-contents-of-arraybuffer-17" title="§ 8.4 Operations">§ 8.4 Operations</a> <a href="#ref-for-concept-contents-of-arraybuffer-18" title="Reference 2">(2)</a> <a href="#ref-for-concept-contents-of-arraybuffer-19" title="Reference 3">(3)</a> <a href="#ref-for-concept-contents-of-arraybuffer-20" title="Reference 4">(4)</a> 
+      <a href="#ref-for-concept-contents-of-arraybuffer-17" title="§ 8.4 Operations">§ 8.4 Operations</a> <a href="#ref-for-concept-contents-of-arraybuffer-18" title="Reference 2">(2)</a> 
     </li><li>
-      <a href="#ref-for-concept-contents-of-arraybuffer-21" title="§ 9.7 Operations">§ 9.7 Operations</a> <a href="#ref-for-concept-contents-of-arraybuffer-22" title="Reference 2">(2)</a> 
+      <a href="#ref-for-concept-contents-of-arraybuffer-19" title="§ 9.7 Operations">§ 9.7 Operations</a> <a href="#ref-for-concept-contents-of-arraybuffer-20" title="Reference 2">(2)</a> 
     </li><li>
-      <a href="#ref-for-concept-contents-of-arraybuffer-23" title="§ 10.4 Operations">§ 10.4 Operations</a> <a href="#ref-for-concept-contents-of-arraybuffer-24" title="Reference 2">(2)</a> <a href="#ref-for-concept-contents-of-arraybuffer-25" title="Reference 3">(3)</a> 
+      <a href="#ref-for-concept-contents-of-arraybuffer-21" title="§ 10.4 Operations">§ 10.4 Operations</a> <a href="#ref-for-concept-contents-of-arraybuffer-22" title="Reference 2">(2)</a> <a href="#ref-for-concept-contents-of-arraybuffer-23" title="Reference 3">(3)</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-SubtleCrypto-method-supports" aria-label="Links in this document to definition: supports(operation, algorithm, length)">
@@ -3055,7 +3059,7 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
     </li><li>
       <a href="#ref-for-dfn-AeadParams-tagLength-2" title="§ 5.4 Operations">§ 5.4 Operations</a> <a href="#ref-for-dfn-AeadParams-tagLength-3" title="Reference 2">(2)</a> <a href="#ref-for-dfn-AeadParams-tagLength-4" title="Reference 3">(3)</a> <a href="#ref-for-dfn-AeadParams-tagLength-5" title="Reference 4">(4)</a> <a href="#ref-for-dfn-AeadParams-tagLength-6" title="Reference 5">(5)</a> <a href="#ref-for-dfn-AeadParams-tagLength-7" title="Reference 6">(6)</a> 
     </li><li>
-      <a href="#ref-for-dfn-AeadParams-tagLength-8" title="§ 6.3 Operations">§ 6.3 Operations</a> <a href="#ref-for-dfn-AeadParams-tagLength-9" title="Reference 2">(2)</a> <a href="#ref-for-dfn-AeadParams-tagLength-10" title="Reference 3">(3)</a> <a href="#ref-for-dfn-AeadParams-tagLength-11" title="Reference 4">(4)</a> 
+      <a href="#ref-for-dfn-AeadParams-tagLength-8" title="§ 6.3 Operations">§ 6.3 Operations</a> <a href="#ref-for-dfn-AeadParams-tagLength-9" title="Reference 2">(2)</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-CShakeParams" aria-label="Links in this document to definition: CShakeParams">
@@ -3083,7 +3087,7 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
     <li>
       <a href="#ref-for-dfn-CShakeParams-length-1" title="§ 8.3 CShakeParams dictionary">§ 8.3 CShakeParams dictionary</a> 
     </li><li>
-      <a href="#ref-for-dfn-CShakeParams-length-2" title="§ 8.4 Operations">§ 8.4 Operations</a> <a href="#ref-for-dfn-CShakeParams-length-3" title="Reference 2">(2)</a> 
+      <a href="#ref-for-dfn-CShakeParams-length-2" title="§ 8.4 Operations">§ 8.4 Operations</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-CShakeParams-functionName" aria-label="Links in this document to definition: functionName">
@@ -3097,7 +3101,7 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
     <li>
       <a href="#ref-for-dfn-CShakeParams-functionName-1" title="§ 8.3 CShakeParams dictionary">§ 8.3 CShakeParams dictionary</a> 
     </li><li>
-      <a href="#ref-for-dfn-CShakeParams-functionName-2" title="§ 8.4 Operations">§ 8.4 Operations</a> <a href="#ref-for-dfn-CShakeParams-functionName-3" title="Reference 2">(2)</a> 
+      <a href="#ref-for-dfn-CShakeParams-functionName-2" title="§ 8.4 Operations">§ 8.4 Operations</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-CShakeParams-customization" aria-label="Links in this document to definition: customization">
@@ -3111,7 +3115,7 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
     <li>
       <a href="#ref-for-dfn-CShakeParams-customization-1" title="§ 8.3 CShakeParams dictionary">§ 8.3 CShakeParams dictionary</a> 
     </li><li>
-      <a href="#ref-for-dfn-CShakeParams-customization-2" title="§ 8.4 Operations">§ 8.4 Operations</a> <a href="#ref-for-dfn-CShakeParams-customization-3" title="Reference 2">(2)</a> 
+      <a href="#ref-for-dfn-CShakeParams-customization-2" title="§ 8.4 Operations">§ 8.4 Operations</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-KmacKeyGenParams" aria-label="Links in this document to definition: KmacKeyGenParams">
