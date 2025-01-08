@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="en"><head>
 <meta charset="utf-8">
-<meta name="generator" content="ReSpec 35.1.2">
+<meta name="generator" content="ReSpec 35.2.2">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <style>
 span.example-title{text-transform:none}
@@ -119,6 +119,8 @@ dd{margin-left:0}
 }
 </style>
   
+<link rel="stylesheet" href="https://w3c.github.io/webcrypto/webcrypto.css" type="text/css">
+  
 
 <meta name="color-scheme" content="light">
 <meta name="description" content="This specification defines a number of modern cryptographic algorithms
@@ -185,8 +187,8 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       "id": "nist-sp800-185"
     }
   },
-  "publishISODate": "2024-09-17T00:00:00.000Z",
-  "generatedSubtitle": "Draft Community Group Report 17 September 2024"
+  "publishISODate": "2025-01-08T00:00:00.000Z",
+  "generatedSubtitle": "Draft Community Group Report 08 January 2025"
 }</script>
 <link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2021/cg-draft"></head>
 
@@ -195,7 +197,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     <h1 id="title" class="title">Modern Algorithms in the Web Cryptography API</h1> 
     <p id="w3c-state">
       <a href="https://www.w3.org/standards/types#reports">Draft Community Group Report</a>
-      <time class="dt-published" datetime="2024-09-17">17 September 2024</time>
+      <time class="dt-published" datetime="2025-01-08">08 January 2025</time>
     </p>
     <dl>
       
@@ -224,7 +226,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     <p class="copyright">
           <a href="https://www.w3.org/policies/#copyright">Copyright</a>
           ©
-          2024
+          2025
           
           the Contributors to the Modern Algorithms in the Web Cryptography API
           Specification, published by the
@@ -307,7 +309,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       contents of an ArrayBuffer</dfn> named <var>data</var> to an underlying cryptographic
       implementation, the User Agent shall supply a contiguous sequence of bytes that is equal
       to the result of
-      <a data-link-type="dfn|abstract-op" data-lt="get a copy of the buffer source" data-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-get-buffer-source-copy">getting a copy of the bytes</a>
+      <a data-link-type="dfn" data-lt="get a copy of the buffer source" href="https://webidl.spec.whatwg.org/#dfn-get-buffer-source-copy">getting a copy of the bytes</a>
       held <var>data</var>.
     </p>
   </section>
@@ -315,16 +317,16 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   <section id="partial-subtlecrypto-interface"><div class="header-wrapper"><h2 id="x4-partial-subtlecrypto-interface"><bdi class="secno">4. </bdi>Partial SubtleCrypto interface</h2><a class="self-link" href="#partial-subtlecrypto-interface" aria-label="Permalink for Section 4."></a></div>
     
     <p>
-      This section extends the <a data-link-type="idl" data-lt="SubtleCrypto" data-type="interface" href="https://www.w3.org/TR/WebCryptoAPI/#dfn-SubtleCrypto"><code>SubtleCrypto</code></a> interface of [<cite><a class="bibref" data-link-type="biblio" href="#bib-webcryptoapi" title="Web Cryptography API">WebCryptoAPI</a></cite>].
+      This section extends the <a data-link-type="interface" data-lt="SubtleCrypto" href="https://www.w3.org/TR/WebCryptoAPI/#dfn-SubtleCrypto"><code>SubtleCrypto</code></a> interface of [<cite><a class="bibref" data-link-type="biblio" href="#bib-webcryptoapi" title="Web Cryptography API">WebCryptoAPI</a></cite>].
     </p>
-    <pre class="idl def" id="webidl-1336939281"><span class="idlHeader"><a class="self-link" href="#webidl-1336939281">WebIDL</a></span><code><span data-idl="" class="idlInterface" id="idl-def-subtlecrypto-partial-1" data-title="SubtleCrypto">[<span class="extAttr"><a data-type="extended-attribute" href="https://webidl.spec.whatwg.org/#SecureContext">SecureContext</a></span>,<span class="extAttr"><a data-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed">Exposed</a>=(Window,Worker)</span>]
-partial interface <a data-idl="partial" data-link-type="interface" data-title="SubtleCrypto" class="idlID" data-dfn-for="SubtleCrypto" data-type="interface" href="https://www.w3.org/TR/WebCryptoAPI/#dfn-SubtleCrypto">SubtleCrypto</a> {<span data-idl="" class="idlMethod" id="idl-def-subtlecrypto-supports-operation-algorithm-length" data-title="supports" data-dfn-for="SubtleCrypto">
-  static<span class="idlType"> <a data-link-type="idl" data-type="interface" href="https://webidl.spec.whatwg.org/#idl-boolean">boolean</a></span> <a class="internalDFN idlName" data-link-type="method" href="#dfn-SubtleCrypto-method-supports" id="ref-for-dfn-SubtleCrypto-method-supports-2"><code>supports</code></a>(<span class="idlType"><a data-link-type="idl" data-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString">DOMString</a></span> <span class="idlParamName">operation</span>,<span class="idlType">
-                   <a data-link-type="idl" data-type="typedef" href="https://www.w3.org/TR/WebCryptoAPI/#dom-algorithmidentifier">AlgorithmIdentifier</a></span> <span class="idlParamName">algorithm</span>,
-                   optional<span class="idlType"> <a data-link-type="idl" data-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long">unsigned long</a>?</span> <span class="idlParamName">length</span> = null);</span><span data-idl="" class="idlMethod" id="idl-def-subtlecrypto-supports!overload-1" data-title="supports!overload-1" data-dfn-for="SubtleCrypto">
-  static<span class="idlType"> <a data-link-type="idl" data-type="interface" href="https://webidl.spec.whatwg.org/#idl-boolean">boolean</a></span> <a class="internalDFN idlName" data-link-type="method" href="#dfn-SubtleCrypto-method-supports-additionalAlgorithm" id="ref-for-dfn-SubtleCrypto-method-supports-additionalAlgorithm-1"><code>supports</code></a>(<span class="idlType"><a data-link-type="idl" data-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString">DOMString</a></span> <span class="idlParamName">operation</span>,<span class="idlType">
-                   <a data-link-type="idl" data-type="typedef" href="https://www.w3.org/TR/WebCryptoAPI/#dom-algorithmidentifier">AlgorithmIdentifier</a></span> <span class="idlParamName">algorithm</span>,<span class="idlType">
-                   <a data-link-type="idl" data-type="typedef" href="https://www.w3.org/TR/WebCryptoAPI/#dom-algorithmidentifier">AlgorithmIdentifier</a></span> <span class="idlParamName">additionalAlgorithm</span>);</span>
+    <pre class="idl def" id="webidl-1336939281"><span class="idlHeader"><a class="self-link" href="#webidl-1336939281">WebIDL</a></span><code><span data-idl="" class="idlInterface" id="idl-def-subtlecrypto-partial-1" data-title="SubtleCrypto">[<span class="extAttr"><a data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#SecureContext">SecureContext</a></span>,<span class="extAttr"><a data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed">Exposed</a>=(Window,Worker)</span>]
+partial interface <a data-idl="partial" data-link-type="interface" data-title="SubtleCrypto" class="idlID" data-dfn-for="SubtleCrypto" href="https://www.w3.org/TR/WebCryptoAPI/#dfn-SubtleCrypto">SubtleCrypto</a> {<span data-idl="" class="idlMethod" id="idl-def-subtlecrypto-supports-operation-algorithm-length" data-title="supports" data-dfn-for="SubtleCrypto">
+  static<span class="idlType"> <a data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-boolean">boolean</a></span> <a class="internalDFN idlName" data-link-type="method" href="#dfn-SubtleCrypto-method-supports" id="ref-for-dfn-SubtleCrypto-method-supports-2"><code>supports</code></a>(<span class="idlType"><a data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString">DOMString</a></span> <span class="idlParamName">operation</span>,<span class="idlType">
+                   <a data-link-type="typedef" href="https://www.w3.org/TR/WebCryptoAPI/#dom-algorithmidentifier">AlgorithmIdentifier</a></span> <span class="idlParamName">algorithm</span>,
+                   optional<span class="idlType"> <a data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long">unsigned long</a>?</span> <span class="idlParamName">length</span> = null);</span><span data-idl="" class="idlMethod" id="idl-def-subtlecrypto-supports!overload-1" data-title="supports!overload-1" data-dfn-for="SubtleCrypto">
+  static<span class="idlType"> <a data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-boolean">boolean</a></span> <a class="internalDFN idlName" data-link-type="method" href="#dfn-SubtleCrypto-method-supports-additionalAlgorithm" id="ref-for-dfn-SubtleCrypto-method-supports-additionalAlgorithm-1"><code>supports</code></a>(<span class="idlType"><a data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString">DOMString</a></span> <span class="idlParamName">operation</span>,<span class="idlType">
+                   <a data-link-type="typedef" href="https://www.w3.org/TR/WebCryptoAPI/#dom-algorithmidentifier">AlgorithmIdentifier</a></span> <span class="idlParamName">algorithm</span>,<span class="idlType">
+                   <a data-link-type="typedef" href="https://www.w3.org/TR/WebCryptoAPI/#dom-algorithmidentifier">AlgorithmIdentifier</a></span> <span class="idlParamName">additionalAlgorithm</span>);</span>
 };</span></code></pre>
 
     <section id="partial-subtlecrypto-interface-methods"><div class="header-wrapper"><h3 id="x4-1-methods-and-parameters"><bdi class="secno">4.1 </bdi>Methods and Parameters</h3><a class="self-link" href="#partial-subtlecrypto-interface-methods" aria-label="Permalink for Section 4.1"></a></div>
@@ -334,7 +336,7 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
         <p>
           The <dfn id="dfn-SubtleCrypto-method-supports" data-dfn-for="SubtleCrypto" data-lt="supports(operation, algorithm, length)|supports()|supports(operation, algorithm)" data-export="" data-dfn-type="method" data-idl="operation" data-title="supports(operation, algorithm, length)" data-type="boolean" data-local-lt="SubtleCrypto.supports|SubtleCrypto.supports()|supports" tabindex="0" aria-haspopup="dialog"><code>supports(<var>operation</var>, <var>algorithm</var>, <var>length</var>)</code></dfn>
           method returns a boolean indicating whether the implementation
-          supports the given operation using the specified <a data-link-type="idl" data-lt="AlgorithmIdentifier" data-type="typedef" href="https://www.w3.org/TR/WebCryptoAPI/#dom-algorithmidentifier"><code>AlgorithmIdentifier</code></a>,
+          supports the given operation using the specified <a data-link-type="typedef" data-lt="AlgorithmIdentifier" href="https://www.w3.org/TR/WebCryptoAPI/#dom-algorithmidentifier"><code>AlgorithmIdentifier</code></a>,
           with an optional <code>length</code> parameter to indicate the number of bits to be derived when <code>operation</code> is "<code>deriveBits</code>".
           It behaves as follows:
         </p>
@@ -359,7 +361,7 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
         <p>
           The <dfn id="dfn-SubtleCrypto-method-supports-additionalAlgorithm" data-dfn-for="SubtleCrypto" data-lt="supports(operation, algorithm, additionalAlgorithm)|supports!overload-1()|supports!overload-1(operation, algorithm, additionalAlgorithm)" data-export="" data-dfn-type="method" data-idl="operation" data-title="supports(operation, algorithm, additionalAlgorithm)" data-type="boolean" data-local-lt="SubtleCrypto.supports!overload-1|SubtleCrypto.supports!overload-1()|supports!overload-1" tabindex="0" aria-haspopup="dialog"><code>supports(<var>operation</var>, <var>algorithm</var>, <var>additionalAlgorithm</var>)</code></dfn>
           method returns a boolean indicating whether the implementation
-          supports the given operation using the specified <a data-link-type="idl" data-lt="AlgorithmIdentifier" data-type="typedef" href="https://www.w3.org/TR/WebCryptoAPI/#dom-algorithmidentifier"><code>AlgorithmIdentifier</code></a>.
+          supports the given operation using the specified <a data-link-type="typedef" data-lt="AlgorithmIdentifier" href="https://www.w3.org/TR/WebCryptoAPI/#dom-algorithmidentifier"><code>AlgorithmIdentifier</code></a>.
           The additional algorithm indicates the type of key to be derived when <code>operation</code> is "<code>deriveKey</code>",
           the type of key to be exported before wrapping when <code>operation</code> is "<code>wrapKey</code>",
           and the type of key to be imported after unwrapping when <code>operation</code> is "<code>unwrapKey</code>".
@@ -428,7 +430,7 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
       <p>
         The <dfn id="dfn-check-support-for-algorithm" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">check support for an algorithm</dfn> algorithm
         defines a process for checking whether the given algorithm is supported for the given operation.
-        Its input is an operation name <var>op</var>, an <a data-link-type="idl" data-lt="AlgorithmIdentifier" data-type="typedef" href="https://www.w3.org/TR/WebCryptoAPI/#dom-algorithmidentifier"><code>AlgorithmIdentifier</code></a> <var>alg</var>,
+        Its input is an operation name <var>op</var>, an <a data-link-type="typedef" data-lt="AlgorithmIdentifier" href="https://www.w3.org/TR/WebCryptoAPI/#dom-algorithmidentifier"><code>AlgorithmIdentifier</code></a> <var>alg</var>,
         and an optional <var>length</var> parameter. Its output is a boolean.
         It behaves as follows:
       </p>
@@ -494,7 +496,7 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
           </p>
           <dl class="switch">
             <dt>
-              If the step says to <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an error:
+              If the step says to <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an error:
             </dt>
             <dd>
               Return false.
@@ -531,7 +533,7 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
         </li>
         <li>
           <p>
-            <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://infra.spec.whatwg.org/#assert">Assert</a>: this step is never reached,
+            <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#assert">Assert</a>: this step is never reached,
             because one of the steps of the operation will have said
             to return a value or throw an error, causing us to return
             true or false, respectively.
@@ -569,22 +571,22 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
           <tr>
             <td>encrypt</td>
             <td><a data-link-type="idl" data-lt="AeadParams" href="#dfn-AeadParams" class="internalDFN" id="ref-for-dfn-AeadParams-1"><code>AeadParams</code></a></td>
-            <td><a data-link-type="idl" data-lt="ArrayBuffer" data-type="interface" href="https://webidl.spec.whatwg.org/#idl-ArrayBuffer"><code>ArrayBuffer</code></a></td>
+            <td><a data-link-type="interface" data-lt="ArrayBuffer" href="https://webidl.spec.whatwg.org/#idl-ArrayBuffer"><code>ArrayBuffer</code></a></td>
           </tr>
           <tr>
             <td>decrypt</td>
             <td><a data-link-type="idl" data-lt="AeadParams" href="#dfn-AeadParams" class="internalDFN" id="ref-for-dfn-AeadParams-2"><code>AeadParams</code></a></td>
-            <td><a data-link-type="idl" data-lt="ArrayBuffer" data-type="interface" href="https://webidl.spec.whatwg.org/#idl-ArrayBuffer"><code>ArrayBuffer</code></a></td>
+            <td><a data-link-type="interface" data-lt="ArrayBuffer" href="https://webidl.spec.whatwg.org/#idl-ArrayBuffer"><code>ArrayBuffer</code></a></td>
           </tr>
           <tr>
             <td>generateKey</td>
-            <td><a data-link-type="idl" data-lt="AesKeyGenParams" data-type="dictionary" href="https://www.w3.org/TR/WebCryptoAPI/#dfn-AesKeyGenParams"><code>AesKeyGenParams</code></a></td>
-            <td><a data-link-type="idl" data-lt="CryptoKey" data-type="interface" href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey"><code>CryptoKey</code></a></td>
+            <td><a data-link-type="dictionary" data-lt="AesKeyGenParams" href="https://www.w3.org/TR/WebCryptoAPI/#dfn-AesKeyGenParams"><code>AesKeyGenParams</code></a></td>
+            <td><a data-link-type="interface" data-lt="CryptoKey" href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey"><code>CryptoKey</code></a></td>
           </tr>
          <tr>
            <td>importKey</td>
            <td>None</td>
-           <td><a data-link-type="idl" data-lt="CryptoKey" data-type="interface" href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey"><code>CryptoKey</code></a></td>
+           <td><a data-link-type="interface" data-lt="CryptoKey" href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey"><code>CryptoKey</code></a></td>
          </tr>
          <tr>
            <td>exportKey</td>
@@ -593,7 +595,7 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
          </tr>
          <tr>
            <td>get key length</td>
-           <td><a data-link-type="idl" data-lt="AesDerivedKeyParams" data-type="dictionary" href="https://www.w3.org/TR/WebCryptoAPI/#dfn-AesDerivedKeyParams"><code>AesDerivedKeyParams</code></a></td>
+           <td><a data-link-type="dictionary" data-lt="AesDerivedKeyParams" href="https://www.w3.org/TR/WebCryptoAPI/#dfn-AesDerivedKeyParams"><code>AesDerivedKeyParams</code></a></td>
            <td>Integer</td>
          </tr>
         </tbody>
@@ -601,17 +603,17 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
     </section>
     <section id="aead-params"><div class="header-wrapper"><h3 id="x5-3-aeadparams-dictionary"><bdi class="secno">5.3 </bdi><dfn data-idl="dictionary" id="dfn-AeadParams" data-export="" data-dfn-type="dictionary" data-title="AeadParams" data-dfn-for="" tabindex="0" aria-haspopup="dialog"><code>AeadParams</code></dfn> dictionary</h3><a class="self-link" href="#aead-params" aria-label="Permalink for Section 5.3"></a></div>
       
-      <pre class="idl def" id="webidl-1353594407"><span class="idlHeader"><a class="self-link" href="#webidl-1353594407">WebIDL</a></span><code><span data-idl="" class="idlDictionary" id="idl-def-aeadparams" data-title="AeadParams">dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-AeadParams" id="ref-for-dfn-AeadParams-3"><code>AeadParams</code></a> : <span class="idlSuperclass"><a data-link-type="idl" data-type="dictionary" href="https://www.w3.org/TR/WebCryptoAPI/#dfn-Algorithm">Algorithm</a></span> {<span data-idl="" class="idlMember" id="idl-def-aeadparams-iv" data-title="iv" data-dfn-for="AeadParams">
-  required<span class="idlType"> <a data-link-type="idl" data-type="typedef" href="https://webidl.spec.whatwg.org/#BufferSource">BufferSource</a></span> <a class="internalDFN idlName" data-link-type="dict-member" href="#dfn-AeadParams-iv" id="ref-for-dfn-AeadParams-iv-1"><code>iv</code></a>;</span><span data-idl="" class="idlMember" id="idl-def-aeadparams-additionaldata" data-title="additionalData" data-dfn-for="AeadParams"><span class="idlType">
-  <a data-link-type="idl" data-type="typedef" href="https://webidl.spec.whatwg.org/#BufferSource">BufferSource</a></span> <a class="internalDFN idlName" data-link-type="dict-member" href="#dfn-AeadParams-additionalData" id="ref-for-dfn-AeadParams-additionalData-1"><code>additionalData</code></a>;</span><span data-idl="" class="idlMember" id="idl-def-aeadparams-taglength" data-title="tagLength" data-dfn-for="AeadParams">
-  [<span class="extAttr"><a data-type="extended-attribute" href="https://webidl.spec.whatwg.org/#EnforceRange">EnforceRange</a></span>]<span class="idlType"> <a data-link-type="idl" data-type="interface" href="https://webidl.spec.whatwg.org/#idl-octet">octet</a></span> <a class="internalDFN idlName" data-link-type="dict-member" href="#dfn-AeadParams-tagLength" id="ref-for-dfn-AeadParams-tagLength-1"><code>tagLength</code></a>;</span>
+      <pre class="idl def" id="webidl-1353594407"><span class="idlHeader"><a class="self-link" href="#webidl-1353594407">WebIDL</a></span><code><span data-idl="" class="idlDictionary" id="idl-def-aeadparams" data-title="AeadParams">dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-AeadParams" id="ref-for-dfn-AeadParams-3"><code>AeadParams</code></a> : <span class="idlSuperclass"><a data-link-type="dictionary" href="https://www.w3.org/TR/WebCryptoAPI/#dfn-Algorithm">Algorithm</a></span> {<span data-idl="" class="idlMember" id="idl-def-aeadparams-iv" data-title="iv" data-dfn-for="AeadParams">
+  required<span class="idlType"> <a data-link-type="typedef" href="https://webidl.spec.whatwg.org/#BufferSource">BufferSource</a></span> <a class="internalDFN idlName" data-link-type="dict-member" href="#dfn-AeadParams-iv" id="ref-for-dfn-AeadParams-iv-1"><code>iv</code></a>;</span><span data-idl="" class="idlMember" id="idl-def-aeadparams-additionaldata" data-title="additionalData" data-dfn-for="AeadParams"><span class="idlType">
+  <a data-link-type="typedef" href="https://webidl.spec.whatwg.org/#BufferSource">BufferSource</a></span> <a class="internalDFN idlName" data-link-type="dict-member" href="#dfn-AeadParams-additionalData" id="ref-for-dfn-AeadParams-additionalData-1"><code>additionalData</code></a>;</span><span data-idl="" class="idlMember" id="idl-def-aeadparams-taglength" data-title="tagLength" data-dfn-for="AeadParams">
+  [<span class="extAttr"><a data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#EnforceRange">EnforceRange</a></span>]<span class="idlType"> <a data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-octet">octet</a></span> <a class="internalDFN idlName" data-link-type="dict-member" href="#dfn-AeadParams-tagLength" id="ref-for-dfn-AeadParams-tagLength-1"><code>tagLength</code></a>;</span>
 };</span></code></pre>
       <p>The <dfn data-dfn-for="AeadParams" id="dfn-AeadParams-iv" data-export="" data-dfn-type="dict-member" data-idl="field" data-title="iv" data-type="BufferSource" tabindex="0" aria-haspopup="dialog"><code>iv</code></dfn> member represents the initialization vector to use.</p>
       <p>The <dfn data-dfn-for="AeadParams" id="dfn-AeadParams-additionalData" data-export="" data-dfn-type="dict-member" data-idl="field" data-title="additionalData" data-type="BufferSource" tabindex="0" aria-haspopup="dialog"><code>additionalData</code></dfn> member represents the additional authentication data to include.</p>
       <p>The <dfn data-dfn-for="AeadParams" id="dfn-AeadParams-tagLength" data-export="" data-dfn-type="dict-member" data-idl="field" data-title="tagLength" data-type="octet" tabindex="0" aria-haspopup="dialog"><code>tagLength</code></dfn> member represents the desired length of the authentication tag.</p>
       <div class="note" role="note" id="issue-container-generatedID-0"><div role="heading" class="note-title marker" id="h-note-0" aria-level="4"><span>Note</span></div><div class="">
         <p>
-          The <a data-link-type="idl" data-lt="AeadParams" href="#dfn-AeadParams" class="internalDFN" id="ref-for-dfn-AeadParams-4"><code>AeadParams</code></a> dictionary is identical to the <a data-link-type="idl" data-lt="AesGcmParams" data-type="dictionary" href="https://www.w3.org/TR/WebCryptoAPI/#dfn-AesGcmParams"><code>AesGcmParams</code></a> dictionary of [<cite><a class="bibref" data-link-type="biblio" href="#bib-webcryptoapi" title="Web Cryptography API">WebCryptoAPI</a></cite>],
+          The <a data-link-type="idl" data-lt="AeadParams" href="#dfn-AeadParams" class="internalDFN" id="ref-for-dfn-AeadParams-4"><code>AeadParams</code></a> dictionary is identical to the <a data-link-type="dictionary" data-lt="AesGcmParams" href="https://www.w3.org/TR/WebCryptoAPI/#dfn-AesGcmParams"><code>AesGcmParams</code></a> dictionary of [<cite><a class="bibref" data-link-type="biblio" href="#bib-webcryptoapi" title="Web Cryptography API">WebCryptoAPI</a></cite>],
           and the latter may be replaced by the former when merging this proposal.
         </p>
       </div></div>
@@ -627,8 +629,8 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
                 If the <a data-link-type="idl" href="#dfn-AeadParams-iv" class="internalDFN" id="ref-for-dfn-AeadParams-iv-2"><code>iv</code></a> member of
                 <var>normalizedAlgorithm</var> has a length greater than 15
                 bytes,
-                then <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an
-                <a data-link-type="idl" data-lt="OperationError" data-type="exception" href="https://webidl.spec.whatwg.org/#operationerror"><code>OperationError</code></a>.
+                then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an
+                <a data-link-type="exception" data-lt="OperationError" href="https://webidl.spec.whatwg.org/#operationerror"><code>OperationError</code></a>.
               </p>
             </li>
             <li>
@@ -643,8 +645,8 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
                  <var>normalizedAlgorithm</var></dd>
                 <dt>Otherwise:</dt>
                 <dd>
-                  <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an
-                  <a data-link-type="idl" data-lt="OperationError" data-type="exception" href="https://webidl.spec.whatwg.org/#operationerror"><code>OperationError</code></a>.
+                  <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an
+                  <a data-link-type="exception" data-lt="OperationError" href="https://webidl.spec.whatwg.org/#operationerror"><code>OperationError</code></a>.
                 </dd>
               </dl>
             </li>
@@ -672,8 +674,8 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
             </li>
             <li>
               <p>
-                Return the result of <a data-link-type="dfn|abstract-op" data-lt="create" data-type="dfn" href="https://webidl.spec.whatwg.org/#arraybuffer-create">creating</a>
-                an <a data-link-type="idl" data-lt="ArrayBuffer" data-type="interface" href="https://webidl.spec.whatwg.org/#idl-ArrayBuffer"><code>ArrayBuffer</code></a> containing <var>C</var>.
+                Return the result of <a data-link-type="dfn" data-lt="create" href="https://webidl.spec.whatwg.org/#arraybuffer-create">creating</a>
+                an <a data-link-type="interface" data-lt="ArrayBuffer" href="https://webidl.spec.whatwg.org/#idl-ArrayBuffer"><code>ArrayBuffer</code></a> containing <var>C</var>.
               </p>
             </li>
           </ol>
@@ -686,8 +688,8 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
                 If the <a data-link-type="idl" href="#dfn-AeadParams-iv" class="internalDFN" id="ref-for-dfn-AeadParams-iv-4"><code>iv</code></a> member of
                 <var>normalizedAlgorithm</var> has a length greater than 15
                 bytes,
-                then <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an
-                <a data-link-type="idl" data-lt="OperationError" data-type="exception" href="https://webidl.spec.whatwg.org/#operationerror"><code>OperationError</code></a>.
+                then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an
+                <a data-link-type="exception" data-lt="OperationError" href="https://webidl.spec.whatwg.org/#operationerror"><code>OperationError</code></a>.
               </p>
             </li>
             <li>
@@ -702,16 +704,16 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
                  <var>normalizedAlgorithm</var></dd>
                 <dt>Otherwise:</dt>
                 <dd>
-                  <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an
-                  <a data-link-type="idl" data-lt="OperationError" data-type="exception" href="https://webidl.spec.whatwg.org/#operationerror"><code>OperationError</code></a>.
+                  <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an
+                  <a data-link-type="exception" data-lt="OperationError" href="https://webidl.spec.whatwg.org/#operationerror"><code>OperationError</code></a>.
                 </dd>
               </dl>
             </li>
             <li>
               <p>
                 If <var>ciphertext</var> has a length less than <var>tagLength</var> bits,
-                then <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an
-                <a data-link-type="idl" data-lt="OperationError" data-type="exception" href="https://webidl.spec.whatwg.org/#operationerror"><code>OperationError</code></a>.
+                then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an
+                <a data-link-type="exception" data-lt="OperationError" href="https://webidl.spec.whatwg.org/#operationerror"><code>OperationError</code></a>.
               </p>
             </li>
             <li>
@@ -738,8 +740,8 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
                 <dt>If the result of the algorithm is the indication of authentication failure,
                 "INVALID":</dt>
                 <dd>
-                  <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an
-                  <a data-link-type="idl" data-lt="OperationError" data-type="exception" href="https://webidl.spec.whatwg.org/#operationerror"><code>OperationError</code></a>
+                  <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an
+                  <a data-link-type="exception" data-lt="OperationError" href="https://webidl.spec.whatwg.org/#operationerror"><code>OperationError</code></a>
                 </dd>
                 <dt>Otherwise:</dt>
                 <dd>Let <var>plaintext</var> be the output <var>P</var> of OCB-DECRYPT.</dd>
@@ -747,8 +749,8 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
             </li>
             <li>
               <p>
-                Return the result of <a data-link-type="dfn|abstract-op" data-lt="create" data-type="dfn" href="https://webidl.spec.whatwg.org/#arraybuffer-create">creating</a>
-                an <a data-link-type="idl" data-lt="ArrayBuffer" data-type="interface" href="https://webidl.spec.whatwg.org/#idl-ArrayBuffer"><code>ArrayBuffer</code></a> containing <var>plaintext</var>.
+                Return the result of <a data-link-type="dfn" data-lt="create" href="https://webidl.spec.whatwg.org/#arraybuffer-create">creating</a>
+                an <a data-link-type="interface" data-lt="ArrayBuffer" href="https://webidl.spec.whatwg.org/#idl-ArrayBuffer"><code>ArrayBuffer</code></a> containing <var>plaintext</var>.
               </p>
             </li>
           </ol>
@@ -761,58 +763,58 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
                 If <var>usages</var> contains any entry which is not
                 one of "<code>encrypt</code>", "<code>decrypt</code>",
                 "<code>wrapKey</code>" or "<code>unwrapKey</code>",
-                then <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
-                <a data-link-type="idl" data-lt="SyntaxError" data-type="exception" href="https://webidl.spec.whatwg.org/#syntaxerror"><code>SyntaxError</code></a>.
+                then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
+                <a data-link-type="exception" data-lt="SyntaxError" href="https://webidl.spec.whatwg.org/#syntaxerror"><code>SyntaxError</code></a>.
               </p>
             </li>
             <li>
               <p>
-                If the <a data-link-type="idl" data-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dfn-AesKeyGenParams-length"><code>length</code></a> member of
+                If the <a data-link-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dfn-AesKeyGenParams-length"><code>length</code></a> member of
                 <var>normalizedAlgorithm</var> is not equal to one of
                 128, 192 or 256,
-                then <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an
-                <a data-link-type="idl" data-lt="OperationError" data-type="exception" href="https://webidl.spec.whatwg.org/#operationerror"><code>OperationError</code></a>.
+                then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an
+                <a data-link-type="exception" data-lt="OperationError" href="https://webidl.spec.whatwg.org/#operationerror"><code>OperationError</code></a>.
               </p>
             </li>
 
             <li>
               <p>
                 Generate an AES key of length
-                equal to the <a data-link-type="idl" data-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dfn-AesKeyGenParams-length"><code>length</code></a> member of
+                equal to the <a data-link-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dfn-AesKeyGenParams-length"><code>length</code></a> member of
                 <var>normalizedAlgorithm</var>.
               </p>
             </li>
             <li>
               <p>
                 If the key generation step fails,
-                then <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an
-                <a data-link-type="idl" data-lt="OperationError" data-type="exception" href="https://webidl.spec.whatwg.org/#operationerror"><code>OperationError</code></a>.
+                then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an
+                <a data-link-type="exception" data-lt="OperationError" href="https://webidl.spec.whatwg.org/#operationerror"><code>OperationError</code></a>.
               </p>
             </li>
             <li>
               <p>
                 Let <var>key</var> be a new
-                <a data-link-type="idl" data-lt="CryptoKey" data-type="interface" href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey"><code>CryptoKey</code></a> object representing the
+                <a data-link-type="interface" data-lt="CryptoKey" href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey"><code>CryptoKey</code></a> object representing the
                 generated AES key.
               </p>
             </li>
             <li>
               <p>
                 Let <var>algorithm</var> be a new
-                <a data-link-type="idl" data-lt="AesKeyAlgorithm" data-type="dictionary" href="https://www.w3.org/TR/WebCryptoAPI/#dfn-AesKeyAlgorithm"><code>AesKeyAlgorithm</code></a>.
+                <a data-link-type="dictionary" data-lt="AesKeyAlgorithm" href="https://www.w3.org/TR/WebCryptoAPI/#dfn-AesKeyAlgorithm"><code>AesKeyAlgorithm</code></a>.
               </p>
             </li>
             <li>
               <p>
-                Set the <a data-link-type="idl" data-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-keyalgorithm-name"><code>name</code></a> attribute of
+                Set the <a data-link-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-keyalgorithm-name"><code>name</code></a> attribute of
                 <var>algorithm</var> to "<code>AES-OCB</code>".
               </p>
             </li>
             <li>
               <p>
-                Set the <a data-link-type="idl" data-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dfn-AesKeyAlgorithm-length"><code>length</code></a> attribute of
+                Set the <a data-link-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dfn-AesKeyAlgorithm-length"><code>length</code></a> attribute of
                 <var>algorithm</var> to equal the
-                <a data-link-type="idl" data-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dfn-AesKeyGenParams-length"><code>length</code></a> member of
+                <a data-link-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dfn-AesKeyGenParams-length"><code>length</code></a> member of
                 <var>normalizedAlgorithm</var>.
               </p>
             </li>
@@ -849,13 +851,13 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
                 If <var>usages</var> contains an entry which is not
                 one of "<code>encrypt</code>", "<code>decrypt</code>",
                 "<code>wrapKey</code>" or "<code>unwrapKey</code>",
-                then <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
-                <a data-link-type="idl" data-lt="SyntaxError" data-type="exception" href="https://webidl.spec.whatwg.org/#syntaxerror"><code>SyntaxError</code></a>.
+                then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
+                <a data-link-type="exception" data-lt="SyntaxError" href="https://webidl.spec.whatwg.org/#syntaxerror"><code>SyntaxError</code></a>.
               </p>
             </li>
             <li>
               <dl class="switch">
-                <dt>If <var>format</var> is "<a data-link-type="idl" data-type="enum-value" href="https://www.w3.org/TR/WebCryptoAPI/#dom-keyformat-raw"><code>raw</code></a>":</dt>
+                <dt>If <var>format</var> is "<a data-link-type="enum-value" href="https://www.w3.org/TR/WebCryptoAPI/#dom-keyformat-raw"><code>raw</code></a>":</dt>
                 <dd>
                   <ol>
                     <li>
@@ -866,125 +868,125 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
                     <li>
                       <p>
                         If the length in bits of <var>data</var> is not 128, 192 or 256
-                        then <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
-                        <a data-link-type="idl" data-lt="DataError" data-type="exception" href="https://webidl.spec.whatwg.org/#dataerror"><code>DataError</code></a>.
+                        then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
+                        <a data-link-type="exception" data-lt="DataError" href="https://webidl.spec.whatwg.org/#dataerror"><code>DataError</code></a>.
                       </p>
                     </li>
                   </ol>
                 </dd>
-                <dt>If <var>format</var> is "<a data-link-type="idl" data-type="enum-value" href="https://www.w3.org/TR/WebCryptoAPI/#dom-keyformat-jwk"><code>jwk</code></a>":</dt>
+                <dt>If <var>format</var> is "<a data-link-type="enum-value" href="https://www.w3.org/TR/WebCryptoAPI/#dom-keyformat-jwk"><code>jwk</code></a>":</dt>
                 <dd>
                   <ol>
                     <li>
                       <dl class="switch">
-                        <dt>If <var>keyData</var> is a <a data-link-type="idl" data-lt="JsonWebKey" data-type="dictionary" href="https://www.w3.org/TR/WebCryptoAPI/#dfn-JsonWebKey"><code>JsonWebKey</code></a> dictionary:</dt>
+                        <dt>If <var>keyData</var> is a <a data-link-type="dictionary" data-lt="JsonWebKey" href="https://www.w3.org/TR/WebCryptoAPI/#dfn-JsonWebKey"><code>JsonWebKey</code></a> dictionary:</dt>
                         <dd><p>Let <var>jwk</var> equal <var>keyData</var>.</p></dd>
                         <dt>Otherwise:</dt>
-                        <dd><p><a data-link-type="dfn|abstract-op" data-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">Throw</a> a <a data-link-type="idl" data-lt="DataError" data-type="exception" href="https://webidl.spec.whatwg.org/#dataerror"><code>DataError</code></a>.</p></dd>
+                        <dd><p><a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">Throw</a> a <a data-link-type="exception" data-lt="DataError" href="https://webidl.spec.whatwg.org/#dataerror"><code>DataError</code></a>.</p></dd>
                       </dl>
                     </li>
                     <li>
                       <p>
-                        If the <a data-link-type="idl" data-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-jsonwebkey-kty"><code>kty</code></a> field of <var>jwk</var> is not
+                        If the <a data-link-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-jsonwebkey-kty"><code>kty</code></a> field of <var>jwk</var> is not
                         "<code>oct</code>",
-                        then <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
-                        <a data-link-type="idl" data-lt="DataError" data-type="exception" href="https://webidl.spec.whatwg.org/#dataerror"><code>DataError</code></a>.
+                        then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
+                        <a data-link-type="exception" data-lt="DataError" href="https://webidl.spec.whatwg.org/#dataerror"><code>DataError</code></a>.
                       </p>
                     </li>
                     <li>
                       <p>
                         If <var>jwk</var> does not meet the requirements of
                         Section 6.4 of JSON Web Algorithms [<cite><a class="bibref" data-link-type="biblio" href="#bib-jwa" title="JSON Web Algorithms (JWA)">JWA</a></cite>],
-                        then <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
-                        <a data-link-type="idl" data-lt="DataError" data-type="exception" href="https://webidl.spec.whatwg.org/#dataerror"><code>DataError</code></a>.
+                        then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
+                        <a data-link-type="exception" data-lt="DataError" href="https://webidl.spec.whatwg.org/#dataerror"><code>DataError</code></a>.
                       </p>
                     </li>
                     <li>
                       <p>
                         Let <var>data</var> be the <a data-link-type="dfn|abstract-op" href="#dfn-octet-string" class="internalDFN" id="ref-for-dfn-octet-string-2">octet string</a> obtained by decoding the
-                        <a data-link-type="idl" data-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-jsonwebkey-k"><code>k</code></a> field of <var>jwk</var>.
+                        <a data-link-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-jsonwebkey-k"><code>k</code></a> field of <var>jwk</var>.
                       </p>
                     </li>
                     <li>
                       <dl class="switch">
                         <dt>If <var>data</var> has length 128 bits:</dt>
-                        <dd>If the <a data-link-type="idl" data-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-jsonwebkey-alg"><code>alg</code></a> field of <var>jwk</var> is present, and is
+                        <dd>If the <a data-link-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-jsonwebkey-alg"><code>alg</code></a> field of <var>jwk</var> is present, and is
                         not "<code>A128OCB</code>",
-                          then <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
-                          <a data-link-type="idl" data-lt="DataError" data-type="exception" href="https://webidl.spec.whatwg.org/#dataerror"><code>DataError</code></a>.</dd>
+                          then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
+                          <a data-link-type="exception" data-lt="DataError" href="https://webidl.spec.whatwg.org/#dataerror"><code>DataError</code></a>.</dd>
                         <dt>If <var>data</var> has length 192 bits:</dt>
-                        <dd>If the <a data-link-type="idl" data-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-jsonwebkey-alg"><code>alg</code></a> field of <var>jwk</var> is present, and is
+                        <dd>If the <a data-link-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-jsonwebkey-alg"><code>alg</code></a> field of <var>jwk</var> is present, and is
                         not "<code>A192OCB</code>",
-                          then <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
-                          <a data-link-type="idl" data-lt="DataError" data-type="exception" href="https://webidl.spec.whatwg.org/#dataerror"><code>DataError</code></a>.</dd>
+                          then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
+                          <a data-link-type="exception" data-lt="DataError" href="https://webidl.spec.whatwg.org/#dataerror"><code>DataError</code></a>.</dd>
                         <dt>If <var>data</var> has length 256 bits:</dt>
-                        <dd>If the <a data-link-type="idl" data-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-jsonwebkey-alg"><code>alg</code></a> field of <var>jwk</var> is present, and is
+                        <dd>If the <a data-link-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-jsonwebkey-alg"><code>alg</code></a> field of <var>jwk</var> is present, and is
                         not "<code>A256OCB</code>",
-                          then <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
-                          <a data-link-type="idl" data-lt="DataError" data-type="exception" href="https://webidl.spec.whatwg.org/#dataerror"><code>DataError</code></a>.</dd>
+                          then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
+                          <a data-link-type="exception" data-lt="DataError" href="https://webidl.spec.whatwg.org/#dataerror"><code>DataError</code></a>.</dd>
                         <dt>Otherwise:</dt>
                         <dd>
-                          <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
-                          <a data-link-type="idl" data-lt="DataError" data-type="exception" href="https://webidl.spec.whatwg.org/#dataerror"><code>DataError</code></a>.
+                          <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
+                          <a data-link-type="exception" data-lt="DataError" href="https://webidl.spec.whatwg.org/#dataerror"><code>DataError</code></a>.
                         </dd>
                       </dl>
                     </li>
                     <li>
                       <p>
-                        If <var>usages</var> is non-empty and the <a data-link-type="idl" data-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-jsonwebkey-use"><code>use</code></a> field of <var>jwk</var> is present and is
+                        If <var>usages</var> is non-empty and the <a data-link-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-jsonwebkey-use"><code>use</code></a> field of <var>jwk</var> is present and is
                         not "<code>enc</code>",
-                        then <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
-                        <a data-link-type="idl" data-lt="DataError" data-type="exception" href="https://webidl.spec.whatwg.org/#dataerror"><code>DataError</code></a>.
+                        then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
+                        <a data-link-type="exception" data-lt="DataError" href="https://webidl.spec.whatwg.org/#dataerror"><code>DataError</code></a>.
                       </p>
                     </li>
                     <li>
                       <p>
-                        If the <a data-link-type="idl" data-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-jsonwebkey-key_ops"><code>key_ops</code></a> field of <var>jwk</var> is present, and
+                        If the <a data-link-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-jsonwebkey-key_ops"><code>key_ops</code></a> field of <var>jwk</var> is present, and
                         is invalid according to the requirements of
                         JSON Web Key [<cite><a class="bibref" data-link-type="biblio" href="#bib-jwk" title="JSON Web Key (JWK)">JWK</a></cite>] or
                         does not contain all of the specified <var>usages</var> values,
-                        then <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
-                        <a data-link-type="idl" data-lt="DataError" data-type="exception" href="https://webidl.spec.whatwg.org/#dataerror"><code>DataError</code></a>.
+                        then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
+                        <a data-link-type="exception" data-lt="DataError" href="https://webidl.spec.whatwg.org/#dataerror"><code>DataError</code></a>.
                       </p>
                     </li>
                     <li>
                       <p>
-                        If the <a data-link-type="idl" data-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-jsonwebkey-ext"><code>ext</code></a> field of <var>jwk</var> is present and
+                        If the <a data-link-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-jsonwebkey-ext"><code>ext</code></a> field of <var>jwk</var> is present and
                         has the value false and <var>extractable</var> is true,
-                        then <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
-                        <a data-link-type="idl" data-lt="DataError" data-type="exception" href="https://webidl.spec.whatwg.org/#dataerror"><code>DataError</code></a>.
+                        then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
+                        <a data-link-type="exception" data-lt="DataError" href="https://webidl.spec.whatwg.org/#dataerror"><code>DataError</code></a>.
                       </p>
                     </li>
                   </ol>
                 </dd>
                 <dt>Otherwise:</dt>
                 <dd>
-                  <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
-                  <a data-link-type="idl" data-lt="NotSupportedError" data-type="exception" href="https://webidl.spec.whatwg.org/#notsupportederror"><code>NotSupportedError</code></a>.
+                  <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
+                  <a data-link-type="exception" data-lt="NotSupportedError" href="https://webidl.spec.whatwg.org/#notsupportederror"><code>NotSupportedError</code></a>.
                 </dd>
               </dl>
             </li>
             <li>
               <p>
-                Let <var>key</var> be a new <a data-link-type="idl" data-lt="CryptoKey" data-type="interface" href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey"><code>CryptoKey</code></a>
+                Let <var>key</var> be a new <a data-link-type="interface" data-lt="CryptoKey" href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey"><code>CryptoKey</code></a>
                 object representing an AES key with value <var>data</var>.
               </p>
             </li>
             <li>
               <p>
                 Let <var>algorithm</var> be a new
-                <a data-link-type="idl" data-lt="AesKeyAlgorithm" data-type="dictionary" href="https://www.w3.org/TR/WebCryptoAPI/#dfn-AesKeyAlgorithm"><code>AesKeyAlgorithm</code></a>.
+                <a data-link-type="dictionary" data-lt="AesKeyAlgorithm" href="https://www.w3.org/TR/WebCryptoAPI/#dfn-AesKeyAlgorithm"><code>AesKeyAlgorithm</code></a>.
               </p>
             </li>
             <li>
               <p>
-                Set the <a data-link-type="idl" data-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-keyalgorithm-name"><code>name</code></a> attribute of
+                Set the <a data-link-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-keyalgorithm-name"><code>name</code></a> attribute of
                 <var>algorithm</var> to "<code>AES-OCB</code>".
               </p>
             </li>
             <li>
               <p>
-                Set the <a data-link-type="idl" data-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dfn-AesKeyAlgorithm-length"><code>length</code></a> attribute of
+                Set the <a data-link-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dfn-AesKeyAlgorithm-length"><code>length</code></a> attribute of
                 <var>algorithm</var> to the length, in bits, of <var>data</var>.
               </p>
             </li>
@@ -1007,12 +1009,12 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
             <li>
               <p>
                 If the underlying cryptographic key material represented by the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-handle">[[handle]]</a> internal slot of <var>key</var>
-                cannot be accessed, then <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an <a data-link-type="idl" data-lt="OperationError" data-type="exception" href="https://webidl.spec.whatwg.org/#operationerror"><code>OperationError</code></a>.
+                cannot be accessed, then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an <a data-link-type="exception" data-lt="OperationError" href="https://webidl.spec.whatwg.org/#operationerror"><code>OperationError</code></a>.
               </p>
             </li>
             <li>
               <dl class="switch">
-                <dt>If <var>format</var> is "<a data-link-type="idl" data-type="enum-value" href="https://www.w3.org/TR/WebCryptoAPI/#dom-keyformat-raw"><code>raw</code></a>":</dt>
+                <dt>If <var>format</var> is "<a data-link-type="enum-value" href="https://www.w3.org/TR/WebCryptoAPI/#dom-keyformat-raw"><code>raw</code></a>":</dt>
                 <dd>
                   <ol>
                     <li>
@@ -1023,18 +1025,18 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
                     </li>
                     <li>
                       <p>
-                        Let <var>result</var> be the result of <a data-link-type="dfn|abstract-op" data-lt="create" data-type="dfn" href="https://webidl.spec.whatwg.org/#arraybuffer-create">creating</a>
-                        an <a data-link-type="idl" data-lt="ArrayBuffer" data-type="interface" href="https://webidl.spec.whatwg.org/#idl-ArrayBuffer"><code>ArrayBuffer</code></a> containing <var>data</var>.
+                        Let <var>result</var> be the result of <a data-link-type="dfn" data-lt="create" href="https://webidl.spec.whatwg.org/#arraybuffer-create">creating</a>
+                        an <a data-link-type="interface" data-lt="ArrayBuffer" href="https://webidl.spec.whatwg.org/#idl-ArrayBuffer"><code>ArrayBuffer</code></a> containing <var>data</var>.
                       </p>
                     </li>
                   </ol>
                 </dd>
-                <dt>If <var>format</var> is "<a data-link-type="idl" data-type="enum-value" href="https://www.w3.org/TR/WebCryptoAPI/#dom-keyformat-jwk"><code>jwk</code></a>":</dt>
+                <dt>If <var>format</var> is "<a data-link-type="enum-value" href="https://www.w3.org/TR/WebCryptoAPI/#dom-keyformat-jwk"><code>jwk</code></a>":</dt>
                 <dd>
                   <ol>
                     <li>
                       <p>
-                        Let <var>jwk</var> be a new <a data-link-type="idl" data-lt="JsonWebKey" data-type="dictionary" href="https://www.w3.org/TR/WebCryptoAPI/#dfn-JsonWebKey"><code>JsonWebKey</code></a>
+                        Let <var>jwk</var> be a new <a data-link-type="dictionary" data-lt="JsonWebKey" href="https://www.w3.org/TR/WebCryptoAPI/#dfn-JsonWebKey"><code>JsonWebKey</code></a>
                         dictionary.
                       </p>
                     </li>
@@ -1046,22 +1048,22 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
                     </li>
                     <li>
                       <p>
-                        Set the <a data-link-type="idl" data-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-jsonwebkey-k"><code>k</code></a> attribute of <var>jwk</var> to be a string
+                        Set the <a data-link-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-jsonwebkey-k"><code>k</code></a> attribute of <var>jwk</var> to be a string
                         containing the raw octets of the key represented by <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-handle">[[handle]]</a> internal slot of
                         <var>key</var>, encoded according to Section 6.4 of JSON Web Algorithms [<cite><a class="bibref" data-link-type="biblio" href="#bib-jwa" title="JSON Web Algorithms (JWA)">JWA</a></cite>].
                       </p>
                     </li>
                     <li>
                       <dl class="switch">
-                        <dt>If the <a data-link-type="idl" data-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dfn-AesKeyAlgorithm-length"><code>length</code></a> attribute of
+                        <dt>If the <a data-link-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dfn-AesKeyAlgorithm-length"><code>length</code></a> attribute of
                         <var>key</var> is 128:</dt>
                         <dd>Set the <code>alg</code> attribute of <var>jwk</var> to
                         the string "<code>A128OCB</code>".</dd>
-                        <dt>If the <a data-link-type="idl" data-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dfn-AesKeyAlgorithm-length"><code>length</code></a> attribute of
+                        <dt>If the <a data-link-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dfn-AesKeyAlgorithm-length"><code>length</code></a> attribute of
                         <var>key</var> is 192:</dt>
                         <dd>Set the <code>alg</code> attribute of <var>jwk</var> to
                         the string "<code>A192OCB</code>".</dd>
-                        <dt>If the <a data-link-type="idl" data-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dfn-AesKeyAlgorithm-length"><code>length</code></a> attribute of
+                        <dt>If the <a data-link-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dfn-AesKeyAlgorithm-length"><code>length</code></a> attribute of
                         <var>key</var> is 256:</dt>
                         <dd>Set the <code>alg</code> attribute of <var>jwk</var> to
                         the string "<code>A256OCB</code>".</dd>
@@ -1070,7 +1072,7 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
                     <li>
                       <p>
                         Set the <code>key_ops</code> attribute of <var>jwk</var> to equal the
-                        <a data-link-type="idl" data-type="attribute" href="https://www.w3.org/TR/WebCryptoAPI/#dom-cryptokey-usages"><code>usages</code></a> attribute of
+                        <a data-link-type="attribute" href="https://www.w3.org/TR/WebCryptoAPI/#dom-cryptokey-usages"><code>usages</code></a> attribute of
                         <var>key</var>.
                       </p>
                     </li>
@@ -1091,8 +1093,8 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
                 <dt>Otherwise:</dt>
                 <dd>
                   <p>
-                    <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
-                    <a data-link-type="idl" data-lt="NotSupportedError" data-type="exception" href="https://webidl.spec.whatwg.org/#notsupportederror"><code>NotSupportedError</code></a>.
+                    <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
+                    <a data-link-type="exception" data-lt="NotSupportedError" href="https://webidl.spec.whatwg.org/#notsupportederror"><code>NotSupportedError</code></a>.
                   </p>
                 </dd>
               </dl>
@@ -1109,13 +1111,13 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
           <ol>
             <li>
               <p>
-                If the <a data-link-type="idl" data-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dfn-AesDerivedKeyParams-length"><code>length</code></a> member of
-                <var>normalizedDerivedKeyAlgorithm</var> is not 128, 192 or 256, then <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an <a data-link-type="idl" data-lt="OperationError" data-type="exception" href="https://webidl.spec.whatwg.org/#operationerror"><code>OperationError</code></a>.
+                If the <a data-link-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dfn-AesDerivedKeyParams-length"><code>length</code></a> member of
+                <var>normalizedDerivedKeyAlgorithm</var> is not 128, 192 or 256, then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an <a data-link-type="exception" data-lt="OperationError" href="https://webidl.spec.whatwg.org/#operationerror"><code>OperationError</code></a>.
               </p>
             </li>
             <li>
               <p>
-                Return the <a data-link-type="idl" data-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dfn-AesDerivedKeyParams-length"><code>length</code></a> member of
+                Return the <a data-link-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dfn-AesDerivedKeyParams-length"><code>length</code></a> member of
                 <var>normalizedDerivedKeyAlgorithm</var>.
               </p>
             </li>
@@ -1153,22 +1155,22 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
           <tr>
             <td>encrypt</td>
             <td><a data-link-type="idl" data-lt="AeadParams" href="#dfn-AeadParams" class="internalDFN" id="ref-for-dfn-AeadParams-5"><code>AeadParams</code></a></td>
-            <td><a data-link-type="idl" data-lt="ArrayBuffer" data-type="interface" href="https://webidl.spec.whatwg.org/#idl-ArrayBuffer"><code>ArrayBuffer</code></a></td>
+            <td><a data-link-type="interface" data-lt="ArrayBuffer" href="https://webidl.spec.whatwg.org/#idl-ArrayBuffer"><code>ArrayBuffer</code></a></td>
           </tr>
           <tr>
             <td>decrypt</td>
             <td><a data-link-type="idl" data-lt="AeadParams" href="#dfn-AeadParams" class="internalDFN" id="ref-for-dfn-AeadParams-6"><code>AeadParams</code></a></td>
-            <td><a data-link-type="idl" data-lt="ArrayBuffer" data-type="interface" href="https://webidl.spec.whatwg.org/#idl-ArrayBuffer"><code>ArrayBuffer</code></a></td>
+            <td><a data-link-type="interface" data-lt="ArrayBuffer" href="https://webidl.spec.whatwg.org/#idl-ArrayBuffer"><code>ArrayBuffer</code></a></td>
           </tr>
           <tr>
             <td>generateKey</td>
             <td>None</td>
-            <td><a data-link-type="idl" data-lt="CryptoKey" data-type="interface" href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey"><code>CryptoKey</code></a></td>
+            <td><a data-link-type="interface" data-lt="CryptoKey" href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey"><code>CryptoKey</code></a></td>
           </tr>
          <tr>
            <td>importKey</td>
            <td>None</td>
-           <td><a data-link-type="idl" data-lt="CryptoKey" data-type="interface" href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey"><code>CryptoKey</code></a></td>
+           <td><a data-link-type="interface" data-lt="CryptoKey" href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey"><code>CryptoKey</code></a></td>
          </tr>
          <tr>
            <td>exportKey</td>
@@ -1193,16 +1195,16 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
               <p>
                 If the <a data-link-type="idl" href="#dfn-AeadParams-iv" class="internalDFN" id="ref-for-dfn-AeadParams-iv-6"><code>iv</code></a> member of
                 <var>normalizedAlgorithm</var> does not have a length of 12 bytes,
-                then <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an
-                <a data-link-type="idl" data-lt="OperationError" data-type="exception" href="https://webidl.spec.whatwg.org/#operationerror"><code>OperationError</code></a>.
+                then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an
+                <a data-link-type="exception" data-lt="OperationError" href="https://webidl.spec.whatwg.org/#operationerror"><code>OperationError</code></a>.
               </p>
             </li>
             <li>
               <p>
                 If the <a data-link-type="idl" href="#dfn-AeadParams-tagLength" class="internalDFN" id="ref-for-dfn-AeadParams-tagLength-8"><code>tagLength</code></a> member
                 of <var>normalizedAlgorithm</var> is present and is not 128,
-                then <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an
-                <a data-link-type="idl" data-lt="OperationError" data-type="exception" href="https://webidl.spec.whatwg.org/#operationerror"><code>OperationError</code></a>.
+                then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an
+                <a data-link-type="exception" data-lt="OperationError" href="https://webidl.spec.whatwg.org/#operationerror"><code>OperationError</code></a>.
               </p>
             </li>
             <li>
@@ -1229,8 +1231,8 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
             </li>
             <li>
               <p>
-                Return the result of <a data-link-type="dfn|abstract-op" data-lt="create" data-type="dfn" href="https://webidl.spec.whatwg.org/#arraybuffer-create">creating</a>
-                an <a data-link-type="idl" data-lt="ArrayBuffer" data-type="interface" href="https://webidl.spec.whatwg.org/#idl-ArrayBuffer"><code>ArrayBuffer</code></a> containing <var>ciphertext</var>.
+                Return the result of <a data-link-type="dfn" data-lt="create" href="https://webidl.spec.whatwg.org/#arraybuffer-create">creating</a>
+                an <a data-link-type="interface" data-lt="ArrayBuffer" href="https://webidl.spec.whatwg.org/#idl-ArrayBuffer"><code>ArrayBuffer</code></a> containing <var>ciphertext</var>.
               </p>
             </li>
           </ol>
@@ -1242,23 +1244,23 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
               <p>
                 If the <a data-link-type="idl" href="#dfn-AeadParams-iv" class="internalDFN" id="ref-for-dfn-AeadParams-iv-8"><code>iv</code></a> member of
                 <var>normalizedAlgorithm</var> does not have a length of 12 bytes,
-                then <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an
-                <a data-link-type="idl" data-lt="OperationError" data-type="exception" href="https://webidl.spec.whatwg.org/#operationerror"><code>OperationError</code></a>.
+                then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an
+                <a data-link-type="exception" data-lt="OperationError" href="https://webidl.spec.whatwg.org/#operationerror"><code>OperationError</code></a>.
               </p>
             </li>
             <li>
               <p>
                 If the <a data-link-type="idl" href="#dfn-AeadParams-tagLength" class="internalDFN" id="ref-for-dfn-AeadParams-tagLength-9"><code>tagLength</code></a> member
                 of <var>normalizedAlgorithm</var> is present and is not 128,
-                then <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an
-                <a data-link-type="idl" data-lt="OperationError" data-type="exception" href="https://webidl.spec.whatwg.org/#operationerror"><code>OperationError</code></a>.
+                then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an
+                <a data-link-type="exception" data-lt="OperationError" href="https://webidl.spec.whatwg.org/#operationerror"><code>OperationError</code></a>.
               </p>
             </li>
             <li>
               <p>
                 If <var>ciphertext</var> has a length less than 128 bits,
-                then <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an
-                <a data-link-type="idl" data-lt="OperationError" data-type="exception" href="https://webidl.spec.whatwg.org/#operationerror"><code>OperationError</code></a>.
+                then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an
+                <a data-link-type="exception" data-lt="OperationError" href="https://webidl.spec.whatwg.org/#operationerror"><code>OperationError</code></a>.
               </p>
             </li>
             <li>
@@ -1284,8 +1286,8 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
               <dl class="switch">
                 <dt>If the result of the algorithm is the indication of authentication failure:</dt>
                 <dd>
-                  <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an
-                  <a data-link-type="idl" data-lt="OperationError" data-type="exception" href="https://webidl.spec.whatwg.org/#operationerror"><code>OperationError</code></a>
+                  <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an
+                  <a data-link-type="exception" data-lt="OperationError" href="https://webidl.spec.whatwg.org/#operationerror"><code>OperationError</code></a>
                 </dd>
                 <dt>Otherwise:</dt>
                 <dd>Let <var>plaintext</var> be the resulting plaintext.</dd>
@@ -1293,8 +1295,8 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
             </li>
             <li>
               <p>
-                Return the result of <a data-link-type="dfn|abstract-op" data-lt="create" data-type="dfn" href="https://webidl.spec.whatwg.org/#arraybuffer-create">creating</a>
-                an <a data-link-type="idl" data-lt="ArrayBuffer" data-type="interface" href="https://webidl.spec.whatwg.org/#idl-ArrayBuffer"><code>ArrayBuffer</code></a> containing <var>plaintext</var>.
+                Return the result of <a data-link-type="dfn" data-lt="create" href="https://webidl.spec.whatwg.org/#arraybuffer-create">creating</a>
+                an <a data-link-type="interface" data-lt="ArrayBuffer" href="https://webidl.spec.whatwg.org/#idl-ArrayBuffer"><code>ArrayBuffer</code></a> containing <var>plaintext</var>.
               </p>
             </li>
           </ol>
@@ -1307,8 +1309,8 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
                 If <var>usages</var> contains any entry which is not
                 one of "<code>encrypt</code>", "<code>decrypt</code>",
                 "<code>wrapKey</code>" or "<code>unwrapKey</code>",
-                then <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
-                <a data-link-type="idl" data-lt="SyntaxError" data-type="exception" href="https://webidl.spec.whatwg.org/#syntaxerror"><code>SyntaxError</code></a>.
+                then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
+                <a data-link-type="exception" data-lt="SyntaxError" href="https://webidl.spec.whatwg.org/#syntaxerror"><code>SyntaxError</code></a>.
               </p>
             </li>
 
@@ -1320,26 +1322,26 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
             <li>
               <p>
                 If the key generation step fails,
-                then <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an
-                <a data-link-type="idl" data-lt="OperationError" data-type="exception" href="https://webidl.spec.whatwg.org/#operationerror"><code>OperationError</code></a>.
+                then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an
+                <a data-link-type="exception" data-lt="OperationError" href="https://webidl.spec.whatwg.org/#operationerror"><code>OperationError</code></a>.
               </p>
             </li>
             <li>
               <p>
                 Let <var>key</var> be a new
-                <a data-link-type="idl" data-lt="CryptoKey" data-type="interface" href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey"><code>CryptoKey</code></a> object representing the
+                <a data-link-type="interface" data-lt="CryptoKey" href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey"><code>CryptoKey</code></a> object representing the
                 generated key.
               </p>
             </li>
             <li>
               <p>
                 Let <var>algorithm</var> be a new
-                <a data-link-type="idl" data-lt="KeyAlgorithm" data-type="dictionary" href="https://www.w3.org/TR/WebCryptoAPI/#dfn-KeyAlgorithm"><code>KeyAlgorithm</code></a>.
+                <a data-link-type="dictionary" data-lt="KeyAlgorithm" href="https://www.w3.org/TR/WebCryptoAPI/#dfn-KeyAlgorithm"><code>KeyAlgorithm</code></a>.
               </p>
             </li>
             <li>
               <p>
-                Set the <a data-link-type="idl" data-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-keyalgorithm-name"><code>name</code></a> attribute of
+                Set the <a data-link-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-keyalgorithm-name"><code>name</code></a> attribute of
                 <var>algorithm</var> to "<code>ChaCha20-Poly1305</code>".
               </p>
             </li>
@@ -1376,13 +1378,13 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
                 If <var>usages</var> contains an entry which is not
                 one of "<code>encrypt</code>", "<code>decrypt</code>",
                 "<code>wrapKey</code>" or "<code>unwrapKey</code>",
-                then <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
-                <a data-link-type="idl" data-lt="SyntaxError" data-type="exception" href="https://webidl.spec.whatwg.org/#syntaxerror"><code>SyntaxError</code></a>.
+                then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
+                <a data-link-type="exception" data-lt="SyntaxError" href="https://webidl.spec.whatwg.org/#syntaxerror"><code>SyntaxError</code></a>.
               </p>
             </li>
             <li>
               <dl class="switch">
-                <dt>If <var>format</var> is "<a data-link-type="idl" data-type="enum-value" href="https://www.w3.org/TR/WebCryptoAPI/#dom-keyformat-raw"><code>raw</code></a>":</dt>
+                <dt>If <var>format</var> is "<a data-link-type="enum-value" href="https://www.w3.org/TR/WebCryptoAPI/#dom-keyformat-raw"><code>raw</code></a>":</dt>
                 <dd>
                   <ol>
                     <li>
@@ -1393,103 +1395,103 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
                     <li>
                       <p>
                         If the length in bits of <var>data</var> is not 256
-                        then <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
-                        <a data-link-type="idl" data-lt="DataError" data-type="exception" href="https://webidl.spec.whatwg.org/#dataerror"><code>DataError</code></a>.
+                        then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
+                        <a data-link-type="exception" data-lt="DataError" href="https://webidl.spec.whatwg.org/#dataerror"><code>DataError</code></a>.
                       </p>
                     </li>
                   </ol>
                 </dd>
-                <dt>If <var>format</var> is "<a data-link-type="idl" data-type="enum-value" href="https://www.w3.org/TR/WebCryptoAPI/#dom-keyformat-jwk"><code>jwk</code></a>":</dt>
+                <dt>If <var>format</var> is "<a data-link-type="enum-value" href="https://www.w3.org/TR/WebCryptoAPI/#dom-keyformat-jwk"><code>jwk</code></a>":</dt>
                 <dd>
                   <ol>
                     <li>
                       <dl class="switch">
-                        <dt>If <var>keyData</var> is a <a data-link-type="idl" data-lt="JsonWebKey" data-type="dictionary" href="https://www.w3.org/TR/WebCryptoAPI/#dfn-JsonWebKey"><code>JsonWebKey</code></a> dictionary:</dt>
+                        <dt>If <var>keyData</var> is a <a data-link-type="dictionary" data-lt="JsonWebKey" href="https://www.w3.org/TR/WebCryptoAPI/#dfn-JsonWebKey"><code>JsonWebKey</code></a> dictionary:</dt>
                         <dd><p>Let <var>jwk</var> equal <var>keyData</var>.</p></dd>
                         <dt>Otherwise:</dt>
-                        <dd><p><a data-link-type="dfn|abstract-op" data-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">Throw</a> a <a data-link-type="idl" data-lt="DataError" data-type="exception" href="https://webidl.spec.whatwg.org/#dataerror"><code>DataError</code></a>.</p></dd>
+                        <dd><p><a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">Throw</a> a <a data-link-type="exception" data-lt="DataError" href="https://webidl.spec.whatwg.org/#dataerror"><code>DataError</code></a>.</p></dd>
                       </dl>
                     </li>
                     <li>
                       <p>
-                        If the <a data-link-type="idl" data-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-jsonwebkey-kty"><code>kty</code></a> field of <var>jwk</var> is not
+                        If the <a data-link-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-jsonwebkey-kty"><code>kty</code></a> field of <var>jwk</var> is not
                         "<code>oct</code>",
-                        then <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
-                        <a data-link-type="idl" data-lt="DataError" data-type="exception" href="https://webidl.spec.whatwg.org/#dataerror"><code>DataError</code></a>.
+                        then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
+                        <a data-link-type="exception" data-lt="DataError" href="https://webidl.spec.whatwg.org/#dataerror"><code>DataError</code></a>.
                       </p>
                     </li>
                     <li>
                       <p>
                         If <var>jwk</var> does not meet the requirements of
                         Section 6.4 of JSON Web Algorithms [<cite><a class="bibref" data-link-type="biblio" href="#bib-jwa" title="JSON Web Algorithms (JWA)">JWA</a></cite>],
-                        then <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
-                        <a data-link-type="idl" data-lt="DataError" data-type="exception" href="https://webidl.spec.whatwg.org/#dataerror"><code>DataError</code></a>.
+                        then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
+                        <a data-link-type="exception" data-lt="DataError" href="https://webidl.spec.whatwg.org/#dataerror"><code>DataError</code></a>.
                       </p>
                     </li>
                     <li>
                       <p>
                         Let <var>data</var> be the <a data-link-type="dfn|abstract-op" href="#dfn-octet-string" class="internalDFN" id="ref-for-dfn-octet-string-4">octet string</a> obtained by decoding the
-                        <a data-link-type="idl" data-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-jsonwebkey-k"><code>k</code></a> field of <var>jwk</var>.
+                        <a data-link-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-jsonwebkey-k"><code>k</code></a> field of <var>jwk</var>.
                       </p>
                     </li>
                     <li>
                       <p>
-                        If the <a data-link-type="idl" data-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-jsonwebkey-alg"><code>alg</code></a> field of <var>jwk</var> is present, and is
+                        If the <a data-link-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-jsonwebkey-alg"><code>alg</code></a> field of <var>jwk</var> is present, and is
                         not "<code>CC20P1305</code>",
-                        then <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
-                        <a data-link-type="idl" data-lt="DataError" data-type="exception" href="https://webidl.spec.whatwg.org/#dataerror"><code>DataError</code></a>.
+                        then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
+                        <a data-link-type="exception" data-lt="DataError" href="https://webidl.spec.whatwg.org/#dataerror"><code>DataError</code></a>.
                       </p>
                     </li>
                     <li>
                       <p>
-                        If <var>usages</var> is non-empty and the <a data-link-type="idl" data-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-jsonwebkey-use"><code>use</code></a> field of <var>jwk</var> is present and is
+                        If <var>usages</var> is non-empty and the <a data-link-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-jsonwebkey-use"><code>use</code></a> field of <var>jwk</var> is present and is
                         not "<code>enc</code>",
-                        then <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
-                        <a data-link-type="idl" data-lt="DataError" data-type="exception" href="https://webidl.spec.whatwg.org/#dataerror"><code>DataError</code></a>.
+                        then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
+                        <a data-link-type="exception" data-lt="DataError" href="https://webidl.spec.whatwg.org/#dataerror"><code>DataError</code></a>.
                       </p>
                     </li>
                     <li>
                       <p>
-                        If the <a data-link-type="idl" data-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-jsonwebkey-key_ops"><code>key_ops</code></a> field of <var>jwk</var> is present, and
+                        If the <a data-link-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-jsonwebkey-key_ops"><code>key_ops</code></a> field of <var>jwk</var> is present, and
                         is invalid according to the requirements of
                         JSON Web Key [<cite><a class="bibref" data-link-type="biblio" href="#bib-jwk" title="JSON Web Key (JWK)">JWK</a></cite>] or
                         does not contain all of the specified <var>usages</var> values,
-                        then <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
-                        <a data-link-type="idl" data-lt="DataError" data-type="exception" href="https://webidl.spec.whatwg.org/#dataerror"><code>DataError</code></a>.
+                        then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
+                        <a data-link-type="exception" data-lt="DataError" href="https://webidl.spec.whatwg.org/#dataerror"><code>DataError</code></a>.
                       </p>
                     </li>
                     <li>
                       <p>
-                        If the <a data-link-type="idl" data-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-jsonwebkey-ext"><code>ext</code></a> field of <var>jwk</var> is present and
+                        If the <a data-link-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-jsonwebkey-ext"><code>ext</code></a> field of <var>jwk</var> is present and
                         has the value false and <var>extractable</var> is true,
-                        then <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
-                        <a data-link-type="idl" data-lt="DataError" data-type="exception" href="https://webidl.spec.whatwg.org/#dataerror"><code>DataError</code></a>.
+                        then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
+                        <a data-link-type="exception" data-lt="DataError" href="https://webidl.spec.whatwg.org/#dataerror"><code>DataError</code></a>.
                       </p>
                     </li>
                   </ol>
                 </dd>
                 <dt>Otherwise:</dt>
                 <dd>
-                  <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
-                  <a data-link-type="idl" data-lt="NotSupportedError" data-type="exception" href="https://webidl.spec.whatwg.org/#notsupportederror"><code>NotSupportedError</code></a>.
+                  <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
+                  <a data-link-type="exception" data-lt="NotSupportedError" href="https://webidl.spec.whatwg.org/#notsupportederror"><code>NotSupportedError</code></a>.
                 </dd>
               </dl>
             </li>
             <li>
               <p>
-                Let <var>key</var> be a new <a data-link-type="idl" data-lt="CryptoKey" data-type="interface" href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey"><code>CryptoKey</code></a>
+                Let <var>key</var> be a new <a data-link-type="interface" data-lt="CryptoKey" href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey"><code>CryptoKey</code></a>
                 object representing a key with value <var>data</var>.
               </p>
             </li>
             <li>
               <p>
                 Let <var>algorithm</var> be a new
-                <a data-link-type="idl" data-lt="KeyAlgorithm" data-type="dictionary" href="https://www.w3.org/TR/WebCryptoAPI/#dfn-KeyAlgorithm"><code>KeyAlgorithm</code></a>.
+                <a data-link-type="dictionary" data-lt="KeyAlgorithm" href="https://www.w3.org/TR/WebCryptoAPI/#dfn-KeyAlgorithm"><code>KeyAlgorithm</code></a>.
               </p>
             </li>
             <li>
               <p>
-                Set the <a data-link-type="idl" data-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-keyalgorithm-name"><code>name</code></a> attribute of
+                Set the <a data-link-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-keyalgorithm-name"><code>name</code></a> attribute of
                 <var>algorithm</var> to "<code>ChaCha20-Poly1305</code>".
               </p>
             </li>
@@ -1512,12 +1514,12 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
             <li>
               <p>
                 If the underlying cryptographic key material represented by the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-handle">[[handle]]</a> internal slot of <var>key</var>
-                cannot be accessed, then <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an <a data-link-type="idl" data-lt="OperationError" data-type="exception" href="https://webidl.spec.whatwg.org/#operationerror"><code>OperationError</code></a>.
+                cannot be accessed, then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an <a data-link-type="exception" data-lt="OperationError" href="https://webidl.spec.whatwg.org/#operationerror"><code>OperationError</code></a>.
               </p>
             </li>
             <li>
               <dl class="switch">
-                <dt>If <var>format</var> is "<a data-link-type="idl" data-type="enum-value" href="https://www.w3.org/TR/WebCryptoAPI/#dom-keyformat-raw"><code>raw</code></a>":</dt>
+                <dt>If <var>format</var> is "<a data-link-type="enum-value" href="https://www.w3.org/TR/WebCryptoAPI/#dom-keyformat-raw"><code>raw</code></a>":</dt>
                 <dd>
                   <ol>
                     <li>
@@ -1528,18 +1530,18 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
                     </li>
                     <li>
                       <p>
-                        Let <var>result</var> be the result of <a data-link-type="dfn|abstract-op" data-lt="create" data-type="dfn" href="https://webidl.spec.whatwg.org/#arraybuffer-create">creating</a>
-                        an <a data-link-type="idl" data-lt="ArrayBuffer" data-type="interface" href="https://webidl.spec.whatwg.org/#idl-ArrayBuffer"><code>ArrayBuffer</code></a> containing <var>data</var>.
+                        Let <var>result</var> be the result of <a data-link-type="dfn" data-lt="create" href="https://webidl.spec.whatwg.org/#arraybuffer-create">creating</a>
+                        an <a data-link-type="interface" data-lt="ArrayBuffer" href="https://webidl.spec.whatwg.org/#idl-ArrayBuffer"><code>ArrayBuffer</code></a> containing <var>data</var>.
                       </p>
                     </li>
                   </ol>
                 </dd>
-                <dt>If <var>format</var> is "<a data-link-type="idl" data-type="enum-value" href="https://www.w3.org/TR/WebCryptoAPI/#dom-keyformat-jwk"><code>jwk</code></a>":</dt>
+                <dt>If <var>format</var> is "<a data-link-type="enum-value" href="https://www.w3.org/TR/WebCryptoAPI/#dom-keyformat-jwk"><code>jwk</code></a>":</dt>
                 <dd>
                   <ol>
                     <li>
                       <p>
-                        Let <var>jwk</var> be a new <a data-link-type="idl" data-lt="JsonWebKey" data-type="dictionary" href="https://www.w3.org/TR/WebCryptoAPI/#dfn-JsonWebKey"><code>JsonWebKey</code></a>
+                        Let <var>jwk</var> be a new <a data-link-type="dictionary" data-lt="JsonWebKey" href="https://www.w3.org/TR/WebCryptoAPI/#dfn-JsonWebKey"><code>JsonWebKey</code></a>
                         dictionary.
                       </p>
                     </li>
@@ -1551,7 +1553,7 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
                     </li>
                     <li>
                       <p>
-                        Set the <a data-link-type="idl" data-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-jsonwebkey-k"><code>k</code></a> attribute of <var>jwk</var> to be a string
+                        Set the <a data-link-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-jsonwebkey-k"><code>k</code></a> attribute of <var>jwk</var> to be a string
                         containing the raw octets of the key represented by <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-handle">[[handle]]</a> internal slot of
                         <var>key</var>, encoded according to Section 6.4 of JSON Web Algorithms [<cite><a class="bibref" data-link-type="biblio" href="#bib-jwa" title="JSON Web Algorithms (JWA)">JWA</a></cite>].
                       </p>
@@ -1565,7 +1567,7 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
                     <li>
                       <p>
                         Set the <code>key_ops</code> attribute of <var>jwk</var> to equal the
-                        <a data-link-type="idl" data-type="attribute" href="https://www.w3.org/TR/WebCryptoAPI/#dom-cryptokey-usages"><code>usages</code></a> attribute of
+                        <a data-link-type="attribute" href="https://www.w3.org/TR/WebCryptoAPI/#dom-cryptokey-usages"><code>usages</code></a> attribute of
                         <var>key</var>.
                       </p>
                     </li>
@@ -1586,8 +1588,8 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
                 <dt>Otherwise:</dt>
                 <dd>
                   <p>
-                    <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
-                    <a data-link-type="idl" data-lt="NotSupportedError" data-type="exception" href="https://webidl.spec.whatwg.org/#notsupportederror"><code>NotSupportedError</code></a>.
+                    <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
+                    <a data-link-type="exception" data-lt="NotSupportedError" href="https://webidl.spec.whatwg.org/#notsupportederror"><code>NotSupportedError</code></a>.
                   </p>
                 </dd>
               </dl>
@@ -1641,7 +1643,7 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
           <tr>
             <td>digest</td>
             <td>None</td>
-            <td><a data-link-type="idl" data-lt="ArrayBuffer" data-type="interface" href="https://webidl.spec.whatwg.org/#idl-ArrayBuffer"><code>ArrayBuffer</code></a></td>
+            <td><a data-link-type="interface" data-lt="ArrayBuffer" href="https://webidl.spec.whatwg.org/#idl-ArrayBuffer"><code>ArrayBuffer</code></a></td>
           </tr>
         </tbody>
       </table>
@@ -1655,7 +1657,7 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
             <li>
               <dl class="switch">
                 <dt>
-                  If the <a data-link-type="idl" data-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-algorithm-name"><code>name</code></a> member of
+                  If the <a data-link-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-algorithm-name"><code>name</code></a> member of
                   <var>normalizedAlgorithm</var> is a case-sensitive string match for
                   "<code>SHA3-256</code>":
                 </dt>
@@ -1665,7 +1667,7 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
                   <var>message</var> as the input message, <var>M</var>.
                 </dd>
                 <dt>
-                  If the <a data-link-type="idl" data-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-algorithm-name"><code>name</code></a> member of
+                  If the <a data-link-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-algorithm-name"><code>name</code></a> member of
                   <var>normalizedAlgorithm</var> is a case-sensitive string match for
                   "<code>SHA3-384</code>":
                 </dt>
@@ -1675,7 +1677,7 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
                   <var>message</var> as the input message, <var>M</var>.
                 </dd>
                 <dt>
-                  If the <a data-link-type="idl" data-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-algorithm-name"><code>name</code></a> member of
+                  If the <a data-link-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-algorithm-name"><code>name</code></a> member of
                   <var>normalizedAlgorithm</var> is a case-sensitive string match for
                   "<code>SHA3-512</code>":
                 </dt>
@@ -1688,13 +1690,13 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
             </li>
             <li>
               <p>
-                If performing the operation results in an error, then <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an <a data-link-type="idl" data-lt="OperationError" data-type="exception" href="https://webidl.spec.whatwg.org/#operationerror"><code>OperationError</code></a>.
+                If performing the operation results in an error, then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an <a data-link-type="exception" data-lt="OperationError" href="https://webidl.spec.whatwg.org/#operationerror"><code>OperationError</code></a>.
               </p>
             </li>
             <li>
               <p>
-                Return the result of <a data-link-type="dfn|abstract-op" data-lt="create" data-type="dfn" href="https://webidl.spec.whatwg.org/#arraybuffer-create">creating</a>
-                an <a data-link-type="idl" data-lt="ArrayBuffer" data-type="interface" href="https://webidl.spec.whatwg.org/#idl-ArrayBuffer"><code>ArrayBuffer</code></a> containing <var>result</var>.
+                Return the result of <a data-link-type="dfn" data-lt="create" href="https://webidl.spec.whatwg.org/#arraybuffer-create">creating</a>
+                an <a data-link-type="interface" data-lt="ArrayBuffer" href="https://webidl.spec.whatwg.org/#idl-ArrayBuffer"><code>ArrayBuffer</code></a> containing <var>result</var>.
               </p>
             </li>
           </ol>
@@ -1730,17 +1732,17 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
           <tr>
             <td>digest</td>
             <td><a data-link-type="idl" data-lt="CShakeParams" href="#dfn-CShakeParams" class="internalDFN" id="ref-for-dfn-CShakeParams-1"><code>CShakeParams</code></a></td>
-            <td><a data-link-type="idl" data-lt="ArrayBuffer" data-type="interface" href="https://webidl.spec.whatwg.org/#idl-ArrayBuffer"><code>ArrayBuffer</code></a></td>
+            <td><a data-link-type="interface" data-lt="ArrayBuffer" href="https://webidl.spec.whatwg.org/#idl-ArrayBuffer"><code>ArrayBuffer</code></a></td>
           </tr>
         </tbody>
       </table>
     </section>
     <section id="cshake-params"><div class="header-wrapper"><h3 id="x8-3-cshakeparams-dictionary"><bdi class="secno">8.3 </bdi><dfn data-idl="dictionary" id="dfn-CShakeParams" data-export="" data-dfn-type="dictionary" data-title="CShakeParams" data-dfn-for="" tabindex="0" aria-haspopup="dialog"><code>CShakeParams</code></dfn> dictionary</h3><a class="self-link" href="#cshake-params" aria-label="Permalink for Section 8.3"></a></div>
       
-      <pre class="idl def" id="webidl-1097481639"><span class="idlHeader"><a class="self-link" href="#webidl-1097481639">WebIDL</a></span><code><span data-idl="" class="idlDictionary" id="idl-def-cshakeparams" data-title="CShakeParams">dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-CShakeParams" id="ref-for-dfn-CShakeParams-2"><code>CShakeParams</code></a> : <span class="idlSuperclass"><a data-link-type="idl" data-type="dictionary" href="https://www.w3.org/TR/WebCryptoAPI/#dfn-Algorithm">Algorithm</a></span> {<span data-idl="" class="idlMember" id="idl-def-cshakeparams-length" data-title="length" data-dfn-for="CShakeParams">
-  required<span class="idlType"> [<span class="extAttr"><a data-type="extended-attribute" href="https://webidl.spec.whatwg.org/#EnforceRange">EnforceRange</a></span>] <a data-link-type="idl" data-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long">unsigned long</a></span> <a class="internalDFN idlName" data-link-type="dict-member" href="#dfn-CShakeParams-length" id="ref-for-dfn-CShakeParams-length-1"><code>length</code></a>;</span><span data-idl="" class="idlMember" id="idl-def-cshakeparams-functionname" data-title="functionName" data-dfn-for="CShakeParams"><span class="idlType">
-  <a data-link-type="idl" data-type="typedef" href="https://webidl.spec.whatwg.org/#BufferSource">BufferSource</a></span> <a class="internalDFN idlName" data-link-type="dict-member" href="#dfn-CShakeParams-functionName" id="ref-for-dfn-CShakeParams-functionName-1"><code>functionName</code></a>;</span><span data-idl="" class="idlMember" id="idl-def-cshakeparams-customization" data-title="customization" data-dfn-for="CShakeParams"><span class="idlType">
-  <a data-link-type="idl" data-type="typedef" href="https://webidl.spec.whatwg.org/#BufferSource">BufferSource</a></span> <a class="internalDFN idlName" data-link-type="dict-member" href="#dfn-CShakeParams-customization" id="ref-for-dfn-CShakeParams-customization-1"><code>customization</code></a>;</span>
+      <pre class="idl def" id="webidl-1097481639"><span class="idlHeader"><a class="self-link" href="#webidl-1097481639">WebIDL</a></span><code><span data-idl="" class="idlDictionary" id="idl-def-cshakeparams" data-title="CShakeParams">dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-CShakeParams" id="ref-for-dfn-CShakeParams-2"><code>CShakeParams</code></a> : <span class="idlSuperclass"><a data-link-type="dictionary" href="https://www.w3.org/TR/WebCryptoAPI/#dfn-Algorithm">Algorithm</a></span> {<span data-idl="" class="idlMember" id="idl-def-cshakeparams-length" data-title="length" data-dfn-for="CShakeParams">
+  required<span class="idlType"> [<span class="extAttr"><a data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#EnforceRange">EnforceRange</a></span>] <a data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long">unsigned long</a></span> <a class="internalDFN idlName" data-link-type="dict-member" href="#dfn-CShakeParams-length" id="ref-for-dfn-CShakeParams-length-1"><code>length</code></a>;</span><span data-idl="" class="idlMember" id="idl-def-cshakeparams-functionname" data-title="functionName" data-dfn-for="CShakeParams"><span class="idlType">
+  <a data-link-type="typedef" href="https://webidl.spec.whatwg.org/#BufferSource">BufferSource</a></span> <a class="internalDFN idlName" data-link-type="dict-member" href="#dfn-CShakeParams-functionName" id="ref-for-dfn-CShakeParams-functionName-1"><code>functionName</code></a>;</span><span data-idl="" class="idlMember" id="idl-def-cshakeparams-customization" data-title="customization" data-dfn-for="CShakeParams"><span class="idlType">
+  <a data-link-type="typedef" href="https://webidl.spec.whatwg.org/#BufferSource">BufferSource</a></span> <a class="internalDFN idlName" data-link-type="dict-member" href="#dfn-CShakeParams-customization" id="ref-for-dfn-CShakeParams-customization-1"><code>customization</code></a>;</span>
 };</span></code></pre>
       <p>The <dfn data-dfn-for="CShakeParams" id="dfn-CShakeParams-length" data-export="" data-dfn-type="dict-member" data-idl="field" data-title="length" data-type="unsigned long" tabindex="0" aria-haspopup="dialog"><code>length</code></dfn> member represents the requested output length in bits.</p>
       <p>The <dfn data-dfn-for="CShakeParams" id="dfn-CShakeParams-functionName" data-export="" data-dfn-type="dict-member" data-idl="field" data-title="functionName" data-type="BufferSource" tabindex="0" aria-haspopup="dialog"><code>functionName</code></dfn> member represents the function name, used by NIST to define functions based on cSHAKE. When used, it should only be set to values defined by NIST.</p>
@@ -1775,7 +1777,7 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
             <li>
               <dl class="switch">
                 <dt>
-                  If the <a data-link-type="idl" data-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-algorithm-name"><code>name</code></a> member of
+                  If the <a data-link-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-algorithm-name"><code>name</code></a> member of
                   <var>normalizedAlgorithm</var> is a case-sensitive string match for
                   "<code>cSHAKE128</code>":
                 </dt>
@@ -1788,7 +1790,7 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
                   <var>customization</var> as the <var>S</var> input parameter.
                 </dd>
                 <dt>
-                  If the <a data-link-type="idl" data-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-algorithm-name"><code>name</code></a> member of
+                  If the <a data-link-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-algorithm-name"><code>name</code></a> member of
                   <var>normalizedAlgorithm</var> is a case-sensitive string match for
                   "<code>cSHAKE256</code>":
                 </dt>
@@ -1804,13 +1806,13 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
             </li>
             <li>
               <p>
-                If performing the operation results in an error, then <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an <a data-link-type="idl" data-lt="OperationError" data-type="exception" href="https://webidl.spec.whatwg.org/#operationerror"><code>OperationError</code></a>.
+                If performing the operation results in an error, then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an <a data-link-type="exception" data-lt="OperationError" href="https://webidl.spec.whatwg.org/#operationerror"><code>OperationError</code></a>.
               </p>
             </li>
             <li>
               <p>
-                Return the result of <a data-link-type="dfn|abstract-op" data-lt="create" data-type="dfn" href="https://webidl.spec.whatwg.org/#arraybuffer-create">creating</a>
-                an <a data-link-type="idl" data-lt="ArrayBuffer" data-type="interface" href="https://webidl.spec.whatwg.org/#idl-ArrayBuffer"><code>ArrayBuffer</code></a> containing <var>result</var>.
+                Return the result of <a data-link-type="dfn" data-lt="create" href="https://webidl.spec.whatwg.org/#arraybuffer-create">creating</a>
+                an <a data-link-type="interface" data-lt="ArrayBuffer" href="https://webidl.spec.whatwg.org/#idl-ArrayBuffer"><code>ArrayBuffer</code></a> containing <var>result</var>.
               </p>
             </li>
           </ol>
@@ -1846,7 +1848,7 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
           <tr>
             <td>sign</td>
             <td><a data-link-type="idl" data-lt="KmacParams" href="#dfn-KmacParams" class="internalDFN" id="ref-for-dfn-KmacParams-1"><code>KmacParams</code></a></td>
-            <td><a data-link-type="idl" data-lt="ArrayBuffer" data-type="interface" href="https://webidl.spec.whatwg.org/#idl-ArrayBuffer"><code>ArrayBuffer</code></a></td>
+            <td><a data-link-type="interface" data-lt="ArrayBuffer" href="https://webidl.spec.whatwg.org/#idl-ArrayBuffer"><code>ArrayBuffer</code></a></td>
           </tr>
           <tr>
             <td>verify</td>
@@ -1856,12 +1858,12 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
           <tr>
             <td>generateKey</td>
             <td><a data-link-type="idl" data-lt="KmacKeyGenParams" href="#dfn-KmacKeyGenParams" class="internalDFN" id="ref-for-dfn-KmacKeyGenParams-1"><code>KmacKeyGenParams</code></a></td>
-            <td><a data-link-type="idl" data-lt="CryptoKey" data-type="interface" href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey"><code>CryptoKey</code></a></td>
+            <td><a data-link-type="interface" data-lt="CryptoKey" href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey"><code>CryptoKey</code></a></td>
           </tr>
           <tr>
             <td>importKey</td>
             <td><a data-link-type="idl" data-lt="KmacImportParams" href="#dfn-KmacImportParams" class="internalDFN" id="ref-for-dfn-KmacImportParams-1"><code>KmacImportParams</code></a></td>
-            <td><a data-link-type="idl" data-lt="CryptoKey" data-type="interface" href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey"><code>CryptoKey</code></a></td>
+            <td><a data-link-type="interface" data-lt="CryptoKey" href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey"><code>CryptoKey</code></a></td>
           </tr>
           <tr>
             <td>exportKey</td>
@@ -1878,30 +1880,30 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
     </section>
     <section id="kmac-keygen-params"><div class="header-wrapper"><h3 id="x9-3-kmackeygenparams-dictionary"><bdi class="secno">9.3 </bdi><dfn data-idl="dictionary" id="dfn-KmacKeyGenParams" data-export="" data-dfn-type="dictionary" data-title="KmacKeyGenParams" data-dfn-for="" tabindex="0" aria-haspopup="dialog"><code>KmacKeyGenParams</code></dfn> dictionary</h3><a class="self-link" href="#kmac-keygen-params" aria-label="Permalink for Section 9.3"></a></div>
       
-      <pre class="idl def" id="webidl-1224700284"><span class="idlHeader"><a class="self-link" href="#webidl-1224700284">WebIDL</a></span><code><span data-idl="" class="idlDictionary" id="idl-def-kmackeygenparams" data-title="KmacKeyGenParams">dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-KmacKeyGenParams" id="ref-for-dfn-KmacKeyGenParams-2"><code>KmacKeyGenParams</code></a> : <span class="idlSuperclass"><a data-link-type="idl" data-type="dictionary" href="https://www.w3.org/TR/WebCryptoAPI/#dfn-Algorithm">Algorithm</a></span> {<span data-idl="" class="idlMember" id="idl-def-kmackeygenparams-length" data-title="length" data-dfn-for="KmacKeyGenParams">
-  [<span class="extAttr"><a data-type="extended-attribute" href="https://webidl.spec.whatwg.org/#EnforceRange">EnforceRange</a></span>]<span class="idlType"> <a data-link-type="idl" data-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long">unsigned long</a></span> <a class="internalDFN idlName" data-link-type="dict-member" href="#dfn-KmacKeyGenParams-length" id="ref-for-dfn-KmacKeyGenParams-length-1"><code>length</code></a>;</span>
+      <pre class="idl def" id="webidl-1224700284"><span class="idlHeader"><a class="self-link" href="#webidl-1224700284">WebIDL</a></span><code><span data-idl="" class="idlDictionary" id="idl-def-kmackeygenparams" data-title="KmacKeyGenParams">dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-KmacKeyGenParams" id="ref-for-dfn-KmacKeyGenParams-2"><code>KmacKeyGenParams</code></a> : <span class="idlSuperclass"><a data-link-type="dictionary" href="https://www.w3.org/TR/WebCryptoAPI/#dfn-Algorithm">Algorithm</a></span> {<span data-idl="" class="idlMember" id="idl-def-kmackeygenparams-length" data-title="length" data-dfn-for="KmacKeyGenParams">
+  [<span class="extAttr"><a data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#EnforceRange">EnforceRange</a></span>]<span class="idlType"> <a data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long">unsigned long</a></span> <a class="internalDFN idlName" data-link-type="dict-member" href="#dfn-KmacKeyGenParams-length" id="ref-for-dfn-KmacKeyGenParams-length-1"><code>length</code></a>;</span>
 };</span></code></pre>
       <p>The <dfn data-dfn-for="KmacKeyGenParams" id="dfn-KmacKeyGenParams-length" data-export="" data-dfn-type="dict-member" data-idl="field" data-title="length" data-type="unsigned long" tabindex="0" aria-haspopup="dialog"><code>length</code></dfn> member represents the length (in bits) of the key to generate. If unspecified, the recommended length will be used, which is 128 for KMAC128 and 256 for KMAC256.</p>
     </section>
     <section id="kmac-importparams"><div class="header-wrapper"><h3 id="x9-4-kmacimportparams-dictionary"><bdi class="secno">9.4 </bdi><dfn data-idl="dictionary" id="dfn-KmacImportParams" data-export="" data-dfn-type="dictionary" data-title="KmacImportParams" data-dfn-for="" tabindex="0" aria-haspopup="dialog"><code>KmacImportParams</code></dfn> dictionary</h3><a class="self-link" href="#kmac-importparams" aria-label="Permalink for Section 9.4"></a></div>
       
-      <pre class="idl def" id="webidl-745655368"><span class="idlHeader"><a class="self-link" href="#webidl-745655368">WebIDL</a></span><code><span data-idl="" class="idlDictionary" id="idl-def-kmacimportparams" data-title="KmacImportParams">dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-KmacImportParams" id="ref-for-dfn-KmacImportParams-3"><code>KmacImportParams</code></a> : <span class="idlSuperclass"><a data-link-type="idl" data-type="dictionary" href="https://www.w3.org/TR/WebCryptoAPI/#dfn-Algorithm">Algorithm</a></span> {<span data-idl="" class="idlMember" id="idl-def-kmacimportparams-length" data-title="length" data-dfn-for="KmacImportParams">
-  [<span class="extAttr"><a data-type="extended-attribute" href="https://webidl.spec.whatwg.org/#EnforceRange">EnforceRange</a></span>]<span class="idlType"> <a data-link-type="idl" data-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long">unsigned long</a></span> <a class="internalDFN idlName" data-link-type="dict-member" href="#dfn-KmacImportParams-length" id="ref-for-dfn-KmacImportParams-length-1"><code>length</code></a>;</span>
+      <pre class="idl def" id="webidl-745655368"><span class="idlHeader"><a class="self-link" href="#webidl-745655368">WebIDL</a></span><code><span data-idl="" class="idlDictionary" id="idl-def-kmacimportparams" data-title="KmacImportParams">dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-KmacImportParams" id="ref-for-dfn-KmacImportParams-3"><code>KmacImportParams</code></a> : <span class="idlSuperclass"><a data-link-type="dictionary" href="https://www.w3.org/TR/WebCryptoAPI/#dfn-Algorithm">Algorithm</a></span> {<span data-idl="" class="idlMember" id="idl-def-kmacimportparams-length" data-title="length" data-dfn-for="KmacImportParams">
+  [<span class="extAttr"><a data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#EnforceRange">EnforceRange</a></span>]<span class="idlType"> <a data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long">unsigned long</a></span> <a class="internalDFN idlName" data-link-type="dict-member" href="#dfn-KmacImportParams-length" id="ref-for-dfn-KmacImportParams-length-1"><code>length</code></a>;</span>
 };</span></code></pre>
       <p>The <dfn data-dfn-for="KmacImportParams" id="dfn-KmacImportParams-length" data-export="" data-dfn-type="dict-member" data-idl="field" data-title="length" data-type="unsigned long" tabindex="0" aria-haspopup="dialog"><code>length</code></dfn> member represents the length (in bits) of the key.</p>
     </section>
     <section id="KmacKeyAlgorithm-dictionary"><div class="header-wrapper"><h3 id="x9-5-kmackeyalgorithm-dictionary"><bdi class="secno">9.5 </bdi><dfn data-idl="dictionary" id="dfn-KmacKeyAlgorithm" data-export="" data-dfn-type="dictionary" data-title="KmacKeyAlgorithm" data-dfn-for="" tabindex="0" aria-haspopup="dialog"><code>KmacKeyAlgorithm</code></dfn> dictionary</h3><a class="self-link" href="#KmacKeyAlgorithm-dictionary" aria-label="Permalink for Section 9.5"></a></div>
       
-      <pre class="idl def" id="webidl-28722634"><span class="idlHeader"><a class="self-link" href="#webidl-28722634">WebIDL</a></span><code><span data-idl="" class="idlDictionary" id="idl-def-kmackeyalgorithm" data-title="KmacKeyAlgorithm">dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-KmacKeyAlgorithm" id="ref-for-dfn-KmacKeyAlgorithm-1"><code>KmacKeyAlgorithm</code></a> : <span class="idlSuperclass"><a data-link-type="idl" data-type="dictionary" href="https://www.w3.org/TR/WebCryptoAPI/#dfn-KeyAlgorithm">KeyAlgorithm</a></span> {<span data-idl="" class="idlMember" id="idl-def-kmackeyalgorithm-length" data-title="length" data-dfn-for="KmacKeyAlgorithm">
-  required<span class="idlType"> <a data-link-type="idl" data-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long">unsigned long</a></span> <a class="internalDFN idlName" data-link-type="dict-member" href="#dfn-KmacKeyAlgorithm-length" id="ref-for-dfn-KmacKeyAlgorithm-length-1"><code>length</code></a>;</span>
+      <pre class="idl def" id="webidl-28722634"><span class="idlHeader"><a class="self-link" href="#webidl-28722634">WebIDL</a></span><code><span data-idl="" class="idlDictionary" id="idl-def-kmackeyalgorithm" data-title="KmacKeyAlgorithm">dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-KmacKeyAlgorithm" id="ref-for-dfn-KmacKeyAlgorithm-1"><code>KmacKeyAlgorithm</code></a> : <span class="idlSuperclass"><a data-link-type="dictionary" href="https://www.w3.org/TR/WebCryptoAPI/#dfn-KeyAlgorithm">KeyAlgorithm</a></span> {<span data-idl="" class="idlMember" id="idl-def-kmackeyalgorithm-length" data-title="length" data-dfn-for="KmacKeyAlgorithm">
+  required<span class="idlType"> <a data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long">unsigned long</a></span> <a class="internalDFN idlName" data-link-type="dict-member" href="#dfn-KmacKeyAlgorithm-length" id="ref-for-dfn-KmacKeyAlgorithm-length-1"><code>length</code></a>;</span>
 };</span></code></pre>
       <p>The <dfn data-dfn-for="KmacKeyAlgorithm" id="dfn-KmacKeyAlgorithm-length" data-export="" data-dfn-type="dict-member" data-idl="field" data-title="length" data-type="unsigned long" tabindex="0" aria-haspopup="dialog"><code>length</code></dfn> member represents the length (in bits) of the key.</p>
     </section>
     <section id="kmac-params"><div class="header-wrapper"><h3 id="x9-6-kmacparams-dictionary"><bdi class="secno">9.6 </bdi><dfn data-idl="dictionary" id="dfn-KmacParams" data-export="" data-dfn-type="dictionary" data-title="KmacParams" data-dfn-for="" tabindex="0" aria-haspopup="dialog"><code>KmacParams</code></dfn> dictionary</h3><a class="self-link" href="#kmac-params" aria-label="Permalink for Section 9.6"></a></div>
       
-      <pre class="idl def" id="webidl-1848208597"><span class="idlHeader"><a class="self-link" href="#webidl-1848208597">WebIDL</a></span><code><span data-idl="" class="idlDictionary" id="idl-def-kmacparams" data-title="KmacParams">dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-KmacParams" id="ref-for-dfn-KmacParams-3"><code>KmacParams</code></a> : <span class="idlSuperclass"><a data-link-type="idl" data-type="dictionary" href="https://www.w3.org/TR/WebCryptoAPI/#dfn-Algorithm">Algorithm</a></span> {<span data-idl="" class="idlMember" id="idl-def-kmacparams-length" data-title="length" data-dfn-for="KmacParams">
-  required<span class="idlType"> [<span class="extAttr"><a data-type="extended-attribute" href="https://webidl.spec.whatwg.org/#EnforceRange">EnforceRange</a></span>] <a data-link-type="idl" data-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long">unsigned long</a></span> <a class="internalDFN idlName" data-link-type="dict-member" href="#dfn-KmacParams-length" id="ref-for-dfn-KmacParams-length-1"><code>length</code></a>;</span><span data-idl="" class="idlMember" id="idl-def-kmacparams-customization" data-title="customization" data-dfn-for="KmacParams"><span class="idlType">
-  <a data-link-type="idl" data-type="typedef" href="https://webidl.spec.whatwg.org/#BufferSource">BufferSource</a></span> <a class="internalDFN idlName" data-link-type="dict-member" href="#dfn-KmacParams-customization" id="ref-for-dfn-KmacParams-customization-1"><code>customization</code></a>;</span>
+      <pre class="idl def" id="webidl-1848208597"><span class="idlHeader"><a class="self-link" href="#webidl-1848208597">WebIDL</a></span><code><span data-idl="" class="idlDictionary" id="idl-def-kmacparams" data-title="KmacParams">dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-KmacParams" id="ref-for-dfn-KmacParams-3"><code>KmacParams</code></a> : <span class="idlSuperclass"><a data-link-type="dictionary" href="https://www.w3.org/TR/WebCryptoAPI/#dfn-Algorithm">Algorithm</a></span> {<span data-idl="" class="idlMember" id="idl-def-kmacparams-length" data-title="length" data-dfn-for="KmacParams">
+  required<span class="idlType"> [<span class="extAttr"><a data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#EnforceRange">EnforceRange</a></span>] <a data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long">unsigned long</a></span> <a class="internalDFN idlName" data-link-type="dict-member" href="#dfn-KmacParams-length" id="ref-for-dfn-KmacParams-length-1"><code>length</code></a>;</span><span data-idl="" class="idlMember" id="idl-def-kmacparams-customization" data-title="customization" data-dfn-for="KmacParams"><span class="idlType">
+  <a data-link-type="typedef" href="https://webidl.spec.whatwg.org/#BufferSource">BufferSource</a></span> <a class="internalDFN idlName" data-link-type="dict-member" href="#dfn-KmacParams-customization" id="ref-for-dfn-KmacParams-customization-1"><code>customization</code></a>;</span>
 };</span></code></pre>
       <p>The <dfn data-dfn-for="KmacParams" id="dfn-KmacParams-length" data-export="" data-dfn-type="dict-member" data-idl="field" data-title="length" data-type="unsigned long" tabindex="0" aria-haspopup="dialog"><code>length</code></dfn> member represents the requested output length in bits.</p>
       <p>The <dfn data-dfn-for="KmacParams" id="dfn-KmacParams-customization" data-export="" data-dfn-type="dict-member" data-idl="field" data-title="customization" data-type="BufferSource" tabindex="0" aria-haspopup="dialog"><code>customization</code></dfn> member represents the customization string. The application selects this string to define a variant of the function.</p>
@@ -1923,7 +1925,7 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
             <li>
               <dl class="switch">
                 <dt>
-                  If the <a data-link-type="idl" data-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-algorithm-name"><code>name</code></a> member of
+                  If the <a data-link-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-algorithm-name"><code>name</code></a> member of
                   <var>normalizedAlgorithm</var> is a case-sensitive string match for
                   "<code>KMAC128</code>":
                 </dt>
@@ -1939,7 +1941,7 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
                   the <var>S</var> input parameter.
                 </dd>
                 <dt>
-                  If the <a data-link-type="idl" data-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-algorithm-name"><code>name</code></a> member of
+                  If the <a data-link-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-algorithm-name"><code>name</code></a> member of
                   <var>normalizedAlgorithm</var> is a case-sensitive string match for
                   "<code>KMAC256</code>":
                 </dt>
@@ -1958,8 +1960,8 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
             </li>
             <li>
               <p>
-                Return the result of <a data-link-type="dfn|abstract-op" data-lt="create" data-type="dfn" href="https://webidl.spec.whatwg.org/#arraybuffer-create">creating</a>
-                an <a data-link-type="idl" data-lt="ArrayBuffer" data-type="interface" href="https://webidl.spec.whatwg.org/#idl-ArrayBuffer"><code>ArrayBuffer</code></a> containing <var>mac</var>.
+                Return the result of <a data-link-type="dfn" data-lt="create" href="https://webidl.spec.whatwg.org/#arraybuffer-create">creating</a>
+                an <a data-link-type="interface" data-lt="ArrayBuffer" href="https://webidl.spec.whatwg.org/#idl-ArrayBuffer"><code>ArrayBuffer</code></a> containing <var>mac</var>.
               </p>
             </li>
           </ol>
@@ -1977,7 +1979,7 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
             <li>
               <dl class="switch">
                 <dt>
-                  If the <a data-link-type="idl" data-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-algorithm-name"><code>name</code></a> member of
+                  If the <a data-link-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-algorithm-name"><code>name</code></a> member of
                   <var>normalizedAlgorithm</var> is a case-sensitive string match for
                   "<code>KMAC128</code>":
                 </dt>
@@ -1993,7 +1995,7 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
                   the <var>S</var> input parameter.
                 </dd>
                 <dt>
-                  If the <a data-link-type="idl" data-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-algorithm-name"><code>name</code></a> member of
+                  If the <a data-link-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-algorithm-name"><code>name</code></a> member of
                   <var>normalizedAlgorithm</var> is a case-sensitive string match for
                   "<code>KMAC256</code>":
                 </dt>
@@ -2024,7 +2026,7 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
             <li>
               <p>
                 If <var>usages</var> contains any entry which is not "<code>sign</code>" or
-                "<code>verify</code>", then <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a <a data-link-type="idl" data-lt="SyntaxError" data-type="exception" href="https://webidl.spec.whatwg.org/#syntaxerror"><code>SyntaxError</code></a>.
+                "<code>verify</code>", then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a <a data-link-type="exception" data-lt="SyntaxError" href="https://webidl.spec.whatwg.org/#syntaxerror"><code>SyntaxError</code></a>.
               </p>
             </li>
             <li>
@@ -2039,7 +2041,7 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
                   member of <var>normalizedAlgorithm</var>.
                 </dd>
                 <dt>
-                  Otherwise, if the <a data-link-type="idl" data-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-algorithm-name"><code>name</code></a> member of
+                  Otherwise, if the <a data-link-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-algorithm-name"><code>name</code></a> member of
                   <var>normalizedAlgorithm</var> is a case-sensitive string match for
                   "<code>KMAC128</code>":
                 </dt>
@@ -2047,7 +2049,7 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
                   Let <var>length</var> be 128.
                 </dd>
                 <dt>
-                  Otherwise, if the <a data-link-type="idl" data-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-algorithm-name"><code>name</code></a> member of
+                  Otherwise, if the <a data-link-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-algorithm-name"><code>name</code></a> member of
                   <var>normalizedAlgorithm</var> is a case-sensitive string match for
                   "<code>KMAC256</code>":
                 </dt>
@@ -2065,14 +2067,14 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
             <li>
               <p>
                 If the key generation step fails,
-                then <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an
-                <a data-link-type="idl" data-lt="OperationError" data-type="exception" href="https://webidl.spec.whatwg.org/#operationerror"><code>OperationError</code></a>.
+                then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an
+                <a data-link-type="exception" data-lt="OperationError" href="https://webidl.spec.whatwg.org/#operationerror"><code>OperationError</code></a>.
               </p>
             </li>
             <li>
               <p>
                 Let <var>key</var> be a new
-                <a data-link-type="idl" data-lt="CryptoKey" data-type="interface" href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey"><code>CryptoKey</code></a> object representing the
+                <a data-link-type="interface" data-lt="CryptoKey" href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey"><code>CryptoKey</code></a> object representing the
                 generated key.
               </p>
             </li>
@@ -2084,7 +2086,7 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
             </li>
             <li>
               <p>
-                Set the <a data-link-type="idl" data-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-keyalgorithm-name"><code>name</code></a> attribute of
+                Set the <a data-link-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-keyalgorithm-name"><code>name</code></a> attribute of
                 <var>algorithm</var> to "<code>KMAC</code>".
               </p>
             </li>
@@ -2123,13 +2125,13 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
               <p>
                 If <var>usages</var> contains an entry which is not
                 "<code>sign</code>" or "<code>verify</code>",
-                then <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
-                <a data-link-type="idl" data-lt="SyntaxError" data-type="exception" href="https://webidl.spec.whatwg.org/#syntaxerror"><code>SyntaxError</code></a>.
+                then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
+                <a data-link-type="exception" data-lt="SyntaxError" href="https://webidl.spec.whatwg.org/#syntaxerror"><code>SyntaxError</code></a>.
               </p>
             </li>
             <li>
               <dl class="switch">
-                <dt>If <var>format</var> is "<a data-link-type="idl" data-type="enum-value" href="https://www.w3.org/TR/WebCryptoAPI/#dom-keyformat-raw"><code>raw</code></a>":</dt>
+                <dt>If <var>format</var> is "<a data-link-type="enum-value" href="https://www.w3.org/TR/WebCryptoAPI/#dom-keyformat-raw"><code>raw</code></a>":</dt>
                 <dd>
                   <ol>
                     <li>
@@ -2139,97 +2141,97 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
                     </li>
                   </ol>
                 </dd>
-                <dt>If <var>format</var> is "<a data-link-type="idl" data-type="enum-value" href="https://www.w3.org/TR/WebCryptoAPI/#dom-keyformat-jwk"><code>jwk</code></a>":</dt>
+                <dt>If <var>format</var> is "<a data-link-type="enum-value" href="https://www.w3.org/TR/WebCryptoAPI/#dom-keyformat-jwk"><code>jwk</code></a>":</dt>
                 <dd>
                   <ol>
                     <li>
                       <dl class="switch">
-                        <dt>If <var>keyData</var> is a <a data-link-type="idl" data-lt="JsonWebKey" data-type="dictionary" href="https://www.w3.org/TR/WebCryptoAPI/#dfn-JsonWebKey"><code>JsonWebKey</code></a> dictionary:</dt>
+                        <dt>If <var>keyData</var> is a <a data-link-type="dictionary" data-lt="JsonWebKey" href="https://www.w3.org/TR/WebCryptoAPI/#dfn-JsonWebKey"><code>JsonWebKey</code></a> dictionary:</dt>
                         <dd><p>Let <var>jwk</var> equal <var>keyData</var>.</p></dd>
                         <dt>Otherwise:</dt>
-                        <dd><p><a data-link-type="dfn|abstract-op" data-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">Throw</a> a <a data-link-type="idl" data-lt="DataError" data-type="exception" href="https://webidl.spec.whatwg.org/#dataerror"><code>DataError</code></a>.</p></dd>
+                        <dd><p><a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">Throw</a> a <a data-link-type="exception" data-lt="DataError" href="https://webidl.spec.whatwg.org/#dataerror"><code>DataError</code></a>.</p></dd>
                       </dl>
                     </li>
                     <li>
                       <p>
-                        If the <a data-link-type="idl" data-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-jsonwebkey-kty"><code>kty</code></a> field of <var>jwk</var> is not
+                        If the <a data-link-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-jsonwebkey-kty"><code>kty</code></a> field of <var>jwk</var> is not
                         "<code>oct</code>",
-                        then <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
-                        <a data-link-type="idl" data-lt="DataError" data-type="exception" href="https://webidl.spec.whatwg.org/#dataerror"><code>DataError</code></a>.
+                        then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
+                        <a data-link-type="exception" data-lt="DataError" href="https://webidl.spec.whatwg.org/#dataerror"><code>DataError</code></a>.
                       </p>
                     </li>
                     <li>
                       <p>
                         If <var>jwk</var> does not meet the requirements of
                         Section 6.4 of JSON Web Algorithms [<cite><a class="bibref" data-link-type="biblio" href="#bib-jwa" title="JSON Web Algorithms (JWA)">JWA</a></cite>],
-                        then <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
-                        <a data-link-type="idl" data-lt="DataError" data-type="exception" href="https://webidl.spec.whatwg.org/#dataerror"><code>DataError</code></a>.
+                        then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
+                        <a data-link-type="exception" data-lt="DataError" href="https://webidl.spec.whatwg.org/#dataerror"><code>DataError</code></a>.
                       </p>
                     </li>
                     <li>
                       <p>
                         Let <var>data</var> be the <a data-link-type="dfn|abstract-op" href="#dfn-octet-string" class="internalDFN" id="ref-for-dfn-octet-string-6">octet string</a> obtained by decoding the
-                        <a data-link-type="idl" data-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-jsonwebkey-k"><code>k</code></a> field of <var>jwk</var>.
+                        <a data-link-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-jsonwebkey-k"><code>k</code></a> field of <var>jwk</var>.
                       </p>
                     </li>
                     <li>
                       <dl class="switch">
                         <dt>
-                          If the <a data-link-type="idl" data-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-algorithm-name"><code>name</code></a> member of
+                          If the <a data-link-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-algorithm-name"><code>name</code></a> member of
                           <var>normalizedAlgorithm</var> is a case-sensitive string match for
                           "<code>KMAC128</code>":
                         </dt>
                         <dd>
-                          If the <a data-link-type="idl" data-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-jsonwebkey-alg"><code>alg</code></a> field of <var>jwk</var> is present
+                          If the <a data-link-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-jsonwebkey-alg"><code>alg</code></a> field of <var>jwk</var> is present
                           and is not "<code>K128</code>",
-                          then <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
-                          <a data-link-type="idl" data-lt="DataError" data-type="exception" href="https://webidl.spec.whatwg.org/#dataerror"><code>DataError</code></a>.
+                          then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
+                          <a data-link-type="exception" data-lt="DataError" href="https://webidl.spec.whatwg.org/#dataerror"><code>DataError</code></a>.
                         </dd>
                         <dt>
-                          If the <a data-link-type="idl" data-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-algorithm-name"><code>name</code></a> member of
+                          If the <a data-link-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-algorithm-name"><code>name</code></a> member of
                           <var>normalizedAlgorithm</var> is a case-sensitive string match for
                           "<code>KMAC256</code>":
                         </dt>
                         <dd>
-                          If the <a data-link-type="idl" data-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-jsonwebkey-alg"><code>alg</code></a> field of <var>jwk</var> is present
+                          If the <a data-link-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-jsonwebkey-alg"><code>alg</code></a> field of <var>jwk</var> is present
                           and is not "<code>K256</code>",
-                          then <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
-                          <a data-link-type="idl" data-lt="DataError" data-type="exception" href="https://webidl.spec.whatwg.org/#dataerror"><code>DataError</code></a>.
+                          then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
+                          <a data-link-type="exception" data-lt="DataError" href="https://webidl.spec.whatwg.org/#dataerror"><code>DataError</code></a>.
                         </dd>
                       </dl>
                     </li>
                     <li>
                       <p>
-                        If <var>usages</var> is non-empty and the <a data-link-type="idl" data-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-jsonwebkey-use"><code>use</code></a> field of <var>jwk</var> is present and is
+                        If <var>usages</var> is non-empty and the <a data-link-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-jsonwebkey-use"><code>use</code></a> field of <var>jwk</var> is present and is
                         not "<code>sign</code>",
-                        then <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
-                        <a data-link-type="idl" data-lt="DataError" data-type="exception" href="https://webidl.spec.whatwg.org/#dataerror"><code>DataError</code></a>.
+                        then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
+                        <a data-link-type="exception" data-lt="DataError" href="https://webidl.spec.whatwg.org/#dataerror"><code>DataError</code></a>.
                       </p>
                     </li>
                     <li>
                       <p>
-                        If the <a data-link-type="idl" data-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-jsonwebkey-key_ops"><code>key_ops</code></a> field of <var>jwk</var> is present, and
+                        If the <a data-link-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-jsonwebkey-key_ops"><code>key_ops</code></a> field of <var>jwk</var> is present, and
                         is invalid according to the requirements of
                         JSON Web Key [<cite><a class="bibref" data-link-type="biblio" href="#bib-jwk" title="JSON Web Key (JWK)">JWK</a></cite>] or
                         does not contain all of the specified <var>usages</var> values,
-                        then <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
-                        <a data-link-type="idl" data-lt="DataError" data-type="exception" href="https://webidl.spec.whatwg.org/#dataerror"><code>DataError</code></a>.
+                        then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
+                        <a data-link-type="exception" data-lt="DataError" href="https://webidl.spec.whatwg.org/#dataerror"><code>DataError</code></a>.
                       </p>
                     </li>
                     <li>
                       <p>
-                        If the <a data-link-type="idl" data-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-jsonwebkey-ext"><code>ext</code></a> field of <var>jwk</var> is present and
+                        If the <a data-link-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-jsonwebkey-ext"><code>ext</code></a> field of <var>jwk</var> is present and
                         has the value false and <var>extractable</var> is true,
-                        then <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
-                        <a data-link-type="idl" data-lt="DataError" data-type="exception" href="https://webidl.spec.whatwg.org/#dataerror"><code>DataError</code></a>.
+                        then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
+                        <a data-link-type="exception" data-lt="DataError" href="https://webidl.spec.whatwg.org/#dataerror"><code>DataError</code></a>.
                       </p>
                     </li>
                   </ol>
                 </dd>
                 <dt>Otherwise:</dt>
                 <dd>
-                  <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
-                  <a data-link-type="idl" data-lt="NotSupportedError" data-type="exception" href="https://webidl.spec.whatwg.org/#notsupportederror"><code>NotSupportedError</code></a>.
+                  <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
+                  <a data-link-type="exception" data-lt="NotSupportedError" href="https://webidl.spec.whatwg.org/#notsupportederror"><code>NotSupportedError</code></a>.
                 </dd>
               </dl>
             </li>
@@ -2242,8 +2244,8 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
             <li>
               <p>
                 If <var>length</var> is zero
-                then <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
-                <a data-link-type="idl" data-lt="DataError" data-type="exception" href="https://webidl.spec.whatwg.org/#dataerror"><code>DataError</code></a>.
+                then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
+                <a data-link-type="exception" data-lt="DataError" href="https://webidl.spec.whatwg.org/#dataerror"><code>DataError</code></a>.
               </p>
             </li>
             <li>
@@ -2259,8 +2261,8 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
                       <var>normalizedAlgorithm</var> is greater than <var>length</var>:
                     </dt>
                     <dd>
-                      <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
-                      <a data-link-type="idl" data-lt="DataError" data-type="exception" href="https://webidl.spec.whatwg.org/#dataerror"><code>DataError</code></a>.
+                      <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
+                      <a data-link-type="exception" data-lt="DataError" href="https://webidl.spec.whatwg.org/#dataerror"><code>DataError</code></a>.
                     </dd>
                     <dt>
                       If the <a data-link-type="idl" href="#dfn-KmacImportParams-length" class="internalDFN" id="ref-for-dfn-KmacImportParams-length-4"><code>length</code></a> member of
@@ -2268,8 +2270,8 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
                       <var>length</var> minus eight:
                     </dt>
                     <dd>
-                      <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
-                      <a data-link-type="idl" data-lt="DataError" data-type="exception" href="https://webidl.spec.whatwg.org/#dataerror"><code>DataError</code></a>.
+                      <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
+                      <a data-link-type="exception" data-lt="DataError" href="https://webidl.spec.whatwg.org/#dataerror"><code>DataError</code></a>.
                     </dd>
                     <dt>
                       Otherwise:
@@ -2284,7 +2286,7 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
             </li>
             <li>
               <p>
-                Let <var>key</var> be a new <a data-link-type="idl" data-lt="CryptoKey" data-type="interface" href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey"><code>CryptoKey</code></a>
+                Let <var>key</var> be a new <a data-link-type="interface" data-lt="CryptoKey" href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey"><code>CryptoKey</code></a>
                 object representing an KMAC key with the first <var>length</var>
                 bits of <var>data</var>.
               </p>
@@ -2297,7 +2299,7 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
             </li>
             <li>
               <p>
-                Set the <a data-link-type="idl" data-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-keyalgorithm-name"><code>name</code></a> attribute of
+                Set the <a data-link-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-keyalgorithm-name"><code>name</code></a> attribute of
                 <var>algorithm</var> to "<code>KMAC</code>".
               </p>
             </li>
@@ -2326,7 +2328,7 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
             <li>
               <p>
                 If the underlying cryptographic key material represented by the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-handle">[[handle]]</a> internal slot of <var>key</var>
-                cannot be accessed, then <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an <a data-link-type="idl" data-lt="OperationError" data-type="exception" href="https://webidl.spec.whatwg.org/#operationerror"><code>OperationError</code></a>.
+                cannot be accessed, then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an <a data-link-type="exception" data-lt="OperationError" href="https://webidl.spec.whatwg.org/#operationerror"><code>OperationError</code></a>.
               </p>
             </li>
             <li>
@@ -2342,23 +2344,23 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
             </li>
             <li>
               <dl class="switch">
-                <dt>If <var>format</var> is "<a data-link-type="idl" data-type="enum-value" href="https://www.w3.org/TR/WebCryptoAPI/#dom-keyformat-raw"><code>raw</code></a>":</dt>
+                <dt>If <var>format</var> is "<a data-link-type="enum-value" href="https://www.w3.org/TR/WebCryptoAPI/#dom-keyformat-raw"><code>raw</code></a>":</dt>
                 <dd>
                   <ol>
                     <li>
                       <p>
-                        Let <var>result</var> be the result of <a data-link-type="dfn|abstract-op" data-lt="create" data-type="dfn" href="https://webidl.spec.whatwg.org/#arraybuffer-create">creating</a>
-                        an <a data-link-type="idl" data-lt="ArrayBuffer" data-type="interface" href="https://webidl.spec.whatwg.org/#idl-ArrayBuffer"><code>ArrayBuffer</code></a> containing <var>data</var>.
+                        Let <var>result</var> be the result of <a data-link-type="dfn" data-lt="create" href="https://webidl.spec.whatwg.org/#arraybuffer-create">creating</a>
+                        an <a data-link-type="interface" data-lt="ArrayBuffer" href="https://webidl.spec.whatwg.org/#idl-ArrayBuffer"><code>ArrayBuffer</code></a> containing <var>data</var>.
                       </p>
                     </li>
                   </ol>
                 </dd>
-                <dt>If <var>format</var> is "<a data-link-type="idl" data-type="enum-value" href="https://www.w3.org/TR/WebCryptoAPI/#dom-keyformat-jwk"><code>jwk</code></a>":</dt>
+                <dt>If <var>format</var> is "<a data-link-type="enum-value" href="https://www.w3.org/TR/WebCryptoAPI/#dom-keyformat-jwk"><code>jwk</code></a>":</dt>
                 <dd>
                   <ol>
                     <li>
                       <p>
-                        Let <var>jwk</var> be a new <a data-link-type="idl" data-lt="JsonWebKey" data-type="dictionary" href="https://www.w3.org/TR/WebCryptoAPI/#dfn-JsonWebKey"><code>JsonWebKey</code></a>
+                        Let <var>jwk</var> be a new <a data-link-type="dictionary" data-lt="JsonWebKey" href="https://www.w3.org/TR/WebCryptoAPI/#dfn-JsonWebKey"><code>JsonWebKey</code></a>
                         dictionary.
                       </p>
                     </li>
@@ -2370,7 +2372,7 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
                     </li>
                     <li>
                       <p>
-                        Set the <a data-link-type="idl" data-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-jsonwebkey-k"><code>k</code></a> attribute of <var>jwk</var> to be a string
+                        Set the <a data-link-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-jsonwebkey-k"><code>k</code></a> attribute of <var>jwk</var> to be a string
                         containing <var>data</var>, encoded according to Section 6.4 of JSON Web Algorithms [<cite><a class="bibref" data-link-type="biblio" href="#bib-jwa" title="JSON Web Algorithms (JWA)">JWA</a></cite>].
                       </p>
                     </li>
@@ -2383,14 +2385,14 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
                     <li>
                       <dl class="switch">
                         <dt>
-                          If the <a data-link-type="idl" data-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-algorithm-name"><code>name</code></a> member of
+                          If the <a data-link-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-algorithm-name"><code>name</code></a> member of
                           <var>normalizedAlgorithm</var> is a case-sensitive string match for
                           "<code>KMAC128</code>":
                         </dt>
                         <dd>Set the <code>alg</code> attribute of <var>jwk</var> to
                           the string "<code>K128</code>".</dd>
                         <dt>
-                          If the <a data-link-type="idl" data-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-algorithm-name"><code>name</code></a> member of
+                          If the <a data-link-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-algorithm-name"><code>name</code></a> member of
                           <var>normalizedAlgorithm</var> is a case-sensitive string match for
                           "<code>KMAC256</code>":
                         </dt>
@@ -2401,7 +2403,7 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
                     <li>
                       <p>
                         Set the <code>key_ops</code> attribute of <var>jwk</var> to equal the
-                        <a data-link-type="idl" data-type="attribute" href="https://www.w3.org/TR/WebCryptoAPI/#dom-cryptokey-usages"><code>usages</code></a> attribute of <var>key</var>.
+                        <a data-link-type="attribute" href="https://www.w3.org/TR/WebCryptoAPI/#dom-cryptokey-usages"><code>usages</code></a> attribute of <var>key</var>.
                       </p>
                     </li>
                     <li>
@@ -2421,8 +2423,8 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
                 <dt>Otherwise:</dt>
                 <dd>
                   <p>
-                    <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
-                    <a data-link-type="idl" data-lt="NotSupportedError" data-type="exception" href="https://webidl.spec.whatwg.org/#notsupportederror"><code>NotSupportedError</code></a>.
+                    <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
+                    <a data-link-type="exception" data-lt="NotSupportedError" href="https://webidl.spec.whatwg.org/#notsupportederror"><code>NotSupportedError</code></a>.
                   </p>
                 </dd>
               </dl>
@@ -2449,7 +2451,7 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
                   member of <var>normalizedAlgorithm</var>.
                 </dd>
                 <dt>
-                  Otherwise, if the <a data-link-type="idl" data-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-algorithm-name"><code>name</code></a> member of
+                  Otherwise, if the <a data-link-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-algorithm-name"><code>name</code></a> member of
                   <var>normalizedAlgorithm</var> is a case-sensitive string match for
                   "<code>KMAC128</code>":
                 </dt>
@@ -2457,7 +2459,7 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
                   Let <var>length</var> be 128.
                 </dd>
                 <dt>
-                  Otherwise, if the <a data-link-type="idl" data-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-algorithm-name"><code>name</code></a> member of
+                  Otherwise, if the <a data-link-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-algorithm-name"><code>name</code></a> member of
                   <var>normalizedAlgorithm</var> is a case-sensitive string match for
                   "<code>KMAC256</code>":
                 </dt>
@@ -2505,12 +2507,12 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
           <tr>
             <td>deriveBits</td>
             <td><a data-link-type="idl" data-lt="Argon2Params" href="#dfn-Argon2Params" class="internalDFN" id="ref-for-dfn-Argon2Params-1"><code>Argon2Params</code></a></td>
-            <td><a data-link-type="idl" data-lt="ArrayBuffer" data-type="interface" href="https://webidl.spec.whatwg.org/#idl-ArrayBuffer"><code>ArrayBuffer</code></a></td>
+            <td><a data-link-type="interface" data-lt="ArrayBuffer" href="https://webidl.spec.whatwg.org/#idl-ArrayBuffer"><code>ArrayBuffer</code></a></td>
           </tr>
           <tr>
             <td>importKey</td>
             <td>None</td>
-            <td><a data-link-type="idl" data-lt="CryptoKey" data-type="interface" href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey"><code>CryptoKey</code></a></td>
+            <td><a data-link-type="interface" data-lt="CryptoKey" href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey"><code>CryptoKey</code></a></td>
           </tr>
           <tr>
             <td>Get key length</td>
@@ -2522,14 +2524,14 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
     </section>
     <section id="argon2-params"><div class="header-wrapper"><h3 id="x10-3-argon2params-dictionary"><bdi class="secno">10.3 </bdi><dfn data-idl="dictionary" id="dfn-Argon2Params" data-export="" data-dfn-type="dictionary" data-title="Argon2Params" data-dfn-for="" tabindex="0" aria-haspopup="dialog"><code>Argon2Params</code></dfn> dictionary</h3><a class="self-link" href="#argon2-params" aria-label="Permalink for Section 10.3"></a></div>
       
-      <pre class="idl def" id="webidl-1006558199"><span class="idlHeader"><a class="self-link" href="#webidl-1006558199">WebIDL</a></span><code><span data-idl="" class="idlDictionary" id="idl-def-argon2params" data-title="Argon2Params">dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-Argon2Params" id="ref-for-dfn-Argon2Params-2"><code>Argon2Params</code></a> : <span class="idlSuperclass"><a data-link-type="idl" data-type="dictionary" href="https://www.w3.org/TR/WebCryptoAPI/#dfn-Algorithm">Algorithm</a></span> {<span data-idl="" class="idlMember" id="idl-def-argon2params-nonce" data-title="nonce" data-dfn-for="Argon2Params">
-  required<span class="idlType"> <a data-link-type="idl" data-type="typedef" href="https://webidl.spec.whatwg.org/#BufferSource">BufferSource</a></span> <a class="internalDFN idlName" data-link-type="dict-member" href="#dfn-Argon2Params-nonce" id="ref-for-dfn-Argon2Params-nonce-1"><code>nonce</code></a>;</span><span data-idl="" class="idlMember" id="idl-def-argon2params-parallelism" data-title="parallelism" data-dfn-for="Argon2Params">
-  required<span class="idlType"> [<span class="extAttr"><a data-type="extended-attribute" href="https://webidl.spec.whatwg.org/#EnforceRange">EnforceRange</a></span>] <a data-link-type="idl" data-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long">unsigned long</a></span> <a class="internalDFN idlName" data-link-type="dict-member" href="#dfn-Argon2Params-parallelism" id="ref-for-dfn-Argon2Params-parallelism-1"><code>parallelism</code></a>;</span><span data-idl="" class="idlMember" id="idl-def-argon2params-memory" data-title="memory" data-dfn-for="Argon2Params">
-  required<span class="idlType"> [<span class="extAttr"><a data-type="extended-attribute" href="https://webidl.spec.whatwg.org/#EnforceRange">EnforceRange</a></span>] <a data-link-type="idl" data-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long">unsigned long</a></span> <a class="internalDFN idlName" data-link-type="dict-member" href="#dfn-Argon2Params-memory" id="ref-for-dfn-Argon2Params-memory-1"><code>memory</code></a>;</span><span data-idl="" class="idlMember" id="idl-def-argon2params-passes" data-title="passes" data-dfn-for="Argon2Params">
-  required<span class="idlType"> [<span class="extAttr"><a data-type="extended-attribute" href="https://webidl.spec.whatwg.org/#EnforceRange">EnforceRange</a></span>] <a data-link-type="idl" data-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long">unsigned long</a></span> <a class="internalDFN idlName" data-link-type="dict-member" href="#dfn-Argon2Params-passes" id="ref-for-dfn-Argon2Params-passes-1"><code>passes</code></a>;</span><span data-idl="" class="idlMember" id="idl-def-argon2params-version" data-title="version" data-dfn-for="Argon2Params">
-  [<span class="extAttr"><a data-type="extended-attribute" href="https://webidl.spec.whatwg.org/#EnforceRange">EnforceRange</a></span>]<span class="idlType"> <a data-link-type="idl" data-type="interface" href="https://webidl.spec.whatwg.org/#idl-octet">octet</a></span> <a class="internalDFN idlName" data-link-type="dict-member" href="#dfn-Argon2Params-version" id="ref-for-dfn-Argon2Params-version-1"><code>version</code></a>;</span><span data-idl="" class="idlMember" id="idl-def-argon2params-secretvalue" data-title="secretValue" data-dfn-for="Argon2Params"><span class="idlType">
-  <a data-link-type="idl" data-type="typedef" href="https://webidl.spec.whatwg.org/#BufferSource">BufferSource</a></span> <a class="internalDFN idlName" data-link-type="dict-member" href="#dfn-Argon2Params-secretValue" id="ref-for-dfn-Argon2Params-secretValue-1"><code>secretValue</code></a>;</span><span data-idl="" class="idlMember" id="idl-def-argon2params-associateddata" data-title="associatedData" data-dfn-for="Argon2Params"><span class="idlType">
-  <a data-link-type="idl" data-type="typedef" href="https://webidl.spec.whatwg.org/#BufferSource">BufferSource</a></span> <a class="internalDFN idlName" data-link-type="dict-member" href="#dfn-Argon2Params-associatedData" id="ref-for-dfn-Argon2Params-associatedData-1"><code>associatedData</code></a>;</span>
+      <pre class="idl def" id="webidl-1006558199"><span class="idlHeader"><a class="self-link" href="#webidl-1006558199">WebIDL</a></span><code><span data-idl="" class="idlDictionary" id="idl-def-argon2params" data-title="Argon2Params">dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-Argon2Params" id="ref-for-dfn-Argon2Params-2"><code>Argon2Params</code></a> : <span class="idlSuperclass"><a data-link-type="dictionary" href="https://www.w3.org/TR/WebCryptoAPI/#dfn-Algorithm">Algorithm</a></span> {<span data-idl="" class="idlMember" id="idl-def-argon2params-nonce" data-title="nonce" data-dfn-for="Argon2Params">
+  required<span class="idlType"> <a data-link-type="typedef" href="https://webidl.spec.whatwg.org/#BufferSource">BufferSource</a></span> <a class="internalDFN idlName" data-link-type="dict-member" href="#dfn-Argon2Params-nonce" id="ref-for-dfn-Argon2Params-nonce-1"><code>nonce</code></a>;</span><span data-idl="" class="idlMember" id="idl-def-argon2params-parallelism" data-title="parallelism" data-dfn-for="Argon2Params">
+  required<span class="idlType"> [<span class="extAttr"><a data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#EnforceRange">EnforceRange</a></span>] <a data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long">unsigned long</a></span> <a class="internalDFN idlName" data-link-type="dict-member" href="#dfn-Argon2Params-parallelism" id="ref-for-dfn-Argon2Params-parallelism-1"><code>parallelism</code></a>;</span><span data-idl="" class="idlMember" id="idl-def-argon2params-memory" data-title="memory" data-dfn-for="Argon2Params">
+  required<span class="idlType"> [<span class="extAttr"><a data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#EnforceRange">EnforceRange</a></span>] <a data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long">unsigned long</a></span> <a class="internalDFN idlName" data-link-type="dict-member" href="#dfn-Argon2Params-memory" id="ref-for-dfn-Argon2Params-memory-1"><code>memory</code></a>;</span><span data-idl="" class="idlMember" id="idl-def-argon2params-passes" data-title="passes" data-dfn-for="Argon2Params">
+  required<span class="idlType"> [<span class="extAttr"><a data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#EnforceRange">EnforceRange</a></span>] <a data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long">unsigned long</a></span> <a class="internalDFN idlName" data-link-type="dict-member" href="#dfn-Argon2Params-passes" id="ref-for-dfn-Argon2Params-passes-1"><code>passes</code></a>;</span><span data-idl="" class="idlMember" id="idl-def-argon2params-version" data-title="version" data-dfn-for="Argon2Params">
+  [<span class="extAttr"><a data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#EnforceRange">EnforceRange</a></span>]<span class="idlType"> <a data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-octet">octet</a></span> <a class="internalDFN idlName" data-link-type="dict-member" href="#dfn-Argon2Params-version" id="ref-for-dfn-Argon2Params-version-1"><code>version</code></a>;</span><span data-idl="" class="idlMember" id="idl-def-argon2params-secretvalue" data-title="secretValue" data-dfn-for="Argon2Params"><span class="idlType">
+  <a data-link-type="typedef" href="https://webidl.spec.whatwg.org/#BufferSource">BufferSource</a></span> <a class="internalDFN idlName" data-link-type="dict-member" href="#dfn-Argon2Params-secretValue" id="ref-for-dfn-Argon2Params-secretValue-1"><code>secretValue</code></a>;</span><span data-idl="" class="idlMember" id="idl-def-argon2params-associateddata" data-title="associatedData" data-dfn-for="Argon2Params"><span class="idlType">
+  <a data-link-type="typedef" href="https://webidl.spec.whatwg.org/#BufferSource">BufferSource</a></span> <a class="internalDFN idlName" data-link-type="dict-member" href="#dfn-Argon2Params-associatedData" id="ref-for-dfn-Argon2Params-associatedData-1"><code>associatedData</code></a>;</span>
 };</span></code></pre>
       <p>The <dfn data-dfn-for="Argon2Params" id="dfn-Argon2Params-nonce" data-export="" data-dfn-type="dict-member" data-idl="field" data-title="nonce" data-type="BufferSource" tabindex="0" aria-haspopup="dialog"><code>nonce</code></dfn> member represents the nonce, which is a salt for password hashing applications.</p>
       <p>The <dfn data-dfn-for="Argon2Params" id="dfn-Argon2Params-parallelism" data-export="" data-dfn-type="dict-member" data-idl="field" data-title="parallelism" data-type="unsigned long" tabindex="0" aria-haspopup="dialog"><code>parallelism</code></dfn> member represents the degree of parallelism.</p>
@@ -2550,41 +2552,41 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
           <ol>
             <li>
               <p>
-                If <var>length</var> is null, or is less than 32 (4*8), then <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an <a data-link-type="idl" data-lt="OperationError" data-type="exception" href="https://webidl.spec.whatwg.org/#operationerror"><code>OperationError</code></a>.
+                If <var>length</var> is null, or is less than 32 (4*8), then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an <a data-link-type="exception" data-lt="OperationError" href="https://webidl.spec.whatwg.org/#operationerror"><code>OperationError</code></a>.
               </p>
             </li>
             <li>
               <p>
                 If the <a data-link-type="idl" href="#dfn-Argon2Params-version" class="internalDFN" id="ref-for-dfn-Argon2Params-version-2"><code>version</code></a> member
                 of <var>normalizedAlgorithm</var> is present and is not 19 (0x13),
-                then <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an
-                <a data-link-type="idl" data-lt="OperationError" data-type="exception" href="https://webidl.spec.whatwg.org/#operationerror"><code>OperationError</code></a>.
+                then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an
+                <a data-link-type="exception" data-lt="OperationError" href="https://webidl.spec.whatwg.org/#operationerror"><code>OperationError</code></a>.
               </p>
             </li>
             <li>
               <p>
                 If the <a data-link-type="idl" href="#dfn-Argon2Params-parallelism" class="internalDFN" id="ref-for-dfn-Argon2Params-parallelism-2"><code>parallelism</code></a> member of <var>normalizedAlgorithm</var> is zero,
                 or greater than 16777215 (2^24-1),
-                then <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an <a data-link-type="idl" data-lt="OperationError" data-type="exception" href="https://webidl.spec.whatwg.org/#operationerror"><code>OperationError</code></a>.
+                then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an <a data-link-type="exception" data-lt="OperationError" href="https://webidl.spec.whatwg.org/#operationerror"><code>OperationError</code></a>.
               </p>
             </li>
             <li>
               <p>
                 If the <a data-link-type="idl" href="#dfn-Argon2Params-memory" class="internalDFN" id="ref-for-dfn-Argon2Params-memory-2"><code>memory</code></a> member of <var>normalizedAlgorithm</var> is less than
                 8 times the <a data-link-type="idl" href="#dfn-Argon2Params-parallelism" class="internalDFN" id="ref-for-dfn-Argon2Params-parallelism-3"><code>parallelism</code></a> member of <var>normalizedAlgorithm</var>,
-                then <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an <a data-link-type="idl" data-lt="OperationError" data-type="exception" href="https://webidl.spec.whatwg.org/#operationerror"><code>OperationError</code></a>.
+                then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an <a data-link-type="exception" data-lt="OperationError" href="https://webidl.spec.whatwg.org/#operationerror"><code>OperationError</code></a>.
               </p>
             </li>
             <li>
               <p>
                 If the <a data-link-type="idl" href="#dfn-Argon2Params-passes" class="internalDFN" id="ref-for-dfn-Argon2Params-passes-2"><code>passes</code></a> member of <var>normalizedAlgorithm</var> is zero,
-                then <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an <a data-link-type="idl" data-lt="OperationError" data-type="exception" href="https://webidl.spec.whatwg.org/#operationerror"><code>OperationError</code></a>.
+                then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an <a data-link-type="exception" data-lt="OperationError" href="https://webidl.spec.whatwg.org/#operationerror"><code>OperationError</code></a>.
               </p>
             </li>
             <li>
               <dl class="switch">
                 <dt>
-                  If the <a data-link-type="idl" data-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-algorithm-name"><code>name</code></a> member of
+                  If the <a data-link-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-algorithm-name"><code>name</code></a> member of
                   <var>normalizedAlgorithm</var> is a case-sensitive string match for
                   "<code>Argon2d</code>":
                 </dt>
@@ -2592,7 +2594,7 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
                   Let <var>type</var> be 0.
                 </dd>
                 <dt>
-                  If the <a data-link-type="idl" data-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-algorithm-name"><code>name</code></a> member of
+                  If the <a data-link-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-algorithm-name"><code>name</code></a> member of
                   <var>normalizedAlgorithm</var> is a case-sensitive string match for
                   "<code>Argon2i</code>":
                 </dt>
@@ -2600,7 +2602,7 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
                   Let <var>type</var> be 1.
                 </dd>
                 <dt>
-                  If the <a data-link-type="idl" data-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-algorithm-name"><code>name</code></a> member of
+                  If the <a data-link-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-algorithm-name"><code>name</code></a> member of
                   <var>normalizedAlgorithm</var> is a case-sensitive string match for
                   "<code>Argon2id</code>":
                 </dt>
@@ -2645,14 +2647,14 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
             <li>
               <p>
                 If the key derivation operation fails,
-                then <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an
-                <a data-link-type="idl" data-lt="OperationError" data-type="exception" href="https://webidl.spec.whatwg.org/#operationerror"><code>OperationError</code></a>.
+                then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an
+                <a data-link-type="exception" data-lt="OperationError" href="https://webidl.spec.whatwg.org/#operationerror"><code>OperationError</code></a>.
               </p>
             </li>
             <li>
               <p>
-                Return the result of <a data-link-type="dfn|abstract-op" data-lt="create" data-type="dfn" href="https://webidl.spec.whatwg.org/#arraybuffer-create">creating</a>
-                an <a data-link-type="idl" data-lt="ArrayBuffer" data-type="interface" href="https://webidl.spec.whatwg.org/#idl-ArrayBuffer"><code>ArrayBuffer</code></a> containing <var>result</var>.
+                Return the result of <a data-link-type="dfn" data-lt="create" href="https://webidl.spec.whatwg.org/#arraybuffer-create">creating</a>
+                an <a data-link-type="interface" data-lt="ArrayBuffer" href="https://webidl.spec.whatwg.org/#idl-ArrayBuffer"><code>ArrayBuffer</code></a> containing <var>result</var>.
               </p>
             </li>
           </ol>
@@ -2662,33 +2664,33 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
           <ol>
             <li>
               <p>
-                If <var>format</var> is not "<a data-link-type="idl" data-type="enum-value" href="https://www.w3.org/TR/WebCryptoAPI/#dom-keyformat-raw"><code>raw</code></a>", <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a <a data-link-type="idl" data-lt="NotSupportedError" data-type="exception" href="https://webidl.spec.whatwg.org/#notsupportederror"><code>NotSupportedError</code></a>
+                If <var>format</var> is not "<a data-link-type="enum-value" href="https://www.w3.org/TR/WebCryptoAPI/#dom-keyformat-raw"><code>raw</code></a>", <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a <a data-link-type="exception" data-lt="NotSupportedError" href="https://webidl.spec.whatwg.org/#notsupportederror"><code>NotSupportedError</code></a>
               </p>
             </li>
             <li>
               <p>
                 If <var>usages</var> contains a value that is not
                 "<code>deriveKey</code>"  or "<code>deriveBits</code>", then
-                <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a <a data-link-type="idl" data-lt="SyntaxError" data-type="exception" href="https://webidl.spec.whatwg.org/#syntaxerror"><code>SyntaxError</code></a>.
+                <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a <a data-link-type="exception" data-lt="SyntaxError" href="https://webidl.spec.whatwg.org/#syntaxerror"><code>SyntaxError</code></a>.
               </p>
             </li>
             <li>
               <p>
                 If <var>extractable</var> is not <code>false</code>,
-                then <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
-                <a data-link-type="idl" data-lt="SyntaxError" data-type="exception" href="https://webidl.spec.whatwg.org/#syntaxerror"><code>SyntaxError</code></a>.
+                then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
+                <a data-link-type="exception" data-lt="SyntaxError" href="https://webidl.spec.whatwg.org/#syntaxerror"><code>SyntaxError</code></a>.
               </p>
             </li>
             <li>
               <p>
-                Let <var>key</var> be a new <a data-link-type="idl" data-lt="CryptoKey" data-type="interface" href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey"><code>CryptoKey</code></a>
+                Let <var>key</var> be a new <a data-link-type="interface" data-lt="CryptoKey" href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey"><code>CryptoKey</code></a>
                 representing <var>keyData</var>.
               </p>
             </li>
             <li>
               <p>
                 Set the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-type">[[type]]</a> internal slot of
-                <var>key</var> to "<a data-link-type="idl" data-type="enum-value" href="https://www.w3.org/TR/WebCryptoAPI/#dom-keytype-secret"><code>secret</code></a>".
+                <var>key</var> to "<a data-link-type="enum-value" href="https://www.w3.org/TR/WebCryptoAPI/#dom-keytype-secret"><code>secret</code></a>".
               </p>
             </li>
             <li>
@@ -2699,14 +2701,14 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
             </li>
             <li>
               <p>
-                Let <var>algorithm</var> be a new <a data-link-type="idl" data-lt="KeyAlgorithm" data-type="dictionary" href="https://www.w3.org/TR/WebCryptoAPI/#dfn-KeyAlgorithm"><code>KeyAlgorithm</code></a>
+                Let <var>algorithm</var> be a new <a data-link-type="dictionary" data-lt="KeyAlgorithm" href="https://www.w3.org/TR/WebCryptoAPI/#dfn-KeyAlgorithm"><code>KeyAlgorithm</code></a>
                 object.
               </p>
             </li>
             <li>
               <p>
-                Set the <a data-link-type="idl" data-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-keyalgorithm-name"><code>name</code></a> attribute of
-                <var>algorithm</var> to the <a data-link-type="idl" data-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-algorithm-name"><code>name</code></a> member of
+                Set the <a data-link-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-keyalgorithm-name"><code>name</code></a> attribute of
+                <var>algorithm</var> to the <a data-link-type="dict-member" href="https://www.w3.org/TR/WebCryptoAPI/#dom-algorithm-name"><code>name</code></a> member of
                 <var>normalizedAlgorithm</var>.
               </p>
             </li>
@@ -2748,21 +2750,21 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
     <a class="self-link" href="#example-encrypt-some-data-using-a-key-derived-from-a-password">Example<bdi> 1</bdi></a><span class="example-title">: Encrypt some data using a key derived from a password</span>
   </div> <pre aria-busy="false"><code class="hljs js"><span class="hljs-keyword">const</span> password = <span class="hljs-string">'correct horse battery staple'</span>;
 <span class="hljs-keyword">const</span> derivationAlg =
-  SubtleCrypto.supports?.(<span class="hljs-string">'importKey'</span>, <span class="hljs-string">'Argon2id'</span>) ?
+  <span class="hljs-title class_">SubtleCrypto</span>.<span class="hljs-property">supports</span>?.(<span class="hljs-string">'importKey'</span>, <span class="hljs-string">'Argon2id'</span>) ?
     <span class="hljs-string">'Argon2id'</span> :
     <span class="hljs-string">'PBKDF2'</span>;
 <span class="hljs-keyword">const</span> encryptionAlg =
-  SubtleCrypto.supports?.(<span class="hljs-string">'importKey'</span>, <span class="hljs-string">'AES-OCB'</span>) ?
+  <span class="hljs-title class_">SubtleCrypto</span>.<span class="hljs-property">supports</span>?.(<span class="hljs-string">'importKey'</span>, <span class="hljs-string">'AES-OCB'</span>) ?
     <span class="hljs-string">'AES-OCB'</span> :
     <span class="hljs-string">'AES-GCM'</span>;
-<span class="hljs-keyword">const</span> passwordKey = <span class="hljs-keyword">await</span> crypto.subtle.importKey(
+<span class="hljs-keyword">const</span> passwordKey = <span class="hljs-keyword">await</span> crypto.<span class="hljs-property">subtle</span>.<span class="hljs-title function_">importKey</span>(
   <span class="hljs-string">'raw'</span>,
-  <span class="hljs-keyword">new</span> TextEncoder().encode(password),
+  <span class="hljs-keyword">new</span> <span class="hljs-title class_">TextEncoder</span>().<span class="hljs-title function_">encode</span>(password),
   derivationAlg,
   <span class="hljs-comment">/* extractable: */</span> <span class="hljs-literal">false</span>,
   [<span class="hljs-string">'deriveKey'</span>]
 );
-<span class="hljs-keyword">const</span> nonce = crypto.getRandomValues(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Uint8Array</span>(<span class="hljs-number">16</span>));
+<span class="hljs-keyword">const</span> nonce = crypto.<span class="hljs-title function_">getRandomValues</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Uint8Array</span>(<span class="hljs-number">16</span>));
 <span class="hljs-keyword">const</span> derivationParams =
   derivationAlg === <span class="hljs-string">'Argon2id'</span> ?
     {
@@ -2776,7 +2778,7 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
       <span class="hljs-attr">iterations</span>: <span class="hljs-number">100_000</span>,
       <span class="hljs-attr">hash</span>: <span class="hljs-string">'SHA-256'</span>
     };
-<span class="hljs-keyword">const</span> key = <span class="hljs-keyword">await</span> crypto.subtle.deriveKey(
+<span class="hljs-keyword">const</span> key = <span class="hljs-keyword">await</span> crypto.<span class="hljs-property">subtle</span>.<span class="hljs-title function_">deriveKey</span>(
   {
     <span class="hljs-attr">name</span>: derivationAlg,
     ...derivationParams
@@ -2790,18 +2792,18 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
   [<span class="hljs-string">'encrypt'</span>, <span class="hljs-string">'decrypt'</span>]
 );
 <span class="hljs-keyword">const</span> plaintext = <span class="hljs-string">'Hello, world!'</span>;
-<span class="hljs-keyword">const</span> iv = crypto.getRandomValues(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Uint8Array</span>(<span class="hljs-number">16</span>));
-<span class="hljs-keyword">const</span> encrypted = <span class="hljs-keyword">await</span> crypto.subtle.encrypt(
+<span class="hljs-keyword">const</span> iv = crypto.<span class="hljs-title function_">getRandomValues</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Uint8Array</span>(<span class="hljs-number">16</span>));
+<span class="hljs-keyword">const</span> encrypted = <span class="hljs-keyword">await</span> crypto.<span class="hljs-property">subtle</span>.<span class="hljs-title function_">encrypt</span>(
   { <span class="hljs-attr">name</span>: encryptionAlg, iv },
   key,
-  <span class="hljs-keyword">new</span> TextEncoder().encode(plaintext)
+  <span class="hljs-keyword">new</span> <span class="hljs-title class_">TextEncoder</span>().<span class="hljs-title function_">encode</span>(plaintext)
 );
 <span class="hljs-comment">// Store the derivation and encryption algorithm and parameters</span>
 <span class="hljs-comment">// as well as the ciphertext (e.g. in IndexedDB or a database),</span>
 <span class="hljs-comment">// and retrieve them later. Then, derive the key using the</span>
 <span class="hljs-comment">// original parameters and the password. Here we immediately</span>
 <span class="hljs-comment">// use the same key object to decrypt again.</span>
-<span class="hljs-keyword">const</span> decrypted = <span class="hljs-keyword">new</span> TextDecoder().decode(<span class="hljs-keyword">await</span> crypto.subtle.decrypt(
+<span class="hljs-keyword">const</span> decrypted = <span class="hljs-keyword">new</span> <span class="hljs-title class_">TextDecoder</span>().<span class="hljs-title function_">decode</span>(<span class="hljs-keyword">await</span> crypto.<span class="hljs-property">subtle</span>.<span class="hljs-title function_">decrypt</span>(
   { <span class="hljs-attr">name</span>: encryptionAlg, iv },
   key,
   encrypted
