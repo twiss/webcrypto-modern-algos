@@ -133,21 +133,6 @@
       specified in section 18.4.3 of [[WebCryptoAPI]] for each of the supported operations.
     </p>
   </section>
-  <section id="terminology">
-    <h2>Terminology</h2>
-    <p>
-      An <dfn id="dfn-octet-string">octet string</dfn> is an ordered sequence of zero or more
-      integers, each in the range 0 to 255 inclusive.
-    </p>
-    <p>
-      When this specification states to supply the <dfn id="concept-contents-of-arraybuffer">
-      contents of an ArrayBuffer</dfn> named |data| to an underlying cryptographic
-      implementation, the User Agent shall supply a contiguous sequence of bytes that is equal
-      to the result of
-      [= get a copy of the buffer source | getting a copy of the bytes =]
-      held |data|.
-    </p>
-  </section>
 
   <section id="partial-subtlecrypto-interface">
     <h2>Partial SubtleCrypto interface</h2>
@@ -726,7 +711,6 @@ dictionary EncapsulatedBits {
                 indicated by the {{Algorithm/name}} member of |algorithm|,
                 using the key represented by the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">`[[handle]]`</a>
                 internal slot of |key| as the <var class="overline">dk</var> input parameter, and
-                <a href="#concept-contents-of-arraybuffer">the contents of</a>
                 |ciphertext| as the <var class="overline">c</var> input parameter.
               </p>
               <div class=note>
@@ -750,7 +734,6 @@ dictionary EncapsulatedBits {
                 indicated by the {{Algorithm/name}} member of |algorithm|,
                 using the key represented by the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">`[[handle]]`</a>
                 internal slot of |key| as the |dk| input parameter, and
-                <a href="#concept-contents-of-arraybuffer">the contents of</a>
                 |ciphertext| as the |c| input parameter.
               </p>
             </li>
@@ -915,7 +898,7 @@ dictionary EncapsulatedBits {
                     </li>
                     <li>
                       <p>
-                        Let |data| be the [= octet string =] contained in |keyData|.
+                        Let |data| be |keyData|.
                       </p>
                     </li>
                     <li>
@@ -963,7 +946,7 @@ dictionary EncapsulatedBits {
                     </li>
                     <li>
                       <p>
-                        Let |data| be the [= octet string =] contained in |keyData|.
+                        Let |data| be |keyData|.
                       </p>
                     </li>
                     <li>
@@ -1224,7 +1207,7 @@ dictionary AeadParams : Algorithm {
             </li>
             <li>
               <p>
-                Let |additionalData| be <a href="#concept-contents-of-arraybuffer">the contents of</a> the {{AeadParams/additionalData}} member of
+                Let |additionalData| be the {{AeadParams/additionalData}} member of
                 |normalizedAlgorithm| if present or the empty octet
                 string otherwise.
               </p>
@@ -1236,11 +1219,10 @@ dictionary AeadParams : Algorithm {
                 [[RFC7253]] using AES as the block cipher, using
                 the key represented by <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">`[[handle]]`</a>
                 internal slot of |key| as the |K| input parameter,
-                <a href="#concept-contents-of-arraybuffer">the contents of</a> the {{AeadParams/iv}} member of |normalizedAlgorithm| as
-                the |N| input parameter, <a href="#concept-contents-of-arraybuffer">the contents of
-                |additionalData|</a> as the |A| input parameter,
-                <a href="#concept-contents-of-arraybuffer">the contents of
-                |plaintext|</a> as the |P| input parameter, and
+                the {{AeadParams/iv}} member of |normalizedAlgorithm| as
+                the |N| input parameter,
+                |additionalData| as the |A| input parameter,
+                |plaintext| as the |P| input parameter, and
                 |tagLength| as the |TAGLEN| global parameter.
               </p>
             </li>
@@ -1290,7 +1272,7 @@ dictionary AeadParams : Algorithm {
             </li>
             <li>
               <p>
-                Let |additionalData| be <a href="#concept-contents-of-arraybuffer">the contents of</a> the {{AeadParams/additionalData}} member of
+                Let |additionalData| be the {{AeadParams/additionalData}} member of
                 |normalizedAlgorithm| if present or the empty octet
                 string otherwise.
               </p>
@@ -1301,11 +1283,10 @@ dictionary AeadParams : Algorithm {
                 [[RFC7253]] using AES as the block cipher, using
                 the key represented by <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">`[[handle]]`</a>
                 internal slot of |key| as the |K| input parameter,
-                <a href="#concept-contents-of-arraybuffer">the contents of</a> the {{AeadParams/iv}} member of |normalizedAlgorithm| as
-                the |N| input parameter, <a href="#concept-contents-of-arraybuffer">the contents of
-                |additionalData|</a> as the |A| input parameter,
-                <a href="#concept-contents-of-arraybuffer">the contents of
-                |ciphertext|</a> as the |C| input parameter, and
+                the {{AeadParams/iv}} member of |normalizedAlgorithm| as
+                the |N| input parameter,
+                |additionalData| as the |A| input parameter,
+                |ciphertext| as the |C| input parameter, and
                 |tagLength| as the |TAGLEN| global parameter.
               </p>
               <dl class="switch">
@@ -1434,7 +1415,7 @@ dictionary AeadParams : Algorithm {
                   <ol>
                     <li>
                       <p>
-                        Let |data| be the [= octet string =] contained in |keyData|.
+                        Let |data| be |keyData|.
                       </p>
                     </li>
                     <li>
@@ -1475,7 +1456,7 @@ dictionary AeadParams : Algorithm {
                     </li>
                     <li>
                       <p>
-                        Let |data| be the [= octet string =] obtained by decoding the
+                        Let |data| be the [= byte sequence =] obtained by decoding the
                         {{JsonWebKey/k}} field of |jwk|.
                       </p>
                     </li>
@@ -1781,7 +1762,7 @@ dictionary AeadParams : Algorithm {
             </li>
             <li>
               <p>
-                Let |additionalData| be <a href="#concept-contents-of-arraybuffer">the contents of</a> the {{AeadParams/additionalData}} member of
+                Let |additionalData| be the {{AeadParams/additionalData}} member of
                 |normalizedAlgorithm| if present or the empty octet
                 string otherwise.
               </p>
@@ -1793,12 +1774,10 @@ dictionary AeadParams : Algorithm {
                 described in Section 2.8 of [[RFC8439]], using
                 the key represented by <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">`[[handle]]`</a>
                 internal slot of |key| as the key input parameter,
-                <a href="#concept-contents-of-arraybuffer">the contents of</a> the {{AeadParams/iv}} member of |normalizedAlgorithm| as
+                the {{AeadParams/iv}} member of |normalizedAlgorithm| as
                 the nonce input parameter,
-                <a href="#concept-contents-of-arraybuffer">the contents of
-                |plaintext|</a> as the plaintext input parameter, and
-                <a href="#concept-contents-of-arraybuffer">the contents of
-                |additionalData|</a> as the additional authenticated data (AAD) input parameter.
+                |plaintext| as the plaintext input parameter, and
+                |additionalData| as the additional authenticated data (AAD) input parameter.
               </p>
             </li>
             <li>
@@ -1837,7 +1816,7 @@ dictionary AeadParams : Algorithm {
             </li>
             <li>
               <p>
-                Let |additionalData| be <a href="#concept-contents-of-arraybuffer">the contents of</a> the {{AeadParams/additionalData}} member of
+                Let |additionalData| be the {{AeadParams/additionalData}} member of
                 |normalizedAlgorithm| if present or the empty octet
                 string otherwise.
               </p>
@@ -1848,12 +1827,10 @@ dictionary AeadParams : Algorithm {
                 described in Section 2.8 of [[RFC8439]], using
                 the key represented by <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">`[[handle]]`</a>
                 internal slot of |key| as the key input parameter,
-                <a href="#concept-contents-of-arraybuffer">the contents of</a> the {{AeadParams/iv}} member of |normalizedAlgorithm| as
+                the {{AeadParams/iv}} member of |normalizedAlgorithm| as
                 the nonce input parameter,
-                <a href="#concept-contents-of-arraybuffer">the contents of
-                |ciphertext|</a> as the ciphertext input parameter, and
-                <a href="#concept-contents-of-arraybuffer">the contents of
-                |additionalData|</a> as the additional authenticated data (AAD) input parameter.
+                |ciphertext| as the ciphertext input parameter, and
+                |additionalData| as the additional authenticated data (AAD) input parameter.
               </p>
               <dl class="switch">
                 <dt>If the result of the algorithm is the indication of authentication failure:</dt>
@@ -1961,7 +1938,7 @@ dictionary AeadParams : Algorithm {
                   <ol>
                     <li>
                       <p>
-                        Let |data| be the [= octet string =] contained in |keyData|.
+                        Let |data| be |keyData|.
                       </p>
                     </li>
                     <li>
@@ -2002,7 +1979,7 @@ dictionary AeadParams : Algorithm {
                     </li>
                     <li>
                       <p>
-                        Let |data| be the [= octet string =] obtained by decoding the
+                        Let |data| be the [= byte sequence =] obtained by decoding the
                         {{JsonWebKey/k}} field of |jwk|.
                       </p>
                     </li>
@@ -2336,14 +2313,14 @@ dictionary CShakeParams : Algorithm {
             </li>
             <li>
               <p>
-                Let |functionName| be <a href="#concept-contents-of-arraybuffer">the contents of</a> the {{CShakeParams/functionName}} member of
+                Let |functionName| be the {{CShakeParams/functionName}} member of
                 |normalizedAlgorithm| if present or the empty octet
                 string otherwise.
               </p>
             </li>
             <li>
               <p>
-                Let |customization| be <a href="#concept-contents-of-arraybuffer">the contents of</a> the {{CShakeParams/customization}} member of
+                Let |customization| be the {{CShakeParams/customization}} member of
                 |normalizedAlgorithm| if present or the empty octet
                 string otherwise.
               </p>
@@ -2499,7 +2476,7 @@ dictionary KmacParams : Algorithm {
           <ol>
             <li>
               <p>
-                Let |customization| be the <a href="#concept-contents-of-arraybuffer">contents of</a> the {{KmacParams/customization}} member of
+                Let |customization| be the {{KmacParams/customization}} member of
                 |normalizedAlgorithm| if present or the empty octet
                 string otherwise.
               </p>
@@ -2553,7 +2530,7 @@ dictionary KmacParams : Algorithm {
           <ol>
             <li>
               <p>
-                Let |customization| be the <a href="#concept-contents-of-arraybuffer">contents of</a> the {{KmacParams/customization}} member of
+                Let |customization| be the {{KmacParams/customization}} member of
                 |normalizedAlgorithm| if present or the empty octet
                 string otherwise.
               </p>
@@ -2718,7 +2695,7 @@ dictionary KmacParams : Algorithm {
                   <ol>
                     <li>
                       <p>
-                        Let |data| be the [= octet string =] contained in |keyData|.
+                        Let |data| be |keyData|.
                       </p>
                     </li>
                   </ol>
@@ -2752,7 +2729,7 @@ dictionary KmacParams : Algorithm {
                     </li>
                     <li>
                       <p>
-                        Let |data| be the [= octet string =] obtained by decoding the
+                        Let |data| be the [= byte sequence =] obtained by decoding the
                         {{JsonWebKey/k}} field of |jwk|.
                       </p>
                     </li>
@@ -2921,7 +2898,7 @@ dictionary KmacParams : Algorithm {
             </li>
             <li>
               <p>
-                Let |data| be an <a data-cite="WebCryptoAPI#octet-string-containing">octet string containing</a> |bits|.
+                Let |data| be an <a data-cite="WebCryptoAPI#byte-sequence-containing">byte sequence containing</a> |bits|.
               </p>
             </li>
             <li>
@@ -3197,13 +3174,13 @@ dictionary Argon2Params : Algorithm {
             </li>
             <li>
               <p>
-                Let |secretValue| be <a href="#concept-contents-of-arraybuffer">the contents of</a> the {{Argon2Params/secretValue}} member of
+                Let |secretValue| be the {{Argon2Params/secretValue}} member of
                 |normalizedAlgorithm|, if present.
               </p>
             </li>
             <li>
               <p>
-                Let |associatedData| be <a href="#concept-contents-of-arraybuffer">the contents of</a> the {{Argon2Params/associatedData}} member of
+                Let |associatedData| be the {{Argon2Params/associatedData}} member of
                 |normalizedAlgorithm|, if present.
               </p>
             </li>
@@ -3212,8 +3189,8 @@ dictionary Argon2Params : Algorithm {
                 Let |result| be the result of performing the Argon2 function defined
                 in Section 3 of [[RFC9106]] using
                 the password represented by <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">`[[handle]]`</a> internal slot of |key|
-                as the message, |P|, <a href="#concept-contents-of-arraybuffer">the
-                contents of</a> the {{Argon2Params/nonce}} attribute of
+                as the message, |P|,
+                the {{Argon2Params/nonce}} attribute of
                 |normalizedAlgorithm| as the nonce, |S|,
                 the value of the {{Argon2Params/parallelism}} attribute
                 of |normalizedAlgorithm| as the degree of parallelism, |p|,
