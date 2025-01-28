@@ -1096,6 +1096,503 @@ dictionary EncapsulatedBits {
     </section>
   </section>
 
+  <section id="ml-dsa">
+    <h3>ML-DSA</h3>
+    <section id="ml-dsa-description" class="informative">
+      <h4>Description</h4>
+      <p>
+        This describes using ML-DSA for signing and verification,
+        as specified by [[FIPS-204]].
+      </p>
+    </section>
+    <section id="ml-dsa-registration">
+      <h4>Registration</h4>
+      <p>
+        The <a data-cite="WebCryptoAPI#recognized-algorithm-name">recognized algorithm names</a> for
+        this algorithm are "`ML-DSA-44`", "`ML-DSA-65`" and "`ML-DSA-87`".
+      </p>
+      <table>
+        <thead>
+          <tr>
+            <th><a data-cite="WebCryptoAPI#supported-operations">Operation</a></th>
+            <th><a data-cite="WebCryptoAPI#algorithm-specific-params">Parameters</a></th>
+            <th><a data-cite="WebCryptoAPI#algorithm-result">Result</a></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>sign</td>
+            <td>{{MLDSAParams}}</td>
+            <td>[= byte sequence =]</td>
+          </tr>
+          <tr>
+            <td>verify</td>
+            <td>{{MLDSAParams}}</td>
+            <td>boolean</td>
+          </tr>
+          <tr>
+            <td>generateKey</td>
+            <td>None</td>
+            <td>{{CryptoKeyPair}}</td>
+          </tr>
+          <tr>
+            <td>importKey</td>
+            <td>None</td>
+            <td>{{CryptoKey}}</td>
+          </tr>
+          <tr>
+            <td>exportKey</td>
+            <td>None</td>
+            <td>object</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="ml-dsa-params">
+      <h4><dfn data-idl id="dfn-MLDSAParams">MLDSAParams</dfn> dictionary</h4>
+      <pre class=idl>
+dictionary MLDSAParams : Algorithm {
+  BufferSource context;
+};
+      </pre>
+      <p>The <dfn data-idl data-dfn-for=MLDSAParams id="dfn-MLDSAParams-context">context</dfn> member represents the optional context data to associate with the message.</p>
+    </section>
+    <section id="ml-dsa-operations">
+      <h4>Operations</h4>
+      <dl>
+        <dt>Sign</dt>
+        <dd>
+          When signing, the following algorithm should be used:
+          <ol>
+            <li>
+              <p>
+                If the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot of
+                |key| is not {{KeyType/"private"}}, then [= exception/throw =] an {{InvalidAccessError}}.
+              </p>
+            </li>
+            <li>
+              <p>
+                Let |context| be the {{MLDSAParams/context}} member of |normalizedAlgorithm|
+                or the empty octet string if the {{MLDSAParams/context}} member of
+                |normalizedAlgorithm| is not present.
+              </p>
+            </li>
+            <li>
+              <p>
+                Let |result| be the result of performing the ML-DSA.Sign
+                signing algorithm, as specified in Section 5.2 of [[FIPS-204]],
+                with the parameter set indicated by the {{Algorithm/name}} member of |normalizedAlgorithm|,
+                using the ML-DSA private key associated with |key| as |sk|,
+                |message| as |M| and |context| as |ctx|.
+              </p>
+            </li>
+            <li>
+              <p>
+                If the ML-DSA.Sign algorithm returned an error, return an {{OperationError}}.
+              </p>
+            </li>
+            <li>
+              <p>
+                Return |result|.
+              </p>
+            </li>
+          </ol>
+        </dd>
+        <dt>Verify</dt>
+        <dd>
+          When verifying, the following algorithm should be used:
+          <ol>
+            <li>
+              <p>
+                If the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot of
+                |key| is not {{KeyType/"public"}}, then [= exception/throw =] an {{InvalidAccessError}}.
+              </p>
+            </li>
+            <li>
+              <p>
+                Let |context| be the {{MLDSAParams/context}} member of |normalizedAlgorithm|
+                or the empty octet string if the {{MLDSAParams/context}} member of
+                |normalizedAlgorithm| is not present.
+              </p>
+            </li>
+            <li>
+              <p>
+                Let |result| be the result of performing the ML-DSA.Verify
+                verification algorithm, as specified in Section 5.3 of [[FIPS-204]],
+                with the parameter set indicated by the {{Algorithm/name}} member of |normalizedAlgorithm|,
+                using the ML-DSA public key associated with |key| as |pk|,
+                |message| as |M|, |signature| as <var>σ</var> and |context| as |ctx|.
+              </p>
+            </li>
+            <li>
+              <p>
+                If the ML-DSA.Verify algorithm returned an error, return an {{OperationError}}.
+              </p>
+            </li>
+            <li>
+              <p>
+                Return |result|.
+              </p>
+            </li>
+          </ol>
+        </dd>
+        <dt>Generate Key</dt>
+        <dd>
+          <ol>
+            <li>
+              <p>
+                If |usages| contains a value which is not
+                one of "`sign`" or "`verify`",
+                then [= exception/throw =] a
+                {{SyntaxError}}.
+              </p>
+            </li>
+            <li>
+              <p>
+                Generate an ML-DSA key pair, as described in
+                Section 5.1 of [[FIPS-204]], with the parameter set
+                indicated by the {{Algorithm/name}} member of |normalizedAlgorithm|.
+              </p>
+              <div class=note>
+                <p>
+                  In order to be able to export the seed `ξ`,
+                  it needs to be stored as part of the generated
+                  key material.
+                </p>
+              </div>
+            </li>
+            <li>
+              <p>
+                If the key generation step fails,
+                then [= exception/throw =] an
+                {{OperationError}}.
+              </p>
+            </li>
+            <li>
+              <p>
+                Let |algorithm| be a new {{KeyAlgorithm}} object.
+              </p>
+            </li>
+            <li>
+              <p>
+                Set the {{KeyAlgorithm/name}} attribute of
+                |algorithm| to the {{Algorithm/name}} attribute of
+                |normalizedAlgorithm|.
+              </p>
+            </li>
+            <li>
+              <p>
+                Let |publicKey| be a new {{CryptoKey}}
+                representing the public key of the generated key pair.
+              </p>
+            </li>
+            <li>
+              <p>
+                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot of
+                |publicKey| to "`public`".
+              </p>
+            </li>
+            <li>
+              <p>
+                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a> internal
+                slot of |publicKey| to |algorithm|.
+              </p>
+            </li>
+            <li>
+              <p>
+                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-extractable">`[[extractable]]`</a> internal
+                slot of |publicKey| to true.
+              </p>
+            </li>
+            <li>
+              <p>
+                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-usages">`[[usages]]`</a> internal slot of
+                |publicKey| to be the <a data-cite="WebCryptoAPI#concept-usage-intersection">usage intersection</a>
+                of |usages| and `[ "verify" ]`.
+              </p>
+            </li>
+            <li>
+              <p>
+                Let |privateKey| be a new {{CryptoKey}}
+                representing the private key of the generated key pair.
+              </p>
+            </li>
+            <li>
+              <p>
+                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot of
+                |privateKey| to {{KeyType/"private"}}.
+              </p>
+            </li>
+            <li>
+              <p>
+                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a> internal
+                slot of |privateKey| to |algorithm|.
+              </p>
+            </li>
+            <li>
+              <p>
+                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-extractable">`[[extractable]]`</a> internal
+                slot of |privateKey| to |extractable|.
+              </p>
+            </li>
+            <li>
+              <p>
+                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-usages">`[[usages]]`</a> internal slot of
+                |privateKey| to be the <a data-cite="WebCryptoAPI#concept-usage-intersection">usage intersection</a>
+                of |usages| and `[ "sign" ]`.
+              </p>
+            </li>
+            <li>
+              <p>
+                Let |result| be a new {{CryptoKeyPair}}
+                dictionary.
+              </p>
+            </li>
+            <li>
+              <p>
+                Set the {{CryptoKeyPair/publicKey}} attribute
+                of |result| to be |publicKey|.
+              </p>
+            </li>
+            <li>
+              <p>
+                Set the {{CryptoKeyPair/privateKey}} attribute
+                of |result| to be |privateKey|.
+              </p>
+            </li>
+            <li>
+              <p>
+                Return |result|.
+              </p>
+            </li>
+          </ol>
+        </dd>
+
+        <dt>Import Key</dt>
+        <dd>
+          <ol>
+            <li>
+              <p>Let |keyData| be the key data to be imported.</p>
+            </li>
+            <li>
+              <dl class="switch">
+                <dt>If |format| is {{KeyFormat/"raw-public"}}:</dt>
+                <dd>
+                  <ol>
+                    <li>
+                      <p>
+                        If |usages| contains a value which is not
+                        "`verify`"
+                        then [= exception/throw =] a
+                        {{SyntaxError}}.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Let |algorithm| be a new {{KeyAlgorithm}} object.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Set the {{KeyAlgorithm/name}} attribute of
+                        |algorithm| to the {{Algorithm/name}} attribute of
+                        |normalizedAlgorithm|.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Let |key| be a new {{CryptoKey}}
+                        representing the key data provided in |keyData|.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot
+                        of |key| to "`public`"
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a>
+                        internal slot of |key| to |algorithm|.
+                      </p>
+                    </li>
+                  </ol>
+                </dd>
+                <dt>If |format| is {{KeyFormat/"raw-seed"}}:</dt>
+                <dd>
+                  <ol>
+                    <li>
+                      <p>
+                        If |usages| contains an entry which is not
+                        "`sign`"
+                        then [= exception/throw =] a
+                        {{SyntaxError}}.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Let |data| be |keyData|.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        If the length in bits of |data| is not 256
+                        then [= exception/throw =] a
+                        {{DataError}}.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Let |privateKey| be the result of performing the
+                        ML-DSA.KeyGen_internal function described in
+                        Section 6.1 of [[FIPS-204]] with the parameter set
+                        indicated by the {{Algorithm/name}} member of |normalizedAlgorithm|,
+                        using |data| as <var>ξ</var>.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Let |key| be a new {{CryptoKey}}
+                        that represents the ML-DSA private key identified by |privateKey|.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot
+                        of |key| to {{KeyType/"private"}}
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Let |algorithm| be a new {{KeyAlgorithm}}.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Set the {{KeyAlgorithm/name}} attribute of
+                        |algorithm| to the {{Algorithm/name}} attribute of
+                        |normalizedAlgorithm|.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a>
+                        internal slot of |key| to |algorithm|.
+                      </p>
+                    </li>
+                  </ol>
+                </dd>
+                <dt>Otherwise:</dt>
+                <dd>
+                  <p>
+                    [= exception/throw =] a
+                    {{NotSupportedError}}.
+                  </p>
+                </dd>
+              </dl>
+            </li>
+            <li>
+              <p>
+                Return |key|
+              </p>
+            </li>
+          </ol>
+        </dd>
+
+        <dt>Export Key</dt>
+        <dd>
+          <ol>
+            <li>
+              <p>
+                Let |key| be the {{CryptoKey}} to be
+                exported.
+              </p>
+            </li>
+            <li>
+              <p>
+                If the underlying cryptographic key material represented by the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">`[[handle]]`</a> internal slot of |key|
+                cannot be accessed, then [= exception/throw =] an {{OperationError}}.
+              </p>
+            </li>
+            <li>
+              <dl class="switch">
+                <dt>
+                  If |format| is {{KeyFormat/"raw-public"}}:
+                </dt>
+                <dd>
+                  <ol>
+                    <li>
+                      <p>
+                        If the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot
+                        of |key| is not "`public`", then [= exception/throw =] an {{InvalidAccessError}}.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Let |data| be a [= byte sequence =] representing the ML-DSA
+                        public key represented by the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">`[[handle]]`</a> internal slot of
+                        |key|.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Let |result| be |data|.
+                      </p>
+                    </li>
+                  </ol>
+                </dd>
+                <dt>If |format| is {{KeyFormat/"raw-seed"}}:</dt>
+                <dd>
+                  <ol>
+                    <li>
+                      <p>
+                        If the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot
+                        of |key| is not "`private`", then [= exception/throw =] an {{InvalidAccessError}}.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Let |data| be the <var>ξ</var> seed variable
+                        of the key represented by the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">`[[handle]]`</a>
+                        internal slot of |key|.
+                      </p>
+                      <div class=note>
+                        <p>
+                          The <var>ξ</var> seed variable was sampled in the ML-DSA.KeyGen function
+                          as described in Section 5.1 of [[FIPS-204]].
+                        </p>
+                      </div>
+                    </li>
+                    <li>
+                      <p>
+                        Let |result| be the result of [= ArrayBuffer/create | creating =]
+                        an {{ArrayBuffer}} containing |data|.
+                      </p>
+                    </li>
+                  </ol>
+                </dd>
+                <dt>Otherwise:</dt>
+                <dd>
+                  <p>
+                    [= exception/throw =] a
+                    {{NotSupportedError}}.
+                  </p>
+                </dd>
+              </dl>
+            </li>
+            <li>
+              <p>
+                Return |result|.
+              </p>
+            </li>
+          </ol>
+        </dd>
+      </dl>
+    </section>
+  </section>
+
   <section id="aes-ocb">
     <h3>AES-OCB</h3>
     <section id="aes-ocb-description" class="informative">
