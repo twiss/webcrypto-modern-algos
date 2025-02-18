@@ -334,6 +334,113 @@ enum KeyFormat { "raw-public", "raw-private", "raw-seed", "raw-secret", "raw", "
           </li>
         </ol>
       </section>
+      <section id="SubtleCrypto-method-encapsulateBits"> 
+        <h4>The encapsulateBits method</h4>
+        <p>
+          The <dfn id="dfn-SubtleCrypto-method-encapsulateBits" data-dfn-for=SubtleCrypto data-lt="encapsulateBits">encapsulateBits(|encapsulationAlgorithm|, |encapsulationKey|)</dfn>
+          method encapsulates a key and returns an {{EncapsulatedBits}} object.
+          It behaves as follows:
+        </p>
+        <ol>
+          <li>
+            <p>
+              Let |encapsulationAlgorithm| and |encapsulationKey| be the `encapsulationAlgorithm` 
+              and `encapsulationKey` parameters passed to the
+              {{SubtleCrypto/encapsulateBits()}} method,
+              respectively.
+            </p>
+          </li>
+          <li>
+            <p>
+              Let |normalizedEncapsulationAlgorithm| be the result of
+              <a data-cite="WebCryptoAPI#dfn-normalize-an-algorithm">normalizing an algorithm</a>, with
+              `alg` set to |encapsulationAlgorithm| and `op` set to
+              "`encapsulate`".
+            </p>
+          </li>
+          <li>
+            <p>
+              If an error occurred, return a Promise rejected with
+              |normalizedEncapsulationAlgorithm|.
+            </p>
+          </li>
+          <li>
+            <p>
+              Let |realm| be the [= relevant realm =] of [= this =].
+            </p>
+          </li>
+          <li>
+            <p>
+              Let |promise| be a new Promise.
+            </p>
+          </li>
+          <li>
+            <p>
+              Return |promise| and perform the remaining steps [= in parallel =].
+            </p>
+          </li>
+          <li>
+            <p>
+              If the following steps or referenced procedures say to
+              [= exception/throw =] an error,
+              [= queue a global task =] on the <a data-cite="WebCryptoAPI#dfn-crypto-task-source">crypto task source</a>,
+              given |realm|'s global object,
+              to reject |promise| with the returned error;
+              and then <a data-cite="WebCryptoAPI#terminate-the-algorithm">terminate the algorithm</a>.
+            </p>
+          </li>
+          <li>
+            <p>
+              If the {{Algorithm/name}} member of
+              |normalizedEncapsulationAlgorithm| is not equal to the
+              {{KeyAlgorithm/name}} attribute of the
+              <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a> internal slot of
+              |encapsulationKey| then [= exception/throw =] an {{InvalidAccessError}}.
+            </p>
+          </li>
+          <li>
+            <p>
+              If the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-usages">`[[usages]]`</a> internal slot of
+              |encapsulationKey| does not contain an entry that is "`encapsulateBits`",
+              then [= exception/throw =] an {{InvalidAccessError}}.
+            </p>
+          </li>
+          <li>
+            <p>
+              Let |encapsulatedBits| be the result of performing the encapsulate operation specified by
+              the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a> internal slot of
+              |encapsulationKey| using |encapsulationKey|.
+            </p>
+          </li>
+          <li>
+            <p>
+              Let |encapsulatedBits| be a new {{EncapsulatedBits}} dictionary
+              with {{EncapsulatedBits/sharedKey}} set to the
+              {{EncapsulatedBits/sharedKey}} field of |encapsulatedBits|
+              and {{EncapsulatedBits/ciphertext}} set to the
+              {{EncapsulatedBits/ciphertext}} field of |encapsulatedBits|.
+            </p>
+          </li>
+          <li>
+            <p>
+              [= Queue a global task =] on the <a data-cite="WebCryptoAPI#dfn-crypto-task-source">crypto task source</a>,
+              given |realm|'s global object, to perform the remaining steps.
+            </p>
+          </li>
+          <li>
+            <p>
+              Let |result| be the result of converting |encapsulatedBits| to an ECMAScript Object in |realm|,
+              as defined by [[WebIDL]].
+            </p>
+          </li>
+          <li>
+            <p>
+              Resolve |promise| with
+              |result|.
+            </p>
+          </li>
+        </ol>
+      </section>
       <section id="SubtleCrypto-method-supports">
         <h4>The supports method</h4>
         <p>
