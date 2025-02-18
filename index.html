@@ -1405,6 +1405,97 @@ dictionary EncapsulatedBits {
     </section>
   </section>
 
+  <section id="ml-dsa">
+    <h3>ML-DSA</h3>
+    <section id="ml-dsa-description" class="informative">
+      <h4>Description</h4>
+      <p>
+        This describes the ML-DSA family of hash functions, as specified by
+        [[FIPS-204]].
+      </p>
+    </section>
+    <section id="ml-dsa-registration">
+      <h4>Registration</h4>
+      <p>
+        The <a data-cite="WebCryptoAPI#recognized-algorithm-name">recognized algorithm names</a> are
+        "<code id="alg-ml-dsa-44">ML-DSA-44</code>",
+        "<code id="alg-ml-dsa-65">ML-DSA-65</code>", and
+        "<code id="alg-ml-dsa-87">ML-DSA-87</code>" for the respective ML-DSA algorithms.
+      </p>
+      <table>
+        <thead>
+          <tr>
+            <th><a data-cite="WebCryptoAPI#supported-operations">Operation</a></th>
+            <th><a data-cite="WebCryptoAPI#algorithm-specific-params">Parameters</a></th>
+            <th><a data-cite="WebCryptoAPI#algorithm-result">Result</a></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>digest</td>
+            <td>None</td>
+            <td>{{ArrayBuffer}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+    <section id="ml-dsa-operations">
+      <h4>Operations</h4>
+      <dl>
+        <dt>Digest</dt>
+        <dd>
+          <ol>
+            <li>
+              <dl class="switch">
+                <dt>
+                  If the {{Algorithm/name}} member of
+                  |normalizedAlgorithm| is a case-sensitive string match for
+                  "`ML-DSA-44`":
+                </dt>
+                <dd>
+                  Let |result| be the result of performing the ML-DSA-44 hash function
+                  defined in Section 5.2 of [[FIPS-204]] using
+                  |message| as the input message, |M|.
+                </dd>
+                <dt>
+                  If the {{Algorithm/name}} member of
+                  |normalizedAlgorithm| is a case-sensitive string match for
+                  "`ML-DSA-65`":
+                </dt>
+                <dd>
+                  Let |result| be the result of performing the ML-DSA-65 hash function
+                  defined in Section 5.2 of [[FIPS-204]] using
+                  |message| as the input message, |M|.
+                </dd>
+                <dt>
+                  If the {{Algorithm/name}} member of
+                  |normalizedAlgorithm| is a case-sensitive string match for
+                  "`ML-DSA-87`":
+                </dt>
+                <dd>
+                  Let |result| be the result of performing the ML-DSA-87 hash function
+                  defined in Section 5.2 of [[FIPS-204]] using
+                  |message| as the input message, |M|.
+                </dd>
+              </dl>
+            </li>
+            <li>
+              <p>
+                If performing the operation results in an error, then [= exception/throw =] an {{OperationError}}.
+              </p>
+            </li>
+            <li>
+              <p>
+                Return the result of [= ArrayBuffer/create | creating =]
+                an {{ArrayBuffer}} containing |result|.
+              </p>
+            </li>
+          </ol>
+        </dd>
+      </dl>
+    </section>
+  </section>
+
   <section id="aes-ocb">
     <h3>AES-OCB</h3>
     <section id="aes-ocb-description" class="informative">
