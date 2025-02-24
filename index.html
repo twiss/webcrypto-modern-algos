@@ -407,7 +407,7 @@ enum KeyFormat { "raw-public", "raw-private", "raw-seed", "raw-secret", "raw", "
           </li>
           <li>
             <p>
-              Let |encapsulatedBits| be the result of performing the encapsulate operation specified by
+              Let |sharedKey| be the result of performing the encapsulate operation specified by
               the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a> internal slot of
               |encapsulationKey| using |encapsulationKey|.
             </p>
@@ -416,9 +416,9 @@ enum KeyFormat { "raw-public", "raw-private", "raw-seed", "raw-secret", "raw", "
             <p>
               Let |encapsulatedBits| be a new {{EncapsulatedBits}} dictionary
               with {{EncapsulatedBits/sharedKey}} set to the
-              {{EncapsulatedBits/sharedKey}} field of |encapsulatedBits|
+              {{EncapsulatedBits/sharedKey}} field of |sharedKey|
               and {{EncapsulatedBits/ciphertext}} set to the
-              {{EncapsulatedBits/ciphertext}} field of |encapsulatedBits|.
+              {{EncapsulatedBits/ciphertext}} field of |sharedKey|.
             </p>
           </li>
           <li>
@@ -528,11 +528,22 @@ enum KeyFormat { "raw-public", "raw-private", "raw-seed", "raw-secret", "raw", "
           </li>
           <li>
             <p>
-              Let |result| be the result of performing the import key operation specified by
+              Let |sharedKey| be the result of performing the import key operation specified by
               |normalizedSharedKeyAlgorithm| using "`raw`" as
               |format|, the |decapsulatedBits| as |keyData|, |sharedKeyAlgorithm| as
               |algorithm| and using
               |extractable| and |usages|.
+            </p>
+          </li>
+          <li>
+            <p>
+              [= Queue a global task =] on the <a data-cite="WebCryptoAPI#dfn-crypto-task-source">crypto task source</a>,
+              given |realm|'s global object, to perform the remaining steps.
+            </p>
+          </li>
+          <li>
+            <p>
+              Let |result| be the result of converting |sharedKey| to an ECMAScript Object in |realm|, as defined by [[WebIDL]].
             </p>
           </li>
           <li>
