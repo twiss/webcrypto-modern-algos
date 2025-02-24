@@ -627,8 +627,8 @@ enum KeyFormat { "raw-public", "raw-private", "raw-seed", "raw-secret", "raw", "
           </li>
           <li>
             <p>
-              Let |result| be the result of converting |decapsulatedBits| to an ECMAScript Object in |realm|,
-              as defined by [[WebIDL]].
+                  Let |result| be the result of [= ArrayBuffer/create | creating =] an {{ArrayBuffer}}
+                  in |realm|, containing |decapsulatedBits|.
             </p>
           </li>
           <li>
