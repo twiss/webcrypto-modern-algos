@@ -451,10 +451,18 @@ enum KeyFormat { "raw-public", "raw-private", "raw-seed", "raw-secret", "raw", "
         <ol>
           <li>
             <p>
-              Let |decapsulationAlgorithm|, |decapsulationKey|, |ciphertext|, |sharedKeyAlgorithm|,
-              |extractable| and |usages| be the `decapsulationAlgorithm`, `decapsulationKey`, `ciphertext`, `sharedKeyAlgorithm`, `extractable` and `keyUsages` parameters passed to the
+              Let |decapsulationAlgorithm|, |decapsulationKey|, |sharedKeyAlgorithm|,
+              |extractable| and |usages| be the `decapsulationAlgorithm`, `decapsulationKey`, `sharedKeyAlgorithm`, `extractable` and `keyUsages` parameters passed to the
               {{SubtleCrypto/decapsulateKey()}} method,
               respectively.
+            </p>
+          </li>
+          <li>
+            <p>
+              Let |ciphertext| be the result of
+              [= get a copy of the buffer source |
+              getting a copy of the bytes held by =] the `ciphertext` parameter passed to the
+              {{SubtleCrypto/decapsulateKey()}} method.
             </p>
           </li>
           <li>
@@ -570,9 +578,17 @@ enum KeyFormat { "raw-public", "raw-private", "raw-seed", "raw-secret", "raw", "
         <ol>
           <li>
             <p>
-              Let |decapsulationAlgorithm|, |decapsulationKey| and |ciphertext| be the `decapsulationAlgorithm`, `decapsulationKey` and `ciphertext` parameters passed to the
+              Let |decapsulationAlgorithm| and |decapsulationKey| be the `decapsulationAlgorithm` and `decapsulationKey` parameters passed to the
               {{SubtleCrypto/decapsulateBits()}} method,
               respectively.
+            </p>
+          </li>
+          <li>
+            <p>
+              Let |ciphertext| be the result of
+              [= get a copy of the buffer source |
+              getting a copy of the bytes held by =] the `ciphertext` parameter passed to the
+              {{SubtleCrypto/decapsulateBits()}} method.
             </p>
           </li>
           <li>
