@@ -334,6 +334,322 @@ enum KeyFormat { "raw-public", "raw-private", "raw-seed", "raw-secret", "raw", "
           </li>
         </ol>
       </section>
+      <section id="SubtleCrypto-method-encapsulateBits">
+        <h4>The encapsulateBits method</h4>
+        <p>
+          The <dfn id="dfn-SubtleCrypto-method-encapsulateBits" data-dfn-for=SubtleCrypto data-lt="encapsulateBits">encapsulateBits(|encapsulationAlgorithm|, |encapsulationKey|)</dfn>
+          method encapsulates a key and returns an {{EncapsulatedBits}} object.
+          It behaves as follows:
+        </p>
+        <ol>
+          <li>
+            <p>
+              Let |encapsulationAlgorithm| and |encapsulationKey| be the `encapsulationAlgorithm`
+              and `encapsulationKey` parameters passed to the
+              {{SubtleCrypto/encapsulateBits()}} method,
+              respectively.
+            </p>
+          </li>
+          <li>
+            <p>
+              Let |normalizedEncapsulationAlgorithm| be the result of
+              <a data-cite="WebCryptoAPI#dfn-normalize-an-algorithm">normalizing an algorithm</a>, with
+              `alg` set to |encapsulationAlgorithm| and `op` set to
+              "`encapsulate`".
+            </p>
+          </li>
+          <li>
+            <p>
+              If an error occurred, return a Promise rejected with
+              |normalizedEncapsulationAlgorithm|.
+            </p>
+          </li>
+          <li>
+            <p>
+              Let |realm| be the [= relevant realm =] of [= this =].
+            </p>
+          </li>
+          <li>
+            <p>
+              Let |promise| be a new Promise.
+            </p>
+          </li>
+          <li>
+            <p>
+              Return |promise| and perform the remaining steps [= in parallel =].
+            </p>
+          </li>
+          <li>
+            <p>
+              If the following steps or referenced procedures say to
+              [= exception/throw =] an error,
+              [= queue a global task =] on the <a data-cite="WebCryptoAPI#dfn-crypto-task-source">crypto task source</a>,
+              given |realm|'s global object,
+              to reject |promise| with the returned error;
+              and then <a data-cite="WebCryptoAPI#terminate-the-algorithm">terminate the algorithm</a>.
+            </p>
+          </li>
+          <li>
+            <p>
+              If the {{Algorithm/name}} member of
+              |normalizedEncapsulationAlgorithm| is not equal to the
+              {{KeyAlgorithm/name}} attribute of the
+              <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a> internal slot of
+              |encapsulationKey| then [= exception/throw =] an {{InvalidAccessError}}.
+            </p>
+          </li>
+          <li>
+            <p>
+              If the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-usages">`[[usages]]`</a> internal slot of
+              |encapsulationKey| does not contain an entry that is "`encapsulateBits`",
+              then [= exception/throw =] an {{InvalidAccessError}}.
+            </p>
+          </li>
+          <li>
+            <p>
+              Let |sharedKey| be the result of performing the encapsulate operation specified by
+              the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a> internal slot of
+              |encapsulationKey| using |encapsulationKey|.
+            </p>
+          </li>
+          <li>
+            <p>
+              Let |encapsulatedBits| be a new {{EncapsulatedBits}} dictionary
+              with {{EncapsulatedBits/sharedKey}} set to the
+              {{EncapsulatedBits/sharedKey}} field of |sharedKey|
+              and {{EncapsulatedBits/ciphertext}} set to the
+              {{EncapsulatedBits/ciphertext}} field of |sharedKey|.
+            </p>
+          </li>
+          <li>
+            <p>
+              [= Queue a global task =] on the <a data-cite="WebCryptoAPI#dfn-crypto-task-source">crypto task source</a>,
+              given |realm|'s global object, to perform the remaining steps.
+            </p>
+          </li>
+          <li>
+            <p>
+              Let |result| be the result of converting |encapsulatedBits| to an ECMAScript Object in |realm|,
+              as defined by [[WebIDL]].
+            </p>
+          </li>
+          <li>
+            <p>
+              Resolve |promise| with
+              |result|.
+            </p>
+          </li>
+        </ol>
+      </section>
+      <section id="SubtleCrypto-method-decapsulateKey">
+        <h4>The decapsulateKey method</h4>
+        <p>
+          The <dfn id="dfn-SubtleCrypto-method-decapsulateKey" data-dfn-for=SubtleCrypto data-lt="decapsulateKey">decapsulateKey(|decapsulationAlgorithm|, |decapsulationKey|, |ciphertext|, |sharedKeyAlgorithm|, |extractable|, |usages|)</dfn>
+          method decapsulates a key and returns an {{CryptoKey}} object.
+          It behaves as follows:
+        </p>
+        <ol>
+          <li>
+            <p>
+              Let |decapsulationAlgorithm|, |decapsulationKey|, |ciphertext|, |sharedKeyAlgorithm|,
+              |extractable| and |usages| be the `decapsulationAlgorithm`, `decapsulationKey`, `ciphertext`, `sharedKeyAlgorithm`, `extractable` and `keyUsages` parameters passed to the
+              {{SubtleCrypto/decapsulateKey()}} method,
+              respectively.
+            </p>
+          </li>
+          <li>
+            <p>
+              Let |normalizedDecapsulationAlgorithm| be the result of
+              <a data-cite="WebCryptoAPI#dfn-normalize-an-algorithm">normalizing an algorithm</a>, with
+              `alg` set to |decapsulationAlgorithm| and `op` set to
+              "`decapsulate`".
+            </p>
+          </li>
+          <li>
+            <p>
+              If an error occurred, return a Promise rejected with
+              |normalizedDecapsulationAlgorithm|.
+            </p>
+          </li>
+          <li>
+            <p>
+              Let |normalizedSharedKeyAlgorithm| be the result of
+              <a data-cite="WebCryptoAPI#dfn-normalize-an-algorithm">normalizing an algorithm</a>, with
+              `alg` set to |sharedKeyAlgorithm| and `op` set to
+              "`importKey`".
+            </p>
+          </li>
+          <li>
+            <p>
+              If an error occurred, return a Promise rejected with
+              |normalizedSharedKeyAlgorithm|.
+            </p>
+          </li>
+          <li>
+            <p>
+              Let |realm| be the [= relevant realm =] of [= this =].
+            </p>
+          </li>
+          <li>
+            <p>
+              Let |promise| be a new Promise.
+            </p>
+          </li>
+          <li>
+            <p>
+              Return |promise| and perform the remaining steps [= in parallel =].
+            </p>
+          </li>
+          <li>
+            <p>
+              If the following steps or referenced procedures say to
+              [= exception/throw =] an error,
+              [= queue a global task =] on the <a data-cite="WebCryptoAPI#dfn-crypto-task-source">crypto task source</a>,
+              given |realm|'s global object,
+              to reject |promise| with the returned error;
+              and then <a data-cite="WebCryptoAPI#terminate-the-algorithm">terminate the algorithm</a>.
+            </p>
+          </li>
+          <li>
+            <p>
+              If the {{Algorithm/name}} member of
+              |normalizedDecapsulationAlgorithm| is not equal to the
+              {{KeyAlgorithm/name}} attribute of the
+              <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a> internal slot of
+              |decapsulationKey| then [= exception/throw =] an {{InvalidAccessError}}.
+            </p>
+          </li>
+          <li>
+            <p>
+              If the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-usages">`[[usages]]`</a> internal slot of
+              |decapsulationKey| does not contain an entry that is "`decapsulateKey`",
+              then [= exception/throw =] an {{InvalidAccessError}}.
+            </p>
+          </li>
+          <li>
+            <p>
+              Let |sharedKey| be the result of performing the import key operation specified by
+              |normalizedSharedKeyAlgorithm| using "`raw`" as
+              |format|, the |decapsulatedBits| as |keyData|, |sharedKeyAlgorithm| as
+              |algorithm| and using
+              |extractable| and |usages|.
+            </p>
+          </li>
+          <li>
+            <p>
+              [= Queue a global task =] on the <a data-cite="WebCryptoAPI#dfn-crypto-task-source">crypto task source</a>,
+              given |realm|'s global object, to perform the remaining steps.
+            </p>
+          </li>
+          <li>
+            <p>
+              Let |result| be the result of converting |sharedKey| to an ECMAScript Object in |realm|, as defined by [[WebIDL]].
+            </p>
+          </li>
+          <li>
+            <p>
+              Resolve |promise| with
+              |result|.
+            </p>
+          </li>
+        </ol>
+      </section>
+      <section id="SubtleCrypto-method-decapsulateBits">
+        <h4>The decapsulateBits method</h4>
+        <p>
+          The <dfn id="dfn-SubtleCrypto-method-decapsulateBits" data-dfn-for=SubtleCrypto data-lt="decapsulateBits">decapsulateBits(|decapsulationAlgorithm|, |decapsulationKey|, |ciphertext|)</dfn>
+          method decapsulates a key and returns an {{ArrayBuffer}} object.
+          It behaves as follows:
+        </p>
+        <ol>
+          <li>
+            <p>
+              Let |decapsulationAlgorithm|, |decapsulationKey| and |ciphertext| be the `decapsulationAlgorithm`, `decapsulationKey` and `ciphertext` parameters passed to the
+              {{SubtleCrypto/decapsulateBits()}} method,
+              respectively.
+            </p>
+          </li>
+          <li>
+            <p>
+              Let |normalizedDecapsulationAlgorithm| be the result of
+              <a data-cite="WebCryptoAPI#dfn-normalize-an-algorithm">normalizing an algorithm</a>, with
+              `alg` set to |decapsulationAlgorithm| and `op` set to
+              "`decapsulate`".
+            </p>
+          </li>
+          <li>
+            <p>
+              If an error occurred, return a Promise rejected with
+              |normalizedDecapsulationAlgorithm|.
+            </p>
+          </li>
+          <li>
+            <p>
+              Let |realm| be the [= relevant realm =] of [= this =].
+            </p>
+          </li>
+          <li>
+            <p>
+              Let |promise| be a new Promise.
+            </p>
+          </li>
+          <li>
+            <p>
+              Return |promise| and perform the remaining steps [= in parallel =].
+            </p>
+          </li>
+          <li>
+            <p>
+              If the following steps or referenced procedures say to
+              [= exception/throw =] an error,
+              [= queue a global task =] on the <a data-cite="WebCryptoAPI#dfn-crypto-task-source">crypto task source</a>,
+              given |realm|'s global object,
+              to reject |promise| with the returned error;
+              and then <a data-cite="WebCryptoAPI#terminate-the-algorithm">terminate the algorithm</a>.
+            </p>
+          </li>
+          <li>
+            <p>
+              If the {{Algorithm/name}} member of
+              |normalizedDecapsulationAlgorithm| is not equal to the
+              {{KeyAlgorithm/name}} attribute of the
+              <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a> internal slot of
+              |decapsulationKey| then [= exception/throw =] an {{InvalidAccessError}}.
+            </p>
+          </li>
+          <li>
+            <p>
+              If the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-usages">`[[usages]]`</a> internal slot of
+              |decapsulationKey| does not contain an entry that is "`decapsulateBits`",
+              then [= exception/throw =] an {{InvalidAccessError}}.
+            </p>
+          </li>
+          <li>
+            <p>
+              Let |decapsulatedBits| be the result of performing the decapsulate operation specified by
+              the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a> internal slot of |decapsulationKey| using |decapsulationKey| and |ciphertext|.
+            </p>
+          </li>
+          <li>
+            <p>
+              [= Queue a global task =] on the <a data-cite="WebCryptoAPI#dfn-crypto-task-source">crypto task source</a>,
+              given |realm|'s global object, to perform the remaining steps.
+            </p>
+          </li>
+          <li>
+            <p>
+              Let |result| be the result of [= ArrayBuffer/create | creating =] an {{ArrayBuffer}}
+              in |realm|, containing |decapsulatedBits|.
+            </p>
+          </li>
+          <li>
+            <p>
+              Resolve |promise| with
+              |result|.
+            </p>
+          </li>
+        </ol>
+      </section>
       <section id="SubtleCrypto-method-supports">
         <h4>The supports method</h4>
         <p>
