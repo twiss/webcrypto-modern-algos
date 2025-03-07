@@ -199,6 +199,14 @@ enum KeyFormat { "raw-public", "raw-private", "raw-seed", "raw-secret", "raw", "
         <dt><dfn data-idl>raw-secret</dfn></dt>
         <dd>An unformatted sequence of secret key bytes.</dd>
       </dl>
+      <p>
+        For all existing symmetric algorithms in [[WebCryptoAPI]],
+        {{KeyFormat/"raw-secret"}} acts as an alias of {{KeyFormat/"raw"}}.
+      </p>
+      <p>
+        For all existing asymmetric algorithms in [[WebCryptoAPI]],
+        {{KeyFormat/"raw-public"}} acts as an alias of {{KeyFormat/"raw"}}.
+      </p>
     </section>
 
     <section id="partial-subtlecrypto-interface-methods">
