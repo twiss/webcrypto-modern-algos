@@ -690,7 +690,9 @@ enum KeyFormat { "raw-public", "raw-private", "raw-seed", "raw-secret", "raw", "
               If |operation| is not one of
               "`encrypt`", "`decrypt`", "`sign`", "`verify`",
               "`digest`", "`generateKey`", "`deriveKey`", "`deriveBits`",
-              "`importKey`", "`exportKey`", "`wrapKey`" or "`unwrapKey`",
+              "`importKey`", "`exportKey`", "`wrapKey`", "`unwrapKey`",
+              "`encapsulateKey`", "`encapsulateBits`",
+              "`decapsulateKey`" or "`decapsulateBits`",
               return false.
             </p>
           </li>
@@ -717,7 +719,9 @@ enum KeyFormat { "raw-public", "raw-private", "raw-seed", "raw-secret", "raw", "
               If |operation| is not one of
               "`encrypt`", "`decrypt`", "`sign`", "`verify`",
               "`digest`", "`generateKey`", "`deriveKey`", "`deriveBits`",
-              "`importKey`", "`exportKey`", "`wrapKey`" or "`unwrapKey`",
+              "`importKey`", "`exportKey`", "`wrapKey`", "`unwrapKey`",
+              "`encapsulateKey`", "`encapsulateBits`",
+              "`decapsulateKey`" or "`decapsulateBits`",
               return false.
             </p>
           </li>
@@ -757,6 +761,16 @@ enum KeyFormat { "raw-public", "raw-private", "raw-seed", "raw-secret", "raw", "
                   return false.
                 </p>
               </dd>
+              <dt>If |operation| is "`encapsulateKey`" or "`decapsulateKey`":</dt>
+              <dd>
+                <p>
+                  If the result of [= check support for an algorithm | checking support for an algorithm =]
+                  with `op` set to "`importKey`"
+                  and `alg` set to |additionalAlgorithm|
+                  is false,
+                  return false.
+                </p>
+              </dd>
             </dl>
           </li>
           <li>
@@ -782,6 +796,16 @@ enum KeyFormat { "raw-public", "raw-private", "raw-seed", "raw-secret", "raw", "
         <li>
           <p>
             If |op| is "`deriveKey`", set |op| to "`deriveBits`".
+          </p>
+        </li>
+        <li>
+          <p>
+            If |op| is "`encapsulateKey`" or "`encapsulateBits`", set |op| is "`encapsulate`".
+          </p>
+        </li>
+        <li>
+          <p>
+            If |op| is "`decapsulateKey`" or "`decapsulateBits`", set |op| is "`decapsulate`".
           </p>
         </li>
         <li>
