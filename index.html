@@ -207,6 +207,10 @@ enum KeyFormat { "raw-public", "raw-private", "raw-seed", "raw-secret", "raw", "
         For all existing asymmetric algorithms in [[WebCryptoAPI]],
         {{KeyFormat/"raw-public"}} acts as an alias of {{KeyFormat/"raw"}}.
       </p>
+      <p>
+        In the {{SubtleCrypto/deriveKey()}} method, in the import key step,
+        {{KeyFormat/"raw-secret"}} must be used as the format instead of {{KeyFormat/"raw"}}.
+      </p>
     </section>
 
     <section id="partial-subtlecrypto-interface-methods">
