@@ -299,7 +299,7 @@ enum KeyFormat { "raw-public", "raw-private", "raw-seed", "raw-secret", "raw", "
           <li>
             <p>
               Let |sharedKey| be the result of performing the import key operation specified by
-              |normalizedSharedKeyAlgorithm| using "`raw`" as
+              |normalizedSharedKeyAlgorithm| using {{KeyFormat/"raw-secret"}} as
               |format|, the {{EncapsulatedBits/sharedKey}} field of
               |encapsulatedBits| as |keyData|, |sharedKeyAlgorithm| as
               |algorithm| and using
@@ -534,7 +534,7 @@ enum KeyFormat { "raw-public", "raw-private", "raw-seed", "raw-secret", "raw", "
           <li>
             <p>
               Let |sharedKey| be the result of performing the import key operation specified by
-              |normalizedSharedKeyAlgorithm| using "`raw`" as
+              |normalizedSharedKeyAlgorithm| using {{KeyFormat/"raw-secret"}} as
               |format|, the |decapsulatedBits| as |keyData|, |sharedKeyAlgorithm| as
               |algorithm| and using
               |extractable| and |usages|.
@@ -2707,7 +2707,7 @@ dictionary AeadParams : Algorithm {
             </li>
             <li>
               <dl class="switch">
-                <dt>If |format| is {{KeyFormat/"raw"}}:</dt>
+                <dt>If |format| is {{KeyFormat/"raw-secret"}}:</dt>
                 <dd>
                   <ol>
                     <li>
@@ -2864,7 +2864,7 @@ dictionary AeadParams : Algorithm {
             </li>
             <li>
               <dl class="switch">
-                <dt>If |format| is {{KeyFormat/"raw"}}:</dt>
+                <dt>If |format| is {{KeyFormat/"raw-secret"}}:</dt>
                 <dd>
                   <ol>
                     <li>
@@ -3228,7 +3228,7 @@ dictionary AeadParams : Algorithm {
             </li>
             <li>
               <dl class="switch">
-                <dt>If |format| is {{KeyFormat/"raw"}}:</dt>
+                <dt>If |format| is {{KeyFormat/"raw-secret"}}:</dt>
                 <dd>
                   <ol>
                     <li>
@@ -3363,7 +3363,7 @@ dictionary AeadParams : Algorithm {
             </li>
             <li>
               <dl class="switch">
-                <dt>If |format| is {{KeyFormat/"raw"}}:</dt>
+                <dt>If |format| is {{KeyFormat/"raw-secret"}}:</dt>
                 <dd>
                   <ol>
                     <li>
@@ -3982,7 +3982,7 @@ dictionary KmacParams : Algorithm {
             </li>
             <li>
               <dl class="switch">
-                <dt>If |format| is {{KeyFormat/"raw"}}:</dt>
+                <dt>If |format| is {{KeyFormat/"raw-secret"}}:</dt>
                 <dd>
                   <ol>
                     <li>
@@ -4195,7 +4195,7 @@ dictionary KmacParams : Algorithm {
             </li>
             <li>
               <dl class="switch">
-                <dt>If |format| is {{KeyFormat/"raw"}}:</dt>
+                <dt>If |format| is {{KeyFormat/"raw-secret"}}:</dt>
                 <dd>
                   <ol>
                     <li>
@@ -4515,7 +4515,7 @@ dictionary Argon2Params : Algorithm {
           <ol>
             <li>
               <p>
-                If |format| is not {{KeyFormat/"raw"}}, [= exception/throw =] a {{NotSupportedError}}
+                If |format| is not {{KeyFormat/"raw-secret"}}, [= exception/throw =] a {{NotSupportedError}}
               </p>
             </li>
             <li>
