@@ -528,6 +528,12 @@ enum KeyFormat { "raw-public", "raw-private", "raw-seed", "raw-secret", "raw", "
           </li>
           <li>
             <p>
+              Let |decapsulatedBits| be the result of performing the decapsulate operation specified by
+              the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a> internal slot of |decapsulationKey| using |decapsulationKey| and |ciphertext|.
+            </p>
+          </li>
+          <li>
+            <p>
               Let |sharedKey| be the result of performing the import key operation specified by
               |normalizedSharedKeyAlgorithm| using "`raw`" as
               |format|, the |decapsulatedBits| as |keyData|, |sharedKeyAlgorithm| as
