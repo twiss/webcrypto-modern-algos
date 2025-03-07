@@ -407,18 +407,9 @@ enum KeyFormat { "raw-public", "raw-private", "raw-seed", "raw-secret", "raw", "
           </li>
           <li>
             <p>
-              Let |sharedKey| be the result of performing the encapsulate operation specified by
+              Let |encapsulatedBits| be the result of performing the encapsulate operation specified by
               the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a> internal slot of
               |encapsulationKey| using |encapsulationKey|.
-            </p>
-          </li>
-          <li>
-            <p>
-              Let |encapsulatedBits| be a new {{EncapsulatedBits}} dictionary
-              with {{EncapsulatedBits/sharedKey}} set to the
-              {{EncapsulatedBits/sharedKey}} field of |sharedKey|
-              and {{EncapsulatedBits/ciphertext}} set to the
-              {{EncapsulatedBits/ciphertext}} field of |sharedKey|.
             </p>
           </li>
           <li>
