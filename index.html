@@ -1234,7 +1234,7 @@ dictionary AeadParams : Algorithm {
                     <li>
                       <p>
                         If the {{JsonWebKey/alg}} field of |jwk| is present, and is
-                        not "`CC20P1305`",
+                        not "`C20P`",
                         then [= exception/throw =] a
                         {{DataError}}.
                       </p>
@@ -1358,7 +1358,7 @@ dictionary AeadParams : Algorithm {
                     <li>
                       <p>
                         Set the `alg` attribute of |jwk| to
-                        the string "`CC20P1305`".
+                        the string "`C20P`".
                       </p>
                     </li>
                     <li>
@@ -2679,7 +2679,7 @@ length: 256 }
           <td>
 <pre class=js>
 { kty: "oct",
-alg: "CC20P1305" }
+alg: "C20P" }
 </pre>
           </td>
           <td>
@@ -2716,7 +2716,7 @@ alg: "K256" }
         </tr>
       </tbody>
     </table>
-    <div class="todo">TODO: register A128OCB, A192OCB, A256OCB, CC20P1305, K128 and K256(?) with IANA in the JSON Web Signature and Encryption Algorithms registry.</div>
+    <div class="todo">TODO: register A128OCB, A192OCB, A256OCB, C20P, K128 and K256(?) with IANA in the JSON Web Signature and Encryption Algorithms registry.</div>
   </section>
 
   <section id="conformance"></section>
