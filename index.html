@@ -746,15 +746,11 @@ enum KeyFormat { "raw-public", "raw-private", "raw-seed", "raw-secret", "raw", "
           </li>
           <li>
             <dl class="switch">
-              <dt>If |operation| is "`deriveKey`":</dt>
+              <dt>If |operation| is "`deriveKey`", "`unwrapKey`", "`encapsulateKey`" or "`decapsulateKey`":</dt>
               <dd>
                 <p>
                   If the result of [= check support for an algorithm | checking support for an algorithm =]
                   with `op` set to "`importKey`"
-                  and `alg` set to |additionalAlgorithm|
-                  is false, or
-                  the result of [= check support for an algorithm | checking support for an algorithm =]
-                  with `op` set to "`get key length`"
                   and `alg` set to |additionalAlgorithm|
                   is false,
                   return false.
@@ -770,32 +766,56 @@ enum KeyFormat { "raw-public", "raw-private", "raw-seed", "raw-secret", "raw", "
                   return false.
                 </p>
               </dd>
-              <dt>If |operation| is "`unwrapKey`":</dt>
+            </dl>
+          </li>
+          <li>
+            <p>
+              Let |length| be null.
+            </p>
+          </li>
+          <li>
+            <dl class="switch">
+              <dt>If |operation| is "`deriveKey`":</dt>
               <dd>
-                <p>
-                  If the result of [= check support for an algorithm | checking support for an algorithm =]
-                  with `op` set to "`importKey`"
-                  and `alg` set to |additionalAlgorithm|
-                  is false,
-                  return false.
-                </p>
-              </dd>
-              <dt>If |operation| is "`encapsulateKey`" or "`decapsulateKey`":</dt>
-              <dd>
-                <p>
-                  If the result of [= check support for an algorithm | checking support for an algorithm =]
-                  with `op` set to "`importKey`"
-                  and `alg` set to |additionalAlgorithm|
-                  is false,
-                  return false.
-                </p>
+                <ol>
+                  <li>
+                    <p>
+                      If the result of [= check support for an algorithm | checking support for an algorithm =]
+                      with `op` set to "`get key length`"
+                      and `alg` set to |additionalAlgorithm|
+                      is false,
+                      return false.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Let |normalizedAdditionalAlgorithm| be the result of
+                      <a data-cite="webcrypto#dfn-normalize-an-algorithm">normalizing an algorithm</a>, with
+                      `alg` set to |additionalAlgorithm| and `op` set to
+                      "`get key length`".
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Let |length| be the result of performing the get key length
+                      algorithm specified by |additionalAlgorithm| using
+                      |normalizedAdditionalAlgorithm|.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Set |operation| to "`deriveBits`".
+                    </p>
+                  </li>
+                </ol>
               </dd>
             </dl>
           </li>
           <li>
             <p>
               Return the result of [= check support for an algorithm | checking support for an algorithm =],
-              with `op` set to |operation| and `alg` set to |algorithm|.
+              with `op` set to |operation|, `alg` set to |algorithm|,
+              and `length` set to |length|.
             </p>
           </li>
         </ol>
@@ -808,15 +828,10 @@ enum KeyFormat { "raw-public", "raw-private", "raw-seed", "raw-secret", "raw", "
         The <dfn id="dfn-check-support-for-algorithm">check support for an algorithm</dfn> algorithm
         defines a process for checking whether the given algorithm is supported for the given operation.
         Its input is an operation name |op|, an {{AlgorithmIdentifier}} |alg|,
-        and an optional |length| parameter. Its output is a boolean.
+        and a |length| parameter. Its output is a boolean.
         It behaves as follows:
       </p>
       <ol>
-        <li>
-          <p>
-            If |op| is "`deriveKey`", set |op| to "`deriveBits`".
-          </p>
-        </li>
         <li>
           <p>
             If |op| is "`encapsulateKey`" or "`encapsulateBits`", set |op| is "`encapsulate`".
