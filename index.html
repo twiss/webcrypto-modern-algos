@@ -6,6 +6,15 @@
   <title>Modern Algorithms in the Web Cryptography API</title>
   <script src="https://www.w3.org/Tools/respec/respec-w3c" class="remove"></script>
   <link rel="stylesheet" href="https://w3c.github.io/webcrypto/webcrypto.css" type="text/css" />
+  <style>
+  var.overline {
+    /* We don't use text-decoration: overline because it's rendered way too high */
+    text-decoration: underline;
+    text-underline-offset: -1.33ex;
+    text-decoration-skip-ink: none;
+    text-decoration-thickness: 1px !important;
+  }
+  </style>
   <script class='remove'>
   "use strict";
   // See https://github.com/w3c/respec/wiki/ for how to configure ReSpec
@@ -22,7 +31,7 @@
     "shortName": "webcrypto-modern-algos",
     "specStatus": "CG-DRAFT",
     "group": "wicg",
-    "xref": ["WebIDL", "webcrypto", "infra"],
+    "xref": ["WebIDL", "webcrypto", "infra", "html"],
     localBiblio: {
       "JWA": {
         aliasOf: "RFC7518"
@@ -35,11 +44,50 @@
         "date": "August 2015"
       },
       // TODO: move to specref?
+      "FIPS-203": {
+        "title": "Module-Lattice-Based Key-Encapsulation Mechanism Standard",
+        "href": "https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.203.pdf",
+        "publisher": "NIST",
+        "date": "August 2024"
+      },
+      // TODO: move to specref?
+      "FIPS-204": {
+        "title": "Module-Lattice-Based Digital Signature Standard",
+        "href": "https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.204.pdf",
+        "publisher": "NIST",
+        "date": "August 2024"
+      },
+      // TODO: move to specref?
+      "FIPS-205": {
+        "title": "Stateless Hash-Based Digital Signature Standard",
+        "href": "https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.205.pdf",
+        "publisher": "NIST",
+        "date": "August 2024"
+      },
+      // TODO: move to specref?
       "NIST-SP800-185": {
         "title": "NIST Special Publication 800-185: SHA-3 Derived Functions: cSHAKE, KMAC, TupleHash and ParallelHash",
         "href": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-185.pdf",
         "publisher": "NIST",
         "date": "December 2016"
+      },
+      "draft-ietf-jose-pqc-kem-01": {
+        "title": "Post-Quantum Key Encapsulation Mechanisms (PQ KEMs) for JOSE and COSE",
+        "href": "https://www.ietf.org/archive/id/draft-ietf-jose-pqc-kem-01.html",
+        "publisher": "IETF",
+        "date": "May 2025"
+      },
+      "draft-ietf-cose-dilithium-07": {
+        "title": "ML-DSA for JOSE and COSE",
+        "href": "https://www.ietf.org/archive/id/draft-ietf-cose-dilithium-07.html",
+        "publisher": "IETF",
+        "date": "June 2025"
+      },
+      "draft-ietf-cose-sphincs-plus-05": {
+        "title": "SLH-DSA for JOSE and COSE",
+        "href": "https://www.ietf.org/archive/id/draft-ietf-cose-sphincs-plus-05.html",
+        "publisher": "IETF",
+        "date": "October 2024"
       },
     },
   };
@@ -49,8 +97,10 @@
 <body>
   <section id="abstract">
     <p>
-      This specification defines a number of modern cryptographic algorithms
-      for the [[[WebCryptoAPI]]], namely AES-OCB, ChaCha20-Poly1305, SHA-3, cSHAKE, KMAC, and Argon2.
+      This specification defines a number of post-quantum secure and
+      modern cryptographic algorithms for the [[[WebCryptoAPI]]],
+      namely ML-KEM, ML-DSA, SLH-DSA, AES-OCB, ChaCha20-Poly1305,
+      SHA-3, cSHAKE, KMAC, and Argon2.
     </p>
   </section>
   <section id="sotd">
@@ -63,9 +113,12 @@
     <p>
       This proposal aims to modernize the set of cryptographic algorithms
       available in the [[[WebCryptoAPI]]], such that web applications can
-      make use of the most secure and performant options available.
+      make use of post-quantum secure and performant cryptographic algorithms.
       To this end, the following cryptographic algorithms are added:
       <ul>
+        <li><a href="#ml-kem">ML-KEM</a> [[FIPS-203]]</li>
+        <li><a href="#ml-dsa">ML-DSA</a> [[FIPS-204]]</li>
+        <li><a href="#slh-dsa">SLH-DSA</a> [[FIPS-205]]</li>
         <li><a href="#aes-ocb">AES-OCB</a> [[RFC7253]]</li>
         <li><a href="#chacha20-poly1305">ChaCha20-Poly1305</a> [[RFC8439]]</li>
         <li><a href="#sha3">SHA3-256, SHA3-384, and SHA3-512</a> [[FIPS-202]]</li>
@@ -74,7 +127,14 @@
       </ul>
     </p>
     <p>
-      Additionally, this proposal aims to make feature detection easier,
+      Additionally, this proposal introduces functions for key encapsulation and decapsulation;
+      <a href="#dfn-SubtleCrypto-method-encapsulateKey">`SubtleCrypto.encapsulateKey`</a>,
+      <a href="#dfn-SubtleCrypto-method-encapsulateBits">`SubtleCrypto.encapsulateBits`</a>,
+      <a href="#dfn-SubtleCrypto-method-decapsulateKey">`SubtleCrypto.decapsulateKey`</a> and
+      <a href="#dfn-SubtleCrypto-method-decapsulateBits">`SubtleCrypto.decapsulateBits`</a>.
+    </p>
+    <p>
+      Finally, this proposal aims to make feature detection easier,
       by adding a <a href="#dfn-SubtleCrypto-method-supports">`SubtleCrypto.supports`</a> function,
       which can be used to detect whether a given algorithm identifier
       (including any parameters) is supported for the given operation.
@@ -91,21 +151,6 @@
       specified in section 18.4.3 of [[WebCryptoAPI]] for each of the supported operations.
     </p>
   </section>
-  <section id="terminology">
-    <h2>Terminology</h2>
-    <p>
-      An <dfn id="dfn-octet-string">octet string</dfn> is an ordered sequence of zero or more
-      integers, each in the range 0 to 255 inclusive.
-    </p>
-    <p>
-      When this specification states to supply the <dfn id="concept-contents-of-arraybuffer">
-      contents of an ArrayBuffer</dfn> named |data| to an underlying cryptographic
-      implementation, the User Agent shall supply a contiguous sequence of bytes that is equal
-      to the result of
-      [= get a copy of the buffer source | getting a copy of the bytes =]
-      held |data|.
-    </p>
-  </section>
 
   <section id="partial-subtlecrypto-interface">
     <h2>Partial SubtleCrypto interface</h2>
@@ -115,6 +160,32 @@
     <pre class="idl">
 [SecureContext,Exposed=(Window,Worker)]
 partial interface SubtleCrypto {
+  Promise&lt;EncapsulatedKey> encapsulateKey(
+    AlgorithmIdentifier encapsulationAlgorithm,
+    CryptoKey encapsulationKey,
+    AlgorithmIdentifier sharedKeyAlgorithm,
+    boolean extractable,
+    sequence&lt;KeyUsage> keyUsages
+  );
+  Promise&lt;EncapsulatedBits> encapsulateBits(
+    AlgorithmIdentifier encapsulationAlgorithm,
+    CryptoKey encapsulationKey
+  );
+
+  Promise&lt;CryptoKey> decapsulateKey(
+    AlgorithmIdentifier decapsulationAlgorithm,
+    CryptoKey decapsulationKey,
+    BufferSource ciphertext,
+    AlgorithmIdentifier sharedKeyAlgorithm,
+    boolean extractable,
+    sequence&lt;KeyUsage> keyUsages
+  );
+  Promise&lt;ArrayBuffer> decapsulateBits(
+    AlgorithmIdentifier decapsulationAlgorithm,
+    CryptoKey decapsulationKey,
+    BufferSource ciphertext
+  );
+
   static boolean supports(DOMString operation,
                    AlgorithmIdentifier algorithm,
                    optional unsigned long? length = null);
@@ -124,8 +195,504 @@ partial interface SubtleCrypto {
 };
     </pre>
 
+    <section id="subtlecrypto-interface-datatypes">
+      <h3>Data Types</h3>
+      <p>
+        This specification replaces the definition of <a data-cite="WebCryptoAPI#dfn-KeyFormat">`KeyFormat`</a>
+        in [[WebCryptoAPI]] with the following:
+      </p>
+      <pre class="idl">
+enum KeyFormat { "raw-public", "raw-private", "raw-seed", "raw-secret", "raw", "spki", "pkcs8", "jwk" };
+      </pre>
+      <p>
+        This specification specifies a number of new <a data-cite="WebCryptoAPI#dfn-RecognizedKeyFormats">recognized key format values</a>:
+      </p>
+      <dl data-dfn-for=KeyFormat>
+        <dt><dfn data-idl>raw-public</dfn></dt>
+        <dd>An unformatted sequence of public key bytes.</dd>
+        <dt><dfn data-idl>raw-private</dfn></dt>
+        <dd>An unformatted sequence of private key bytes.</dd>
+        <dt><dfn data-idl>raw-seed</dfn></dt>
+        <dd>An unformatted sequence of private key seed bytes.</dd>
+        <dt><dfn data-idl>raw-secret</dfn></dt>
+        <dd>An unformatted sequence of secret key bytes.</dd>
+      </dl>
+      <p>
+        For all existing symmetric algorithms in [[WebCryptoAPI]],
+        {{KeyFormat/"raw-secret"}} acts as an alias of {{KeyFormat/"raw"}}.
+      </p>
+      <p>
+        For all existing asymmetric algorithms in [[WebCryptoAPI]],
+        {{KeyFormat/"raw-public"}} acts as an alias of {{KeyFormat/"raw"}}.
+      </p>
+      <p>
+        In the {{SubtleCrypto/deriveKey()}} method, in the import key step,
+        {{KeyFormat/"raw-secret"}} must be used as the format instead of {{KeyFormat/"raw"}}.
+      </p>
+    </section>
+
     <section id="partial-subtlecrypto-interface-methods">
       <h3>Methods and Parameters</h3>
+      <section id="SubtleCrypto-method-encapsulateKey">
+        <h4>The encapsulateKey method</h4>
+        <p>
+          The <dfn id="dfn-SubtleCrypto-method-encapsulateKey" data-dfn-for=SubtleCrypto data-lt="encapsulateKey">encapsulateKey(|encapsulationAlgorithm|, |encapsulationKey|, |sharedKeyAlgorithm|, |extractable|, |usages|)</dfn>
+          method encapsulates a key and returns an {{EncapsulatedKey}} object.
+          It behaves as follows:
+        </p>
+        <ol>
+          <li>
+            <p>
+              Let |encapsulationAlgorithm|, |encapsulationKey|, |sharedKeyAlgorithm|,
+              |extractable| and |usages| be the `encapsulationAlgorithm`, `encapsulationKey`,
+              `sharedKeyAlgorithm`, `extractable` and `keyUsages` parameters passed to the
+              {{SubtleCrypto/encapsulateKey()}} method,
+              respectively.
+            </p>
+          </li>
+          <li>
+            <p>
+              Let |normalizedEncapsulationAlgorithm| be the result of
+              <a data-cite="WebCryptoAPI#dfn-normalize-an-algorithm">normalizing an algorithm</a>, with
+              `alg` set to |encapsulationAlgorithm| and `op` set to
+              "`encapsulate`".
+            </p>
+          </li>
+          <li>
+            <p>
+              If an error occurred, return a Promise rejected with
+              |normalizedEncapsulationAlgorithm|.
+            </p>
+          </li>
+          <li>
+            <p>
+              Let |normalizedSharedKeyAlgorithm| be the result of
+              <a data-cite="WebCryptoAPI#dfn-normalize-an-algorithm">normalizing an algorithm</a>, with
+              `alg` set to |sharedKeyAlgorithm| and `op` set to
+              "`importKey`".
+            </p>
+          </li>
+          <li>
+            <p>
+              If an error occurred, return a Promise rejected with
+              |normalizedSharedKeyAlgorithm|.
+            </p>
+          </li>
+          <li>
+            <p>
+              Let |realm| be the [= relevant realm =] of [= this =].
+            </p>
+          </li>
+          <li>
+            <p>
+              Let |promise| be a new Promise.
+            </p>
+          </li>
+          <li>
+            <p>
+              Return |promise| and perform the remaining steps [= in parallel =].
+            </p>
+          </li>
+          <li>
+            <p>
+              If the following steps or referenced procedures say to
+              [= exception/throw =] an error,
+              [= queue a global task =] on the <a data-cite="WebCryptoAPI#dfn-crypto-task-source">crypto task source</a>,
+              given |realm|'s global object,
+              to reject |promise| with the returned error;
+              and then <a data-cite="WebCryptoAPI#terminate-the-algorithm">terminate the algorithm</a>.
+            </p>
+          </li>
+          <li>
+            <p>
+              If the {{Algorithm/name}} member of
+              |normalizedEncapsulationAlgorithm| is not equal to the
+              {{KeyAlgorithm/name}} attribute of the
+              <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a> internal slot of
+              |encapsulationKey| then [= exception/throw =] an {{InvalidAccessError}}.
+            </p>
+          </li>
+          <li>
+            <p>
+              If the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-usages">`[[usages]]`</a> internal slot of
+              |encapsulationKey| does not contain an entry that is "`encapsulateKey`",
+              then [= exception/throw =] an {{InvalidAccessError}}.
+            </p>
+          </li>
+          <li>
+            <p>
+              Let |encapsulatedBits| be the result of performing the encapsulate operation specified by
+              the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a> internal slot of
+              |encapsulationKey| using |encapsulationKey|.
+            </p>
+          </li>
+          <li>
+            <p>
+              Let |sharedKey| be the result of performing the import key operation specified by
+              |normalizedSharedKeyAlgorithm| using {{KeyFormat/"raw-secret"}} as
+              |format|, the {{EncapsulatedBits/sharedKey}} field of
+              |encapsulatedBits| as |keyData|, |sharedKeyAlgorithm| as
+              |algorithm| and using
+              |extractable| and |usages|.
+            </p>
+          </li>
+          <li>
+            <p>
+              Let |encapsulatedKey| be a new {{EncapsulatedKey}} dictionary
+              with {{EncapsulatedKey/sharedKey}} set to |sharedKey|
+              and {{EncapsulatedKey/ciphertext}} set to the
+              {{EncapsulatedBits/ciphertext}} field of |encapsulatedBits|.
+            </p>
+          </li>
+          <li>
+            <p>
+              [= Queue a global task =] on the <a data-cite="WebCryptoAPI#dfn-crypto-task-source">crypto task source</a>,
+              given |realm|'s global object, to perform the remaining steps.
+            </p>
+          </li>
+          <li>
+            <p>
+              Let |result| be the result of converting |encapsulatedKey| to an ECMAScript Object in |realm|,
+              as defined by [[WebIDL]].
+            </p>
+          </li>
+          <li>
+            <p>
+              Resolve |promise| with
+              |result|.
+            </p>
+          </li>
+        </ol>
+      </section>
+      <section id="SubtleCrypto-method-encapsulateBits">
+        <h4>The encapsulateBits method</h4>
+        <p>
+          The <dfn id="dfn-SubtleCrypto-method-encapsulateBits" data-dfn-for=SubtleCrypto data-lt="encapsulateBits">encapsulateBits(|encapsulationAlgorithm|, |encapsulationKey|)</dfn>
+          method encapsulates a key and returns an {{EncapsulatedBits}} object.
+          It behaves as follows:
+        </p>
+        <ol>
+          <li>
+            <p>
+              Let |encapsulationAlgorithm| and |encapsulationKey| be the `encapsulationAlgorithm`
+              and `encapsulationKey` parameters passed to the
+              {{SubtleCrypto/encapsulateBits()}} method,
+              respectively.
+            </p>
+          </li>
+          <li>
+            <p>
+              Let |normalizedEncapsulationAlgorithm| be the result of
+              <a data-cite="WebCryptoAPI#dfn-normalize-an-algorithm">normalizing an algorithm</a>, with
+              `alg` set to |encapsulationAlgorithm| and `op` set to
+              "`encapsulate`".
+            </p>
+          </li>
+          <li>
+            <p>
+              If an error occurred, return a Promise rejected with
+              |normalizedEncapsulationAlgorithm|.
+            </p>
+          </li>
+          <li>
+            <p>
+              Let |realm| be the [= relevant realm =] of [= this =].
+            </p>
+          </li>
+          <li>
+            <p>
+              Let |promise| be a new Promise.
+            </p>
+          </li>
+          <li>
+            <p>
+              Return |promise| and perform the remaining steps [= in parallel =].
+            </p>
+          </li>
+          <li>
+            <p>
+              If the following steps or referenced procedures say to
+              [= exception/throw =] an error,
+              [= queue a global task =] on the <a data-cite="WebCryptoAPI#dfn-crypto-task-source">crypto task source</a>,
+              given |realm|'s global object,
+              to reject |promise| with the returned error;
+              and then <a data-cite="WebCryptoAPI#terminate-the-algorithm">terminate the algorithm</a>.
+            </p>
+          </li>
+          <li>
+            <p>
+              If the {{Algorithm/name}} member of
+              |normalizedEncapsulationAlgorithm| is not equal to the
+              {{KeyAlgorithm/name}} attribute of the
+              <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a> internal slot of
+              |encapsulationKey| then [= exception/throw =] an {{InvalidAccessError}}.
+            </p>
+          </li>
+          <li>
+            <p>
+              If the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-usages">`[[usages]]`</a> internal slot of
+              |encapsulationKey| does not contain an entry that is "`encapsulateBits`",
+              then [= exception/throw =] an {{InvalidAccessError}}.
+            </p>
+          </li>
+          <li>
+            <p>
+              Let |encapsulatedBits| be the result of performing the encapsulate operation specified by
+              the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a> internal slot of
+              |encapsulationKey| using |encapsulationKey|.
+            </p>
+          </li>
+          <li>
+            <p>
+              [= Queue a global task =] on the <a data-cite="WebCryptoAPI#dfn-crypto-task-source">crypto task source</a>,
+              given |realm|'s global object, to perform the remaining steps.
+            </p>
+          </li>
+          <li>
+            <p>
+              Let |result| be the result of converting |encapsulatedBits| to an ECMAScript Object in |realm|,
+              as defined by [[WebIDL]].
+            </p>
+          </li>
+          <li>
+            <p>
+              Resolve |promise| with
+              |result|.
+            </p>
+          </li>
+        </ol>
+      </section>
+      <section id="SubtleCrypto-method-decapsulateKey">
+        <h4>The decapsulateKey method</h4>
+        <p>
+          The <dfn id="dfn-SubtleCrypto-method-decapsulateKey" data-dfn-for=SubtleCrypto data-lt="decapsulateKey">decapsulateKey(|decapsulationAlgorithm|, |decapsulationKey|, |ciphertext|, |sharedKeyAlgorithm|, |extractable|, |usages|)</dfn>
+          method decapsulates a key and returns an {{CryptoKey}} object.
+          It behaves as follows:
+        </p>
+        <ol>
+          <li>
+            <p>
+              Let |decapsulationAlgorithm|, |decapsulationKey|, |sharedKeyAlgorithm|,
+              |extractable| and |usages| be the `decapsulationAlgorithm`, `decapsulationKey`, `sharedKeyAlgorithm`, `extractable` and `keyUsages` parameters passed to the
+              {{SubtleCrypto/decapsulateKey()}} method,
+              respectively.
+            </p>
+          </li>
+          <li>
+            <p>
+              Let |ciphertext| be the result of
+              [= get a copy of the buffer source |
+              getting a copy of the bytes held by =] the `ciphertext` parameter passed to the
+              {{SubtleCrypto/decapsulateKey()}} method.
+            </p>
+          </li>
+          <li>
+            <p>
+              Let |normalizedDecapsulationAlgorithm| be the result of
+              <a data-cite="WebCryptoAPI#dfn-normalize-an-algorithm">normalizing an algorithm</a>, with
+              `alg` set to |decapsulationAlgorithm| and `op` set to
+              "`decapsulate`".
+            </p>
+          </li>
+          <li>
+            <p>
+              If an error occurred, return a Promise rejected with
+              |normalizedDecapsulationAlgorithm|.
+            </p>
+          </li>
+          <li>
+            <p>
+              Let |normalizedSharedKeyAlgorithm| be the result of
+              <a data-cite="WebCryptoAPI#dfn-normalize-an-algorithm">normalizing an algorithm</a>, with
+              `alg` set to |sharedKeyAlgorithm| and `op` set to
+              "`importKey`".
+            </p>
+          </li>
+          <li>
+            <p>
+              If an error occurred, return a Promise rejected with
+              |normalizedSharedKeyAlgorithm|.
+            </p>
+          </li>
+          <li>
+            <p>
+              Let |realm| be the [= relevant realm =] of [= this =].
+            </p>
+          </li>
+          <li>
+            <p>
+              Let |promise| be a new Promise.
+            </p>
+          </li>
+          <li>
+            <p>
+              Return |promise| and perform the remaining steps [= in parallel =].
+            </p>
+          </li>
+          <li>
+            <p>
+              If the following steps or referenced procedures say to
+              [= exception/throw =] an error,
+              [= queue a global task =] on the <a data-cite="WebCryptoAPI#dfn-crypto-task-source">crypto task source</a>,
+              given |realm|'s global object,
+              to reject |promise| with the returned error;
+              and then <a data-cite="WebCryptoAPI#terminate-the-algorithm">terminate the algorithm</a>.
+            </p>
+          </li>
+          <li>
+            <p>
+              If the {{Algorithm/name}} member of
+              |normalizedDecapsulationAlgorithm| is not equal to the
+              {{KeyAlgorithm/name}} attribute of the
+              <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a> internal slot of
+              |decapsulationKey| then [= exception/throw =] an {{InvalidAccessError}}.
+            </p>
+          </li>
+          <li>
+            <p>
+              If the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-usages">`[[usages]]`</a> internal slot of
+              |decapsulationKey| does not contain an entry that is "`decapsulateKey`",
+              then [= exception/throw =] an {{InvalidAccessError}}.
+            </p>
+          </li>
+          <li>
+            <p>
+              Let |decapsulatedBits| be the result of performing the decapsulate operation specified by
+              the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a> internal slot of |decapsulationKey| using |decapsulationKey| and |ciphertext|.
+            </p>
+          </li>
+          <li>
+            <p>
+              Let |sharedKey| be the result of performing the import key operation specified by
+              |normalizedSharedKeyAlgorithm| using {{KeyFormat/"raw-secret"}} as
+              |format|, the |decapsulatedBits| as |keyData|, |sharedKeyAlgorithm| as
+              |algorithm| and using
+              |extractable| and |usages|.
+            </p>
+          </li>
+          <li>
+            <p>
+              [= Queue a global task =] on the <a data-cite="WebCryptoAPI#dfn-crypto-task-source">crypto task source</a>,
+              given |realm|'s global object, to perform the remaining steps.
+            </p>
+          </li>
+          <li>
+            <p>
+              Let |result| be the result of converting |sharedKey| to an ECMAScript Object in |realm|, as defined by [[WebIDL]].
+            </p>
+          </li>
+          <li>
+            <p>
+              Resolve |promise| with
+              |result|.
+            </p>
+          </li>
+        </ol>
+      </section>
+      <section id="SubtleCrypto-method-decapsulateBits">
+        <h4>The decapsulateBits method</h4>
+        <p>
+          The <dfn id="dfn-SubtleCrypto-method-decapsulateBits" data-dfn-for=SubtleCrypto data-lt="decapsulateBits">decapsulateBits(|decapsulationAlgorithm|, |decapsulationKey|, |ciphertext|)</dfn>
+          method decapsulates a key and returns an {{ArrayBuffer}} object.
+          It behaves as follows:
+        </p>
+        <ol>
+          <li>
+            <p>
+              Let |decapsulationAlgorithm| and |decapsulationKey| be the `decapsulationAlgorithm` and `decapsulationKey` parameters passed to the
+              {{SubtleCrypto/decapsulateBits()}} method,
+              respectively.
+            </p>
+          </li>
+          <li>
+            <p>
+              Let |ciphertext| be the result of
+              [= get a copy of the buffer source |
+              getting a copy of the bytes held by =] the `ciphertext` parameter passed to the
+              {{SubtleCrypto/decapsulateBits()}} method.
+            </p>
+          </li>
+          <li>
+            <p>
+              Let |normalizedDecapsulationAlgorithm| be the result of
+              <a data-cite="WebCryptoAPI#dfn-normalize-an-algorithm">normalizing an algorithm</a>, with
+              `alg` set to |decapsulationAlgorithm| and `op` set to
+              "`decapsulate`".
+            </p>
+          </li>
+          <li>
+            <p>
+              If an error occurred, return a Promise rejected with
+              |normalizedDecapsulationAlgorithm|.
+            </p>
+          </li>
+          <li>
+            <p>
+              Let |realm| be the [= relevant realm =] of [= this =].
+            </p>
+          </li>
+          <li>
+            <p>
+              Let |promise| be a new Promise.
+            </p>
+          </li>
+          <li>
+            <p>
+              Return |promise| and perform the remaining steps [= in parallel =].
+            </p>
+          </li>
+          <li>
+            <p>
+              If the following steps or referenced procedures say to
+              [= exception/throw =] an error,
+              [= queue a global task =] on the <a data-cite="WebCryptoAPI#dfn-crypto-task-source">crypto task source</a>,
+              given |realm|'s global object,
+              to reject |promise| with the returned error;
+              and then <a data-cite="WebCryptoAPI#terminate-the-algorithm">terminate the algorithm</a>.
+            </p>
+          </li>
+          <li>
+            <p>
+              If the {{Algorithm/name}} member of
+              |normalizedDecapsulationAlgorithm| is not equal to the
+              {{KeyAlgorithm/name}} attribute of the
+              <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a> internal slot of
+              |decapsulationKey| then [= exception/throw =] an {{InvalidAccessError}}.
+            </p>
+          </li>
+          <li>
+            <p>
+              If the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-usages">`[[usages]]`</a> internal slot of
+              |decapsulationKey| does not contain an entry that is "`decapsulateBits`",
+              then [= exception/throw =] an {{InvalidAccessError}}.
+            </p>
+          </li>
+          <li>
+            <p>
+              Let |decapsulatedBits| be the result of performing the decapsulate operation specified by
+              the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a> internal slot of |decapsulationKey| using |decapsulationKey| and |ciphertext|.
+            </p>
+          </li>
+          <li>
+            <p>
+              [= Queue a global task =] on the <a data-cite="WebCryptoAPI#dfn-crypto-task-source">crypto task source</a>,
+              given |realm|'s global object, to perform the remaining steps.
+            </p>
+          </li>
+          <li>
+            <p>
+              Let |result| be the result of [= ArrayBuffer/create | creating =] an {{ArrayBuffer}}
+              in |realm|, containing |decapsulatedBits|.
+            </p>
+          </li>
+          <li>
+            <p>
+              Resolve |promise| with
+              |result|.
+            </p>
+          </li>
+        </ol>
+      </section>
       <section id="SubtleCrypto-method-supports">
         <h4>The supports method</h4>
         <p>
@@ -141,7 +708,9 @@ partial interface SubtleCrypto {
               If |operation| is not one of
               "`encrypt`", "`decrypt`", "`sign`", "`verify`",
               "`digest`", "`generateKey`", "`deriveKey`", "`deriveBits`",
-              "`importKey`", "`exportKey`", "`wrapKey`" or "`unwrapKey`",
+              "`importKey`", "`exportKey`", "`wrapKey`", "`unwrapKey`",
+              "`encapsulateKey`", "`encapsulateBits`",
+              "`decapsulateKey`" or "`decapsulateBits`",
               return false.
             </p>
           </li>
@@ -168,7 +737,9 @@ partial interface SubtleCrypto {
               If |operation| is not one of
               "`encrypt`", "`decrypt`", "`sign`", "`verify`",
               "`digest`", "`generateKey`", "`deriveKey`", "`deriveBits`",
-              "`importKey`", "`exportKey`", "`wrapKey`" or "`unwrapKey`",
+              "`importKey`", "`exportKey`", "`wrapKey`", "`unwrapKey`",
+              "`encapsulateKey`", "`encapsulateBits`",
+              "`decapsulateKey`" or "`decapsulateBits`",
               return false.
             </p>
           </li>
@@ -208,6 +779,16 @@ partial interface SubtleCrypto {
                   return false.
                 </p>
               </dd>
+              <dt>If |operation| is "`encapsulateKey`" or "`decapsulateKey`":</dt>
+              <dd>
+                <p>
+                  If the result of [= check support for an algorithm | checking support for an algorithm =]
+                  with `op` set to "`importKey`"
+                  and `alg` set to |additionalAlgorithm|
+                  is false,
+                  return false.
+                </p>
+              </dd>
             </dl>
           </li>
           <li>
@@ -233,6 +814,16 @@ partial interface SubtleCrypto {
         <li>
           <p>
             If |op| is "`deriveKey`", set |op| to "`deriveBits`".
+          </p>
+        </li>
+        <li>
+          <p>
+            If |op| is "`encapsulateKey`" or "`encapsulateBits`", set |op| is "`encapsulate`".
+          </p>
+        </li>
+        <li>
+          <p>
+            If |op| is "`decapsulateKey`" or "`decapsulateBits`", set |op| is "`decapsulate`".
           </p>
         </li>
         <li>
@@ -338,6 +929,2204 @@ partial interface SubtleCrypto {
     </section>
   </section>
 
+  <section id="encapsulation">
+    <h2>Encapsulation dictionaries</h2>
+    <pre class=idl>
+dictionary EncapsulatedKey {
+  CryptoKey sharedKey;
+  ArrayBuffer ciphertext;
+};
+
+dictionary EncapsulatedBits {
+  ArrayBuffer sharedKey;
+  ArrayBuffer ciphertext;
+};
+    </pre>
+    <p>
+      The <dfn data-idl id="dfn-EncapsulatedKey">EncapsulatedKey</dfn> dictionary represents an
+      encapsulated key comprised of a <dfn data-idl data-dfn-for=EncapsulatedKey id="dfn-EncapsulatedKey-sharedKey">sharedKey</dfn> and a <dfn data-idl data-dfn-for=EncapsulatedKey id="dfn-EncapsulatedKey-ciphertext">ciphertext</dfn>.
+    </p>
+    <p>
+      The <dfn data-idl id="dfn-EncapsulatedBits">EncapsulatedBits</dfn> dictionary represents
+      encapsulated key bits comprised of a <dfn data-idl data-dfn-for=EncapsulatedBits id="dfn-EncapsulatedBits-sharedKey">sharedKey</dfn> and a <dfn data-idl data-dfn-for=EncapsulatedBits id="dfn-EncapsulatedBits-ciphertext">ciphertext</dfn>.
+    </p>
+  </section>
+
+  <section id="JsonWebKey-dictionary">
+    <h2>JsonWebKey dictionary</h2>
+    <pre class=idl>
+dictionary JsonWebKey {
+  // The following fields are defined in Section 3.1 of JSON Web Key
+  DOMString kty;
+  DOMString use;
+  sequence&lt;DOMString> key_ops;
+  DOMString alg;
+
+  // The following fields are defined in JSON Web Key Parameters Registration
+  boolean ext;
+
+  // The following fields are defined in draft-ietf-cose-dilithium-07
+  DOMString pub;
+  DOMString priv;
+};
+    </pre>
+    <p>
+      This version of the <dfn data-idl id="dfn-JsonWebKey">JsonWebKey</dfn> dictionary
+      provides a way to represent keys with the "AKP" key type defined in [[draft-ietf-cose-dilithium-07]].
+      It may be merged into the definition of <a data-cite="webcrypto#dfn-JsonWebKey">`JsonWebKey`</a> in [[webcrypto]]
+      by adding the {{JsonWebKey/pub}} and {{JsonWebKey/priv}} fields there.
+    </p>
+  </section>
+
+  <section id="ml-kem">
+    <h3>ML-KEM</h3>
+    <section id="ml-kem-description" class="informative">
+      <h4>Description</h4>
+      <p>
+        This describes using ML-KEM for key encapsulation and decapsulation,
+        as specified by [[FIPS-203]].
+      </p>
+    </section>
+    <section id="ml-kem-registration">
+      <h4>Registration</h4>
+      <p>
+        The <a data-cite="WebCryptoAPI#recognized-algorithm-name">recognized algorithm names</a> for
+        this algorithm are "`ML-KEM-512`", "`ML-KEM-768`" and "`ML-KEM-1024`".
+      </p>
+      <table>
+        <thead>
+          <tr>
+            <th><a data-cite="WebCryptoAPI#supported-operations">Operation</a></th>
+            <th><a data-cite="WebCryptoAPI#algorithm-specific-params">Parameters</a></th>
+            <th><a data-cite="WebCryptoAPI#algorithm-result">Result</a></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>encapsulate</td>
+            <td>None</td>
+            <td>{{EncapsulatedBits}}</td>
+          </tr>
+          <tr>
+            <td>decapsulate</td>
+            <td>None</td>
+            <td>[= byte sequence =]</td>
+          </tr>
+          <tr>
+            <td>generateKey</td>
+            <td>None</td>
+            <td>{{CryptoKeyPair}}</td>
+          </tr>
+         <tr>
+           <td>importKey</td>
+           <td>None</td>
+           <td>{{CryptoKey}}</td>
+         </tr>
+         <tr>
+           <td>exportKey</td>
+           <td>None</td>
+           <td>object</td>
+         </tr>
+        </tbody>
+      </table>
+    </section>
+    <section id="ml-kem-operations">
+      <h4>Operations</h4>
+      <dl>
+        <dt>Encapsulate</dt>
+        <dd>
+          <ol>
+            <li>
+              <p>
+                If the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot of
+                |key| is not {{KeyType/"public"}}, then [= exception/throw =] an {{InvalidAccessError}}.
+              </p>
+            </li>
+            <li>
+              <p>
+                Perform the encapsulation key check described in
+                Section 7.2 of [[FIPS-203]] with the parameter set
+                indicated by the {{Algorithm/name}} member of |algorithm|,
+                using the key represented by the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">`[[handle]]`</a>
+                internal slot of |key| as the <var class="overline">ek</var> input parameter.
+              </p>
+              <div class=note>
+                <p>
+                  The result of this check may be cached or precomputed
+                  for the {{CryptoKey}} object if desirable for performance.
+                </p>
+              </div>
+            </li>
+            <li>
+              <p>
+                If the encapsulation key check failed, return an {{OperationError}}.
+              </p>
+            </li>
+            <li>
+              <p>
+                Let |sharedKey| and |ciphertext| be the outputs that result
+                from performing the ML-KEM.Encaps function described in
+                Section 7.2 of [[FIPS-203]] with the parameter set
+                indicated by the {{Algorithm/name}} member of |algorithm|,
+                using the key represented by the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">`[[handle]]`</a>
+                internal slot of |key| as the |ek| input parameter.
+              </p>
+            </li>
+            <li>
+              <p>
+                If the ML-KEM.Encaps function returned an error, return an {{OperationError}}.
+              </p>
+            </li>
+            <li>
+              <p>
+                Let |result| be a new {{EncapsulatedBits}}
+                dictionary.
+              </p>
+            </li>
+            <li>
+              <p>
+                Set the {{EncapsulatedBits/sharedKey}} attribute
+                of |result| to the result of [= ArrayBuffer/create | creating =]
+                an {{ArrayBuffer}} containing |sharedKey|.
+              </p>
+            </li>
+            <li>
+              <p>
+                Set the {{EncapsulatedBits/ciphertext}} attribute
+                of |result| to the result of [= ArrayBuffer/create | creating =]
+                an {{ArrayBuffer}} containing |ciphertext|.
+              </p>
+            </li>
+            <li>
+              <p>
+                Return |result|.
+              </p>
+            </li>
+          </ol>
+        </dd>
+        <dt>Decapsulate</dt>
+        <dd>
+          <ol>
+            <li>
+              <p>
+                If the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot of
+                |key| is not {{KeyType/"private"}}, then [= exception/throw =] an {{InvalidAccessError}}.
+              </p>
+            </li>
+            <li>
+              <p>
+                Perform the decapsulation input check described in
+                Section 7.3 of [[FIPS-203]] with the parameter set
+                indicated by the {{Algorithm/name}} member of |algorithm|,
+                using the key represented by the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">`[[handle]]`</a>
+                internal slot of |key| as the <var class="overline">dk</var> input parameter, and
+                |ciphertext| as the <var class="overline">c</var> input parameter.
+              </p>
+              <div class=note>
+                <p>
+                  The result of the decapsulation key type check and the hash check
+                  may be cached or precomputed for the {{CryptoKey}} object
+                  if desirable for performance.
+                </p>
+              </div>
+            </li>
+            <li>
+              <p>
+                If the decapsulation key check failed, return an {{OperationError}}.
+              </p>
+            </li>
+            <li>
+              <p>
+                Let |sharedKey| be the output that results
+                from performing the ML-KEM.Decaps function described in
+                Section 7.3 of [[FIPS-203]] with the parameter set
+                indicated by the {{Algorithm/name}} member of |algorithm|,
+                using the key represented by the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">`[[handle]]`</a>
+                internal slot of |key| as the |dk| input parameter, and
+                |ciphertext| as the |c| input parameter.
+              </p>
+            </li>
+            <li>
+              <p>
+                Return |sharedKey|.
+              </p>
+            </li>
+          </ol>
+        </dd>
+        <dt>Generate Key</dt>
+        <dd>
+          <ol>
+            <li>
+              <p>
+                If |usages| contains any entry which is not
+                one of "`encapsulateKey`", "`encapsulateBits`",
+                "`decapsulateKey`" or "`decapsulateBits`",
+                then [= exception/throw =] a
+                {{SyntaxError}}.
+              </p>
+            </li>
+
+            <li>
+              <p>
+                Generate an ML-KEM key pair, as described in
+                Section 7.1 of [[FIPS-203]], with the parameter set
+                indicated by the {{Algorithm/name}} member of |normalizedAlgorithm|.
+              </p>
+              <div class=note>
+                <p>
+                  In order to be able to export the seed `(d, z)`,
+                  `d` and `z` need to be stored as part of the generated
+                  key material.
+                </p>
+              </div>
+            </li>
+            <li>
+              <p>
+                If the key generation step fails,
+                then [= exception/throw =] an
+                {{OperationError}}.
+              </p>
+            </li>
+            <li>
+              <p>
+                Let |algorithm| be a new {{KeyAlgorithm}} object.
+              </p>
+            </li>
+            <li>
+              <p>
+                Set the {{KeyAlgorithm/name}} attribute of
+                |algorithm| to the {{Algorithm/name}} attribute of
+                |normalizedAlgorithm|.
+              </p>
+            </li>
+            <li>
+              <p>
+                Let |publicKey| be a new {{CryptoKey}}
+                representing the encapsulation key of the generated key pair.
+              </p>
+            </li>
+            <li>
+              <p>
+                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot of
+                |publicKey| to "`public`".
+              </p>
+            </li>
+            <li>
+              <p>
+                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a> internal
+                slot of |publicKey| to |algorithm|.
+              </p>
+            </li>
+            <li>
+              <p>
+                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-extractable">`[[extractable]]`</a> internal
+                slot of |publicKey| to true.
+              </p>
+            </li>
+            <li>
+              <p>
+                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-usages">`[[usages]]`</a> internal slot of
+                |publicKey| to be the
+                <a data-cite="WebCryptoAPI#concept-usage-intersection">usage intersection</a> of
+                |usages| and `[ "encapsulateKey", "encapsulateBits" ]`.
+              </p>
+            </li>
+            <li>
+              <p>
+                Let |privateKey| be a new {{CryptoKey}}
+                representing the decapsulation key of the generated key pair.
+              </p>
+            </li>
+            <li>
+              <p>
+                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot of
+                |privateKey| to {{KeyType/"private"}}.
+              </p>
+            </li>
+            <li>
+              <p>
+                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a> internal
+                slot of |privateKey| to |algorithm|.
+              </p>
+            </li>
+            <li>
+              <p>
+                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-extractable">`[[extractable]]`</a> internal
+                slot of |privateKey| to |extractable|.
+              </p>
+            </li>
+            <li>
+              <p>
+                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-usages">`[[usages]]`</a> internal slot of
+                |privateKey| to be the
+                <a data-cite="WebCryptoAPI#concept-usage-intersection">usage intersection</a> of
+                |usages| and `[ "decapsulateKey", "decapsulateBits" ]`.
+              </p>
+            </li>
+            <li>
+              <p>
+                Let |result| be a new {{CryptoKeyPair}}
+                dictionary.
+              </p>
+            </li>
+            <li>
+              <p>
+                Set the {{CryptoKeyPair/publicKey}} attribute
+                of |result| to be |publicKey|.
+              </p>
+            </li>
+            <li>
+              <p>
+                Set the {{CryptoKeyPair/privateKey}} attribute
+                of |result| to be |privateKey|.
+              </p>
+            </li>
+            <li>
+              <p>
+                Return |result|.
+              </p>
+            </li>
+          </ol>
+        </dd>
+        <dt>Import Key</dt>
+        <dd>
+          <ol>
+            <li>
+              <dl class="switch">
+                <dt>If |format| is {{KeyFormat/"raw-public"}}:</dt>
+                <dd>
+                  <ol>
+                    <li>
+                      <p>
+                        If |usages| contains an entry which is not
+                        "`encapsulateKey`" or "`encapsulateBits`"
+                        then [= exception/throw =] a
+                        {{SyntaxError}}.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Let |data| be |keyData|.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Let |key| be a new {{CryptoKey}}
+                        that represents the ML-KEM public key data in |data|.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot
+                        of |key| to {{KeyType/"public"}}
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Let |algorithm| be a new {{KeyAlgorithm}}.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Set the {{KeyAlgorithm/name}} attribute of
+                        |algorithm| to the {{Algorithm/name}} attribute of
+                        |normalizedAlgorithm|.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a>
+                        internal slot of |key| to |algorithm|.
+                      </p>
+                    </li>
+                  </ol>
+                </dd>
+                <dt>If |format| is {{KeyFormat/"raw-seed"}}:</dt>
+                <dd>
+                  <ol>
+                    <li>
+                      <p>
+                        If |usages| contains an entry which is not
+                        "`decapsulateKey`" or "`decapsulateBits`"
+                        then [= exception/throw =] a
+                        {{SyntaxError}}.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Let |data| be |keyData|.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        If the length in bits of |data| is not 512
+                        then [= exception/throw =] a
+                        {{DataError}}.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Let |privateKey| be the result of performing the
+                        ML-KEM.KeyGen_internal function described in
+                        Section 6.1 of [[FIPS-203]] with the parameter set
+                        indicated by the {{Algorithm/name}} member of |normalizedAlgorithm|,
+                        using the first 256 bits of |data| as |d| and
+                        the last 256 bits of |data| as |z|.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Let |key| be a new {{CryptoKey}}
+                        that represents the ML-KEM private key identified by |privateKey|.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot
+                        of |key| to {{KeyType/"private"}}
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Let |algorithm| be a new {{KeyAlgorithm}}.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Set the {{KeyAlgorithm/name}} attribute of
+                        |algorithm| to the {{Algorithm/name}} attribute of
+                        |normalizedAlgorithm|.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a>
+                        internal slot of |key| to |algorithm|.
+                      </p>
+                    </li>
+                  </ol>
+                </dd>
+                <dt>If |format| is {{KeyFormat/"jwk"}}:</dt>
+                <dd>
+                  <ol>
+                    <li>
+                      <dl class="switch">
+                        <dt>If |keyData| is a {{JsonWebKey}} dictionary:</dt>
+                        <dd><p>Let |jwk| equal |keyData|.</p></dd>
+                        <dt>Otherwise:</dt>
+                        <dd><p>[= exception/Throw =] a {{DataError}}.</p></dd>
+                      </dl>
+                    </li>
+                    <li>
+                      <p>
+                        If the {{JsonWebKey/priv}} field of |jwk| is present
+                        and if |usages| contains an entry which is not
+                        "`decapsulateKey`" or "`decapsulateBits`"
+                        then [= exception/throw =] a
+                        {{SyntaxError}}.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        If the {{JsonWebKey/priv}} field of |jwk| is not present
+                        and if |usages| contains an entry which is not
+                        "`encapsulateKey`" or "`encapsulateBits`"
+                        then [= exception/throw =] a
+                        {{SyntaxError}}.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        If the {{JsonWebKey/kty}} field of |jwk| is not
+                        "`AKP`",
+                        then [= exception/throw =] a
+                        {{DataError}}.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        If the {{JsonWebKey/alg}} field of |jwk| is not
+                        one of the `alg` values corresponding to the
+                        {{Algorithm/name}} member of |normalizedAlgorithm|
+                        indicated in Section 8 of [[draft-ietf-jose-pqc-kem-01]]
+                        (Figure 1 or 2), then [= exception/throw =] a
+                        {{DataError}}.
+                      </p>
+                      <p class="example">
+                        For example, `MLKEM512` and `MLKEM512+A128KW`
+                        are valid "alg" values for ML-KEM-512.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        If |usages| is non-empty and the {{JsonWebKey/use}} field of |jwk| is present
+                        and is not equal to "`enc`", then [= exception/throw =] a
+                        {{DataError}}.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        If the {{JsonWebKey/key_ops}} field of |jwk| is present, and
+                        is invalid according to the requirements of JSON Web
+                        Key [[JWK]], or it does not contain all of the specified |usages|
+                        values,
+                        then [= exception/throw =] a
+                        {{DataError}}.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        If the {{JsonWebKey/ext}} field of |jwk| is present and
+                        has the value false and |extractable| is true,
+                        then [= exception/throw =] a
+                        {{DataError}}.
+                      </p>
+                    </li>
+                    <li>
+                      <dl class="switch">
+                        <dt>If the {{JsonWebKey/priv}} field of |jwk| is present:</dt>
+                        <dd>
+                          <ol>
+                            <li>
+                              <p>
+                                If the {{JsonWebKey/priv}} attribute of |jwk|
+                                does not contain a valid base64url encoded seed
+                                representing an ML-KEM private key,
+                                then [= exception/throw =] a {{DataError}}.
+                              </p>
+                            </li>
+                            <li>
+                              <p>
+                                Let |key| be a new {{CryptoKey}} object that represents the
+                                ML-KEM private key identified by interpreting the
+                                {{JsonWebKey/priv}} attribute of |jwk|
+                                as a base64url encoded seed.
+                              </p>
+                            </li>
+                            <li>
+                              <p>
+                                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-type">`[[type]]`</a>
+                                internal slot of |Key| to {{KeyType/"private"}}.
+                              </p>
+                            </li>
+                            <li>
+                              <p>
+                                If the {{JsonWebKey/pub}} attribute of |jwk|
+                                does not contain the base64url encoded public key
+                                representing the ML-KEM public key
+                                corresponding to |key|,
+                                then [= exception/throw =] a {{DataError}}.
+                              </p>
+                            </li>
+                          </ol>
+                        </dd>
+                        <dt>Otherwise:</dt>
+                        <dd>
+                          <ol>
+                            <li>
+                              <p>
+                                If the {{JsonWebKey/pub}} attribute of |jwk|
+                                does not contain a valid base64url encoded public key
+                                representing an ML-KEM public key,
+                                then [= exception/throw =] a {{DataError}}.
+                              </p>
+                            </li>
+                            <li>
+                              <p>
+                                Let |key| be a new {{CryptoKey}} object that represents the
+                                ML-KEM public key identified by interpreting the
+                                {{JsonWebKey/pub}} attribute of |jwk|
+                                as a base64url encoded public key.
+                              </p>
+                            </li>
+                            <li>
+                              <p>
+                                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-type">`[[type]]`</a>
+                                internal slot of |Key| to {{KeyType/"public"}}.
+                              </p>
+                            </li>
+                          </ol>
+                        </dd>
+                      </dl>
+                    </li>
+                    <li>
+                      <p>
+                        Let |algorithm| be a new instance of a {{KeyAlgorithm}} object.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Set the {{KeyAlgorithm/name}} attribute of
+                        |algorithm| to the {{Algorithm/name}} member of |normalizedAlgorithm|.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a>
+                        internal slot of |key| to |algorithm|.
+                      </p>
+                    </li>
+                  </ol>
+                </dd>
+                <dt>Otherwise:</dt>
+                <dd>
+                  [= exception/throw =] a
+                  {{NotSupportedError}}.
+                </dd>
+              </dl>
+            </li>
+            <li>
+              <p>
+                Return |key|.
+              </p>
+            </li>
+          </ol>
+        </dd>
+        <dt>Export Key</dt>
+        <dd>
+          <ol>
+            <li>
+              <p>
+                If the underlying cryptographic key material represented by the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">`[[handle]]`</a> internal slot of |key|
+                cannot be accessed, then [= exception/throw =] an {{OperationError}}.
+              </p>
+            </li>
+            <li>
+              <dl class="switch">
+                <dt>If |format| is {{KeyFormat/"raw-public"}}:</dt>
+                <dd>
+                  <ol>
+                    <li>
+                      <p>
+                        If the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot
+                        of |key| is not "`public`", then [= exception/throw =] an {{InvalidAccessError}}.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Let |data| be a [= byte sequence =] containing
+                        the raw octets of the key represented by the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">`[[handle]]`</a> internal slot of
+                        |key|.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Let |result| be |data|.
+                      </p>
+                    </li>
+                  </ol>
+                </dd>
+                <dt>If |format| is {{KeyFormat/"raw-seed"}}:</dt>
+                <dd>
+                  <ol>
+                    <li>
+                      <p>
+                        If the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot
+                        of |key| is not "`private`", then [= exception/throw =] an {{InvalidAccessError}}.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Let |data| be a [= byte sequence =] containing the concatenation of the |d| and |z|
+                        seed variables of the key represented by the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">`[[handle]]`</a>
+                        internal slot of |key|.
+                      </p>
+                      <div class=note>
+                        <p>
+                          The |d| and |z| seed variables were sampled in the ML-KEM.KeyGen function
+                          as described in Section 7.1 of [[FIPS-203]].
+                        </p>
+                      </div>
+                    </li>
+                    <li>
+                      <p>
+                        Let |result| be |data|.
+                      </p>
+                    </li>
+                  </ol>
+                </dd>
+                <dt>If |format| is {{KeyFormat/"jwk"}}:</dt>
+                <dd>
+                  <ol>
+                    <li>
+                      <p>
+                        Let |jwk| be a new {{JsonWebKey}}
+                        dictionary.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Set the `kty` attribute of |jwk| to
+                        "`AKP`".
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Set the `alg` attribute of |jwk| to
+                        the `alg` value corresponding to the
+                        {{Algorithm/name}} member of |normalizedAlgorithm|
+                        indicated in Section 8 of [[draft-ietf-jose-pqc-kem-01]]
+                        (Figure 1).
+                      </p>
+                      <p class="example">
+                        For example, `MLKEM512` is the "alg" value
+                        used for ML-KEM-512.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Set the {{JsonWebKey/pub}} attribute of |jwk|
+                        to the base64url encoded public key corresponding
+                        to the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">`[[handle]]`</a>
+                        internal slot of |key|.
+                      </p>
+                    </li>
+                    <li>
+                      <dl class="switch">
+                        <dt>
+                          If the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot
+                          of |key| is {{KeyType/"private"}}:
+                        </dt>
+                        <dd>
+                          Set the {{JsonWebKey/priv}} attribute of |jwk|
+                          to the base64url encoded seed represented by
+                          the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">`[[handle]]`</a>
+                          internal slot of |key|.
+                        </dd>
+                      </dl>
+                    </li>
+                    <li>
+                      <p>
+                        Set the `key_ops` attribute of |jwk| to the {{CryptoKey/usages}} attribute of |key|.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Set the `ext` attribute of |jwk| to the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-extractable">`[[extractable]]`</a> internal slot
+                        of |key|.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Let |result| be |jwk|.
+                      </p>
+                    </li>
+                  </ol>
+                </dd>
+                <dt>Otherwise:</dt>
+                <dd>
+                  <p>
+                    [= exception/throw =] a
+                    {{NotSupportedError}}.
+                  </p>
+                </dd>
+              </dl>
+            </li>
+            <li>
+              <p>
+                Return |result|.
+              </p>
+            </li>
+          </ol>
+        </dd>
+      </dl>
+    </section>
+  </section>
+
+  <section id="ml-dsa">
+    <h3>ML-DSA</h3>
+    <section id="ml-dsa-description" class="informative">
+      <h4>Description</h4>
+      <p>
+        This describes using ML-DSA for signing and verification,
+        as specified by [[FIPS-204]].
+      </p>
+    </section>
+    <section id="ml-dsa-registration">
+      <h4>Registration</h4>
+      <p>
+        The <a data-cite="WebCryptoAPI#recognized-algorithm-name">recognized algorithm names</a> for
+        this algorithm are "`ML-DSA-44`", "`ML-DSA-65`" and "`ML-DSA-87`".
+      </p>
+      <table>
+        <thead>
+          <tr>
+            <th><a data-cite="WebCryptoAPI#supported-operations">Operation</a></th>
+            <th><a data-cite="WebCryptoAPI#algorithm-specific-params">Parameters</a></th>
+            <th><a data-cite="WebCryptoAPI#algorithm-result">Result</a></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>sign</td>
+            <td>{{ContextParams}}</td>
+            <td>[= byte sequence =]</td>
+          </tr>
+          <tr>
+            <td>verify</td>
+            <td>{{ContextParams}}</td>
+            <td>boolean</td>
+          </tr>
+          <tr>
+            <td>generateKey</td>
+            <td>None</td>
+            <td>{{CryptoKeyPair}}</td>
+          </tr>
+          <tr>
+            <td>importKey</td>
+            <td>None</td>
+            <td>{{CryptoKey}}</td>
+          </tr>
+          <tr>
+            <td>exportKey</td>
+            <td>None</td>
+            <td>object</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="context-params">
+      <h4><dfn data-idl id="dfn-ContextParams">ContextParams</dfn> dictionary</h4>
+      <pre class=idl>
+dictionary ContextParams : Algorithm {
+  BufferSource context;
+};
+      </pre>
+      <p>The <dfn data-idl data-dfn-for=ContextParams id="dfn-ContextParams-context">context</dfn> member represents the optional context data to associate with the message.</p>
+    </section>
+    <section id="ml-dsa-operations">
+      <h4>Operations</h4>
+      <dl>
+        <dt>Sign</dt>
+        <dd>
+          When signing, the following algorithm should be used:
+          <ol>
+            <li>
+              <p>
+                If the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot of
+                |key| is not {{KeyType/"private"}}, then [= exception/throw =] an {{InvalidAccessError}}.
+              </p>
+            </li>
+            <li>
+              <p>
+                Let |context| be the {{ContextParams/context}} member of |normalizedAlgorithm|
+                or the empty octet string if the {{ContextParams/context}} member of
+                |normalizedAlgorithm| is not present.
+              </p>
+            </li>
+            <li>
+              <p>
+                Let |result| be the result of performing the ML-DSA.Sign
+                signing algorithm, as specified in Section 5.2 of [[FIPS-204]],
+                with the parameter set indicated by the {{Algorithm/name}} member of |normalizedAlgorithm|,
+                using the ML-DSA private key associated with |key| as |sk|,
+                |message| as |M| and |context| as |ctx|.
+              </p>
+            </li>
+            <li>
+              <p>
+                If the ML-DSA.Sign algorithm returned an error, return an {{OperationError}}.
+              </p>
+            </li>
+            <li>
+              <p>
+                Return |result|.
+              </p>
+            </li>
+          </ol>
+        </dd>
+        <dt>Verify</dt>
+        <dd>
+          When verifying, the following algorithm should be used:
+          <ol>
+            <li>
+              <p>
+                If the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot of
+                |key| is not {{KeyType/"public"}}, then [= exception/throw =] an {{InvalidAccessError}}.
+              </p>
+            </li>
+            <li>
+              <p>
+                Let |context| be the {{ContextParams/context}} member of |normalizedAlgorithm|
+                or the empty octet string if the {{ContextParams/context}} member of
+                |normalizedAlgorithm| is not present.
+              </p>
+            </li>
+            <li>
+              <p>
+                Let |result| be the result of performing the ML-DSA.Verify
+                verification algorithm, as specified in Section 5.3 of [[FIPS-204]],
+                with the parameter set indicated by the {{Algorithm/name}} member of |normalizedAlgorithm|,
+                using the ML-DSA public key associated with |key| as |pk|,
+                |message| as |M|, |signature| as <var>σ</var> and |context| as |ctx|.
+              </p>
+            </li>
+            <li>
+              <p>
+                If the ML-DSA.Verify algorithm returned an error, return an {{OperationError}}.
+              </p>
+            </li>
+            <li>
+              <p>
+                Return |result|.
+              </p>
+            </li>
+          </ol>
+        </dd>
+        <dt>Generate Key</dt>
+        <dd>
+          <ol>
+            <li>
+              <p>
+                If |usages| contains a value which is not
+                one of "`sign`" or "`verify`",
+                then [= exception/throw =] a
+                {{SyntaxError}}.
+              </p>
+            </li>
+            <li>
+              <p>
+                Generate an ML-DSA key pair, as described in
+                Section 5.1 of [[FIPS-204]], with the parameter set
+                indicated by the {{Algorithm/name}} member of |normalizedAlgorithm|.
+              </p>
+              <div class=note>
+                <p>
+                  In order to be able to export the seed `ξ`,
+                  it needs to be stored as part of the generated
+                  key material.
+                </p>
+              </div>
+            </li>
+            <li>
+              <p>
+                If the key generation step fails,
+                then [= exception/throw =] an
+                {{OperationError}}.
+              </p>
+            </li>
+            <li>
+              <p>
+                Let |algorithm| be a new {{KeyAlgorithm}} object.
+              </p>
+            </li>
+            <li>
+              <p>
+                Set the {{KeyAlgorithm/name}} attribute of
+                |algorithm| to the {{Algorithm/name}} attribute of
+                |normalizedAlgorithm|.
+              </p>
+            </li>
+            <li>
+              <p>
+                Let |publicKey| be a new {{CryptoKey}}
+                representing the public key of the generated key pair.
+              </p>
+            </li>
+            <li>
+              <p>
+                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot of
+                |publicKey| to "`public`".
+              </p>
+            </li>
+            <li>
+              <p>
+                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a> internal
+                slot of |publicKey| to |algorithm|.
+              </p>
+            </li>
+            <li>
+              <p>
+                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-extractable">`[[extractable]]`</a> internal
+                slot of |publicKey| to true.
+              </p>
+            </li>
+            <li>
+              <p>
+                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-usages">`[[usages]]`</a> internal slot of
+                |publicKey| to be the <a data-cite="WebCryptoAPI#concept-usage-intersection">usage intersection</a>
+                of |usages| and `[ "verify" ]`.
+              </p>
+            </li>
+            <li>
+              <p>
+                Let |privateKey| be a new {{CryptoKey}}
+                representing the private key of the generated key pair.
+              </p>
+            </li>
+            <li>
+              <p>
+                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot of
+                |privateKey| to {{KeyType/"private"}}.
+              </p>
+            </li>
+            <li>
+              <p>
+                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a> internal
+                slot of |privateKey| to |algorithm|.
+              </p>
+            </li>
+            <li>
+              <p>
+                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-extractable">`[[extractable]]`</a> internal
+                slot of |privateKey| to |extractable|.
+              </p>
+            </li>
+            <li>
+              <p>
+                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-usages">`[[usages]]`</a> internal slot of
+                |privateKey| to be the <a data-cite="WebCryptoAPI#concept-usage-intersection">usage intersection</a>
+                of |usages| and `[ "sign" ]`.
+              </p>
+            </li>
+            <li>
+              <p>
+                Let |result| be a new {{CryptoKeyPair}}
+                dictionary.
+              </p>
+            </li>
+            <li>
+              <p>
+                Set the {{CryptoKeyPair/publicKey}} attribute
+                of |result| to be |publicKey|.
+              </p>
+            </li>
+            <li>
+              <p>
+                Set the {{CryptoKeyPair/privateKey}} attribute
+                of |result| to be |privateKey|.
+              </p>
+            </li>
+            <li>
+              <p>
+                Return |result|.
+              </p>
+            </li>
+          </ol>
+        </dd>
+
+        <dt>Import Key</dt>
+        <dd>
+          <ol>
+            <li>
+              <p>Let |keyData| be the key data to be imported.</p>
+            </li>
+            <li>
+              <dl class="switch">
+                <dt>If |format| is {{KeyFormat/"raw-public"}}:</dt>
+                <dd>
+                  <ol>
+                    <li>
+                      <p>
+                        If |usages| contains a value which is not
+                        "`verify`"
+                        then [= exception/throw =] a
+                        {{SyntaxError}}.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Let |algorithm| be a new {{KeyAlgorithm}} object.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Set the {{KeyAlgorithm/name}} attribute of
+                        |algorithm| to the {{Algorithm/name}} attribute of
+                        |normalizedAlgorithm|.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Let |key| be a new {{CryptoKey}}
+                        representing the key data provided in |keyData|.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot
+                        of |key| to "`public`"
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a>
+                        internal slot of |key| to |algorithm|.
+                      </p>
+                    </li>
+                  </ol>
+                </dd>
+                <dt>If |format| is {{KeyFormat/"raw-seed"}}:</dt>
+                <dd>
+                  <ol>
+                    <li>
+                      <p>
+                        If |usages| contains an entry which is not
+                        "`sign`"
+                        then [= exception/throw =] a
+                        {{SyntaxError}}.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Let |data| be |keyData|.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        If the length in bits of |data| is not 256
+                        then [= exception/throw =] a
+                        {{DataError}}.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Let |privateKey| be the result of performing the
+                        ML-DSA.KeyGen_internal function described in
+                        Section 6.1 of [[FIPS-204]] with the parameter set
+                        indicated by the {{Algorithm/name}} member of |normalizedAlgorithm|,
+                        using |data| as <var>ξ</var>.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Let |key| be a new {{CryptoKey}}
+                        that represents the ML-DSA private key identified by |privateKey|.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot
+                        of |key| to {{KeyType/"private"}}
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Let |algorithm| be a new {{KeyAlgorithm}}.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Set the {{KeyAlgorithm/name}} attribute of
+                        |algorithm| to the {{Algorithm/name}} attribute of
+                        |normalizedAlgorithm|.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a>
+                        internal slot of |key| to |algorithm|.
+                      </p>
+                    </li>
+                  </ol>
+                </dd>
+                <dt>If |format| is {{KeyFormat/"jwk"}}:</dt>
+                <dd>
+                  <ol>
+                    <li>
+                      <dl class="switch">
+                        <dt>If |keyData| is a {{JsonWebKey}} dictionary:</dt>
+                        <dd><p>Let |jwk| equal |keyData|.</p></dd>
+                        <dt>Otherwise:</dt>
+                        <dd><p>[= exception/Throw =] a {{DataError}}.</p></dd>
+                      </dl>
+                    </li>
+                    <li>
+                      <p>
+                        If the {{JsonWebKey/priv}} field is present
+                        and |usages| contains a value which is not
+                        "`sign`", or,
+                        if the {{JsonWebKey/priv}} field is not present
+                        and |usages| contains a value which is not
+                        "`verify`"
+                        then [= exception/throw =] a
+                        {{SyntaxError}}.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        If the {{JsonWebKey/kty}} field of |jwk| is not
+                        "`AKP`",
+                        then [= exception/throw =] a
+                        {{DataError}}.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        If the {{JsonWebKey/alg}} field of |jwk| is not equal to
+                        the {{Algorithm/name}} member of |normalizedAlgorithm|,
+                        then [= exception/throw =] a
+                        {{DataError}}.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        If |usages| is non-empty and the {{JsonWebKey/use}} field of |jwk| is present
+                        and is not equal to "`sig`", then [= exception/throw =] a
+                        {{DataError}}.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        If the {{JsonWebKey/key_ops}} field of |jwk| is present, and
+                        is invalid according to the requirements of JSON Web
+                        Key [[JWK]], or it does not contain all of the specified |usages|
+                        values,
+                        then [= exception/throw =] a
+                        {{DataError}}.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        If the {{JsonWebKey/ext}} field of |jwk| is present and
+                        has the value false and |extractable| is true,
+                        then [= exception/throw =] a
+                        {{DataError}}.
+                      </p>
+                    </li>
+                    <li>
+                      <dl class="switch">
+                        <dt>If the {{JsonWebKey/priv}} field of |jwk| is present:</dt>
+                        <dd>
+                          <ol>
+                            <li>
+                              <p>
+                                If the {{JsonWebKey/priv}} attribute of |jwk|
+                                does not contain a valid base64url encoded seed
+                                representing an ML-DSA private key,
+                                then [= exception/throw =] a {{DataError}}.
+                              </p>
+                            </li>
+                            <li>
+                              <p>
+                                Let |key| be a new {{CryptoKey}} object that represents the
+                                ML-DSA private key identified by interpreting the
+                                {{JsonWebKey/priv}} attribute of |jwk|
+                                as a base64url encoded seed.
+                              </p>
+                            </li>
+                            <li>
+                              <p>
+                                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-type">`[[type]]`</a>
+                                internal slot of |Key| to {{KeyType/"private"}}.
+                              </p>
+                            </li>
+                            <li>
+                              <p>
+                                If the {{JsonWebKey/pub}} attribute of |jwk|
+                                does not contain the base64url encoded public key
+                                representing the ML-DSA public key
+                                corresponding to |key|,
+                                then [= exception/throw =] a {{DataError}}.
+                              </p>
+                            </li>
+                          </ol>
+                        </dd>
+                        <dt>Otherwise:</dt>
+                        <dd>
+                          <ol>
+                            <li>
+                              <p>
+                                If the {{JsonWebKey/pub}} attribute of |jwk|
+                                does not contain a valid base64url encoded public key
+                                representing an ML-DSA public key,
+                                then [= exception/throw =] a {{DataError}}.
+                              </p>
+                            </li>
+                            <li>
+                              <p>
+                                Let |key| be a new {{CryptoKey}} object that represents the
+                                ML-DSA public key identified by interpreting the
+                                {{JsonWebKey/pub}} attribute of |jwk|
+                                as a base64url encoded public key.
+                              </p>
+                            </li>
+                            <li>
+                              <p>
+                                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-type">`[[type]]`</a>
+                                internal slot of |Key| to {{KeyType/"public"}}.
+                              </p>
+                            </li>
+                          </ol>
+                        </dd>
+                      </dl>
+                    </li>
+                    <li>
+                      <p>
+                        Let |algorithm| be a new instance of a {{KeyAlgorithm}} object.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Set the {{KeyAlgorithm/name}} attribute of
+                        |algorithm| to the {{Algorithm/name}} member of |normalizedAlgorithm|.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a>
+                        internal slot of |key| to |algorithm|.
+                      </p>
+                    </li>
+                  </ol>
+                </dd>
+                <dt>Otherwise:</dt>
+                <dd>
+                  <p>
+                    [= exception/throw =] a
+                    {{NotSupportedError}}.
+                  </p>
+                </dd>
+              </dl>
+            </li>
+            <li>
+              <p>
+                Return |key|
+              </p>
+            </li>
+          </ol>
+        </dd>
+
+        <dt>Export Key</dt>
+        <dd>
+          <ol>
+            <li>
+              <p>
+                Let |key| be the {{CryptoKey}} to be
+                exported.
+              </p>
+            </li>
+            <li>
+              <p>
+                If the underlying cryptographic key material represented by the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">`[[handle]]`</a> internal slot of |key|
+                cannot be accessed, then [= exception/throw =] an {{OperationError}}.
+              </p>
+            </li>
+            <li>
+              <dl class="switch">
+                <dt>
+                  If |format| is {{KeyFormat/"raw-public"}}:
+                </dt>
+                <dd>
+                  <ol>
+                    <li>
+                      <p>
+                        If the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot
+                        of |key| is not "`public`", then [= exception/throw =] an {{InvalidAccessError}}.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Let |data| be a [= byte sequence =] containing the ML-DSA
+                        public key represented by the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">`[[handle]]`</a> internal slot of
+                        |key|.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Let |result| be |data|.
+                      </p>
+                    </li>
+                  </ol>
+                </dd>
+                <dt>If |format| is {{KeyFormat/"raw-seed"}}:</dt>
+                <dd>
+                  <ol>
+                    <li>
+                      <p>
+                        If the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot
+                        of |key| is not "`private`", then [= exception/throw =] an {{InvalidAccessError}}.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Let |data| be a [= byte sequence =] containing the <var>ξ</var> seed variable
+                        of the key represented by the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">`[[handle]]`</a>
+                        internal slot of |key|.
+                      </p>
+                      <div class=note>
+                        <p>
+                          The <var>ξ</var> seed variable was sampled in the ML-DSA.KeyGen function
+                          as described in Section 5.1 of [[FIPS-204]].
+                        </p>
+                      </div>
+                    </li>
+                    <li>
+                      <p>
+                        Let |result| be |data|.
+                      </p>
+                    </li>
+                  </ol>
+                </dd>
+                <dt>If |format| is {{KeyFormat/"jwk"}}:</dt>
+                <dd>
+                  <ol>
+                    <li>
+                      <p>
+                        Let |jwk| be a new {{JsonWebKey}}
+                        dictionary.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Set the `kty` attribute of |jwk| to
+                        "`AKP`".
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Set the `alg` attribute of |jwk| to
+                        the {{Algorithm/name}} member of |normalizedAlgorithm|.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Set the {{JsonWebKey/pub}} attribute of |jwk|
+                        to the base64url encoded public key corresponding
+                        to the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">`[[handle]]`</a>
+                        internal slot of |key|.
+                      </p>
+                    </li>
+                    <li>
+                      <dl class="switch">
+                        <dt>
+                          If the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot
+                          of |key| is {{KeyType/"private"}}:
+                        </dt>
+                        <dd>
+                          Set the {{JsonWebKey/priv}} attribute of |jwk|
+                          to the base64url encoded seed represented by
+                          the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">`[[handle]]`</a>
+                          internal slot of |key|.
+                        </dd>
+                      </dl>
+                    </li>
+                    <li>
+                      <p>
+                        Set the `key_ops` attribute of |jwk| to the {{CryptoKey/usages}} attribute of |key|.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Set the `ext` attribute of |jwk| to the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-extractable">`[[extractable]]`</a> internal slot
+                        of |key|.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Let |result| be |jwk|.
+                      </p>
+                    </li>
+                  </ol>
+                </dd>
+                <dt>Otherwise:</dt>
+                <dd>
+                  <p>
+                    [= exception/throw =] a
+                    {{NotSupportedError}}.
+                  </p>
+                </dd>
+              </dl>
+            </li>
+            <li>
+              <p>
+                Return |result|.
+              </p>
+            </li>
+          </ol>
+        </dd>
+      </dl>
+    </section>
+  </section>
+
+  <section id="slh-dsa">
+    <h3>SLH-DSA</h3>
+    <section id="slh-dsa-description" class="informative">
+      <h4>Description</h4>
+      <p>
+        This describes using SLH-DSA for signing and verification,
+        as specified by [[FIPS-205]].
+      </p>
+    </section>
+    <section id="slh-dsa-registration">
+      <h4>Registration</h4>
+      <p>
+        The <a data-cite="WebCryptoAPI#recognized-algorithm-name">recognized algorithm names</a> for
+        this algorithm are "`SLH-DSA-SHA2-128s`", "`SLH-DSA-SHAKE-128s`",
+        "`SLH-DSA-SHA2-128f`", "`SLH-DSA-SHAKE-128f`",
+        "`SLH-DSA-SHA2-192s`", "`SLH-DSA-SHAKE-192s`",
+        "`SLH-DSA-SHA2-192f`", "`SLH-DSA-SHAKE-192f`",
+        "`SLH-DSA-SHA2-256s`", "`SLH-DSA-SHAKE-256s`",
+        "`SLH-DSA-SHA2-256f`" and "`SLH-DSA-SHAKE-256f`".
+      </p>
+      <table>
+        <thead>
+          <tr>
+            <th><a data-cite="WebCryptoAPI#supported-operations">Operation</a></th>
+            <th><a data-cite="WebCryptoAPI#algorithm-specific-params">Parameters</a></th>
+            <th><a data-cite="WebCryptoAPI#algorithm-result">Result</a></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>sign</td>
+            <td>{{ContextParams}}</td>
+            <td>[= byte sequence =]</td>
+          </tr>
+          <tr>
+            <td>verify</td>
+            <td>{{ContextParams}}</td>
+            <td>boolean</td>
+          </tr>
+          <tr>
+            <td>generateKey</td>
+            <td>None</td>
+            <td>{{CryptoKeyPair}}</td>
+          </tr>
+          <tr>
+            <td>importKey</td>
+            <td>None</td>
+            <td>{{CryptoKey}}</td>
+          </tr>
+          <tr>
+            <td>exportKey</td>
+            <td>None</td>
+            <td>object</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="slh-dsa-operations">
+      <h4>Operations</h4>
+      <dl>
+        <dt>Sign</dt>
+        <dd>
+          When signing, the following algorithm should be used:
+          <ol>
+            <li>
+              <p>
+                If the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot of
+                |key| is not {{KeyType/"private"}}, then [= exception/throw =] an {{InvalidAccessError}}.
+              </p>
+            </li>
+            <li>
+              <p>
+                Let |context| be the {{ContextParams/context}} member of |normalizedAlgorithm|
+                or the empty octet string if the {{ContextParams/context}} member of
+                |normalizedAlgorithm| is not present.
+              </p>
+            </li>
+            <li>
+              <p>
+                Let |result| be the result of performing the `slh_sign`
+                signing algorithm, as specified in Section 10.2.1 of [[FIPS-205]],
+                with the parameter set indicated by the {{Algorithm/name}} member of |normalizedAlgorithm|,
+                using the SLH-DSA private key associated with |key| as |SK|,
+                |message| as |M| and |context| as |ctx|.
+              </p>
+            </li>
+            <li>
+              <p>
+                If the `slh_sign` algorithm returned an error, return an {{OperationError}}.
+              </p>
+            </li>
+            <li>
+              <p>
+                Return |result|.
+              </p>
+            </li>
+          </ol>
+        </dd>
+        <dt>Verify</dt>
+        <dd>
+          When verifying, the following algorithm should be used:
+          <ol>
+            <li>
+              <p>
+                If the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot of
+                |key| is not {{KeyType/"public"}}, then [= exception/throw =] an {{InvalidAccessError}}.
+              </p>
+            </li>
+            <li>
+              <p>
+                Let |context| be the {{ContextParams/context}} member of |normalizedAlgorithm|
+                or the empty octet string if the {{ContextParams/context}} member of
+                |normalizedAlgorithm| is not present.
+              </p>
+            </li>
+            <li>
+              <p>
+                Let |result| be the result of performing the `slh_verify`
+                verification algorithm, as specified in Section 10.3 of [[FIPS-205]],
+                with the parameter set indicated by the {{Algorithm/name}} member of |normalizedAlgorithm|,
+                using the SLH-DSA public key associated with |key| as |PK|,
+                |message| as |M|, |signature| as |SIG| and |context| as |ctx|.
+              </p>
+            </li>
+            <li>
+              <p>
+                If the `slh_verify` algorithm returned an error, return an {{OperationError}}.
+              </p>
+            </li>
+            <li>
+              <p>
+                Return |result|.
+              </p>
+            </li>
+          </ol>
+        </dd>
+        <dt>Generate Key</dt>
+        <dd>
+          <ol>
+            <li>
+              <p>
+                If |usages| contains a value which is not
+                one of "`sign`" or "`verify`",
+                then [= exception/throw =] a
+                {{SyntaxError}}.
+              </p>
+            </li>
+            <li>
+              <p>
+                Generate an SLH-DSA key pair, as described in
+                Section 10.1 of [[FIPS-205]], with the parameter set
+                indicated by the {{Algorithm/name}} member of |normalizedAlgorithm|.
+              </p>
+            </li>
+            <li>
+              <p>
+                If the key generation step fails,
+                then [= exception/throw =] an
+                {{OperationError}}.
+              </p>
+            </li>
+            <li>
+              <p>
+                Let |algorithm| be a new {{KeyAlgorithm}} object.
+              </p>
+            </li>
+            <li>
+              <p>
+                Set the {{KeyAlgorithm/name}} attribute of
+                |algorithm| to the {{Algorithm/name}} attribute of
+                |normalizedAlgorithm|.
+              </p>
+            </li>
+            <li>
+              <p>
+                Let |publicKey| be a new {{CryptoKey}}
+                representing the public key of the generated key pair.
+              </p>
+            </li>
+            <li>
+              <p>
+                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot of
+                |publicKey| to "`public`".
+              </p>
+            </li>
+            <li>
+              <p>
+                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a> internal
+                slot of |publicKey| to |algorithm|.
+              </p>
+            </li>
+            <li>
+              <p>
+                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-extractable">`[[extractable]]`</a> internal
+                slot of |publicKey| to true.
+              </p>
+            </li>
+            <li>
+              <p>
+                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-usages">`[[usages]]`</a> internal slot of
+                |publicKey| to be the <a data-cite="WebCryptoAPI#concept-usage-intersection">usage intersection</a>
+                of |usages| and `[ "verify" ]`.
+              </p>
+            </li>
+            <li>
+              <p>
+                Let |privateKey| be a new {{CryptoKey}}
+                representing the private key of the generated key pair.
+              </p>
+            </li>
+            <li>
+              <p>
+                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot of
+                |privateKey| to {{KeyType/"private"}}.
+              </p>
+            </li>
+            <li>
+              <p>
+                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a> internal
+                slot of |privateKey| to |algorithm|.
+              </p>
+            </li>
+            <li>
+              <p>
+                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-extractable">`[[extractable]]`</a> internal
+                slot of |privateKey| to |extractable|.
+              </p>
+            </li>
+            <li>
+              <p>
+                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-usages">`[[usages]]`</a> internal slot of
+                |privateKey| to be the <a data-cite="WebCryptoAPI#concept-usage-intersection">usage intersection</a>
+                of |usages| and `[ "sign" ]`.
+              </p>
+            </li>
+            <li>
+              <p>
+                Let |result| be a new {{CryptoKeyPair}}
+                dictionary.
+              </p>
+            </li>
+            <li>
+              <p>
+                Set the {{CryptoKeyPair/publicKey}} attribute
+                of |result| to be |publicKey|.
+              </p>
+            </li>
+            <li>
+              <p>
+                Set the {{CryptoKeyPair/privateKey}} attribute
+                of |result| to be |privateKey|.
+              </p>
+            </li>
+            <li>
+              <p>
+                Return |result|.
+              </p>
+            </li>
+          </ol>
+        </dd>
+
+        <dt>Import Key</dt>
+        <dd>
+          <ol>
+            <li>
+              <p>Let |keyData| be the key data to be imported.</p>
+            </li>
+            <li>
+              <dl class="switch">
+                <dt>If |format| is {{KeyFormat/"raw-public"}}:</dt>
+                <dd>
+                  <ol>
+                    <li>
+                      <p>
+                        If |usages| contains a value which is not
+                        "`verify`"
+                        then [= exception/throw =] a
+                        {{SyntaxError}}.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Let |algorithm| be a new {{KeyAlgorithm}} object.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Set the {{KeyAlgorithm/name}} attribute of
+                        |algorithm| to the {{Algorithm/name}} attribute of
+                        |normalizedAlgorithm|.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        If the [= byte sequence/length =] of |keyData| is not the `pk length`
+                        specified by Table 2 of [[FIPS-205]]
+                        for the parameter set indicated by the {{Algorithm/name}} member of |normalizedAlgorithm|,
+                        then [= exception/throw =] a
+                        {{DataError}}.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Let |key| be a new {{CryptoKey}}
+                        representing the key data provided in |keyData|.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot
+                        of |key| to "`public`"
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a>
+                        internal slot of |key| to |algorithm|.
+                      </p>
+                    </li>
+                  </ol>
+                </dd>
+                <dt>If |format| is {{KeyFormat/"raw-private"}}:</dt>
+                <dd>
+                  <ol>
+                    <li>
+                      <p>
+                        If |usages| contains an entry which is not
+                        "`sign`"
+                        then [= exception/throw =] a
+                        {{SyntaxError}}.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        If the [= byte sequence/length =] of |keyData| is not 2 * the `pk length`
+                        specified by Table 2 of [[FIPS-205]]
+                        for the parameter set indicated by the {{Algorithm/name}} member of |normalizedAlgorithm|,
+                        then [= exception/throw =] a
+                        {{DataError}}.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Let |key| be a new {{CryptoKey}}
+                        representing the key data provided in |keyData|.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot
+                        of |key| to {{KeyType/"private"}}.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Let |algorithm| be a new {{KeyAlgorithm}}.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Set the {{KeyAlgorithm/name}} attribute of
+                        |algorithm| to the {{Algorithm/name}} attribute of
+                        |normalizedAlgorithm|.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a>
+                        internal slot of |key| to |algorithm|.
+                      </p>
+                    </li>
+                  </ol>
+                </dd>
+                <dt>If |format| is {{KeyFormat/"jwk"}}:</dt>
+                <dd>
+                  <ol>
+                    <li>
+                      <dl class="switch">
+                        <dt>If |keyData| is a {{JsonWebKey}} dictionary:</dt>
+                        <dd><p>Let |jwk| equal |keyData|.</p></dd>
+                        <dt>Otherwise:</dt>
+                        <dd><p>[= exception/Throw =] a {{DataError}}.</p></dd>
+                      </dl>
+                    </li>
+                    <li>
+                      <p>
+                        If the {{JsonWebKey/priv}} field is present
+                        and |usages| contains a value which is not
+                        "`sign`", or,
+                        if the {{JsonWebKey/priv}} field is not present
+                        and |usages| contains a value which is not
+                        "`verify`"
+                        then [= exception/throw =] a
+                        {{SyntaxError}}.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        If the {{JsonWebKey/kty}} field of |jwk| is not
+                        "`AKP`",
+                        then [= exception/throw =] a
+                        {{DataError}}.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        If the {{JsonWebKey/alg}} field of |jwk| is not equal to
+                        the {{Algorithm/name}} member of |normalizedAlgorithm|,
+                        then [= exception/throw =] a
+                        {{DataError}}.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        If |usages| is non-empty and the {{JsonWebKey/use}} field of |jwk| is present
+                        and is not equal to "`sig`", then [= exception/throw =] a
+                        {{DataError}}.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        If the {{JsonWebKey/key_ops}} field of |jwk| is present, and
+                        is invalid according to the requirements of JSON Web
+                        Key [[JWK]], or it does not contain all of the specified |usages|
+                        values,
+                        then [= exception/throw =] a
+                        {{DataError}}.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        If the {{JsonWebKey/ext}} field of |jwk| is present and
+                        has the value false and |extractable| is true,
+                        then [= exception/throw =] a
+                        {{DataError}}.
+                      </p>
+                    </li>
+                    <li>
+                      <dl class="switch">
+                        <dt>If the {{JsonWebKey/priv}} field of |jwk| is present:</dt>
+                        <dd>
+                          <ol>
+                            <li>
+                              <p>
+                                If the {{JsonWebKey/priv}} attribute of |jwk|
+                                does not contain a valid base64url encoded value
+                                representing an SLH-DSA private key,
+                                then [= exception/throw =] a {{DataError}}.
+                              </p>
+                            </li>
+                            <li>
+                              <p>
+                                Let |key| be a new {{CryptoKey}} object that represents the
+                                SLH-DSA private key identified by interpreting the
+                                {{JsonWebKey/priv}} attribute of |jwk|
+                                as a base64url encoded private key.
+                              </p>
+                            </li>
+                            <li>
+                              <p>
+                                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-type">`[[type]]`</a>
+                                internal slot of |Key| to {{KeyType/"private"}}.
+                              </p>
+                            </li>
+                            <li>
+                              <p>
+                                If the {{JsonWebKey/pub}} attribute of |jwk|
+                                does not contain the base64url encoded public key
+                                representing the SLH-DSA public key
+                                corresponding to |key|,
+                                then [= exception/throw =] a {{DataError}}.
+                              </p>
+                            </li>
+                          </ol>
+                        </dd>
+                        <dt>Otherwise:</dt>
+                        <dd>
+                          <ol>
+                            <li>
+                              <p>
+                                If the {{JsonWebKey/pub}} attribute of |jwk|
+                                does not contain a valid base64url encoded public key
+                                representing an SLH-DSA public key,
+                                then [= exception/throw =] a {{DataError}}.
+                              </p>
+                            </li>
+                            <li>
+                              <p>
+                                Let |key| be a new {{CryptoKey}} object that represents the
+                                SLH-DSA public key identified by interpreting the
+                                {{JsonWebKey/pub}} attribute of |jwk|
+                                as a base64url encoded public key.
+                              </p>
+                            </li>
+                            <li>
+                              <p>
+                                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-type">`[[type]]`</a>
+                                internal slot of |Key| to {{KeyType/"public"}}.
+                              </p>
+                            </li>
+                          </ol>
+                        </dd>
+                      </dl>
+                    </li>
+                    <li>
+                      <p>
+                        Let |algorithm| be a new instance of a {{KeyAlgorithm}} object.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Set the {{KeyAlgorithm/name}} attribute of
+                        |algorithm| to the {{Algorithm/name}} member of |normalizedAlgorithm|.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a>
+                        internal slot of |key| to |algorithm|.
+                      </p>
+                    </li>
+                  </ol>
+                </dd>
+                <dt>Otherwise:</dt>
+                <dd>
+                  <p>
+                    [= exception/throw =] a
+                    {{NotSupportedError}}.
+                  </p>
+                </dd>
+              </dl>
+            </li>
+            <li>
+              <p>
+                Return |key|
+              </p>
+            </li>
+          </ol>
+        </dd>
+
+        <dt>Export Key</dt>
+        <dd>
+          <ol>
+            <li>
+              <p>
+                Let |key| be the {{CryptoKey}} to be
+                exported.
+              </p>
+            </li>
+            <li>
+              <p>
+                If the underlying cryptographic key material represented by the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">`[[handle]]`</a> internal slot of |key|
+                cannot be accessed, then [= exception/throw =] an {{OperationError}}.
+              </p>
+            </li>
+            <li>
+              <dl class="switch">
+                <dt>
+                  If |format| is {{KeyFormat/"raw-public"}}:
+                </dt>
+                <dd>
+                  <ol>
+                    <li>
+                      <p>
+                        If the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot
+                        of |key| is not "`public`", then [= exception/throw =] an {{InvalidAccessError}}.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Let |data| be a [= byte sequence =] containing the SLH-DSA
+                        public key represented by the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">`[[handle]]`</a> internal slot of
+                        |key|.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Let |result| be |data|.
+                      </p>
+                    </li>
+                  </ol>
+                </dd>
+                <dt>If |format| is {{KeyFormat/"raw-private"}}:</dt>
+                <dd>
+                  <ol>
+                    <li>
+                      <p>
+                        If the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot
+                        of |key| is not "`private`", then [= exception/throw =] an {{InvalidAccessError}}.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Let |data| be a [= byte sequence =] containing the SLH-DSA
+                        private key represented by the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">`[[handle]]`</a> internal slot of
+                        |key|.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Let |result| be |data|.
+                      </p>
+                    </li>
+                  </ol>
+                </dd>
+                <dt>If |format| is {{KeyFormat/"jwk"}}:</dt>
+                <dd>
+                  <ol>
+                    <li>
+                      <p>
+                        Let |jwk| be a new {{JsonWebKey}}
+                        dictionary.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Set the `kty` attribute of |jwk| to
+                        "`AKP`".
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Set the `alg` attribute of |jwk| to
+                        the {{Algorithm/name}} member of |normalizedAlgorithm|.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Set the {{JsonWebKey/pub}} attribute of |jwk|
+                        to the base64url encoded public key corresponding
+                        to the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">`[[handle]]`</a>
+                        internal slot of |key|.
+                      </p>
+                    </li>
+                    <li>
+                      <dl class="switch">
+                        <dt>
+                          If the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot
+                          of |key| is {{KeyType/"private"}}:
+                        </dt>
+                        <dd>
+                          Set the {{JsonWebKey/priv}} attribute of |jwk|
+                          to the base64url encoded private key represented by
+                          the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">`[[handle]]`</a>
+                          internal slot of |key|.
+                        </dd>
+                      </dl>
+                    </li>
+                    <li>
+                      <p>
+                        Set the `key_ops` attribute of |jwk| to the {{CryptoKey/usages}} attribute of |key|.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Set the `ext` attribute of |jwk| to the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-extractable">`[[extractable]]`</a> internal slot
+                        of |key|.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Let |result| be |jwk|.
+                      </p>
+                    </li>
+                  </ol>
+                </dd>
+                <dt>Otherwise:</dt>
+                <dd>
+                  <p>
+                    [= exception/throw =] a
+                    {{NotSupportedError}}.
+                  </p>
+                </dd>
+              </dl>
+            </li>
+            <li>
+              <p>
+                Return |result|.
+              </p>
+            </li>
+          </ol>
+        </dd>
+      </dl>
+    </section>
+  </section>
+
   <section id="aes-ocb">
     <h3>AES-OCB</h3>
     <section id="aes-ocb-description" class="informative">
@@ -366,12 +3155,12 @@ partial interface SubtleCrypto {
           <tr>
             <td>encrypt</td>
             <td>{{AeadParams}}</td>
-            <td>{{ArrayBuffer}}</td>
+            <td>[= byte sequence =]</td>
           </tr>
           <tr>
             <td>decrypt</td>
             <td>{{AeadParams}}</td>
-            <td>{{ArrayBuffer}}</td>
+            <td>[= byte sequence =]</td>
           </tr>
           <tr>
             <td>generateKey</td>
@@ -449,7 +3238,7 @@ dictionary AeadParams : Algorithm {
             </li>
             <li>
               <p>
-                Let |additionalData| be <a href="#concept-contents-of-arraybuffer">the contents of</a> the {{AeadParams/additionalData}} member of
+                Let |additionalData| be the {{AeadParams/additionalData}} member of
                 |normalizedAlgorithm| if present or the empty octet
                 string otherwise.
               </p>
@@ -459,20 +3248,18 @@ dictionary AeadParams : Algorithm {
                 Let |C| be the output that results from performing
                 the OCB-ENCRYPT function described in Section 4.2 of
                 [[RFC7253]] using AES as the block cipher, using
-                the key represented by <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">[[\handle]]</a>
+                the key represented by <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">`[[handle]]`</a>
                 internal slot of |key| as the |K| input parameter,
-                <a href="#concept-contents-of-arraybuffer">the contents of</a> the {{AeadParams/iv}} member of |normalizedAlgorithm| as
-                the |N| input parameter, <a href="#concept-contents-of-arraybuffer">the contents of
-                |additionalData|</a> as the |A| input parameter,
-                <a href="#concept-contents-of-arraybuffer">the contents of
-                |plaintext|</a> as the |P| input parameter, and
+                the {{AeadParams/iv}} member of |normalizedAlgorithm| as
+                the |N| input parameter,
+                |additionalData| as the |A| input parameter,
+                |plaintext| as the |P| input parameter, and
                 |tagLength| as the |TAGLEN| global parameter.
               </p>
             </li>
             <li>
               <p>
-                Return the result of [= ArrayBuffer/create | creating =]
-                an {{ArrayBuffer}} containing |C|.
+                Return |C|.
               </p>
             </li>
           </ol>
@@ -515,7 +3302,7 @@ dictionary AeadParams : Algorithm {
             </li>
             <li>
               <p>
-                Let |additionalData| be <a href="#concept-contents-of-arraybuffer">the contents of</a> the {{AeadParams/additionalData}} member of
+                Let |additionalData| be the {{AeadParams/additionalData}} member of
                 |normalizedAlgorithm| if present or the empty octet
                 string otherwise.
               </p>
@@ -524,13 +3311,12 @@ dictionary AeadParams : Algorithm {
               <p>
                 Perform the OCB-DECRYPT function described in Section 4.3 of
                 [[RFC7253]] using AES as the block cipher, using
-                the key represented by <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">[[\handle]]</a>
+                the key represented by <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">`[[handle]]`</a>
                 internal slot of |key| as the |K| input parameter,
-                <a href="#concept-contents-of-arraybuffer">the contents of</a> the {{AeadParams/iv}} member of |normalizedAlgorithm| as
-                the |N| input parameter, <a href="#concept-contents-of-arraybuffer">the contents of
-                |additionalData|</a> as the |A| input parameter,
-                <a href="#concept-contents-of-arraybuffer">the contents of
-                |ciphertext|</a> as the |C| input parameter, and
+                the {{AeadParams/iv}} member of |normalizedAlgorithm| as
+                the |N| input parameter,
+                |additionalData| as the |A| input parameter,
+                |ciphertext| as the |C| input parameter, and
                 |tagLength| as the |TAGLEN| global parameter.
               </p>
               <dl class="switch">
@@ -546,8 +3332,7 @@ dictionary AeadParams : Algorithm {
             </li>
             <li>
               <p>
-                Return the result of [= ArrayBuffer/create | creating =]
-                an {{ArrayBuffer}} containing |plaintext|.
+                Return |plaintext|.
               </p>
             </li>
           </ol>
@@ -617,19 +3402,19 @@ dictionary AeadParams : Algorithm {
             </li>
             <li>
               <p>
-                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-algorithm">[[\algorithm]]</a> internal
+                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a> internal
                 slot of |key| to |algorithm|.
               </p>
             </li>
             <li>
               <p>
-                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-extractable">[[\extractable]]</a> internal
+                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-extractable">`[[extractable]]`</a> internal
                 slot of |key| to be |extractable|.
               </p>
             </li>
             <li>
               <p>
-                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-usages">[[\usages]]</a> internal slot of
+                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-usages">`[[usages]]`</a> internal slot of
                 |key| to be |usages|.
               </p>
             </li>
@@ -654,12 +3439,12 @@ dictionary AeadParams : Algorithm {
             </li>
             <li>
               <dl class="switch">
-                <dt>If |format| is {{KeyFormat/"raw"}}:</dt>
+                <dt>If |format| is {{KeyFormat/"raw-secret"}}:</dt>
                 <dd>
                   <ol>
                     <li>
                       <p>
-                        Let |data| be the [= octet string =] contained in |keyData|.
+                        Let |data| be |keyData|.
                       </p>
                     </li>
                     <li>
@@ -700,7 +3485,7 @@ dictionary AeadParams : Algorithm {
                     </li>
                     <li>
                       <p>
-                        Let |data| be the [= octet string =] obtained by decoding the
+                        Let |data| be the [= byte sequence =] obtained by decoding the
                         {{JsonWebKey/k}} field of |jwk|.
                       </p>
                     </li>
@@ -789,7 +3574,7 @@ dictionary AeadParams : Algorithm {
             </li>
             <li>
               <p>
-                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-algorithm">[[\algorithm]]</a> internal
+                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a> internal
                 slot of |key| to |algorithm|.
               </p>
             </li>
@@ -805,25 +3590,25 @@ dictionary AeadParams : Algorithm {
           <ol>
             <li>
               <p>
-                If the underlying cryptographic key material represented by the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">[[\handle]]</a> internal slot of |key|
+                If the underlying cryptographic key material represented by the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">`[[handle]]`</a> internal slot of |key|
                 cannot be accessed, then [= exception/throw =] an {{OperationError}}.
               </p>
             </li>
             <li>
               <dl class="switch">
-                <dt>If |format| is {{KeyFormat/"raw"}}:</dt>
+                <dt>If |format| is {{KeyFormat/"raw-secret"}}:</dt>
                 <dd>
                   <ol>
                     <li>
                       <p>
-                        Let |data| be the raw octets of the key represented by <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">[[\handle]]</a> internal slot of
+                        Let |data| be a [= byte sequence =] containing
+                        the raw octets of the key represented by <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">`[[handle]]`</a> internal slot of
                         |key|.
                       </p>
                     </li>
                     <li>
                       <p>
-                        Let |result| be the result of [= ArrayBuffer/create | creating =]
-                        an {{ArrayBuffer}} containing |data|.
+                        Let |result| be |data|.
                       </p>
                     </li>
                   </ol>
@@ -846,7 +3631,7 @@ dictionary AeadParams : Algorithm {
                     <li>
                       <p>
                         Set the {{JsonWebKey/k}} attribute of |jwk| to be a string
-                        containing the raw octets of the key represented by <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">[[\handle]]</a> internal slot of
+                        containing the raw octets of the key represented by <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">`[[handle]]`</a> internal slot of
                         |key|, encoded according to Section 6.4 of JSON Web Algorithms [[JWA]].
                       </p>
                     </li>
@@ -875,7 +3660,7 @@ dictionary AeadParams : Algorithm {
                     </li>
                     <li>
                       <p>
-                        Set the `ext` attribute of |jwk| to equal the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-extractable">[[\extractable]]</a> internal slot
+                        Set the `ext` attribute of |jwk| to equal the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-extractable">`[[extractable]]`</a> internal slot
                         of |key|.
                       </p>
                     </li>
@@ -952,12 +3737,12 @@ dictionary AeadParams : Algorithm {
           <tr>
             <td>encrypt</td>
             <td>{{AeadParams}}</td>
-            <td>{{ArrayBuffer}}</td>
+            <td>[= byte sequence =]</td>
           </tr>
           <tr>
             <td>decrypt</td>
             <td>{{AeadParams}}</td>
-            <td>{{ArrayBuffer}}</td>
+            <td>[= byte sequence =]</td>
           </tr>
           <tr>
             <td>generateKey</td>
@@ -1006,7 +3791,7 @@ dictionary AeadParams : Algorithm {
             </li>
             <li>
               <p>
-                Let |additionalData| be <a href="#concept-contents-of-arraybuffer">the contents of</a> the {{AeadParams/additionalData}} member of
+                Let |additionalData| be the {{AeadParams/additionalData}} member of
                 |normalizedAlgorithm| if present or the empty octet
                 string otherwise.
               </p>
@@ -1016,20 +3801,17 @@ dictionary AeadParams : Algorithm {
                 Let |ciphertext| be the output that results from
                 performing the AEAD_CHACHA20_POLY1305 encryption algorithm
                 described in Section 2.8 of [[RFC8439]], using
-                the key represented by <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">[[\handle]]</a>
+                the key represented by <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">`[[handle]]`</a>
                 internal slot of |key| as the key input parameter,
-                <a href="#concept-contents-of-arraybuffer">the contents of</a> the {{AeadParams/iv}} member of |normalizedAlgorithm| as
+                the {{AeadParams/iv}} member of |normalizedAlgorithm| as
                 the nonce input parameter,
-                <a href="#concept-contents-of-arraybuffer">the contents of
-                |plaintext|</a> as the plaintext input parameter, and
-                <a href="#concept-contents-of-arraybuffer">the contents of
-                |additionalData|</a> as the additional authenticated data (AAD) input parameter.
+                |plaintext| as the plaintext input parameter, and
+                |additionalData| as the additional authenticated data (AAD) input parameter.
               </p>
             </li>
             <li>
               <p>
-                Return the result of [= ArrayBuffer/create | creating =]
-                an {{ArrayBuffer}} containing |ciphertext|.
+                Return |ciphertext|.
               </p>
             </li>
           </ol>
@@ -1062,7 +3844,7 @@ dictionary AeadParams : Algorithm {
             </li>
             <li>
               <p>
-                Let |additionalData| be <a href="#concept-contents-of-arraybuffer">the contents of</a> the {{AeadParams/additionalData}} member of
+                Let |additionalData| be the {{AeadParams/additionalData}} member of
                 |normalizedAlgorithm| if present or the empty octet
                 string otherwise.
               </p>
@@ -1071,14 +3853,12 @@ dictionary AeadParams : Algorithm {
               <p>
                 Perform the AEAD_CHACHA20_POLY1305 decryption algorithm
                 described in Section 2.8 of [[RFC8439]], using
-                the key represented by <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">[[\handle]]</a>
+                the key represented by <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">`[[handle]]`</a>
                 internal slot of |key| as the key input parameter,
-                <a href="#concept-contents-of-arraybuffer">the contents of</a> the {{AeadParams/iv}} member of |normalizedAlgorithm| as
+                the {{AeadParams/iv}} member of |normalizedAlgorithm| as
                 the nonce input parameter,
-                <a href="#concept-contents-of-arraybuffer">the contents of
-                |ciphertext|</a> as the ciphertext input parameter, and
-                <a href="#concept-contents-of-arraybuffer">the contents of
-                |additionalData|</a> as the additional authenticated data (AAD) input parameter.
+                |ciphertext| as the ciphertext input parameter, and
+                |additionalData| as the additional authenticated data (AAD) input parameter.
               </p>
               <dl class="switch">
                 <dt>If the result of the algorithm is the indication of authentication failure:</dt>
@@ -1092,8 +3872,7 @@ dictionary AeadParams : Algorithm {
             </li>
             <li>
               <p>
-                Return the result of [= ArrayBuffer/create | creating =]
-                an {{ArrayBuffer}} containing |plaintext|.
+                Return |plaintext|.
               </p>
             </li>
           </ol>
@@ -1144,19 +3923,19 @@ dictionary AeadParams : Algorithm {
             </li>
             <li>
               <p>
-                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-algorithm">[[\algorithm]]</a> internal
+                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a> internal
                 slot of |key| to |algorithm|.
               </p>
             </li>
             <li>
               <p>
-                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-extractable">[[\extractable]]</a> internal
+                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-extractable">`[[extractable]]`</a> internal
                 slot of |key| to be |extractable|.
               </p>
             </li>
             <li>
               <p>
-                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-usages">[[\usages]]</a> internal slot of
+                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-usages">`[[usages]]`</a> internal slot of
                 |key| to be |usages|.
               </p>
             </li>
@@ -1181,12 +3960,12 @@ dictionary AeadParams : Algorithm {
             </li>
             <li>
               <dl class="switch">
-                <dt>If |format| is {{KeyFormat/"raw"}}:</dt>
+                <dt>If |format| is {{KeyFormat/"raw-secret"}}:</dt>
                 <dd>
                   <ol>
                     <li>
                       <p>
-                        Let |data| be the [= octet string =] contained in |keyData|.
+                        Let |data| be |keyData|.
                       </p>
                     </li>
                     <li>
@@ -1227,7 +4006,7 @@ dictionary AeadParams : Algorithm {
                     </li>
                     <li>
                       <p>
-                        Let |data| be the [= octet string =] obtained by decoding the
+                        Let |data| be the [= byte sequence =] obtained by decoding the
                         {{JsonWebKey/k}} field of |jwk|.
                       </p>
                     </li>
@@ -1294,7 +4073,7 @@ dictionary AeadParams : Algorithm {
             </li>
             <li>
               <p>
-                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-algorithm">[[\algorithm]]</a> internal
+                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a> internal
                 slot of |key| to |algorithm|.
               </p>
             </li>
@@ -1310,25 +4089,25 @@ dictionary AeadParams : Algorithm {
           <ol>
             <li>
               <p>
-                If the underlying cryptographic key material represented by the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">[[\handle]]</a> internal slot of |key|
+                If the underlying cryptographic key material represented by the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">`[[handle]]`</a> internal slot of |key|
                 cannot be accessed, then [= exception/throw =] an {{OperationError}}.
               </p>
             </li>
             <li>
               <dl class="switch">
-                <dt>If |format| is {{KeyFormat/"raw"}}:</dt>
+                <dt>If |format| is {{KeyFormat/"raw-secret"}}:</dt>
                 <dd>
                   <ol>
                     <li>
                       <p>
-                        Let |data| be the raw octets of the key represented by <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">[[\handle]]</a> internal slot of
+                        Let |data| be a [= byte sequence =] containing
+                        the raw octets of the key represented by <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">`[[handle]]`</a> internal slot of
                         |key|.
                       </p>
                     </li>
                     <li>
                       <p>
-                        Let |result| be the result of [= ArrayBuffer/create | creating =]
-                        an {{ArrayBuffer}} containing |data|.
+                        Let |result| be |data|.
                       </p>
                     </li>
                   </ol>
@@ -1351,7 +4130,7 @@ dictionary AeadParams : Algorithm {
                     <li>
                       <p>
                         Set the {{JsonWebKey/k}} attribute of |jwk| to be a string
-                        containing the raw octets of the key represented by <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">[[\handle]]</a> internal slot of
+                        containing the raw octets of the key represented by <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">`[[handle]]`</a> internal slot of
                         |key|, encoded according to Section 6.4 of JSON Web Algorithms [[JWA]].
                       </p>
                     </li>
@@ -1370,7 +4149,7 @@ dictionary AeadParams : Algorithm {
                     </li>
                     <li>
                       <p>
-                        Set the `ext` attribute of |jwk| to equal the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-extractable">[[\extractable]]</a> internal slot
+                        Set the `ext` attribute of |jwk| to equal the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-extractable">`[[extractable]]`</a> internal slot
                         of |key|.
                       </p>
                     </li>
@@ -1440,7 +4219,7 @@ dictionary AeadParams : Algorithm {
           <tr>
             <td>digest</td>
             <td>None</td>
-            <td>{{ArrayBuffer}}</td>
+            <td>[= byte sequence =]</td>
           </tr>
         </tbody>
       </table>
@@ -1492,8 +4271,7 @@ dictionary AeadParams : Algorithm {
             </li>
             <li>
               <p>
-                Return the result of [= ArrayBuffer/create | creating =]
-                an {{ArrayBuffer}} containing |result|.
+                Return |result|.
               </p>
             </li>
           </ol>
@@ -1529,7 +4307,7 @@ dictionary AeadParams : Algorithm {
           <tr>
             <td>digest</td>
             <td>{{CShakeParams}}</td>
-            <td>{{ArrayBuffer}}</td>
+            <td>[= byte sequence =]</td>
           </tr>
         </tbody>
       </table>
@@ -1561,14 +4339,14 @@ dictionary CShakeParams : Algorithm {
             </li>
             <li>
               <p>
-                Let |functionName| be <a href="#concept-contents-of-arraybuffer">the contents of</a> the {{CShakeParams/functionName}} member of
+                Let |functionName| be the {{CShakeParams/functionName}} member of
                 |normalizedAlgorithm| if present or the empty octet
                 string otherwise.
               </p>
             </li>
             <li>
               <p>
-                Let |customization| be <a href="#concept-contents-of-arraybuffer">the contents of</a> the {{CShakeParams/customization}} member of
+                Let |customization| be the {{CShakeParams/customization}} member of
                 |normalizedAlgorithm| if present or the empty octet
                 string otherwise.
               </p>
@@ -1610,8 +4388,7 @@ dictionary CShakeParams : Algorithm {
             </li>
             <li>
               <p>
-                Return the result of [= ArrayBuffer/create | creating =]
-                an {{ArrayBuffer}} containing |result|.
+                Return |result|.
               </p>
             </li>
           </ol>
@@ -1647,7 +4424,7 @@ dictionary CShakeParams : Algorithm {
           <tr>
             <td>sign</td>
             <td>{{KmacParams}}</td>
-            <td>{{ArrayBuffer}}</td>
+            <td>[= byte sequence =]</td>
           </tr>
           <tr>
             <td>verify</td>
@@ -1724,7 +4501,7 @@ dictionary KmacParams : Algorithm {
           <ol>
             <li>
               <p>
-                Let |customization| be the <a href="#concept-contents-of-arraybuffer">contents of</a> the {{KmacParams/customization}} member of
+                Let |customization| be the {{KmacParams/customization}} member of
                 |normalizedAlgorithm| if present or the empty octet
                 string otherwise.
               </p>
@@ -1739,7 +4516,7 @@ dictionary KmacParams : Algorithm {
                 <dd>
                   Let |mac| be the result of performing the KMAC128 function
                   defined in Section 4 of [[NIST-SP800-185]] using
-                  the key represented by <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">[[\handle]]</a>
+                  the key represented by <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">`[[handle]]`</a>
                   internal slot of |key| as the |K| input parameter,
                   |message| as the |X| input parameter,
                   the {{KmacParams/length}} member of |normalizedAlgorithm| as
@@ -1755,7 +4532,7 @@ dictionary KmacParams : Algorithm {
                 <dd>
                   Let |mac| be the result of performing the KMAC256 function
                   defined in Section 4 of [[NIST-SP800-185]] using
-                  the key represented by <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">[[\handle]]</a>
+                  the key represented by <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">`[[handle]]`</a>
                   internal slot of |key| as the |K| input parameter,
                   |message| as the |X| input parameter,
                   the {{KmacParams/length}} member of |normalizedAlgorithm| as
@@ -1767,8 +4544,7 @@ dictionary KmacParams : Algorithm {
             </li>
             <li>
               <p>
-                Return the result of [= ArrayBuffer/create | creating =]
-                an {{ArrayBuffer}} containing |mac|.
+                Return |mac|.
               </p>
             </li>
           </ol>
@@ -1778,7 +4554,7 @@ dictionary KmacParams : Algorithm {
           <ol>
             <li>
               <p>
-                Let |customization| be the <a href="#concept-contents-of-arraybuffer">contents of</a> the {{KmacParams/customization}} member of
+                Let |customization| be the {{KmacParams/customization}} member of
                 |normalizedAlgorithm| if present or the empty octet
                 string otherwise.
               </p>
@@ -1793,7 +4569,7 @@ dictionary KmacParams : Algorithm {
                 <dd>
                   Let |mac| be the result of performing the KMAC128 function
                   defined in Section 4 of [[NIST-SP800-185]] using
-                  the key represented by <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">[[\handle]]</a>
+                  the key represented by <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">`[[handle]]`</a>
                   internal slot of |key| as the |K| input parameter,
                   |message| as the |X| input parameter,
                   the {{KmacParams/length}} member of |normalizedAlgorithm| as
@@ -1809,7 +4585,7 @@ dictionary KmacParams : Algorithm {
                 <dd>
                   Let |mac| be the result of performing the KMAC256 function
                   defined in Section 4 of [[NIST-SP800-185]] using
-                  the key represented by <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">[[\handle]]</a>
+                  the key represented by <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">`[[handle]]`</a>
                   internal slot of |key| as the |K| input parameter,
                   |message| as the |X| input parameter,
                   the {{KmacParams/length}} member of |normalizedAlgorithm| as
@@ -1899,19 +4675,19 @@ dictionary KmacParams : Algorithm {
             </li>
             <li>
               <p>
-                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-algorithm">[[\algorithm]]</a> internal
+                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a> internal
                 slot of |key| to |algorithm|.
               </p>
             </li>
             <li>
               <p>
-                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-extractable">[[\extractable]]</a> internal
+                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-extractable">`[[extractable]]`</a> internal
                 slot of |key| to be |extractable|.
               </p>
             </li>
             <li>
               <p>
-                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-usages">[[\usages]]</a> internal slot of
+                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-usages">`[[usages]]`</a> internal slot of
                 |key| to be |usages|.
               </p>
             </li>
@@ -1938,12 +4714,12 @@ dictionary KmacParams : Algorithm {
             </li>
             <li>
               <dl class="switch">
-                <dt>If |format| is {{KeyFormat/"raw"}}:</dt>
+                <dt>If |format| is {{KeyFormat/"raw-secret"}}:</dt>
                 <dd>
                   <ol>
                     <li>
                       <p>
-                        Let |data| be the [= octet string =] contained in |keyData|.
+                        Let |data| be |keyData|.
                       </p>
                     </li>
                   </ol>
@@ -1977,7 +4753,7 @@ dictionary KmacParams : Algorithm {
                     </li>
                     <li>
                       <p>
-                        Let |data| be the [= octet string =] obtained by decoding the
+                        Let |data| be the [= byte sequence =] obtained by decoding the
                         {{JsonWebKey/k}} field of |jwk|.
                       </p>
                     </li>
@@ -2118,7 +4894,7 @@ dictionary KmacParams : Algorithm {
             </li>
             <li>
               <p>
-                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-algorithm">[[\algorithm]]</a> internal
+                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a> internal
                 slot of |key| to |algorithm|.
               </p>
             </li>
@@ -2134,30 +4910,29 @@ dictionary KmacParams : Algorithm {
           <ol>
             <li>
               <p>
-                If the underlying cryptographic key material represented by the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">[[\handle]]</a> internal slot of |key|
+                If the underlying cryptographic key material represented by the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">`[[handle]]`</a> internal slot of |key|
                 cannot be accessed, then [= exception/throw =] an {{OperationError}}.
               </p>
             </li>
             <li>
               <p>
-                Let |bits| be the raw bits of the key represented by <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">[[\handle]]</a> internal slot of
+                Let |bits| be the raw bits of the key represented by <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">`[[handle]]`</a> internal slot of
                 |key|.
               </p>
             </li>
             <li>
               <p>
-                Let |data| be an <a data-cite="WebCryptoAPI#octet-string-containing">octet string containing</a> |bits|.
+                Let |data| be an <a data-cite="WebCryptoAPI#byte-sequence-containing">byte sequence containing</a> |bits|.
               </p>
             </li>
             <li>
               <dl class="switch">
-                <dt>If |format| is {{KeyFormat/"raw"}}:</dt>
+                <dt>If |format| is {{KeyFormat/"raw-secret"}}:</dt>
                 <dd>
                   <ol>
                     <li>
                       <p>
-                        Let |result| be the result of [= ArrayBuffer/create | creating =]
-                        an {{ArrayBuffer}} containing |data|.
+                        Let |result| be |data|.
                       </p>
                     </li>
                   </ol>
@@ -2185,7 +4960,7 @@ dictionary KmacParams : Algorithm {
                     </li>
                     <li>
                       <p>
-                        Let |algorithm| be the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-algorithm">[[\algorithm]]</a> internal slot of
+                        Let |algorithm| be the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a> internal slot of
                         |key|.
                       </p>
                     </li>
@@ -2215,7 +4990,7 @@ dictionary KmacParams : Algorithm {
                     </li>
                     <li>
                       <p>
-                        Set the `ext` attribute of |jwk| to equal the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-extractable">[[\extractable]]</a> internal slot
+                        Set the `ext` attribute of |jwk| to equal the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-extractable">`[[extractable]]`</a> internal slot
                         of |key|.
                       </p>
                     </li>
@@ -2314,7 +5089,7 @@ dictionary KmacParams : Algorithm {
           <tr>
             <td>deriveBits</td>
             <td>{{Argon2Params}}</td>
-            <td>{{ArrayBuffer}}</td>
+            <td>[= byte sequence =]</td>
           </tr>
           <tr>
             <td>importKey</td>
@@ -2422,13 +5197,13 @@ dictionary Argon2Params : Algorithm {
             </li>
             <li>
               <p>
-                Let |secretValue| be <a href="#concept-contents-of-arraybuffer">the contents of</a> the {{Argon2Params/secretValue}} member of
+                Let |secretValue| be the {{Argon2Params/secretValue}} member of
                 |normalizedAlgorithm|, if present.
               </p>
             </li>
             <li>
               <p>
-                Let |associatedData| be <a href="#concept-contents-of-arraybuffer">the contents of</a> the {{Argon2Params/associatedData}} member of
+                Let |associatedData| be the {{Argon2Params/associatedData}} member of
                 |normalizedAlgorithm|, if present.
               </p>
             </li>
@@ -2436,9 +5211,9 @@ dictionary Argon2Params : Algorithm {
               <p>
                 Let |result| be the result of performing the Argon2 function defined
                 in Section 3 of [[RFC9106]] using
-                the password represented by <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">[[\handle]]</a> internal slot of |key|
-                as the message, |P|, <a href="#concept-contents-of-arraybuffer">the
-                contents of</a> the {{Argon2Params/nonce}} attribute of
+                the password represented by <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">`[[handle]]`</a> internal slot of |key|
+                as the message, |P|,
+                the {{Argon2Params/nonce}} attribute of
                 |normalizedAlgorithm| as the nonce, |S|,
                 the value of the {{Argon2Params/parallelism}} attribute
                 of |normalizedAlgorithm| as the degree of parallelism, |p|,
@@ -2462,8 +5237,7 @@ dictionary Argon2Params : Algorithm {
             </li>
             <li>
               <p>
-                Return the result of [= ArrayBuffer/create | creating =]
-                an {{ArrayBuffer}} containing |result|.
+                Return |result|.
               </p>
             </li>
           </ol>
@@ -2473,7 +5247,7 @@ dictionary Argon2Params : Algorithm {
           <ol>
             <li>
               <p>
-                If |format| is not {{KeyFormat/"raw"}}, [= exception/throw =] a {{NotSupportedError}}
+                If |format| is not {{KeyFormat/"raw-secret"}}, [= exception/throw =] a {{NotSupportedError}}
               </p>
             </li>
             <li>
@@ -2498,13 +5272,13 @@ dictionary Argon2Params : Algorithm {
             </li>
             <li>
               <p>
-                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-type">[[\type]]</a> internal slot of
+                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot of
                 |key| to {{KeyType/"secret"}}.
               </p>
             </li>
             <li>
               <p>
-                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-extractable">[[\extractable]]</a> internal slot of
+                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-extractable">`[[extractable]]`</a> internal slot of
                 |key| to `false`.
               </p>
             </li>
@@ -2523,7 +5297,7 @@ dictionary Argon2Params : Algorithm {
             </li>
             <li>
               <p>
-                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-algorithm">[[\algorithm]]</a> internal
+                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a> internal
                 slot of |key| to |algorithm|.
               </p>
             </li>
@@ -2717,6 +5491,7 @@ alg: "K256" }
       </tbody>
     </table>
     <div class="todo">TODO: register A128OCB, A192OCB, A256OCB, C20P, K128 and K256(?) with IANA in the JSON Web Signature and Encryption Algorithms registry.</div>
+    <div class="todo">TODO: register encapsulateKey, encapsulateBits, decapsulateKey and decapsulateBits with IANA in the JSON Web Key Operations registry.</div>
   </section>
 
   <section id="conformance"></section>
