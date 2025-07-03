@@ -71,6 +71,24 @@
         "publisher": "NIST",
         "date": "December 2016"
       },
+      "draft-ietf-jose-pqc-kem-01": {
+        "title": "Post-Quantum Key Encapsulation Mechanisms (PQ KEMs) for JOSE and COSE",
+        "href": "https://www.ietf.org/archive/id/draft-ietf-jose-pqc-kem-01.html",
+        "publisher": "IETF",
+        "date": "May 2025"
+      },
+      "draft-ietf-cose-dilithium-07": {
+        "title": "ML-DSA for JOSE and COSE",
+        "href": "https://www.ietf.org/archive/id/draft-ietf-cose-dilithium-07.html",
+        "publisher": "IETF",
+        "date": "June 2025"
+      },
+      "draft-ietf-cose-sphincs-plus-05": {
+        "title": "SLH-DSA for JOSE and COSE",
+        "href": "https://www.ietf.org/archive/id/draft-ietf-cose-sphincs-plus-05.html",
+        "publisher": "IETF",
+        "date": "October 2024"
+      },
     },
   };
   </script>
@@ -934,6 +952,32 @@ dictionary EncapsulatedBits {
     </p>
   </section>
 
+  <section id="JsonWebKey-dictionary">
+    <h2>JsonWebKey dictionary</h2>
+    <pre class=idl>
+dictionary JsonWebKey {
+  // The following fields are defined in Section 3.1 of JSON Web Key
+  DOMString kty;
+  DOMString use;
+  sequence&lt;DOMString> key_ops;
+  DOMString alg;
+
+  // The following fields are defined in JSON Web Key Parameters Registration
+  boolean ext;
+
+  // The following fields are defined in draft-ietf-cose-dilithium-07
+  DOMString pub;
+  DOMString priv;
+};
+    </pre>
+    <p>
+      This version of the <dfn data-idl id="dfn-JsonWebKey">JsonWebKey</dfn> dictionary
+      provides a way to represent keys with the "AKP" key type defined in [[draft-ietf-cose-dilithium-07]].
+      It may be merged into the definition of <a data-cite="webcrypto#dfn-JsonWebKey">`JsonWebKey`</a> in [[webcrypto]]
+      by adding the {{JsonWebKey/pub}} and {{JsonWebKey/priv}} fields there.
+    </p>
+  </section>
+
   <section id="ml-kem">
     <h3>ML-KEM</h3>
     <section id="ml-kem-description" class="informative">
@@ -1362,6 +1406,168 @@ dictionary EncapsulatedBits {
                     </li>
                   </ol>
                 </dd>
+                <dt>If |format| is {{KeyFormat/"jwk"}}:</dt>
+                <dd>
+                  <ol>
+                    <li>
+                      <dl class="switch">
+                        <dt>If |keyData| is a {{JsonWebKey}} dictionary:</dt>
+                        <dd><p>Let |jwk| equal |keyData|.</p></dd>
+                        <dt>Otherwise:</dt>
+                        <dd><p>[= exception/Throw =] a {{DataError}}.</p></dd>
+                      </dl>
+                    </li>
+                    <li>
+                      <p>
+                        If the {{JsonWebKey/priv}} field of |jwk| is present
+                        and if |usages| contains an entry which is not
+                        "`decapsulateKey`" or "`decapsulateBits`"
+                        then [= exception/throw =] a
+                        {{SyntaxError}}.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        If the {{JsonWebKey/priv}} field of |jwk| is not present
+                        and if |usages| contains an entry which is not
+                        "`encapsulateKey`" or "`encapsulateBits`"
+                        then [= exception/throw =] a
+                        {{SyntaxError}}.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        If the {{JsonWebKey/kty}} field of |jwk| is not
+                        "`AKP`",
+                        then [= exception/throw =] a
+                        {{DataError}}.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        If the {{JsonWebKey/alg}} field of |jwk| is not
+                        one of the `alg` values corresponding to the
+                        {{Algorithm/name}} member of |normalizedAlgorithm|
+                        indicated in Section 8 of [[draft-ietf-jose-pqc-kem-01]]
+                        (Figure 1 or 2), then [= exception/throw =] a
+                        {{DataError}}.
+                      </p>
+                      <p class="example">
+                        For example, `MLKEM512` and `MLKEM512+A128KW`
+                        are valid "alg" values for ML-KEM-512.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        If |usages| is non-empty and the {{JsonWebKey/use}} field of |jwk| is present
+                        and is not equal to "`enc`", then [= exception/throw =] a
+                        {{DataError}}.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        If the {{JsonWebKey/key_ops}} field of |jwk| is present, and
+                        is invalid according to the requirements of JSON Web
+                        Key [[JWK]], or it does not contain all of the specified |usages|
+                        values,
+                        then [= exception/throw =] a
+                        {{DataError}}.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        If the {{JsonWebKey/ext}} field of |jwk| is present and
+                        has the value false and |extractable| is true,
+                        then [= exception/throw =] a
+                        {{DataError}}.
+                      </p>
+                    </li>
+                    <li>
+                      <dl class="switch">
+                        <dt>If the {{JsonWebKey/priv}} field of |jwk| is present:</dt>
+                        <dd>
+                          <ol>
+                            <li>
+                              <p>
+                                If the {{JsonWebKey/priv}} attribute of |jwk|
+                                does not contain a valid base64url encoded seed
+                                representing an ML-KEM private key,
+                                then [= exception/throw =] a {{DataError}}.
+                              </p>
+                            </li>
+                            <li>
+                              <p>
+                                Let |key| be a new {{CryptoKey}} object that represents the
+                                ML-KEM private key identified by interpreting the
+                                {{JsonWebKey/priv}} attribute of |jwk|
+                                as a base64url encoded seed.
+                              </p>
+                            </li>
+                            <li>
+                              <p>
+                                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-type">`[[type]]`</a>
+                                internal slot of |Key| to {{KeyType/"private"}}.
+                              </p>
+                            </li>
+                            <li>
+                              <p>
+                                If the {{JsonWebKey/pub}} attribute of |jwk|
+                                does not contain the base64url encoded public key
+                                representing the ML-KEM public key
+                                corresponding to |key|,
+                                then [= exception/throw =] a {{DataError}}.
+                              </p>
+                            </li>
+                          </ol>
+                        </dd>
+                        <dt>Otherwise:</dt>
+                        <dd>
+                          <ol>
+                            <li>
+                              <p>
+                                If the {{JsonWebKey/pub}} attribute of |jwk|
+                                does not contain a valid base64url encoded public key
+                                representing an ML-KEM public key,
+                                then [= exception/throw =] a {{DataError}}.
+                              </p>
+                            </li>
+                            <li>
+                              <p>
+                                Let |key| be a new {{CryptoKey}} object that represents the
+                                ML-KEM public key identified by interpreting the
+                                {{JsonWebKey/pub}} attribute of |jwk|
+                                as a base64url encoded public key.
+                              </p>
+                            </li>
+                            <li>
+                              <p>
+                                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-type">`[[type]]`</a>
+                                internal slot of |Key| to {{KeyType/"public"}}.
+                              </p>
+                            </li>
+                          </ol>
+                        </dd>
+                      </dl>
+                    </li>
+                    <li>
+                      <p>
+                        Let |algorithm| be a new instance of a {{KeyAlgorithm}} object.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Set the {{KeyAlgorithm/name}} attribute of
+                        |algorithm| to the {{Algorithm/name}} member of |normalizedAlgorithm|.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a>
+                        internal slot of |key| to |algorithm|.
+                      </p>
+                    </li>
+                  </ol>
+                </dd>
                 <dt>Otherwise:</dt>
                 <dd>
                   [= exception/throw =] a
@@ -1435,6 +1641,74 @@ dictionary EncapsulatedBits {
                     <li>
                       <p>
                         Let |result| be |data|.
+                      </p>
+                    </li>
+                  </ol>
+                </dd>
+                <dt>If |format| is {{KeyFormat/"jwk"}}:</dt>
+                <dd>
+                  <ol>
+                    <li>
+                      <p>
+                        Let |jwk| be a new {{JsonWebKey}}
+                        dictionary.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Set the `kty` attribute of |jwk| to
+                        "`AKP`".
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Set the `alg` attribute of |jwk| to
+                        the `alg` value corresponding to the
+                        {{Algorithm/name}} member of |normalizedAlgorithm|
+                        indicated in Section 8 of [[draft-ietf-jose-pqc-kem-01]]
+                        (Figure 1).
+                      </p>
+                      <p class="example">
+                        For example, `MLKEM512` is the "alg" value
+                        used for ML-KEM-512.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Set the {{JsonWebKey/pub}} attribute of |jwk|
+                        to the base64url encoded public key corresponding
+                        to the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">`[[handle]]`</a>
+                        internal slot of |key|.
+                      </p>
+                    </li>
+                    <li>
+                      <dl class="switch">
+                        <dt>
+                          If the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot
+                          of |key| is {{KeyType/"private"}}:
+                        </dt>
+                        <dd>
+                          Set the {{JsonWebKey/priv}} attribute of |jwk|
+                          to the base64url encoded seed represented by
+                          the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">`[[handle]]`</a>
+                          internal slot of |key|.
+                        </dd>
+                      </dl>
+                    </li>
+                    <li>
+                      <p>
+                        Set the `key_ops` attribute of |jwk| to the {{CryptoKey/usages}} attribute of |key|.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Set the `ext` attribute of |jwk| to the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-extractable">`[[extractable]]`</a> internal slot
+                        of |key|.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Let |result| be |jwk|.
                       </p>
                     </li>
                   </ol>
@@ -1847,6 +2121,156 @@ dictionary ContextParams : Algorithm {
                     </li>
                   </ol>
                 </dd>
+                <dt>If |format| is {{KeyFormat/"jwk"}}:</dt>
+                <dd>
+                  <ol>
+                    <li>
+                      <dl class="switch">
+                        <dt>If |keyData| is a {{JsonWebKey}} dictionary:</dt>
+                        <dd><p>Let |jwk| equal |keyData|.</p></dd>
+                        <dt>Otherwise:</dt>
+                        <dd><p>[= exception/Throw =] a {{DataError}}.</p></dd>
+                      </dl>
+                    </li>
+                    <li>
+                      <p>
+                        If the {{JsonWebKey/priv}} field is present
+                        and |usages| contains a value which is not
+                        "`sign`", or,
+                        if the {{JsonWebKey/priv}} field is not present
+                        and |usages| contains a value which is not
+                        "`verify`"
+                        then [= exception/throw =] a
+                        {{SyntaxError}}.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        If the {{JsonWebKey/kty}} field of |jwk| is not
+                        "`AKP`",
+                        then [= exception/throw =] a
+                        {{DataError}}.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        If the {{JsonWebKey/alg}} field of |jwk| is not equal to
+                        the {{Algorithm/name}} member of |normalizedAlgorithm|,
+                        then [= exception/throw =] a
+                        {{DataError}}.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        If |usages| is non-empty and the {{JsonWebKey/use}} field of |jwk| is present
+                        and is not equal to "`sig`", then [= exception/throw =] a
+                        {{DataError}}.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        If the {{JsonWebKey/key_ops}} field of |jwk| is present, and
+                        is invalid according to the requirements of JSON Web
+                        Key [[JWK]], or it does not contain all of the specified |usages|
+                        values,
+                        then [= exception/throw =] a
+                        {{DataError}}.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        If the {{JsonWebKey/ext}} field of |jwk| is present and
+                        has the value false and |extractable| is true,
+                        then [= exception/throw =] a
+                        {{DataError}}.
+                      </p>
+                    </li>
+                    <li>
+                      <dl class="switch">
+                        <dt>If the {{JsonWebKey/priv}} field of |jwk| is present:</dt>
+                        <dd>
+                          <ol>
+                            <li>
+                              <p>
+                                If the {{JsonWebKey/priv}} attribute of |jwk|
+                                does not contain a valid base64url encoded seed
+                                representing an ML-DSA private key,
+                                then [= exception/throw =] a {{DataError}}.
+                              </p>
+                            </li>
+                            <li>
+                              <p>
+                                Let |key| be a new {{CryptoKey}} object that represents the
+                                ML-DSA private key identified by interpreting the
+                                {{JsonWebKey/priv}} attribute of |jwk|
+                                as a base64url encoded seed.
+                              </p>
+                            </li>
+                            <li>
+                              <p>
+                                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-type">`[[type]]`</a>
+                                internal slot of |Key| to {{KeyType/"private"}}.
+                              </p>
+                            </li>
+                            <li>
+                              <p>
+                                If the {{JsonWebKey/pub}} attribute of |jwk|
+                                does not contain the base64url encoded public key
+                                representing the ML-DSA public key
+                                corresponding to |key|,
+                                then [= exception/throw =] a {{DataError}}.
+                              </p>
+                            </li>
+                          </ol>
+                        </dd>
+                        <dt>Otherwise:</dt>
+                        <dd>
+                          <ol>
+                            <li>
+                              <p>
+                                If the {{JsonWebKey/pub}} attribute of |jwk|
+                                does not contain a valid base64url encoded public key
+                                representing an ML-DSA public key,
+                                then [= exception/throw =] a {{DataError}}.
+                              </p>
+                            </li>
+                            <li>
+                              <p>
+                                Let |key| be a new {{CryptoKey}} object that represents the
+                                ML-DSA public key identified by interpreting the
+                                {{JsonWebKey/pub}} attribute of |jwk|
+                                as a base64url encoded public key.
+                              </p>
+                            </li>
+                            <li>
+                              <p>
+                                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-type">`[[type]]`</a>
+                                internal slot of |Key| to {{KeyType/"public"}}.
+                              </p>
+                            </li>
+                          </ol>
+                        </dd>
+                      </dl>
+                    </li>
+                    <li>
+                      <p>
+                        Let |algorithm| be a new instance of a {{KeyAlgorithm}} object.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Set the {{KeyAlgorithm/name}} attribute of
+                        |algorithm| to the {{Algorithm/name}} member of |normalizedAlgorithm|.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a>
+                        internal slot of |key| to |algorithm|.
+                      </p>
+                    </li>
+                  </ol>
+                </dd>
                 <dt>Otherwise:</dt>
                 <dd>
                   <p>
@@ -1931,6 +2355,67 @@ dictionary ContextParams : Algorithm {
                     <li>
                       <p>
                         Let |result| be |data|.
+                      </p>
+                    </li>
+                  </ol>
+                </dd>
+                <dt>If |format| is {{KeyFormat/"jwk"}}:</dt>
+                <dd>
+                  <ol>
+                    <li>
+                      <p>
+                        Let |jwk| be a new {{JsonWebKey}}
+                        dictionary.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Set the `kty` attribute of |jwk| to
+                        "`AKP`".
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Set the `alg` attribute of |jwk| to
+                        the {{Algorithm/name}} member of |normalizedAlgorithm|.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Set the {{JsonWebKey/pub}} attribute of |jwk|
+                        to the base64url encoded public key corresponding
+                        to the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">`[[handle]]`</a>
+                        internal slot of |key|.
+                      </p>
+                    </li>
+                    <li>
+                      <dl class="switch">
+                        <dt>
+                          If the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot
+                          of |key| is {{KeyType/"private"}}:
+                        </dt>
+                        <dd>
+                          Set the {{JsonWebKey/priv}} attribute of |jwk|
+                          to the base64url encoded seed represented by
+                          the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">`[[handle]]`</a>
+                          internal slot of |key|.
+                        </dd>
+                      </dl>
+                    </li>
+                    <li>
+                      <p>
+                        Set the `key_ops` attribute of |jwk| to the {{CryptoKey/usages}} attribute of |key|.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Set the `ext` attribute of |jwk| to the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-extractable">`[[extractable]]`</a> internal slot
+                        of |key|.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Let |result| be |jwk|.
                       </p>
                     </li>
                   </ol>
@@ -2306,7 +2791,7 @@ dictionary ContextParams : Algorithm {
                     <li>
                       <p>
                         Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot
-                        of |key| to {{KeyType/"private"}}
+                        of |key| to {{KeyType/"private"}}.
                       </p>
                     </li>
                     <li>
@@ -2319,6 +2804,156 @@ dictionary ContextParams : Algorithm {
                         Set the {{KeyAlgorithm/name}} attribute of
                         |algorithm| to the {{Algorithm/name}} attribute of
                         |normalizedAlgorithm|.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a>
+                        internal slot of |key| to |algorithm|.
+                      </p>
+                    </li>
+                  </ol>
+                </dd>
+                <dt>If |format| is {{KeyFormat/"jwk"}}:</dt>
+                <dd>
+                  <ol>
+                    <li>
+                      <dl class="switch">
+                        <dt>If |keyData| is a {{JsonWebKey}} dictionary:</dt>
+                        <dd><p>Let |jwk| equal |keyData|.</p></dd>
+                        <dt>Otherwise:</dt>
+                        <dd><p>[= exception/Throw =] a {{DataError}}.</p></dd>
+                      </dl>
+                    </li>
+                    <li>
+                      <p>
+                        If the {{JsonWebKey/priv}} field is present
+                        and |usages| contains a value which is not
+                        "`sign`", or,
+                        if the {{JsonWebKey/priv}} field is not present
+                        and |usages| contains a value which is not
+                        "`verify`"
+                        then [= exception/throw =] a
+                        {{SyntaxError}}.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        If the {{JsonWebKey/kty}} field of |jwk| is not
+                        "`AKP`",
+                        then [= exception/throw =] a
+                        {{DataError}}.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        If the {{JsonWebKey/alg}} field of |jwk| is not equal to
+                        the {{Algorithm/name}} member of |normalizedAlgorithm|,
+                        then [= exception/throw =] a
+                        {{DataError}}.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        If |usages| is non-empty and the {{JsonWebKey/use}} field of |jwk| is present
+                        and is not equal to "`sig`", then [= exception/throw =] a
+                        {{DataError}}.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        If the {{JsonWebKey/key_ops}} field of |jwk| is present, and
+                        is invalid according to the requirements of JSON Web
+                        Key [[JWK]], or it does not contain all of the specified |usages|
+                        values,
+                        then [= exception/throw =] a
+                        {{DataError}}.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        If the {{JsonWebKey/ext}} field of |jwk| is present and
+                        has the value false and |extractable| is true,
+                        then [= exception/throw =] a
+                        {{DataError}}.
+                      </p>
+                    </li>
+                    <li>
+                      <dl class="switch">
+                        <dt>If the {{JsonWebKey/priv}} field of |jwk| is present:</dt>
+                        <dd>
+                          <ol>
+                            <li>
+                              <p>
+                                If the {{JsonWebKey/priv}} attribute of |jwk|
+                                does not contain a valid base64url encoded value
+                                representing an SLH-DSA private key,
+                                then [= exception/throw =] a {{DataError}}.
+                              </p>
+                            </li>
+                            <li>
+                              <p>
+                                Let |key| be a new {{CryptoKey}} object that represents the
+                                SLH-DSA private key identified by interpreting the
+                                {{JsonWebKey/priv}} attribute of |jwk|
+                                as a base64url encoded private key.
+                              </p>
+                            </li>
+                            <li>
+                              <p>
+                                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-type">`[[type]]`</a>
+                                internal slot of |Key| to {{KeyType/"private"}}.
+                              </p>
+                            </li>
+                            <li>
+                              <p>
+                                If the {{JsonWebKey/pub}} attribute of |jwk|
+                                does not contain the base64url encoded public key
+                                representing the SLH-DSA public key
+                                corresponding to |key|,
+                                then [= exception/throw =] a {{DataError}}.
+                              </p>
+                            </li>
+                          </ol>
+                        </dd>
+                        <dt>Otherwise:</dt>
+                        <dd>
+                          <ol>
+                            <li>
+                              <p>
+                                If the {{JsonWebKey/pub}} attribute of |jwk|
+                                does not contain a valid base64url encoded public key
+                                representing an SLH-DSA public key,
+                                then [= exception/throw =] a {{DataError}}.
+                              </p>
+                            </li>
+                            <li>
+                              <p>
+                                Let |key| be a new {{CryptoKey}} object that represents the
+                                SLH-DSA public key identified by interpreting the
+                                {{JsonWebKey/pub}} attribute of |jwk|
+                                as a base64url encoded public key.
+                              </p>
+                            </li>
+                            <li>
+                              <p>
+                                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-type">`[[type]]`</a>
+                                internal slot of |Key| to {{KeyType/"public"}}.
+                              </p>
+                            </li>
+                          </ol>
+                        </dd>
+                      </dl>
+                    </li>
+                    <li>
+                      <p>
+                        Let |algorithm| be a new instance of a {{KeyAlgorithm}} object.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Set the {{KeyAlgorithm/name}} attribute of
+                        |algorithm| to the {{Algorithm/name}} member of |normalizedAlgorithm|.
                       </p>
                     </li>
                     <li>
@@ -2407,6 +3042,67 @@ dictionary ContextParams : Algorithm {
                     <li>
                       <p>
                         Let |result| be |data|.
+                      </p>
+                    </li>
+                  </ol>
+                </dd>
+                <dt>If |format| is {{KeyFormat/"jwk"}}:</dt>
+                <dd>
+                  <ol>
+                    <li>
+                      <p>
+                        Let |jwk| be a new {{JsonWebKey}}
+                        dictionary.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Set the `kty` attribute of |jwk| to
+                        "`AKP`".
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Set the `alg` attribute of |jwk| to
+                        the {{Algorithm/name}} member of |normalizedAlgorithm|.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Set the {{JsonWebKey/pub}} attribute of |jwk|
+                        to the base64url encoded public key corresponding
+                        to the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">`[[handle]]`</a>
+                        internal slot of |key|.
+                      </p>
+                    </li>
+                    <li>
+                      <dl class="switch">
+                        <dt>
+                          If the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot
+                          of |key| is {{KeyType/"private"}}:
+                        </dt>
+                        <dd>
+                          Set the {{JsonWebKey/priv}} attribute of |jwk|
+                          to the base64url encoded private key represented by
+                          the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">`[[handle]]`</a>
+                          internal slot of |key|.
+                        </dd>
+                      </dl>
+                    </li>
+                    <li>
+                      <p>
+                        Set the `key_ops` attribute of |jwk| to the {{CryptoKey/usages}} attribute of |key|.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Set the `ext` attribute of |jwk| to the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-extractable">`[[extractable]]`</a> internal slot
+                        of |key|.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Let |result| be |jwk|.
                       </p>
                     </li>
                   </ol>
@@ -4795,7 +5491,7 @@ alg: "K256" }
       </tbody>
     </table>
     <div class="todo">TODO: register A128OCB, A192OCB, A256OCB, C20P, K128 and K256(?) with IANA in the JSON Web Signature and Encryption Algorithms registry.</div>
-    <div class="todo">TODO: define JWK algorithms for ML-KEM, ML-DSA and SLH-DSA.</div>
+    <div class="todo">TODO: register encapsulateKey, encapsulateBits, decapsulateKey and decapsulateBits with IANA in the JSON Web Key Operations registry.</div>
   </section>
 
   <section id="conformance"></section>
