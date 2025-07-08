@@ -98,7 +98,7 @@
   <section id="abstract">
     <p>
       This specification defines a number of post-quantum secure and
-      modern cryptographic algorithms for the [[[WebCryptoAPI]]],
+      modern cryptographic algorithms for the [[webcrypto | Web Cryptography API]],
       namely ML-KEM, ML-DSA, SLH-DSA, AES-OCB, ChaCha20-Poly1305,
       SHA-3, cSHAKE, KMAC, and Argon2.
     </p>
@@ -112,8 +112,9 @@
     <h2>Introduction</h2>
     <p>
       This proposal aims to modernize the set of cryptographic algorithms
-      available in the [[[WebCryptoAPI]]], such that web applications can
-      make use of post-quantum secure and performant cryptographic algorithms.
+      available in the [[webcrypto | Web Cryptography API]], such that
+      web applications can make use of post-quantum secure and
+      performant cryptographic algorithms.
       To this end, the following cryptographic algorithms are added:
       <ul>
         <li><a href="#ml-kem">ML-KEM</a> [[FIPS-203]]</li>
@@ -143,19 +144,19 @@
   <section id="specification-conventions">
     <h2>Specification Conventions</h3>
     <p>
-      This specification follows the <a data-cite="WebCryptoAPI#algorithm-conventions">conventions</a>
-      laid out in Section 18.3 of [[WebCryptoAPI]]. None of the algorithms defined here
+      This specification follows the <a data-cite="webcrypto#algorithm-conventions">conventions</a>
+      laid out in Section 18.3 of [[webcrypto]]. None of the algorithms defined here
       are required to be implemented, but if a conforming User Agent implements an
       algorithm, it MUST implement all of the supported operations specified in this
-      document, and must perform the steps to <a data-cite="WebCryptoAPI#concept-define-an-algorithm">define an algorithm</a>
-      specified in section 18.4.3 of [[WebCryptoAPI]] for each of the supported operations.
+      document, and must perform the steps to <a data-cite="webcrypto#concept-define-an-algorithm">define an algorithm</a>
+      specified in section 18.4.3 of [[webcrypto]] for each of the supported operations.
     </p>
   </section>
 
   <section id="partial-subtlecrypto-interface">
     <h2>Partial SubtleCrypto interface</h2>
     <p>
-      This section extends the {{SubtleCrypto}} interface of [[WebCryptoAPI]].
+      This section extends the {{SubtleCrypto}} interface of [[webcrypto]].
     </p>
     <pre class="idl">
 [SecureContext,Exposed=(Window,Worker)]
@@ -198,14 +199,14 @@ partial interface SubtleCrypto {
     <section id="subtlecrypto-interface-datatypes">
       <h3>Data Types</h3>
       <p>
-        This specification replaces the definition of <a data-cite="WebCryptoAPI#dfn-KeyFormat">`KeyFormat`</a>
-        in [[WebCryptoAPI]] with the following:
+        This specification replaces the definition of <a data-cite="webcrypto#dfn-KeyFormat">`KeyFormat`</a>
+        in [[webcrypto]] with the following:
       </p>
       <pre class="idl">
 enum KeyFormat { "raw-public", "raw-private", "raw-seed", "raw-secret", "raw", "spki", "pkcs8", "jwk" };
       </pre>
       <p>
-        This specification specifies a number of new <a data-cite="WebCryptoAPI#dfn-RecognizedKeyFormats">recognized key format values</a>:
+        This specification specifies a number of new <a data-cite="webcrypto#dfn-RecognizedKeyFormats">recognized key format values</a>:
       </p>
       <dl data-dfn-for=KeyFormat>
         <dt><dfn data-idl>raw-public</dfn></dt>
@@ -218,11 +219,11 @@ enum KeyFormat { "raw-public", "raw-private", "raw-seed", "raw-secret", "raw", "
         <dd>An unformatted sequence of secret key bytes.</dd>
       </dl>
       <p>
-        For all existing symmetric algorithms in [[WebCryptoAPI]],
+        For all existing symmetric algorithms in [[webcrypto]],
         {{KeyFormat/"raw-secret"}} acts as an alias of {{KeyFormat/"raw"}}.
       </p>
       <p>
-        For all existing asymmetric algorithms in [[WebCryptoAPI]],
+        For all existing asymmetric algorithms in [[webcrypto]],
         {{KeyFormat/"raw-public"}} acts as an alias of {{KeyFormat/"raw"}}.
       </p>
       <p>
@@ -253,7 +254,7 @@ enum KeyFormat { "raw-public", "raw-private", "raw-seed", "raw-secret", "raw", "
           <li>
             <p>
               Let |normalizedEncapsulationAlgorithm| be the result of
-              <a data-cite="WebCryptoAPI#dfn-normalize-an-algorithm">normalizing an algorithm</a>, with
+              <a data-cite="webcrypto#dfn-normalize-an-algorithm">normalizing an algorithm</a>, with
               `alg` set to |encapsulationAlgorithm| and `op` set to
               "`encapsulate`".
             </p>
@@ -267,7 +268,7 @@ enum KeyFormat { "raw-public", "raw-private", "raw-seed", "raw-secret", "raw", "
           <li>
             <p>
               Let |normalizedSharedKeyAlgorithm| be the result of
-              <a data-cite="WebCryptoAPI#dfn-normalize-an-algorithm">normalizing an algorithm</a>, with
+              <a data-cite="webcrypto#dfn-normalize-an-algorithm">normalizing an algorithm</a>, with
               `alg` set to |sharedKeyAlgorithm| and `op` set to
               "`importKey`".
             </p>
@@ -297,10 +298,10 @@ enum KeyFormat { "raw-public", "raw-private", "raw-seed", "raw-secret", "raw", "
             <p>
               If the following steps or referenced procedures say to
               [= exception/throw =] an error,
-              [= queue a global task =] on the <a data-cite="WebCryptoAPI#dfn-crypto-task-source">crypto task source</a>,
+              [= queue a global task =] on the <a data-cite="webcrypto#dfn-crypto-task-source">crypto task source</a>,
               given |realm|'s global object,
               to reject |promise| with the returned error;
-              and then <a data-cite="WebCryptoAPI#terminate-the-algorithm">terminate the algorithm</a>.
+              and then <a data-cite="webcrypto#terminate-the-algorithm">terminate the algorithm</a>.
             </p>
           </li>
           <li>
@@ -308,13 +309,13 @@ enum KeyFormat { "raw-public", "raw-private", "raw-seed", "raw-secret", "raw", "
               If the {{Algorithm/name}} member of
               |normalizedEncapsulationAlgorithm| is not equal to the
               {{KeyAlgorithm/name}} attribute of the
-              <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a> internal slot of
+              <a data-cite="webcrypto#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a> internal slot of
               |encapsulationKey| then [= exception/throw =] an {{InvalidAccessError}}.
             </p>
           </li>
           <li>
             <p>
-              If the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-usages">`[[usages]]`</a> internal slot of
+              If the <a data-cite="webcrypto#dfn-CryptoKey-slot-usages">`[[usages]]`</a> internal slot of
               |encapsulationKey| does not contain an entry that is "`encapsulateKey`",
               then [= exception/throw =] an {{InvalidAccessError}}.
             </p>
@@ -322,7 +323,7 @@ enum KeyFormat { "raw-public", "raw-private", "raw-seed", "raw-secret", "raw", "
           <li>
             <p>
               Let |encapsulatedBits| be the result of performing the encapsulate operation specified by
-              the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a> internal slot of
+              the <a data-cite="webcrypto#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a> internal slot of
               |encapsulationKey| using |encapsulationKey|.
             </p>
           </li>
@@ -346,7 +347,7 @@ enum KeyFormat { "raw-public", "raw-private", "raw-seed", "raw-secret", "raw", "
           </li>
           <li>
             <p>
-              [= Queue a global task =] on the <a data-cite="WebCryptoAPI#dfn-crypto-task-source">crypto task source</a>,
+              [= Queue a global task =] on the <a data-cite="webcrypto#dfn-crypto-task-source">crypto task source</a>,
               given |realm|'s global object, to perform the remaining steps.
             </p>
           </li>
@@ -383,7 +384,7 @@ enum KeyFormat { "raw-public", "raw-private", "raw-seed", "raw-secret", "raw", "
           <li>
             <p>
               Let |normalizedEncapsulationAlgorithm| be the result of
-              <a data-cite="WebCryptoAPI#dfn-normalize-an-algorithm">normalizing an algorithm</a>, with
+              <a data-cite="webcrypto#dfn-normalize-an-algorithm">normalizing an algorithm</a>, with
               `alg` set to |encapsulationAlgorithm| and `op` set to
               "`encapsulate`".
             </p>
@@ -413,10 +414,10 @@ enum KeyFormat { "raw-public", "raw-private", "raw-seed", "raw-secret", "raw", "
             <p>
               If the following steps or referenced procedures say to
               [= exception/throw =] an error,
-              [= queue a global task =] on the <a data-cite="WebCryptoAPI#dfn-crypto-task-source">crypto task source</a>,
+              [= queue a global task =] on the <a data-cite="webcrypto#dfn-crypto-task-source">crypto task source</a>,
               given |realm|'s global object,
               to reject |promise| with the returned error;
-              and then <a data-cite="WebCryptoAPI#terminate-the-algorithm">terminate the algorithm</a>.
+              and then <a data-cite="webcrypto#terminate-the-algorithm">terminate the algorithm</a>.
             </p>
           </li>
           <li>
@@ -424,13 +425,13 @@ enum KeyFormat { "raw-public", "raw-private", "raw-seed", "raw-secret", "raw", "
               If the {{Algorithm/name}} member of
               |normalizedEncapsulationAlgorithm| is not equal to the
               {{KeyAlgorithm/name}} attribute of the
-              <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a> internal slot of
+              <a data-cite="webcrypto#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a> internal slot of
               |encapsulationKey| then [= exception/throw =] an {{InvalidAccessError}}.
             </p>
           </li>
           <li>
             <p>
-              If the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-usages">`[[usages]]`</a> internal slot of
+              If the <a data-cite="webcrypto#dfn-CryptoKey-slot-usages">`[[usages]]`</a> internal slot of
               |encapsulationKey| does not contain an entry that is "`encapsulateBits`",
               then [= exception/throw =] an {{InvalidAccessError}}.
             </p>
@@ -438,13 +439,13 @@ enum KeyFormat { "raw-public", "raw-private", "raw-seed", "raw-secret", "raw", "
           <li>
             <p>
               Let |encapsulatedBits| be the result of performing the encapsulate operation specified by
-              the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a> internal slot of
+              the <a data-cite="webcrypto#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a> internal slot of
               |encapsulationKey| using |encapsulationKey|.
             </p>
           </li>
           <li>
             <p>
-              [= Queue a global task =] on the <a data-cite="WebCryptoAPI#dfn-crypto-task-source">crypto task source</a>,
+              [= Queue a global task =] on the <a data-cite="webcrypto#dfn-crypto-task-source">crypto task source</a>,
               given |realm|'s global object, to perform the remaining steps.
             </p>
           </li>
@@ -489,7 +490,7 @@ enum KeyFormat { "raw-public", "raw-private", "raw-seed", "raw-secret", "raw", "
           <li>
             <p>
               Let |normalizedDecapsulationAlgorithm| be the result of
-              <a data-cite="WebCryptoAPI#dfn-normalize-an-algorithm">normalizing an algorithm</a>, with
+              <a data-cite="webcrypto#dfn-normalize-an-algorithm">normalizing an algorithm</a>, with
               `alg` set to |decapsulationAlgorithm| and `op` set to
               "`decapsulate`".
             </p>
@@ -503,7 +504,7 @@ enum KeyFormat { "raw-public", "raw-private", "raw-seed", "raw-secret", "raw", "
           <li>
             <p>
               Let |normalizedSharedKeyAlgorithm| be the result of
-              <a data-cite="WebCryptoAPI#dfn-normalize-an-algorithm">normalizing an algorithm</a>, with
+              <a data-cite="webcrypto#dfn-normalize-an-algorithm">normalizing an algorithm</a>, with
               `alg` set to |sharedKeyAlgorithm| and `op` set to
               "`importKey`".
             </p>
@@ -533,10 +534,10 @@ enum KeyFormat { "raw-public", "raw-private", "raw-seed", "raw-secret", "raw", "
             <p>
               If the following steps or referenced procedures say to
               [= exception/throw =] an error,
-              [= queue a global task =] on the <a data-cite="WebCryptoAPI#dfn-crypto-task-source">crypto task source</a>,
+              [= queue a global task =] on the <a data-cite="webcrypto#dfn-crypto-task-source">crypto task source</a>,
               given |realm|'s global object,
               to reject |promise| with the returned error;
-              and then <a data-cite="WebCryptoAPI#terminate-the-algorithm">terminate the algorithm</a>.
+              and then <a data-cite="webcrypto#terminate-the-algorithm">terminate the algorithm</a>.
             </p>
           </li>
           <li>
@@ -544,13 +545,13 @@ enum KeyFormat { "raw-public", "raw-private", "raw-seed", "raw-secret", "raw", "
               If the {{Algorithm/name}} member of
               |normalizedDecapsulationAlgorithm| is not equal to the
               {{KeyAlgorithm/name}} attribute of the
-              <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a> internal slot of
+              <a data-cite="webcrypto#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a> internal slot of
               |decapsulationKey| then [= exception/throw =] an {{InvalidAccessError}}.
             </p>
           </li>
           <li>
             <p>
-              If the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-usages">`[[usages]]`</a> internal slot of
+              If the <a data-cite="webcrypto#dfn-CryptoKey-slot-usages">`[[usages]]`</a> internal slot of
               |decapsulationKey| does not contain an entry that is "`decapsulateKey`",
               then [= exception/throw =] an {{InvalidAccessError}}.
             </p>
@@ -558,7 +559,7 @@ enum KeyFormat { "raw-public", "raw-private", "raw-seed", "raw-secret", "raw", "
           <li>
             <p>
               Let |decapsulatedBits| be the result of performing the decapsulate operation specified by
-              the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a> internal slot of |decapsulationKey| using |decapsulationKey| and |ciphertext|.
+              the <a data-cite="webcrypto#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a> internal slot of |decapsulationKey| using |decapsulationKey| and |ciphertext|.
             </p>
           </li>
           <li>
@@ -572,7 +573,7 @@ enum KeyFormat { "raw-public", "raw-private", "raw-seed", "raw-secret", "raw", "
           </li>
           <li>
             <p>
-              [= Queue a global task =] on the <a data-cite="WebCryptoAPI#dfn-crypto-task-source">crypto task source</a>,
+              [= Queue a global task =] on the <a data-cite="webcrypto#dfn-crypto-task-source">crypto task source</a>,
               given |realm|'s global object, to perform the remaining steps.
             </p>
           </li>
@@ -615,7 +616,7 @@ enum KeyFormat { "raw-public", "raw-private", "raw-seed", "raw-secret", "raw", "
           <li>
             <p>
               Let |normalizedDecapsulationAlgorithm| be the result of
-              <a data-cite="WebCryptoAPI#dfn-normalize-an-algorithm">normalizing an algorithm</a>, with
+              <a data-cite="webcrypto#dfn-normalize-an-algorithm">normalizing an algorithm</a>, with
               `alg` set to |decapsulationAlgorithm| and `op` set to
               "`decapsulate`".
             </p>
@@ -645,10 +646,10 @@ enum KeyFormat { "raw-public", "raw-private", "raw-seed", "raw-secret", "raw", "
             <p>
               If the following steps or referenced procedures say to
               [= exception/throw =] an error,
-              [= queue a global task =] on the <a data-cite="WebCryptoAPI#dfn-crypto-task-source">crypto task source</a>,
+              [= queue a global task =] on the <a data-cite="webcrypto#dfn-crypto-task-source">crypto task source</a>,
               given |realm|'s global object,
               to reject |promise| with the returned error;
-              and then <a data-cite="WebCryptoAPI#terminate-the-algorithm">terminate the algorithm</a>.
+              and then <a data-cite="webcrypto#terminate-the-algorithm">terminate the algorithm</a>.
             </p>
           </li>
           <li>
@@ -656,13 +657,13 @@ enum KeyFormat { "raw-public", "raw-private", "raw-seed", "raw-secret", "raw", "
               If the {{Algorithm/name}} member of
               |normalizedDecapsulationAlgorithm| is not equal to the
               {{KeyAlgorithm/name}} attribute of the
-              <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a> internal slot of
+              <a data-cite="webcrypto#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a> internal slot of
               |decapsulationKey| then [= exception/throw =] an {{InvalidAccessError}}.
             </p>
           </li>
           <li>
             <p>
-              If the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-usages">`[[usages]]`</a> internal slot of
+              If the <a data-cite="webcrypto#dfn-CryptoKey-slot-usages">`[[usages]]`</a> internal slot of
               |decapsulationKey| does not contain an entry that is "`decapsulateBits`",
               then [= exception/throw =] an {{InvalidAccessError}}.
             </p>
@@ -670,12 +671,12 @@ enum KeyFormat { "raw-public", "raw-private", "raw-seed", "raw-secret", "raw", "
           <li>
             <p>
               Let |decapsulatedBits| be the result of performing the decapsulate operation specified by
-              the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a> internal slot of |decapsulationKey| using |decapsulationKey| and |ciphertext|.
+              the <a data-cite="webcrypto#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a> internal slot of |decapsulationKey| using |decapsulationKey| and |ciphertext|.
             </p>
           </li>
           <li>
             <p>
-              [= Queue a global task =] on the <a data-cite="WebCryptoAPI#dfn-crypto-task-source">crypto task source</a>,
+              [= Queue a global task =] on the <a data-cite="webcrypto#dfn-crypto-task-source">crypto task source</a>,
               given |realm|'s global object, to perform the remaining steps.
             </p>
           </li>
@@ -829,7 +830,7 @@ enum KeyFormat { "raw-public", "raw-private", "raw-seed", "raw-secret", "raw", "
         <li>
           <p>
             Let |normalizedAlgorithm| be the result of
-            <a data-cite="WebCryptoAPI#dfn-normalize-an-algorithm">normalizing an algorithm</a>, with
+            <a data-cite="webcrypto#dfn-normalize-an-algorithm">normalizing an algorithm</a>, with
             `alg` set to |alg| and `op` set to |op|.
           </p>
         </li>
@@ -990,15 +991,15 @@ dictionary JsonWebKey {
     <section id="ml-kem-registration">
       <h4>Registration</h4>
       <p>
-        The <a data-cite="WebCryptoAPI#recognized-algorithm-name">recognized algorithm names</a> for
+        The <a data-cite="webcrypto#recognized-algorithm-name">recognized algorithm names</a> for
         this algorithm are "`ML-KEM-512`", "`ML-KEM-768`" and "`ML-KEM-1024`".
       </p>
       <table>
         <thead>
           <tr>
-            <th><a data-cite="WebCryptoAPI#supported-operations">Operation</a></th>
-            <th><a data-cite="WebCryptoAPI#algorithm-specific-params">Parameters</a></th>
-            <th><a data-cite="WebCryptoAPI#algorithm-result">Result</a></th>
+            <th><a data-cite="webcrypto#supported-operations">Operation</a></th>
+            <th><a data-cite="webcrypto#algorithm-specific-params">Parameters</a></th>
+            <th><a data-cite="webcrypto#algorithm-result">Result</a></th>
           </tr>
         </thead>
         <tbody>
@@ -1038,7 +1039,7 @@ dictionary JsonWebKey {
           <ol>
             <li>
               <p>
-                If the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot of
+                If the <a data-cite="webcrypto#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot of
                 |key| is not {{KeyType/"public"}}, then [= exception/throw =] an {{InvalidAccessError}}.
               </p>
             </li>
@@ -1047,7 +1048,7 @@ dictionary JsonWebKey {
                 Perform the encapsulation key check described in
                 Section 7.2 of [[FIPS-203]] with the parameter set
                 indicated by the {{Algorithm/name}} member of |algorithm|,
-                using the key represented by the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">`[[handle]]`</a>
+                using the key represented by the <a data-cite="webcrypto#dfn-CryptoKey-slot-handle">`[[handle]]`</a>
                 internal slot of |key| as the <var class="overline">ek</var> input parameter.
               </p>
               <div class=note>
@@ -1068,7 +1069,7 @@ dictionary JsonWebKey {
                 from performing the ML-KEM.Encaps function described in
                 Section 7.2 of [[FIPS-203]] with the parameter set
                 indicated by the {{Algorithm/name}} member of |algorithm|,
-                using the key represented by the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">`[[handle]]`</a>
+                using the key represented by the <a data-cite="webcrypto#dfn-CryptoKey-slot-handle">`[[handle]]`</a>
                 internal slot of |key| as the |ek| input parameter.
               </p>
             </li>
@@ -1109,7 +1110,7 @@ dictionary JsonWebKey {
           <ol>
             <li>
               <p>
-                If the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot of
+                If the <a data-cite="webcrypto#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot of
                 |key| is not {{KeyType/"private"}}, then [= exception/throw =] an {{InvalidAccessError}}.
               </p>
             </li>
@@ -1118,7 +1119,7 @@ dictionary JsonWebKey {
                 Perform the decapsulation input check described in
                 Section 7.3 of [[FIPS-203]] with the parameter set
                 indicated by the {{Algorithm/name}} member of |algorithm|,
-                using the key represented by the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">`[[handle]]`</a>
+                using the key represented by the <a data-cite="webcrypto#dfn-CryptoKey-slot-handle">`[[handle]]`</a>
                 internal slot of |key| as the <var class="overline">dk</var> input parameter, and
                 |ciphertext| as the <var class="overline">c</var> input parameter.
               </p>
@@ -1141,7 +1142,7 @@ dictionary JsonWebKey {
                 from performing the ML-KEM.Decaps function described in
                 Section 7.3 of [[FIPS-203]] with the parameter set
                 indicated by the {{Algorithm/name}} member of |algorithm|,
-                using the key represented by the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">`[[handle]]`</a>
+                using the key represented by the <a data-cite="webcrypto#dfn-CryptoKey-slot-handle">`[[handle]]`</a>
                 internal slot of |key| as the |dk| input parameter, and
                 |ciphertext| as the |c| input parameter.
               </p>
@@ -1207,27 +1208,27 @@ dictionary JsonWebKey {
             </li>
             <li>
               <p>
-                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot of
+                Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot of
                 |publicKey| to "`public`".
               </p>
             </li>
             <li>
               <p>
-                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a> internal
+                Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a> internal
                 slot of |publicKey| to |algorithm|.
               </p>
             </li>
             <li>
               <p>
-                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-extractable">`[[extractable]]`</a> internal
+                Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-extractable">`[[extractable]]`</a> internal
                 slot of |publicKey| to true.
               </p>
             </li>
             <li>
               <p>
-                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-usages">`[[usages]]`</a> internal slot of
+                Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-usages">`[[usages]]`</a> internal slot of
                 |publicKey| to be the
-                <a data-cite="WebCryptoAPI#concept-usage-intersection">usage intersection</a> of
+                <a data-cite="webcrypto#concept-usage-intersection">usage intersection</a> of
                 |usages| and `[ "encapsulateKey", "encapsulateBits" ]`.
               </p>
             </li>
@@ -1239,27 +1240,27 @@ dictionary JsonWebKey {
             </li>
             <li>
               <p>
-                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot of
+                Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot of
                 |privateKey| to {{KeyType/"private"}}.
               </p>
             </li>
             <li>
               <p>
-                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a> internal
+                Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a> internal
                 slot of |privateKey| to |algorithm|.
               </p>
             </li>
             <li>
               <p>
-                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-extractable">`[[extractable]]`</a> internal
+                Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-extractable">`[[extractable]]`</a> internal
                 slot of |privateKey| to |extractable|.
               </p>
             </li>
             <li>
               <p>
-                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-usages">`[[usages]]`</a> internal slot of
+                Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-usages">`[[usages]]`</a> internal slot of
                 |privateKey| to be the
-                <a data-cite="WebCryptoAPI#concept-usage-intersection">usage intersection</a> of
+                <a data-cite="webcrypto#concept-usage-intersection">usage intersection</a> of
                 |usages| and `[ "decapsulateKey", "decapsulateBits" ]`.
               </p>
             </li>
@@ -1317,7 +1318,7 @@ dictionary JsonWebKey {
                     </li>
                     <li>
                       <p>
-                        Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot
+                        Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot
                         of |key| to {{KeyType/"public"}}
                       </p>
                     </li>
@@ -1335,7 +1336,7 @@ dictionary JsonWebKey {
                     </li>
                     <li>
                       <p>
-                        Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a>
+                        Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a>
                         internal slot of |key| to |algorithm|.
                       </p>
                     </li>
@@ -1382,7 +1383,7 @@ dictionary JsonWebKey {
                     </li>
                     <li>
                       <p>
-                        Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot
+                        Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot
                         of |key| to {{KeyType/"private"}}
                       </p>
                     </li>
@@ -1400,7 +1401,7 @@ dictionary JsonWebKey {
                     </li>
                     <li>
                       <p>
-                        Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a>
+                        Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a>
                         internal slot of |key| to |algorithm|.
                       </p>
                     </li>
@@ -1505,7 +1506,7 @@ dictionary JsonWebKey {
                             </li>
                             <li>
                               <p>
-                                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-type">`[[type]]`</a>
+                                Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-type">`[[type]]`</a>
                                 internal slot of |Key| to {{KeyType/"private"}}.
                               </p>
                             </li>
@@ -1541,7 +1542,7 @@ dictionary JsonWebKey {
                             </li>
                             <li>
                               <p>
-                                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-type">`[[type]]`</a>
+                                Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-type">`[[type]]`</a>
                                 internal slot of |Key| to {{KeyType/"public"}}.
                               </p>
                             </li>
@@ -1562,7 +1563,7 @@ dictionary JsonWebKey {
                     </li>
                     <li>
                       <p>
-                        Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a>
+                        Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a>
                         internal slot of |key| to |algorithm|.
                       </p>
                     </li>
@@ -1587,7 +1588,7 @@ dictionary JsonWebKey {
           <ol>
             <li>
               <p>
-                If the underlying cryptographic key material represented by the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">`[[handle]]`</a> internal slot of |key|
+                If the underlying cryptographic key material represented by the <a data-cite="webcrypto#dfn-CryptoKey-slot-handle">`[[handle]]`</a> internal slot of |key|
                 cannot be accessed, then [= exception/throw =] an {{OperationError}}.
               </p>
             </li>
@@ -1598,14 +1599,14 @@ dictionary JsonWebKey {
                   <ol>
                     <li>
                       <p>
-                        If the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot
+                        If the <a data-cite="webcrypto#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot
                         of |key| is not "`public`", then [= exception/throw =] an {{InvalidAccessError}}.
                       </p>
                     </li>
                     <li>
                       <p>
                         Let |data| be a [= byte sequence =] containing
-                        the raw octets of the key represented by the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">`[[handle]]`</a> internal slot of
+                        the raw octets of the key represented by the <a data-cite="webcrypto#dfn-CryptoKey-slot-handle">`[[handle]]`</a> internal slot of
                         |key|.
                       </p>
                     </li>
@@ -1621,14 +1622,14 @@ dictionary JsonWebKey {
                   <ol>
                     <li>
                       <p>
-                        If the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot
+                        If the <a data-cite="webcrypto#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot
                         of |key| is not "`private`", then [= exception/throw =] an {{InvalidAccessError}}.
                       </p>
                     </li>
                     <li>
                       <p>
                         Let |data| be a [= byte sequence =] containing the concatenation of the |d| and |z|
-                        seed variables of the key represented by the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">`[[handle]]`</a>
+                        seed variables of the key represented by the <a data-cite="webcrypto#dfn-CryptoKey-slot-handle">`[[handle]]`</a>
                         internal slot of |key|.
                       </p>
                       <div class=note>
@@ -1677,20 +1678,20 @@ dictionary JsonWebKey {
                       <p>
                         Set the {{JsonWebKey/pub}} attribute of |jwk|
                         to the base64url encoded public key corresponding
-                        to the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">`[[handle]]`</a>
+                        to the <a data-cite="webcrypto#dfn-CryptoKey-slot-handle">`[[handle]]`</a>
                         internal slot of |key|.
                       </p>
                     </li>
                     <li>
                       <dl class="switch">
                         <dt>
-                          If the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot
+                          If the <a data-cite="webcrypto#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot
                           of |key| is {{KeyType/"private"}}:
                         </dt>
                         <dd>
                           Set the {{JsonWebKey/priv}} attribute of |jwk|
                           to the base64url encoded seed represented by
-                          the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">`[[handle]]`</a>
+                          the <a data-cite="webcrypto#dfn-CryptoKey-slot-handle">`[[handle]]`</a>
                           internal slot of |key|.
                         </dd>
                       </dl>
@@ -1702,7 +1703,7 @@ dictionary JsonWebKey {
                     </li>
                     <li>
                       <p>
-                        Set the `ext` attribute of |jwk| to the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-extractable">`[[extractable]]`</a> internal slot
+                        Set the `ext` attribute of |jwk| to the <a data-cite="webcrypto#dfn-CryptoKey-slot-extractable">`[[extractable]]`</a> internal slot
                         of |key|.
                       </p>
                     </li>
@@ -1745,15 +1746,15 @@ dictionary JsonWebKey {
     <section id="ml-dsa-registration">
       <h4>Registration</h4>
       <p>
-        The <a data-cite="WebCryptoAPI#recognized-algorithm-name">recognized algorithm names</a> for
+        The <a data-cite="webcrypto#recognized-algorithm-name">recognized algorithm names</a> for
         this algorithm are "`ML-DSA-44`", "`ML-DSA-65`" and "`ML-DSA-87`".
       </p>
       <table>
         <thead>
           <tr>
-            <th><a data-cite="WebCryptoAPI#supported-operations">Operation</a></th>
-            <th><a data-cite="WebCryptoAPI#algorithm-specific-params">Parameters</a></th>
-            <th><a data-cite="WebCryptoAPI#algorithm-result">Result</a></th>
+            <th><a data-cite="webcrypto#supported-operations">Operation</a></th>
+            <th><a data-cite="webcrypto#algorithm-specific-params">Parameters</a></th>
+            <th><a data-cite="webcrypto#algorithm-result">Result</a></th>
           </tr>
         </thead>
         <tbody>
@@ -1804,7 +1805,7 @@ dictionary ContextParams : Algorithm {
           <ol>
             <li>
               <p>
-                If the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot of
+                If the <a data-cite="webcrypto#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot of
                 |key| is not {{KeyType/"private"}}, then [= exception/throw =] an {{InvalidAccessError}}.
               </p>
             </li>
@@ -1842,7 +1843,7 @@ dictionary ContextParams : Algorithm {
           <ol>
             <li>
               <p>
-                If the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot of
+                If the <a data-cite="webcrypto#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot of
                 |key| is not {{KeyType/"public"}}, then [= exception/throw =] an {{InvalidAccessError}}.
               </p>
             </li>
@@ -1926,26 +1927,26 @@ dictionary ContextParams : Algorithm {
             </li>
             <li>
               <p>
-                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot of
+                Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot of
                 |publicKey| to "`public`".
               </p>
             </li>
             <li>
               <p>
-                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a> internal
+                Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a> internal
                 slot of |publicKey| to |algorithm|.
               </p>
             </li>
             <li>
               <p>
-                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-extractable">`[[extractable]]`</a> internal
+                Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-extractable">`[[extractable]]`</a> internal
                 slot of |publicKey| to true.
               </p>
             </li>
             <li>
               <p>
-                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-usages">`[[usages]]`</a> internal slot of
-                |publicKey| to be the <a data-cite="WebCryptoAPI#concept-usage-intersection">usage intersection</a>
+                Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-usages">`[[usages]]`</a> internal slot of
+                |publicKey| to be the <a data-cite="webcrypto#concept-usage-intersection">usage intersection</a>
                 of |usages| and `[ "verify" ]`.
               </p>
             </li>
@@ -1957,26 +1958,26 @@ dictionary ContextParams : Algorithm {
             </li>
             <li>
               <p>
-                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot of
+                Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot of
                 |privateKey| to {{KeyType/"private"}}.
               </p>
             </li>
             <li>
               <p>
-                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a> internal
+                Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a> internal
                 slot of |privateKey| to |algorithm|.
               </p>
             </li>
             <li>
               <p>
-                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-extractable">`[[extractable]]`</a> internal
+                Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-extractable">`[[extractable]]`</a> internal
                 slot of |privateKey| to |extractable|.
               </p>
             </li>
             <li>
               <p>
-                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-usages">`[[usages]]`</a> internal slot of
-                |privateKey| to be the <a data-cite="WebCryptoAPI#concept-usage-intersection">usage intersection</a>
+                Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-usages">`[[usages]]`</a> internal slot of
+                |privateKey| to be the <a data-cite="webcrypto#concept-usage-intersection">usage intersection</a>
                 of |usages| and `[ "sign" ]`.
               </p>
             </li>
@@ -2045,13 +2046,13 @@ dictionary ContextParams : Algorithm {
                     </li>
                     <li>
                       <p>
-                        Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot
+                        Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot
                         of |key| to "`public`"
                       </p>
                     </li>
                     <li>
                       <p>
-                        Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a>
+                        Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a>
                         internal slot of |key| to |algorithm|.
                       </p>
                     </li>
@@ -2097,7 +2098,7 @@ dictionary ContextParams : Algorithm {
                     </li>
                     <li>
                       <p>
-                        Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot
+                        Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot
                         of |key| to {{KeyType/"private"}}
                       </p>
                     </li>
@@ -2115,7 +2116,7 @@ dictionary ContextParams : Algorithm {
                     </li>
                     <li>
                       <p>
-                        Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a>
+                        Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a>
                         internal slot of |key| to |algorithm|.
                       </p>
                     </li>
@@ -2208,7 +2209,7 @@ dictionary ContextParams : Algorithm {
                             </li>
                             <li>
                               <p>
-                                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-type">`[[type]]`</a>
+                                Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-type">`[[type]]`</a>
                                 internal slot of |Key| to {{KeyType/"private"}}.
                               </p>
                             </li>
@@ -2244,7 +2245,7 @@ dictionary ContextParams : Algorithm {
                             </li>
                             <li>
                               <p>
-                                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-type">`[[type]]`</a>
+                                Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-type">`[[type]]`</a>
                                 internal slot of |Key| to {{KeyType/"public"}}.
                               </p>
                             </li>
@@ -2265,7 +2266,7 @@ dictionary ContextParams : Algorithm {
                     </li>
                     <li>
                       <p>
-                        Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a>
+                        Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a>
                         internal slot of |key| to |algorithm|.
                       </p>
                     </li>
@@ -2299,7 +2300,7 @@ dictionary ContextParams : Algorithm {
             </li>
             <li>
               <p>
-                If the underlying cryptographic key material represented by the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">`[[handle]]`</a> internal slot of |key|
+                If the underlying cryptographic key material represented by the <a data-cite="webcrypto#dfn-CryptoKey-slot-handle">`[[handle]]`</a> internal slot of |key|
                 cannot be accessed, then [= exception/throw =] an {{OperationError}}.
               </p>
             </li>
@@ -2312,14 +2313,14 @@ dictionary ContextParams : Algorithm {
                   <ol>
                     <li>
                       <p>
-                        If the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot
+                        If the <a data-cite="webcrypto#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot
                         of |key| is not "`public`", then [= exception/throw =] an {{InvalidAccessError}}.
                       </p>
                     </li>
                     <li>
                       <p>
                         Let |data| be a [= byte sequence =] containing the ML-DSA
-                        public key represented by the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">`[[handle]]`</a> internal slot of
+                        public key represented by the <a data-cite="webcrypto#dfn-CryptoKey-slot-handle">`[[handle]]`</a> internal slot of
                         |key|.
                       </p>
                     </li>
@@ -2335,14 +2336,14 @@ dictionary ContextParams : Algorithm {
                   <ol>
                     <li>
                       <p>
-                        If the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot
+                        If the <a data-cite="webcrypto#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot
                         of |key| is not "`private`", then [= exception/throw =] an {{InvalidAccessError}}.
                       </p>
                     </li>
                     <li>
                       <p>
                         Let |data| be a [= byte sequence =] containing the <var>ξ</var> seed variable
-                        of the key represented by the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">`[[handle]]`</a>
+                        of the key represented by the <a data-cite="webcrypto#dfn-CryptoKey-slot-handle">`[[handle]]`</a>
                         internal slot of |key|.
                       </p>
                       <div class=note>
@@ -2384,20 +2385,20 @@ dictionary ContextParams : Algorithm {
                       <p>
                         Set the {{JsonWebKey/pub}} attribute of |jwk|
                         to the base64url encoded public key corresponding
-                        to the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">`[[handle]]`</a>
+                        to the <a data-cite="webcrypto#dfn-CryptoKey-slot-handle">`[[handle]]`</a>
                         internal slot of |key|.
                       </p>
                     </li>
                     <li>
                       <dl class="switch">
                         <dt>
-                          If the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot
+                          If the <a data-cite="webcrypto#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot
                           of |key| is {{KeyType/"private"}}:
                         </dt>
                         <dd>
                           Set the {{JsonWebKey/priv}} attribute of |jwk|
                           to the base64url encoded seed represented by
-                          the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">`[[handle]]`</a>
+                          the <a data-cite="webcrypto#dfn-CryptoKey-slot-handle">`[[handle]]`</a>
                           internal slot of |key|.
                         </dd>
                       </dl>
@@ -2409,7 +2410,7 @@ dictionary ContextParams : Algorithm {
                     </li>
                     <li>
                       <p>
-                        Set the `ext` attribute of |jwk| to the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-extractable">`[[extractable]]`</a> internal slot
+                        Set the `ext` attribute of |jwk| to the <a data-cite="webcrypto#dfn-CryptoKey-slot-extractable">`[[extractable]]`</a> internal slot
                         of |key|.
                       </p>
                     </li>
@@ -2452,7 +2453,7 @@ dictionary ContextParams : Algorithm {
     <section id="slh-dsa-registration">
       <h4>Registration</h4>
       <p>
-        The <a data-cite="WebCryptoAPI#recognized-algorithm-name">recognized algorithm names</a> for
+        The <a data-cite="webcrypto#recognized-algorithm-name">recognized algorithm names</a> for
         this algorithm are "`SLH-DSA-SHA2-128s`", "`SLH-DSA-SHAKE-128s`",
         "`SLH-DSA-SHA2-128f`", "`SLH-DSA-SHAKE-128f`",
         "`SLH-DSA-SHA2-192s`", "`SLH-DSA-SHAKE-192s`",
@@ -2463,9 +2464,9 @@ dictionary ContextParams : Algorithm {
       <table>
         <thead>
           <tr>
-            <th><a data-cite="WebCryptoAPI#supported-operations">Operation</a></th>
-            <th><a data-cite="WebCryptoAPI#algorithm-specific-params">Parameters</a></th>
-            <th><a data-cite="WebCryptoAPI#algorithm-result">Result</a></th>
+            <th><a data-cite="webcrypto#supported-operations">Operation</a></th>
+            <th><a data-cite="webcrypto#algorithm-specific-params">Parameters</a></th>
+            <th><a data-cite="webcrypto#algorithm-result">Result</a></th>
           </tr>
         </thead>
         <tbody>
@@ -2507,7 +2508,7 @@ dictionary ContextParams : Algorithm {
           <ol>
             <li>
               <p>
-                If the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot of
+                If the <a data-cite="webcrypto#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot of
                 |key| is not {{KeyType/"private"}}, then [= exception/throw =] an {{InvalidAccessError}}.
               </p>
             </li>
@@ -2545,7 +2546,7 @@ dictionary ContextParams : Algorithm {
           <ol>
             <li>
               <p>
-                If the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot of
+                If the <a data-cite="webcrypto#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot of
                 |key| is not {{KeyType/"public"}}, then [= exception/throw =] an {{InvalidAccessError}}.
               </p>
             </li>
@@ -2622,26 +2623,26 @@ dictionary ContextParams : Algorithm {
             </li>
             <li>
               <p>
-                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot of
+                Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot of
                 |publicKey| to "`public`".
               </p>
             </li>
             <li>
               <p>
-                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a> internal
+                Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a> internal
                 slot of |publicKey| to |algorithm|.
               </p>
             </li>
             <li>
               <p>
-                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-extractable">`[[extractable]]`</a> internal
+                Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-extractable">`[[extractable]]`</a> internal
                 slot of |publicKey| to true.
               </p>
             </li>
             <li>
               <p>
-                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-usages">`[[usages]]`</a> internal slot of
-                |publicKey| to be the <a data-cite="WebCryptoAPI#concept-usage-intersection">usage intersection</a>
+                Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-usages">`[[usages]]`</a> internal slot of
+                |publicKey| to be the <a data-cite="webcrypto#concept-usage-intersection">usage intersection</a>
                 of |usages| and `[ "verify" ]`.
               </p>
             </li>
@@ -2653,26 +2654,26 @@ dictionary ContextParams : Algorithm {
             </li>
             <li>
               <p>
-                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot of
+                Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot of
                 |privateKey| to {{KeyType/"private"}}.
               </p>
             </li>
             <li>
               <p>
-                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a> internal
+                Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a> internal
                 slot of |privateKey| to |algorithm|.
               </p>
             </li>
             <li>
               <p>
-                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-extractable">`[[extractable]]`</a> internal
+                Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-extractable">`[[extractable]]`</a> internal
                 slot of |privateKey| to |extractable|.
               </p>
             </li>
             <li>
               <p>
-                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-usages">`[[usages]]`</a> internal slot of
-                |privateKey| to be the <a data-cite="WebCryptoAPI#concept-usage-intersection">usage intersection</a>
+                Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-usages">`[[usages]]`</a> internal slot of
+                |privateKey| to be the <a data-cite="webcrypto#concept-usage-intersection">usage intersection</a>
                 of |usages| and `[ "sign" ]`.
               </p>
             </li>
@@ -2750,13 +2751,13 @@ dictionary ContextParams : Algorithm {
                     </li>
                     <li>
                       <p>
-                        Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot
+                        Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot
                         of |key| to "`public`"
                       </p>
                     </li>
                     <li>
                       <p>
-                        Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a>
+                        Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a>
                         internal slot of |key| to |algorithm|.
                       </p>
                     </li>
@@ -2790,7 +2791,7 @@ dictionary ContextParams : Algorithm {
                     </li>
                     <li>
                       <p>
-                        Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot
+                        Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot
                         of |key| to {{KeyType/"private"}}.
                       </p>
                     </li>
@@ -2808,7 +2809,7 @@ dictionary ContextParams : Algorithm {
                     </li>
                     <li>
                       <p>
-                        Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a>
+                        Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a>
                         internal slot of |key| to |algorithm|.
                       </p>
                     </li>
@@ -2901,7 +2902,7 @@ dictionary ContextParams : Algorithm {
                             </li>
                             <li>
                               <p>
-                                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-type">`[[type]]`</a>
+                                Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-type">`[[type]]`</a>
                                 internal slot of |Key| to {{KeyType/"private"}}.
                               </p>
                             </li>
@@ -2937,7 +2938,7 @@ dictionary ContextParams : Algorithm {
                             </li>
                             <li>
                               <p>
-                                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-type">`[[type]]`</a>
+                                Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-type">`[[type]]`</a>
                                 internal slot of |Key| to {{KeyType/"public"}}.
                               </p>
                             </li>
@@ -2958,7 +2959,7 @@ dictionary ContextParams : Algorithm {
                     </li>
                     <li>
                       <p>
-                        Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a>
+                        Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a>
                         internal slot of |key| to |algorithm|.
                       </p>
                     </li>
@@ -2992,7 +2993,7 @@ dictionary ContextParams : Algorithm {
             </li>
             <li>
               <p>
-                If the underlying cryptographic key material represented by the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">`[[handle]]`</a> internal slot of |key|
+                If the underlying cryptographic key material represented by the <a data-cite="webcrypto#dfn-CryptoKey-slot-handle">`[[handle]]`</a> internal slot of |key|
                 cannot be accessed, then [= exception/throw =] an {{OperationError}}.
               </p>
             </li>
@@ -3005,14 +3006,14 @@ dictionary ContextParams : Algorithm {
                   <ol>
                     <li>
                       <p>
-                        If the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot
+                        If the <a data-cite="webcrypto#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot
                         of |key| is not "`public`", then [= exception/throw =] an {{InvalidAccessError}}.
                       </p>
                     </li>
                     <li>
                       <p>
                         Let |data| be a [= byte sequence =] containing the SLH-DSA
-                        public key represented by the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">`[[handle]]`</a> internal slot of
+                        public key represented by the <a data-cite="webcrypto#dfn-CryptoKey-slot-handle">`[[handle]]`</a> internal slot of
                         |key|.
                       </p>
                     </li>
@@ -3028,14 +3029,14 @@ dictionary ContextParams : Algorithm {
                   <ol>
                     <li>
                       <p>
-                        If the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot
+                        If the <a data-cite="webcrypto#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot
                         of |key| is not "`private`", then [= exception/throw =] an {{InvalidAccessError}}.
                       </p>
                     </li>
                     <li>
                       <p>
                         Let |data| be a [= byte sequence =] containing the SLH-DSA
-                        private key represented by the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">`[[handle]]`</a> internal slot of
+                        private key represented by the <a data-cite="webcrypto#dfn-CryptoKey-slot-handle">`[[handle]]`</a> internal slot of
                         |key|.
                       </p>
                     </li>
@@ -3071,20 +3072,20 @@ dictionary ContextParams : Algorithm {
                       <p>
                         Set the {{JsonWebKey/pub}} attribute of |jwk|
                         to the base64url encoded public key corresponding
-                        to the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">`[[handle]]`</a>
+                        to the <a data-cite="webcrypto#dfn-CryptoKey-slot-handle">`[[handle]]`</a>
                         internal slot of |key|.
                       </p>
                     </li>
                     <li>
                       <dl class="switch">
                         <dt>
-                          If the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot
+                          If the <a data-cite="webcrypto#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot
                           of |key| is {{KeyType/"private"}}:
                         </dt>
                         <dd>
                           Set the {{JsonWebKey/priv}} attribute of |jwk|
                           to the base64url encoded private key represented by
-                          the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">`[[handle]]`</a>
+                          the <a data-cite="webcrypto#dfn-CryptoKey-slot-handle">`[[handle]]`</a>
                           internal slot of |key|.
                         </dd>
                       </dl>
@@ -3096,7 +3097,7 @@ dictionary ContextParams : Algorithm {
                     </li>
                     <li>
                       <p>
-                        Set the `ext` attribute of |jwk| to the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-extractable">`[[extractable]]`</a> internal slot
+                        Set the `ext` attribute of |jwk| to the <a data-cite="webcrypto#dfn-CryptoKey-slot-extractable">`[[extractable]]`</a> internal slot
                         of |key|.
                       </p>
                     </li>
@@ -3140,15 +3141,15 @@ dictionary ContextParams : Algorithm {
     <section id="aes-ocb-registration">
       <h4>Registration</h4>
       <p>
-        The <a data-cite="WebCryptoAPI#recognized-algorithm-name">recognized algorithm name</a> for
+        The <a data-cite="webcrypto#recognized-algorithm-name">recognized algorithm name</a> for
         this algorithm is "`AES-OCB`".
       </p>
       <table>
         <thead>
           <tr>
-            <th><a data-cite="WebCryptoAPI#supported-operations">Operation</a></th>
-            <th><a data-cite="WebCryptoAPI#algorithm-specific-params">Parameters</a></th>
-            <th><a data-cite="WebCryptoAPI#algorithm-result">Result</a></th>
+            <th><a data-cite="webcrypto#supported-operations">Operation</a></th>
+            <th><a data-cite="webcrypto#algorithm-specific-params">Parameters</a></th>
+            <th><a data-cite="webcrypto#algorithm-result">Result</a></th>
           </tr>
         </thead>
         <tbody>
@@ -3199,7 +3200,7 @@ dictionary AeadParams : Algorithm {
       <p>The <dfn data-dfn-for=AeadParams id=dfn-AeadParams-tagLength>tagLength</dfn> member represents the desired length of the authentication tag.</p>
       <div class=note>
         <p>
-          The {{AeadParams}} dictionary is identical to the {{AesGcmParams}} dictionary of [[WebCryptoAPI]],
+          The {{AeadParams}} dictionary is identical to the {{AesGcmParams}} dictionary of [[webcrypto]],
           and the latter may be replaced by the former when merging this proposal.
         </p>
       </div>
@@ -3248,7 +3249,7 @@ dictionary AeadParams : Algorithm {
                 Let |C| be the output that results from performing
                 the OCB-ENCRYPT function described in Section 4.2 of
                 [[RFC7253]] using AES as the block cipher, using
-                the key represented by <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">`[[handle]]`</a>
+                the key represented by <a data-cite="webcrypto#dfn-CryptoKey-slot-handle">`[[handle]]`</a>
                 internal slot of |key| as the |K| input parameter,
                 the {{AeadParams/iv}} member of |normalizedAlgorithm| as
                 the |N| input parameter,
@@ -3311,7 +3312,7 @@ dictionary AeadParams : Algorithm {
               <p>
                 Perform the OCB-DECRYPT function described in Section 4.3 of
                 [[RFC7253]] using AES as the block cipher, using
-                the key represented by <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">`[[handle]]`</a>
+                the key represented by <a data-cite="webcrypto#dfn-CryptoKey-slot-handle">`[[handle]]`</a>
                 internal slot of |key| as the |K| input parameter,
                 the {{AeadParams/iv}} member of |normalizedAlgorithm| as
                 the |N| input parameter,
@@ -3402,19 +3403,19 @@ dictionary AeadParams : Algorithm {
             </li>
             <li>
               <p>
-                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a> internal
+                Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a> internal
                 slot of |key| to |algorithm|.
               </p>
             </li>
             <li>
               <p>
-                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-extractable">`[[extractable]]`</a> internal
+                Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-extractable">`[[extractable]]`</a> internal
                 slot of |key| to be |extractable|.
               </p>
             </li>
             <li>
               <p>
-                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-usages">`[[usages]]`</a> internal slot of
+                Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-usages">`[[usages]]`</a> internal slot of
                 |key| to be |usages|.
               </p>
             </li>
@@ -3574,7 +3575,7 @@ dictionary AeadParams : Algorithm {
             </li>
             <li>
               <p>
-                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a> internal
+                Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a> internal
                 slot of |key| to |algorithm|.
               </p>
             </li>
@@ -3590,7 +3591,7 @@ dictionary AeadParams : Algorithm {
           <ol>
             <li>
               <p>
-                If the underlying cryptographic key material represented by the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">`[[handle]]`</a> internal slot of |key|
+                If the underlying cryptographic key material represented by the <a data-cite="webcrypto#dfn-CryptoKey-slot-handle">`[[handle]]`</a> internal slot of |key|
                 cannot be accessed, then [= exception/throw =] an {{OperationError}}.
               </p>
             </li>
@@ -3602,7 +3603,7 @@ dictionary AeadParams : Algorithm {
                     <li>
                       <p>
                         Let |data| be a [= byte sequence =] containing
-                        the raw octets of the key represented by <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">`[[handle]]`</a> internal slot of
+                        the raw octets of the key represented by <a data-cite="webcrypto#dfn-CryptoKey-slot-handle">`[[handle]]`</a> internal slot of
                         |key|.
                       </p>
                     </li>
@@ -3631,7 +3632,7 @@ dictionary AeadParams : Algorithm {
                     <li>
                       <p>
                         Set the {{JsonWebKey/k}} attribute of |jwk| to be a string
-                        containing the raw octets of the key represented by <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">`[[handle]]`</a> internal slot of
+                        containing the raw octets of the key represented by <a data-cite="webcrypto#dfn-CryptoKey-slot-handle">`[[handle]]`</a> internal slot of
                         |key|, encoded according to Section 6.4 of JSON Web Algorithms [[JWA]].
                       </p>
                     </li>
@@ -3660,7 +3661,7 @@ dictionary AeadParams : Algorithm {
                     </li>
                     <li>
                       <p>
-                        Set the `ext` attribute of |jwk| to equal the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-extractable">`[[extractable]]`</a> internal slot
+                        Set the `ext` attribute of |jwk| to equal the <a data-cite="webcrypto#dfn-CryptoKey-slot-extractable">`[[extractable]]`</a> internal slot
                         of |key|.
                       </p>
                     </li>
@@ -3722,15 +3723,15 @@ dictionary AeadParams : Algorithm {
     <section id="chacha20-poly1305-registration">
       <h4>Registration</h4>
       <p>
-        The <a data-cite="WebCryptoAPI#recognized-algorithm-name">recognized algorithm name</a> for
+        The <a data-cite="webcrypto#recognized-algorithm-name">recognized algorithm name</a> for
         this algorithm is "`ChaCha20-Poly1305`".
       </p>
       <table>
         <thead>
           <tr>
-            <th><a data-cite="WebCryptoAPI#supported-operations">Operation</a></th>
-            <th><a data-cite="WebCryptoAPI#algorithm-specific-params">Parameters</a></th>
-            <th><a data-cite="WebCryptoAPI#algorithm-result">Result</a></th>
+            <th><a data-cite="webcrypto#supported-operations">Operation</a></th>
+            <th><a data-cite="webcrypto#algorithm-specific-params">Parameters</a></th>
+            <th><a data-cite="webcrypto#algorithm-result">Result</a></th>
           </tr>
         </thead>
         <tbody>
@@ -3801,7 +3802,7 @@ dictionary AeadParams : Algorithm {
                 Let |ciphertext| be the output that results from
                 performing the AEAD_CHACHA20_POLY1305 encryption algorithm
                 described in Section 2.8 of [[RFC8439]], using
-                the key represented by <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">`[[handle]]`</a>
+                the key represented by <a data-cite="webcrypto#dfn-CryptoKey-slot-handle">`[[handle]]`</a>
                 internal slot of |key| as the key input parameter,
                 the {{AeadParams/iv}} member of |normalizedAlgorithm| as
                 the nonce input parameter,
@@ -3853,7 +3854,7 @@ dictionary AeadParams : Algorithm {
               <p>
                 Perform the AEAD_CHACHA20_POLY1305 decryption algorithm
                 described in Section 2.8 of [[RFC8439]], using
-                the key represented by <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">`[[handle]]`</a>
+                the key represented by <a data-cite="webcrypto#dfn-CryptoKey-slot-handle">`[[handle]]`</a>
                 internal slot of |key| as the key input parameter,
                 the {{AeadParams/iv}} member of |normalizedAlgorithm| as
                 the nonce input parameter,
@@ -3923,19 +3924,19 @@ dictionary AeadParams : Algorithm {
             </li>
             <li>
               <p>
-                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a> internal
+                Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a> internal
                 slot of |key| to |algorithm|.
               </p>
             </li>
             <li>
               <p>
-                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-extractable">`[[extractable]]`</a> internal
+                Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-extractable">`[[extractable]]`</a> internal
                 slot of |key| to be |extractable|.
               </p>
             </li>
             <li>
               <p>
-                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-usages">`[[usages]]`</a> internal slot of
+                Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-usages">`[[usages]]`</a> internal slot of
                 |key| to be |usages|.
               </p>
             </li>
@@ -4073,7 +4074,7 @@ dictionary AeadParams : Algorithm {
             </li>
             <li>
               <p>
-                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a> internal
+                Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a> internal
                 slot of |key| to |algorithm|.
               </p>
             </li>
@@ -4089,7 +4090,7 @@ dictionary AeadParams : Algorithm {
           <ol>
             <li>
               <p>
-                If the underlying cryptographic key material represented by the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">`[[handle]]`</a> internal slot of |key|
+                If the underlying cryptographic key material represented by the <a data-cite="webcrypto#dfn-CryptoKey-slot-handle">`[[handle]]`</a> internal slot of |key|
                 cannot be accessed, then [= exception/throw =] an {{OperationError}}.
               </p>
             </li>
@@ -4101,7 +4102,7 @@ dictionary AeadParams : Algorithm {
                     <li>
                       <p>
                         Let |data| be a [= byte sequence =] containing
-                        the raw octets of the key represented by <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">`[[handle]]`</a> internal slot of
+                        the raw octets of the key represented by <a data-cite="webcrypto#dfn-CryptoKey-slot-handle">`[[handle]]`</a> internal slot of
                         |key|.
                       </p>
                     </li>
@@ -4130,7 +4131,7 @@ dictionary AeadParams : Algorithm {
                     <li>
                       <p>
                         Set the {{JsonWebKey/k}} attribute of |jwk| to be a string
-                        containing the raw octets of the key represented by <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">`[[handle]]`</a> internal slot of
+                        containing the raw octets of the key represented by <a data-cite="webcrypto#dfn-CryptoKey-slot-handle">`[[handle]]`</a> internal slot of
                         |key|, encoded according to Section 6.4 of JSON Web Algorithms [[JWA]].
                       </p>
                     </li>
@@ -4149,7 +4150,7 @@ dictionary AeadParams : Algorithm {
                     </li>
                     <li>
                       <p>
-                        Set the `ext` attribute of |jwk| to equal the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-extractable">`[[extractable]]`</a> internal slot
+                        Set the `ext` attribute of |jwk| to equal the <a data-cite="webcrypto#dfn-CryptoKey-slot-extractable">`[[extractable]]`</a> internal slot
                         of |key|.
                       </p>
                     </li>
@@ -4202,7 +4203,7 @@ dictionary AeadParams : Algorithm {
     <section id="sha3-registration">
       <h4>Registration</h4>
       <p>
-        The <a data-cite="WebCryptoAPI#recognized-algorithm-name">recognized algorithm names</a> are
+        The <a data-cite="webcrypto#recognized-algorithm-name">recognized algorithm names</a> are
         "<code id="alg-sha3-256">SHA3-256</code>",
         "<code id="alg-sha3-384">SHA3-384</code>", and
         "<code id="alg-sha3-512">SHA3-512</code>" for the respective SHA-3 algorithms.
@@ -4210,9 +4211,9 @@ dictionary AeadParams : Algorithm {
       <table>
         <thead>
           <tr>
-            <th><a data-cite="WebCryptoAPI#supported-operations">Operation</a></th>
-            <th><a data-cite="WebCryptoAPI#algorithm-specific-params">Parameters</a></th>
-            <th><a data-cite="WebCryptoAPI#algorithm-result">Result</a></th>
+            <th><a data-cite="webcrypto#supported-operations">Operation</a></th>
+            <th><a data-cite="webcrypto#algorithm-specific-params">Parameters</a></th>
+            <th><a data-cite="webcrypto#algorithm-result">Result</a></th>
           </tr>
         </thead>
         <tbody>
@@ -4291,16 +4292,16 @@ dictionary AeadParams : Algorithm {
     <section id="cshake-registration">
       <h4>Registration</h4>
       <p>
-        The <a data-cite="WebCryptoAPI#recognized-algorithm-name">recognized algorithm names</a> are
+        The <a data-cite="webcrypto#recognized-algorithm-name">recognized algorithm names</a> are
         "<code id="alg-cshake128">cSHAKE128</code>" and
         "<code id="alg-cshake256">cSHAKE256</code>".
       </p>
       <table>
         <thead>
           <tr>
-            <th><a data-cite="WebCryptoAPI#supported-operations">Operation</a></th>
-            <th><a data-cite="WebCryptoAPI#algorithm-specific-params">Parameters</a></th>
-            <th><a data-cite="WebCryptoAPI#algorithm-result">Result</a></th>
+            <th><a data-cite="webcrypto#supported-operations">Operation</a></th>
+            <th><a data-cite="webcrypto#algorithm-specific-params">Parameters</a></th>
+            <th><a data-cite="webcrypto#algorithm-result">Result</a></th>
           </tr>
         </thead>
         <tbody>
@@ -4408,16 +4409,16 @@ dictionary CShakeParams : Algorithm {
     <section id="kmac-registration">
       <h4>Registration</h4>
       <p>
-        The <a data-cite="WebCryptoAPI#recognized-algorithm-name">recognized algorithm names</a> are
+        The <a data-cite="webcrypto#recognized-algorithm-name">recognized algorithm names</a> are
         "<code id="alg-kmac128">KMAC128</code>" and
         "<code id="alg-kmac256">KMAC256</code>".
       </p>
       <table>
         <thead>
           <tr>
-            <th><a data-cite="WebCryptoAPI#supported-operations">Operation</a></th>
-            <th><a data-cite="WebCryptoAPI#algorithm-specific-params">Parameters</a></th>
-            <th><a data-cite="WebCryptoAPI#algorithm-result">Result</a></th>
+            <th><a data-cite="webcrypto#supported-operations">Operation</a></th>
+            <th><a data-cite="webcrypto#algorithm-specific-params">Parameters</a></th>
+            <th><a data-cite="webcrypto#algorithm-result">Result</a></th>
           </tr>
         </thead>
         <tbody>
@@ -4516,7 +4517,7 @@ dictionary KmacParams : Algorithm {
                 <dd>
                   Let |mac| be the result of performing the KMAC128 function
                   defined in Section 4 of [[NIST-SP800-185]] using
-                  the key represented by <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">`[[handle]]`</a>
+                  the key represented by <a data-cite="webcrypto#dfn-CryptoKey-slot-handle">`[[handle]]`</a>
                   internal slot of |key| as the |K| input parameter,
                   |message| as the |X| input parameter,
                   the {{KmacParams/length}} member of |normalizedAlgorithm| as
@@ -4532,7 +4533,7 @@ dictionary KmacParams : Algorithm {
                 <dd>
                   Let |mac| be the result of performing the KMAC256 function
                   defined in Section 4 of [[NIST-SP800-185]] using
-                  the key represented by <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">`[[handle]]`</a>
+                  the key represented by <a data-cite="webcrypto#dfn-CryptoKey-slot-handle">`[[handle]]`</a>
                   internal slot of |key| as the |K| input parameter,
                   |message| as the |X| input parameter,
                   the {{KmacParams/length}} member of |normalizedAlgorithm| as
@@ -4569,7 +4570,7 @@ dictionary KmacParams : Algorithm {
                 <dd>
                   Let |mac| be the result of performing the KMAC128 function
                   defined in Section 4 of [[NIST-SP800-185]] using
-                  the key represented by <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">`[[handle]]`</a>
+                  the key represented by <a data-cite="webcrypto#dfn-CryptoKey-slot-handle">`[[handle]]`</a>
                   internal slot of |key| as the |K| input parameter,
                   |message| as the |X| input parameter,
                   the {{KmacParams/length}} member of |normalizedAlgorithm| as
@@ -4585,7 +4586,7 @@ dictionary KmacParams : Algorithm {
                 <dd>
                   Let |mac| be the result of performing the KMAC256 function
                   defined in Section 4 of [[NIST-SP800-185]] using
-                  the key represented by <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">`[[handle]]`</a>
+                  the key represented by <a data-cite="webcrypto#dfn-CryptoKey-slot-handle">`[[handle]]`</a>
                   internal slot of |key| as the |K| input parameter,
                   |message| as the |X| input parameter,
                   the {{KmacParams/length}} member of |normalizedAlgorithm| as
@@ -4675,19 +4676,19 @@ dictionary KmacParams : Algorithm {
             </li>
             <li>
               <p>
-                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a> internal
+                Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a> internal
                 slot of |key| to |algorithm|.
               </p>
             </li>
             <li>
               <p>
-                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-extractable">`[[extractable]]`</a> internal
+                Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-extractable">`[[extractable]]`</a> internal
                 slot of |key| to be |extractable|.
               </p>
             </li>
             <li>
               <p>
-                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-usages">`[[usages]]`</a> internal slot of
+                Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-usages">`[[usages]]`</a> internal slot of
                 |key| to be |usages|.
               </p>
             </li>
@@ -4894,7 +4895,7 @@ dictionary KmacParams : Algorithm {
             </li>
             <li>
               <p>
-                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a> internal
+                Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a> internal
                 slot of |key| to |algorithm|.
               </p>
             </li>
@@ -4910,19 +4911,19 @@ dictionary KmacParams : Algorithm {
           <ol>
             <li>
               <p>
-                If the underlying cryptographic key material represented by the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">`[[handle]]`</a> internal slot of |key|
+                If the underlying cryptographic key material represented by the <a data-cite="webcrypto#dfn-CryptoKey-slot-handle">`[[handle]]`</a> internal slot of |key|
                 cannot be accessed, then [= exception/throw =] an {{OperationError}}.
               </p>
             </li>
             <li>
               <p>
-                Let |bits| be the raw bits of the key represented by <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">`[[handle]]`</a> internal slot of
+                Let |bits| be the raw bits of the key represented by <a data-cite="webcrypto#dfn-CryptoKey-slot-handle">`[[handle]]`</a> internal slot of
                 |key|.
               </p>
             </li>
             <li>
               <p>
-                Let |data| be an <a data-cite="WebCryptoAPI#byte-sequence-containing">byte sequence containing</a> |bits|.
+                Let |data| be an <a data-cite="webcrypto#byte-sequence-containing">byte sequence containing</a> |bits|.
               </p>
             </li>
             <li>
@@ -4960,7 +4961,7 @@ dictionary KmacParams : Algorithm {
                     </li>
                     <li>
                       <p>
-                        Let |algorithm| be the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a> internal slot of
+                        Let |algorithm| be the <a data-cite="webcrypto#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a> internal slot of
                         |key|.
                       </p>
                     </li>
@@ -4990,7 +4991,7 @@ dictionary KmacParams : Algorithm {
                     </li>
                     <li>
                       <p>
-                        Set the `ext` attribute of |jwk| to equal the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-extractable">`[[extractable]]`</a> internal slot
+                        Set the `ext` attribute of |jwk| to equal the <a data-cite="webcrypto#dfn-CryptoKey-slot-extractable">`[[extractable]]`</a> internal slot
                         of |key|.
                       </p>
                     </li>
@@ -5072,7 +5073,7 @@ dictionary KmacParams : Algorithm {
     <section id="argon2-registration">
       <h4>Registration</h4>
       <p>
-        The <a data-cite="WebCryptoAPI#recognized-algorithm-name">recognized algorithm names</a> are
+        The <a data-cite="webcrypto#recognized-algorithm-name">recognized algorithm names</a> are
         "<code id="alg-argon2d">Argon2d</code>",
         "<code id="alg-argon2i">Argon2i</code>", and
         "<code id="alg-argon2id">Argon2id</code>" for the respective Argon2 types.
@@ -5080,9 +5081,9 @@ dictionary KmacParams : Algorithm {
       <table>
         <thead>
           <tr>
-            <th><a data-cite="WebCryptoAPI#supported-operations">Operation</a></th>
-            <th><a data-cite="WebCryptoAPI#algorithm-specific-params">Parameters</a></th>
-            <th><a data-cite="WebCryptoAPI#algorithm-result">Result</a></th>
+            <th><a data-cite="webcrypto#supported-operations">Operation</a></th>
+            <th><a data-cite="webcrypto#algorithm-specific-params">Parameters</a></th>
+            <th><a data-cite="webcrypto#algorithm-result">Result</a></th>
           </tr>
         </thead>
         <tbody>
@@ -5211,7 +5212,7 @@ dictionary Argon2Params : Algorithm {
               <p>
                 Let |result| be the result of performing the Argon2 function defined
                 in Section 3 of [[RFC9106]] using
-                the password represented by <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-handle">`[[handle]]`</a> internal slot of |key|
+                the password represented by <a data-cite="webcrypto#dfn-CryptoKey-slot-handle">`[[handle]]`</a> internal slot of |key|
                 as the message, |P|,
                 the {{Argon2Params/nonce}} attribute of
                 |normalizedAlgorithm| as the nonce, |S|,
@@ -5272,13 +5273,13 @@ dictionary Argon2Params : Algorithm {
             </li>
             <li>
               <p>
-                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot of
+                Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot of
                 |key| to {{KeyType/"secret"}}.
               </p>
             </li>
             <li>
               <p>
-                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-extractable">`[[extractable]]`</a> internal slot of
+                Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-extractable">`[[extractable]]`</a> internal slot of
                 |key| to `false`.
               </p>
             </li>
@@ -5297,7 +5298,7 @@ dictionary Argon2Params : Algorithm {
             </li>
             <li>
               <p>
-                Set the <a data-cite="WebCryptoAPI#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a> internal
+                Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a> internal
                 slot of |key| to |algorithm|.
               </p>
             </li>
