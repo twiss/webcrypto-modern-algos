@@ -198,38 +198,64 @@ partial interface SubtleCrypto {
 
     <section id="subtlecrypto-interface-datatypes">
       <h3>Data Types</h3>
-      <p>
-        This specification replaces the definition of <a data-cite="webcrypto#dfn-KeyFormat">`KeyFormat`</a>
-        in [[webcrypto]] with the following:
-      </p>
-      <pre class="idl">
+      <section id="subtlecrypto-interface-keyformat">
+        <h4>Key Formats</h4>
+        <p>
+          This specification replaces the definition of <a data-cite="webcrypto#dfn-KeyFormat">`KeyFormat`</a>
+          in [[webcrypto]] with the following:
+        </p>
+        <pre class="idl">
 enum KeyFormat { "raw-public", "raw-private", "raw-seed", "raw-secret", "raw", "spki", "pkcs8", "jwk" };
-      </pre>
-      <p>
-        This specification specifies a number of new <a data-cite="webcrypto#dfn-RecognizedKeyFormats">recognized key format values</a>:
-      </p>
-      <dl data-dfn-for=KeyFormat>
-        <dt><dfn data-idl>raw-public</dfn></dt>
-        <dd>An unformatted sequence of public key bytes.</dd>
-        <dt><dfn data-idl>raw-private</dfn></dt>
-        <dd>An unformatted sequence of private key bytes.</dd>
-        <dt><dfn data-idl>raw-seed</dfn></dt>
-        <dd>An unformatted sequence of private key seed bytes.</dd>
-        <dt><dfn data-idl>raw-secret</dfn></dt>
-        <dd>An unformatted sequence of secret key bytes.</dd>
-      </dl>
-      <p>
-        For all existing symmetric algorithms in [[webcrypto]],
-        {{KeyFormat/"raw-secret"}} acts as an alias of {{KeyFormat/"raw"}}.
-      </p>
-      <p>
-        For all existing asymmetric algorithms in [[webcrypto]],
-        {{KeyFormat/"raw-public"}} acts as an alias of {{KeyFormat/"raw"}}.
-      </p>
-      <p>
-        In the {{SubtleCrypto/deriveKey()}} method, in the import key step,
-        {{KeyFormat/"raw-secret"}} must be used as the format instead of {{KeyFormat/"raw"}}.
-      </p>
+        </pre>
+        <p>
+          This specification specifies a number of new <a data-cite="webcrypto#dfn-RecognizedKeyFormats">recognized key format values</a>:
+        </p>
+        <dl data-dfn-for=KeyFormat>
+          <dt><dfn data-idl>raw-public</dfn></dt>
+          <dd>An unformatted sequence of public key bytes.</dd>
+          <dt><dfn data-idl>raw-private</dfn></dt>
+          <dd>An unformatted sequence of private key bytes.</dd>
+          <dt><dfn data-idl>raw-seed</dfn></dt>
+          <dd>An unformatted sequence of private key seed bytes.</dd>
+          <dt><dfn data-idl>raw-secret</dfn></dt>
+          <dd>An unformatted sequence of secret key bytes.</dd>
+        </dl>
+        <p>
+          For all existing symmetric algorithms in [[webcrypto]],
+          {{KeyFormat/"raw-secret"}} acts as an alias of {{KeyFormat/"raw"}}.
+        </p>
+        <p>
+          For all existing asymmetric algorithms in [[webcrypto]],
+          {{KeyFormat/"raw-public"}} acts as an alias of {{KeyFormat/"raw"}}.
+        </p>
+        <p>
+          In the {{SubtleCrypto/deriveKey()}} method, in the import key step,
+          {{KeyFormat/"raw-secret"}} must be used as the format instead of {{KeyFormat/"raw"}}.
+        </p>
+      </section>
+      <section id="subtlecrypto-interface-keyusage">
+        <h4>Key Usages</h4>
+        <p>
+          This specification replaces the definition of <a data-cite="webcrypto#dfn-KeyUsage">`KeyUsage`</a>
+          in [[webcrypto]] with the following:
+        </p>
+        <pre class="idl">
+enum KeyUsage { "encrypt", "decrypt", "sign", "verify", "deriveKey", "deriveBits", "wrapKey", "unwrapKey", "encapsulateKey", "encapsulateBits", "decapsulateKey", "decapsulateBits" };
+        </pre>
+        <p>
+          This specification specifies a number of new <a data-cite="webcrypto#dfn-RecognizedKeyUsages">recognized key usage values</a>:
+        </p>
+        <dl data-dfn-for=KeyUsage>
+          <dt><dfn data-idl>encapsulateKey</dfn></dt>
+          <dd>Enable using the key with {{SubtleCrypto.encapsulateKey}}.</dd>
+          <dt><dfn data-idl>encapsulateBits</dfn></dt>
+          <dd>Enable using the key with {{SubtleCrypto.encapsulateBits}}.</dd>
+          <dt><dfn data-idl>decapsulateKey</dfn></dt>
+          <dd>Enable using the key with {{SubtleCrypto.decapsulateKey}}.</dd>
+          <dt><dfn data-idl>decapsulateBits</dfn></dt>
+          <dd>Enable using the key with {{SubtleCrypto.decapsulateBits}}.</dd>
+        </dl>
+      </section>
     </section>
 
     <section id="partial-subtlecrypto-interface-methods">
