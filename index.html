@@ -314,7 +314,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   <section id="abstract" class="introductory"><h2>Abstract</h2>
     <p>
       This specification defines a number of post-quantum secure and
-      modern cryptographic algorithms for the <cite><a data-matched-text="[[[WebCryptoAPI]]]" href="https://www.w3.org/TR/WebCryptoAPI/">Web Cryptography API</a></cite>,
+      modern cryptographic algorithms for the <cite><a class="bibref" data-link-type="biblio" href="#bib-webcrypto" title="Web Cryptography Level 2">Web Cryptography API</a></cite>,
       namely ML-KEM, ML-DSA, SLH-DSA, AES-OCB, ChaCha20-Poly1305,
       SHA-3, cSHAKE, KMAC, and Argon2.
     </p>
@@ -344,8 +344,9 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     
     <p>
       This proposal aims to modernize the set of cryptographic algorithms
-      available in the <cite><a data-matched-text="[[[WebCryptoAPI]]]" href="https://www.w3.org/TR/WebCryptoAPI/">Web Cryptography API</a></cite>, such that web applications can
-      make use of post-quantum secure and performant cryptographic algorithms.
+      available in the <cite><a class="bibref" data-link-type="biblio" href="#bib-webcrypto" title="Web Cryptography Level 2">Web Cryptography API</a></cite>, such that
+      web applications can make use of post-quantum secure and
+      performant cryptographic algorithms.
       To this end, the following cryptographic algorithms are added:
       </p><ul>
         <li><a href="#ml-kem">ML-KEM</a> [<cite><a class="bibref" data-link-type="biblio" href="#bib-fips-203" title="Module-Lattice-Based Key-Encapsulation Mechanism Standard">FIPS-203</a></cite>]</li>
@@ -375,19 +376,19 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   <section id="specification-conventions"><div class="header-wrapper"><h2 id="x2-specification-conventions"><bdi class="secno">2. </bdi>Specification Conventions</h2><a class="self-link" href="#specification-conventions" aria-label="Permalink for Section 2."></a></div>
     
     <p>
-      This specification follows the <a href="https://www.w3.org/TR/WebCryptoAPI/#algorithm-conventions">conventions</a>
-      laid out in Section 18.3 of [<cite><a class="bibref" data-link-type="biblio" href="#bib-webcryptoapi" title="Web Cryptography API">WebCryptoAPI</a></cite>]. None of the algorithms defined here
+      This specification follows the <a href="https://www.w3.org/TR/webcrypto-2/#algorithm-conventions">conventions</a>
+      laid out in Section 18.3 of [<cite><a class="bibref" data-link-type="biblio" href="#bib-webcrypto" title="Web Cryptography Level 2">webcrypto</a></cite>]. None of the algorithms defined here
       are required to be implemented, but if a conforming User Agent implements an
       algorithm, it <em class="rfc2119">MUST</em> implement all of the supported operations specified in this
-      document, and must perform the steps to <a href="https://www.w3.org/TR/WebCryptoAPI/#concept-define-an-algorithm">define an algorithm</a>
-      specified in section 18.4.3 of [<cite><a class="bibref" data-link-type="biblio" href="#bib-webcryptoapi" title="Web Cryptography API">WebCryptoAPI</a></cite>] for each of the supported operations.
+      document, and must perform the steps to <a href="https://www.w3.org/TR/webcrypto-2/#concept-define-an-algorithm">define an algorithm</a>
+      specified in section 18.4.3 of [<cite><a class="bibref" data-link-type="biblio" href="#bib-webcrypto" title="Web Cryptography Level 2">webcrypto</a></cite>] for each of the supported operations.
     </p>
   </section>
 
   <section id="partial-subtlecrypto-interface"><div class="header-wrapper"><h2 id="x3-partial-subtlecrypto-interface"><bdi class="secno">3. </bdi>Partial SubtleCrypto interface</h2><a class="self-link" href="#partial-subtlecrypto-interface" aria-label="Permalink for Section 3."></a></div>
     
     <p>
-      This section extends the <a data-link-type="interface" data-lt="SubtleCrypto" href="https://www.w3.org/TR/webcrypto-2/#dfn-SubtleCrypto"><code>SubtleCrypto</code></a> interface of [<cite><a class="bibref" data-link-type="biblio" href="#bib-webcryptoapi" title="Web Cryptography API">WebCryptoAPI</a></cite>].
+      This section extends the <a data-link-type="interface" data-lt="SubtleCrypto" href="https://www.w3.org/TR/webcrypto-2/#dfn-SubtleCrypto"><code>SubtleCrypto</code></a> interface of [<cite><a class="bibref" data-link-type="biblio" href="#bib-webcrypto" title="Web Cryptography Level 2">webcrypto</a></cite>].
     </p>
     <pre class="idl def" id="webidl-1193351873"><span class="idlHeader"><a class="self-link" href="#webidl-1193351873">WebIDL</a></span><code><span data-idl="" class="idlInterface" id="idl-def-subtlecrypto-partial-1" data-title="SubtleCrypto">[<span class="extAttr"><a data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#SecureContext">SecureContext</a></span>,<span class="extAttr"><a data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed">Exposed</a>=(Window,Worker)</span>]
 partial interface <a data-idl="partial" data-link-type="interface" data-title="SubtleCrypto" class="idlID" data-dfn-for="SubtleCrypto" href="https://www.w3.org/TR/webcrypto-2/#dfn-SubtleCrypto">SubtleCrypto</a> {<span data-idl="" class="idlMethod" id="idl-def-subtlecrypto-encapsulatekey-encapsulationalgorithm-encapsulationkey-sharedkeyalgorithm-extractable-keyusages" data-title="encapsulateKey" data-dfn-for="SubtleCrypto"><span class="idlType">
@@ -428,12 +429,12 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
     <section id="subtlecrypto-interface-datatypes"><div class="header-wrapper"><h3 id="x3-1-data-types"><bdi class="secno">3.1 </bdi>Data Types</h3><a class="self-link" href="#subtlecrypto-interface-datatypes" aria-label="Permalink for Section 3.1"></a></div>
       
       <p>
-        This specification replaces the definition of <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-KeyFormat"><code>KeyFormat</code></a>
-        in [<cite><a class="bibref" data-link-type="biblio" href="#bib-webcryptoapi" title="Web Cryptography API">WebCryptoAPI</a></cite>] with the following:
+        This specification replaces the definition of <a href="https://www.w3.org/TR/webcrypto-2/#dfn-KeyFormat"><code>KeyFormat</code></a>
+        in [<cite><a class="bibref" data-link-type="biblio" href="#bib-webcrypto" title="Web Cryptography Level 2">webcrypto</a></cite>] with the following:
       </p>
       <pre class="idl def" id="webidl-1896181443"><span class="idlHeader"><a class="self-link" href="#webidl-1896181443">WebIDL</a></span><code><span data-idl="" class="idlEnum" id="idl-def-keyformat" data-title="KeyFormat">enum <dfn data-export="" data-dfn-type="enum" id="dom-keyformat" data-idl="enum" data-title="KeyFormat" data-dfn-for="" class="idlID" tabindex="0" aria-haspopup="dialog"><code>KeyFormat</code></dfn> { <span class="idlEnumItem">"<a class="internalDFN" data-link-type="enum-value" href="#dom-keyformat-raw-public" id="ref-for-dom-keyformat-raw-public-1"><code>raw-public</code></a>"</span>, <span class="idlEnumItem">"<a class="internalDFN" data-link-type="enum-value" href="#dom-keyformat-raw-private" id="ref-for-dom-keyformat-raw-private-1"><code>raw-private</code></a>"</span>, <span class="idlEnumItem">"<a class="internalDFN" data-link-type="enum-value" href="#dom-keyformat-raw-seed" id="ref-for-dom-keyformat-raw-seed-1"><code>raw-seed</code></a>"</span>, <span class="idlEnumItem">"<a class="internalDFN" data-link-type="enum-value" href="#dom-keyformat-raw-secret" id="ref-for-dom-keyformat-raw-secret-1"><code>raw-secret</code></a>"</span>, <span class="idlEnumItem">"<dfn data-export="" data-dfn-type="enum-value" id="dom-keyformat-raw" data-idl="enum-value" data-title="raw" data-dfn-for="KeyFormat" tabindex="0" aria-haspopup="dialog"><code>raw</code></dfn>"</span>, <span class="idlEnumItem">"<dfn data-export="" data-dfn-type="enum-value" id="dom-keyformat-spki" data-idl="enum-value" data-title="spki" data-dfn-for="KeyFormat" tabindex="0" aria-haspopup="dialog"><code>spki</code></dfn>"</span>, <span class="idlEnumItem">"<dfn data-export="" data-dfn-type="enum-value" id="dom-keyformat-pkcs8" data-idl="enum-value" data-title="pkcs8" data-dfn-for="KeyFormat" tabindex="0" aria-haspopup="dialog"><code>pkcs8</code></dfn>"</span>, <span class="idlEnumItem">"<dfn data-export="" data-dfn-type="enum-value" id="dom-keyformat-jwk" data-idl="enum-value" data-title="jwk" data-dfn-for="KeyFormat" tabindex="0" aria-haspopup="dialog"><code>jwk</code></dfn>"</span> };</span></code></pre>
       <p>
-        This specification specifies a number of new <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-RecognizedKeyFormats">recognized key format values</a>:
+        This specification specifies a number of new <a href="https://www.w3.org/TR/webcrypto-2/#dfn-RecognizedKeyFormats">recognized key format values</a>:
       </p>
       <dl data-dfn-for="KeyFormat">
         <dt><dfn data-idl="enum-value" data-export="" data-dfn-type="enum-value" id="dom-keyformat-raw-public" data-title="raw-public" data-dfn-for="KeyFormat" tabindex="0" aria-haspopup="dialog"><code>raw-public</code></dfn></dt>
@@ -446,11 +447,11 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
         <dd>An unformatted sequence of secret key bytes.</dd>
       </dl>
       <p>
-        For all existing symmetric algorithms in [<cite><a class="bibref" data-link-type="biblio" href="#bib-webcryptoapi" title="Web Cryptography API">WebCryptoAPI</a></cite>],
+        For all existing symmetric algorithms in [<cite><a class="bibref" data-link-type="biblio" href="#bib-webcrypto" title="Web Cryptography Level 2">webcrypto</a></cite>],
         "<a data-link-type="idl" href="#dom-keyformat-raw-secret" class="internalDFN" id="ref-for-dom-keyformat-raw-secret-2"><code>raw-secret</code></a>" acts as an alias of "<a data-link-type="idl" href="#dom-keyformat-raw" class="internalDFN" id="ref-for-dom-keyformat-raw-1"><code>raw</code></a>".
       </p>
       <p>
-        For all existing asymmetric algorithms in [<cite><a class="bibref" data-link-type="biblio" href="#bib-webcryptoapi" title="Web Cryptography API">WebCryptoAPI</a></cite>],
+        For all existing asymmetric algorithms in [<cite><a class="bibref" data-link-type="biblio" href="#bib-webcrypto" title="Web Cryptography Level 2">webcrypto</a></cite>],
         "<a data-link-type="idl" href="#dom-keyformat-raw-public" class="internalDFN" id="ref-for-dom-keyformat-raw-public-2"><code>raw-public</code></a>" acts as an alias of "<a data-link-type="idl" href="#dom-keyformat-raw" class="internalDFN" id="ref-for-dom-keyformat-raw-2"><code>raw</code></a>".
       </p>
       <p>
@@ -481,7 +482,7 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
           <li>
             <p>
               Let <var>normalizedEncapsulationAlgorithm</var> be the result of
-              <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-normalize-an-algorithm">normalizing an algorithm</a>, with
+              <a href="https://www.w3.org/TR/webcrypto-2/#dfn-normalize-an-algorithm">normalizing an algorithm</a>, with
               <code>alg</code> set to <var>encapsulationAlgorithm</var> and <code>op</code> set to
               "<code>encapsulate</code>".
             </p>
@@ -495,7 +496,7 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
           <li>
             <p>
               Let <var>normalizedSharedKeyAlgorithm</var> be the result of
-              <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-normalize-an-algorithm">normalizing an algorithm</a>, with
+              <a href="https://www.w3.org/TR/webcrypto-2/#dfn-normalize-an-algorithm">normalizing an algorithm</a>, with
               <code>alg</code> set to <var>sharedKeyAlgorithm</var> and <code>op</code> set to
               "<code>importKey</code>".
             </p>
@@ -525,10 +526,10 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
             <p>
               If the following steps or referenced procedures say to
               <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an error,
-              <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-global-task">queue a global task</a> on the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-crypto-task-source">crypto task source</a>,
+              <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-global-task">queue a global task</a> on the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-crypto-task-source">crypto task source</a>,
               given <var>realm</var>'s global object,
               to reject <var>promise</var> with the returned error;
-              and then <a href="https://www.w3.org/TR/WebCryptoAPI/#terminate-the-algorithm">terminate the algorithm</a>.
+              and then <a href="https://www.w3.org/TR/webcrypto-2/#terminate-the-algorithm">terminate the algorithm</a>.
             </p>
           </li>
           <li>
@@ -536,13 +537,13 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
               If the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-algorithm-name"><code>name</code></a> member of
               <var>normalizedEncapsulationAlgorithm</var> is not equal to the
               <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-keyalgorithm-name"><code>name</code></a> attribute of the
-              <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-algorithm"><code>[[algorithm]]</code></a> internal slot of
+              <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-algorithm"><code>[[algorithm]]</code></a> internal slot of
               <var>encapsulationKey</var> then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an <a data-link-type="exception" data-lt="InvalidAccessError" href="https://webidl.spec.whatwg.org/#invalidaccesserror"><code>InvalidAccessError</code></a>.
             </p>
           </li>
           <li>
             <p>
-              If the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-usages"><code>[[usages]]</code></a> internal slot of
+              If the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-usages"><code>[[usages]]</code></a> internal slot of
               <var>encapsulationKey</var> does not contain an entry that is "<code>encapsulateKey</code>",
               then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an <a data-link-type="exception" data-lt="InvalidAccessError" href="https://webidl.spec.whatwg.org/#invalidaccesserror"><code>InvalidAccessError</code></a>.
             </p>
@@ -550,7 +551,7 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
           <li>
             <p>
               Let <var>encapsulatedBits</var> be the result of performing the encapsulate operation specified by
-              the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-algorithm"><code>[[algorithm]]</code></a> internal slot of
+              the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-algorithm"><code>[[algorithm]]</code></a> internal slot of
               <var>encapsulationKey</var> using <var>encapsulationKey</var>.
             </p>
           </li>
@@ -574,7 +575,7 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
           </li>
           <li>
             <p>
-              <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-global-task">Queue a global task</a> on the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-crypto-task-source">crypto task source</a>,
+              <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-global-task">Queue a global task</a> on the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-crypto-task-source">crypto task source</a>,
               given <var>realm</var>'s global object, to perform the remaining steps.
             </p>
           </li>
@@ -611,7 +612,7 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
           <li>
             <p>
               Let <var>normalizedEncapsulationAlgorithm</var> be the result of
-              <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-normalize-an-algorithm">normalizing an algorithm</a>, with
+              <a href="https://www.w3.org/TR/webcrypto-2/#dfn-normalize-an-algorithm">normalizing an algorithm</a>, with
               <code>alg</code> set to <var>encapsulationAlgorithm</var> and <code>op</code> set to
               "<code>encapsulate</code>".
             </p>
@@ -641,10 +642,10 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
             <p>
               If the following steps or referenced procedures say to
               <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an error,
-              <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-global-task">queue a global task</a> on the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-crypto-task-source">crypto task source</a>,
+              <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-global-task">queue a global task</a> on the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-crypto-task-source">crypto task source</a>,
               given <var>realm</var>'s global object,
               to reject <var>promise</var> with the returned error;
-              and then <a href="https://www.w3.org/TR/WebCryptoAPI/#terminate-the-algorithm">terminate the algorithm</a>.
+              and then <a href="https://www.w3.org/TR/webcrypto-2/#terminate-the-algorithm">terminate the algorithm</a>.
             </p>
           </li>
           <li>
@@ -652,13 +653,13 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
               If the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-algorithm-name"><code>name</code></a> member of
               <var>normalizedEncapsulationAlgorithm</var> is not equal to the
               <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-keyalgorithm-name"><code>name</code></a> attribute of the
-              <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-algorithm"><code>[[algorithm]]</code></a> internal slot of
+              <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-algorithm"><code>[[algorithm]]</code></a> internal slot of
               <var>encapsulationKey</var> then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an <a data-link-type="exception" data-lt="InvalidAccessError" href="https://webidl.spec.whatwg.org/#invalidaccesserror"><code>InvalidAccessError</code></a>.
             </p>
           </li>
           <li>
             <p>
-              If the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-usages"><code>[[usages]]</code></a> internal slot of
+              If the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-usages"><code>[[usages]]</code></a> internal slot of
               <var>encapsulationKey</var> does not contain an entry that is "<code>encapsulateBits</code>",
               then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an <a data-link-type="exception" data-lt="InvalidAccessError" href="https://webidl.spec.whatwg.org/#invalidaccesserror"><code>InvalidAccessError</code></a>.
             </p>
@@ -666,13 +667,13 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
           <li>
             <p>
               Let <var>encapsulatedBits</var> be the result of performing the encapsulate operation specified by
-              the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-algorithm"><code>[[algorithm]]</code></a> internal slot of
+              the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-algorithm"><code>[[algorithm]]</code></a> internal slot of
               <var>encapsulationKey</var> using <var>encapsulationKey</var>.
             </p>
           </li>
           <li>
             <p>
-              <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-global-task">Queue a global task</a> on the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-crypto-task-source">crypto task source</a>,
+              <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-global-task">Queue a global task</a> on the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-crypto-task-source">crypto task source</a>,
               given <var>realm</var>'s global object, to perform the remaining steps.
             </p>
           </li>
@@ -716,7 +717,7 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
           <li>
             <p>
               Let <var>normalizedDecapsulationAlgorithm</var> be the result of
-              <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-normalize-an-algorithm">normalizing an algorithm</a>, with
+              <a href="https://www.w3.org/TR/webcrypto-2/#dfn-normalize-an-algorithm">normalizing an algorithm</a>, with
               <code>alg</code> set to <var>decapsulationAlgorithm</var> and <code>op</code> set to
               "<code>decapsulate</code>".
             </p>
@@ -730,7 +731,7 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
           <li>
             <p>
               Let <var>normalizedSharedKeyAlgorithm</var> be the result of
-              <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-normalize-an-algorithm">normalizing an algorithm</a>, with
+              <a href="https://www.w3.org/TR/webcrypto-2/#dfn-normalize-an-algorithm">normalizing an algorithm</a>, with
               <code>alg</code> set to <var>sharedKeyAlgorithm</var> and <code>op</code> set to
               "<code>importKey</code>".
             </p>
@@ -760,10 +761,10 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
             <p>
               If the following steps or referenced procedures say to
               <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an error,
-              <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-global-task">queue a global task</a> on the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-crypto-task-source">crypto task source</a>,
+              <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-global-task">queue a global task</a> on the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-crypto-task-source">crypto task source</a>,
               given <var>realm</var>'s global object,
               to reject <var>promise</var> with the returned error;
-              and then <a href="https://www.w3.org/TR/WebCryptoAPI/#terminate-the-algorithm">terminate the algorithm</a>.
+              and then <a href="https://www.w3.org/TR/webcrypto-2/#terminate-the-algorithm">terminate the algorithm</a>.
             </p>
           </li>
           <li>
@@ -771,13 +772,13 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
               If the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-algorithm-name"><code>name</code></a> member of
               <var>normalizedDecapsulationAlgorithm</var> is not equal to the
               <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-keyalgorithm-name"><code>name</code></a> attribute of the
-              <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-algorithm"><code>[[algorithm]]</code></a> internal slot of
+              <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-algorithm"><code>[[algorithm]]</code></a> internal slot of
               <var>decapsulationKey</var> then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an <a data-link-type="exception" data-lt="InvalidAccessError" href="https://webidl.spec.whatwg.org/#invalidaccesserror"><code>InvalidAccessError</code></a>.
             </p>
           </li>
           <li>
             <p>
-              If the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-usages"><code>[[usages]]</code></a> internal slot of
+              If the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-usages"><code>[[usages]]</code></a> internal slot of
               <var>decapsulationKey</var> does not contain an entry that is "<code>decapsulateKey</code>",
               then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an <a data-link-type="exception" data-lt="InvalidAccessError" href="https://webidl.spec.whatwg.org/#invalidaccesserror"><code>InvalidAccessError</code></a>.
             </p>
@@ -785,7 +786,7 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
           <li>
             <p>
               Let <var>decapsulatedBits</var> be the result of performing the decapsulate operation specified by
-              the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-algorithm"><code>[[algorithm]]</code></a> internal slot of <var>decapsulationKey</var> using <var>decapsulationKey</var> and <var>ciphertext</var>.
+              the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-algorithm"><code>[[algorithm]]</code></a> internal slot of <var>decapsulationKey</var> using <var>decapsulationKey</var> and <var>ciphertext</var>.
             </p>
           </li>
           <li>
@@ -799,7 +800,7 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
           </li>
           <li>
             <p>
-              <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-global-task">Queue a global task</a> on the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-crypto-task-source">crypto task source</a>,
+              <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-global-task">Queue a global task</a> on the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-crypto-task-source">crypto task source</a>,
               given <var>realm</var>'s global object, to perform the remaining steps.
             </p>
           </li>
@@ -841,7 +842,7 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
           <li>
             <p>
               Let <var>normalizedDecapsulationAlgorithm</var> be the result of
-              <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-normalize-an-algorithm">normalizing an algorithm</a>, with
+              <a href="https://www.w3.org/TR/webcrypto-2/#dfn-normalize-an-algorithm">normalizing an algorithm</a>, with
               <code>alg</code> set to <var>decapsulationAlgorithm</var> and <code>op</code> set to
               "<code>decapsulate</code>".
             </p>
@@ -871,10 +872,10 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
             <p>
               If the following steps or referenced procedures say to
               <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an error,
-              <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-global-task">queue a global task</a> on the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-crypto-task-source">crypto task source</a>,
+              <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-global-task">queue a global task</a> on the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-crypto-task-source">crypto task source</a>,
               given <var>realm</var>'s global object,
               to reject <var>promise</var> with the returned error;
-              and then <a href="https://www.w3.org/TR/WebCryptoAPI/#terminate-the-algorithm">terminate the algorithm</a>.
+              and then <a href="https://www.w3.org/TR/webcrypto-2/#terminate-the-algorithm">terminate the algorithm</a>.
             </p>
           </li>
           <li>
@@ -882,13 +883,13 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
               If the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-algorithm-name"><code>name</code></a> member of
               <var>normalizedDecapsulationAlgorithm</var> is not equal to the
               <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-keyalgorithm-name"><code>name</code></a> attribute of the
-              <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-algorithm"><code>[[algorithm]]</code></a> internal slot of
+              <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-algorithm"><code>[[algorithm]]</code></a> internal slot of
               <var>decapsulationKey</var> then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an <a data-link-type="exception" data-lt="InvalidAccessError" href="https://webidl.spec.whatwg.org/#invalidaccesserror"><code>InvalidAccessError</code></a>.
             </p>
           </li>
           <li>
             <p>
-              If the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-usages"><code>[[usages]]</code></a> internal slot of
+              If the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-usages"><code>[[usages]]</code></a> internal slot of
               <var>decapsulationKey</var> does not contain an entry that is "<code>decapsulateBits</code>",
               then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an <a data-link-type="exception" data-lt="InvalidAccessError" href="https://webidl.spec.whatwg.org/#invalidaccesserror"><code>InvalidAccessError</code></a>.
             </p>
@@ -896,12 +897,12 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
           <li>
             <p>
               Let <var>decapsulatedBits</var> be the result of performing the decapsulate operation specified by
-              the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-algorithm"><code>[[algorithm]]</code></a> internal slot of <var>decapsulationKey</var> using <var>decapsulationKey</var> and <var>ciphertext</var>.
+              the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-algorithm"><code>[[algorithm]]</code></a> internal slot of <var>decapsulationKey</var> using <var>decapsulationKey</var> and <var>ciphertext</var>.
             </p>
           </li>
           <li>
             <p>
-              <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-global-task">Queue a global task</a> on the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-crypto-task-source">crypto task source</a>,
+              <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-global-task">Queue a global task</a> on the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-crypto-task-source">crypto task source</a>,
               given <var>realm</var>'s global object, to perform the remaining steps.
             </p>
           </li>
@@ -1055,7 +1056,7 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
         <li>
           <p>
             Let <var>normalizedAlgorithm</var> be the result of
-            <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-normalize-an-algorithm">normalizing an algorithm</a>, with
+            <a href="https://www.w3.org/TR/webcrypto-2/#dfn-normalize-an-algorithm">normalizing an algorithm</a>, with
             <code>alg</code> set to <var>alg</var> and <code>op</code> set to <var>op</var>.
           </p>
         </li>
@@ -1212,15 +1213,15 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
     <section id="ml-kem-registration"><div class="header-wrapper"><h3 id="x6-2-registration"><bdi class="secno">6.2 </bdi>Registration</h3><a class="self-link" href="#ml-kem-registration" aria-label="Permalink for Section 6.2"></a></div>
       
       <p>
-        The <a href="https://www.w3.org/TR/WebCryptoAPI/#recognized-algorithm-name">recognized algorithm names</a> for
+        The <a href="https://www.w3.org/TR/webcrypto-2/#recognized-algorithm-name">recognized algorithm names</a> for
         this algorithm are "<code>ML-KEM-512</code>", "<code>ML-KEM-768</code>" and "<code>ML-KEM-1024</code>".
       </p>
       <table>
         <thead>
           <tr>
-            <th><a href="https://www.w3.org/TR/WebCryptoAPI/#supported-operations">Operation</a></th>
-            <th><a href="https://www.w3.org/TR/WebCryptoAPI/#algorithm-specific-params">Parameters</a></th>
-            <th><a href="https://www.w3.org/TR/WebCryptoAPI/#algorithm-result">Result</a></th>
+            <th><a href="https://www.w3.org/TR/webcrypto-2/#supported-operations">Operation</a></th>
+            <th><a href="https://www.w3.org/TR/webcrypto-2/#algorithm-specific-params">Parameters</a></th>
+            <th><a href="https://www.w3.org/TR/webcrypto-2/#algorithm-result">Result</a></th>
           </tr>
         </thead>
         <tbody>
@@ -1260,7 +1261,7 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
           <ol>
             <li>
               <p>
-                If the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-type"><code>[[type]]</code></a> internal slot of
+                If the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-type"><code>[[type]]</code></a> internal slot of
                 <var>key</var> is not "<a data-link-type="enum-value" href="https://www.w3.org/TR/webcrypto-2/#dom-keytype-public"><code>public</code></a>", then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an <a data-link-type="exception" data-lt="InvalidAccessError" href="https://webidl.spec.whatwg.org/#invalidaccesserror"><code>InvalidAccessError</code></a>.
               </p>
             </li>
@@ -1269,7 +1270,7 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
                 Perform the encapsulation key check described in
                 Section 7.2 of [<cite><a class="bibref" data-link-type="biblio" href="#bib-fips-203" title="Module-Lattice-Based Key-Encapsulation Mechanism Standard">FIPS-203</a></cite>] with the parameter set
                 indicated by the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-algorithm-name"><code>name</code></a> member of <var>algorithm</var>,
-                using the key represented by the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-handle"><code>[[handle]]</code></a>
+                using the key represented by the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-handle"><code>[[handle]]</code></a>
                 internal slot of <var>key</var> as the <var class="overline">ek</var> input parameter.
               </p>
               <div class="note" role="note" id="issue-container-generatedID-0"><div role="heading" class="note-title marker" id="h-note-0" aria-level="4"><span>Note</span></div><div class="">
@@ -1290,7 +1291,7 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
                 from performing the ML-KEM.Encaps function described in
                 Section 7.2 of [<cite><a class="bibref" data-link-type="biblio" href="#bib-fips-203" title="Module-Lattice-Based Key-Encapsulation Mechanism Standard">FIPS-203</a></cite>] with the parameter set
                 indicated by the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-algorithm-name"><code>name</code></a> member of <var>algorithm</var>,
-                using the key represented by the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-handle"><code>[[handle]]</code></a>
+                using the key represented by the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-handle"><code>[[handle]]</code></a>
                 internal slot of <var>key</var> as the <var>ek</var> input parameter.
               </p>
             </li>
@@ -1331,7 +1332,7 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
           <ol>
             <li>
               <p>
-                If the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-type"><code>[[type]]</code></a> internal slot of
+                If the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-type"><code>[[type]]</code></a> internal slot of
                 <var>key</var> is not "<a data-link-type="enum-value" href="https://www.w3.org/TR/webcrypto-2/#dom-keytype-private"><code>private</code></a>", then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an <a data-link-type="exception" data-lt="InvalidAccessError" href="https://webidl.spec.whatwg.org/#invalidaccesserror"><code>InvalidAccessError</code></a>.
               </p>
             </li>
@@ -1340,7 +1341,7 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
                 Perform the decapsulation input check described in
                 Section 7.3 of [<cite><a class="bibref" data-link-type="biblio" href="#bib-fips-203" title="Module-Lattice-Based Key-Encapsulation Mechanism Standard">FIPS-203</a></cite>] with the parameter set
                 indicated by the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-algorithm-name"><code>name</code></a> member of <var>algorithm</var>,
-                using the key represented by the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-handle"><code>[[handle]]</code></a>
+                using the key represented by the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-handle"><code>[[handle]]</code></a>
                 internal slot of <var>key</var> as the <var class="overline">dk</var> input parameter, and
                 <var>ciphertext</var> as the <var class="overline">c</var> input parameter.
               </p>
@@ -1363,7 +1364,7 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
                 from performing the ML-KEM.Decaps function described in
                 Section 7.3 of [<cite><a class="bibref" data-link-type="biblio" href="#bib-fips-203" title="Module-Lattice-Based Key-Encapsulation Mechanism Standard">FIPS-203</a></cite>] with the parameter set
                 indicated by the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-algorithm-name"><code>name</code></a> member of <var>algorithm</var>,
-                using the key represented by the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-handle"><code>[[handle]]</code></a>
+                using the key represented by the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-handle"><code>[[handle]]</code></a>
                 internal slot of <var>key</var> as the <var>dk</var> input parameter, and
                 <var>ciphertext</var> as the <var>c</var> input parameter.
               </p>
@@ -1429,27 +1430,27 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
             </li>
             <li>
               <p>
-                Set the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-type"><code>[[type]]</code></a> internal slot of
+                Set the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-type"><code>[[type]]</code></a> internal slot of
                 <var>publicKey</var> to "<code>public</code>".
               </p>
             </li>
             <li>
               <p>
-                Set the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-algorithm"><code>[[algorithm]]</code></a> internal
+                Set the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-algorithm"><code>[[algorithm]]</code></a> internal
                 slot of <var>publicKey</var> to <var>algorithm</var>.
               </p>
             </li>
             <li>
               <p>
-                Set the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-extractable"><code>[[extractable]]</code></a> internal
+                Set the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-extractable"><code>[[extractable]]</code></a> internal
                 slot of <var>publicKey</var> to true.
               </p>
             </li>
             <li>
               <p>
-                Set the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-usages"><code>[[usages]]</code></a> internal slot of
+                Set the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-usages"><code>[[usages]]</code></a> internal slot of
                 <var>publicKey</var> to be the
-                <a href="https://www.w3.org/TR/WebCryptoAPI/#concept-usage-intersection">usage intersection</a> of
+                <a href="https://www.w3.org/TR/webcrypto-2/#concept-usage-intersection">usage intersection</a> of
                 <var>usages</var> and <code>[ "encapsulateKey", "encapsulateBits" ]</code>.
               </p>
             </li>
@@ -1461,27 +1462,27 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
             </li>
             <li>
               <p>
-                Set the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-type"><code>[[type]]</code></a> internal slot of
+                Set the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-type"><code>[[type]]</code></a> internal slot of
                 <var>privateKey</var> to "<a data-link-type="enum-value" href="https://www.w3.org/TR/webcrypto-2/#dom-keytype-private"><code>private</code></a>".
               </p>
             </li>
             <li>
               <p>
-                Set the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-algorithm"><code>[[algorithm]]</code></a> internal
+                Set the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-algorithm"><code>[[algorithm]]</code></a> internal
                 slot of <var>privateKey</var> to <var>algorithm</var>.
               </p>
             </li>
             <li>
               <p>
-                Set the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-extractable"><code>[[extractable]]</code></a> internal
+                Set the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-extractable"><code>[[extractable]]</code></a> internal
                 slot of <var>privateKey</var> to <var>extractable</var>.
               </p>
             </li>
             <li>
               <p>
-                Set the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-usages"><code>[[usages]]</code></a> internal slot of
+                Set the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-usages"><code>[[usages]]</code></a> internal slot of
                 <var>privateKey</var> to be the
-                <a href="https://www.w3.org/TR/WebCryptoAPI/#concept-usage-intersection">usage intersection</a> of
+                <a href="https://www.w3.org/TR/webcrypto-2/#concept-usage-intersection">usage intersection</a> of
                 <var>usages</var> and <code>[ "decapsulateKey", "decapsulateBits" ]</code>.
               </p>
             </li>
@@ -1539,7 +1540,7 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
                     </li>
                     <li>
                       <p>
-                        Set the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-type"><code>[[type]]</code></a> internal slot
+                        Set the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-type"><code>[[type]]</code></a> internal slot
                         of <var>key</var> to "<a data-link-type="enum-value" href="https://www.w3.org/TR/webcrypto-2/#dom-keytype-public"><code>public</code></a>"
                       </p>
                     </li>
@@ -1557,7 +1558,7 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
                     </li>
                     <li>
                       <p>
-                        Set the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-algorithm"><code>[[algorithm]]</code></a>
+                        Set the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-algorithm"><code>[[algorithm]]</code></a>
                         internal slot of <var>key</var> to <var>algorithm</var>.
                       </p>
                     </li>
@@ -1604,7 +1605,7 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
                     </li>
                     <li>
                       <p>
-                        Set the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-type"><code>[[type]]</code></a> internal slot
+                        Set the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-type"><code>[[type]]</code></a> internal slot
                         of <var>key</var> to "<a data-link-type="enum-value" href="https://www.w3.org/TR/webcrypto-2/#dom-keytype-private"><code>private</code></a>"
                       </p>
                     </li>
@@ -1622,7 +1623,7 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
                     </li>
                     <li>
                       <p>
-                        Set the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-algorithm"><code>[[algorithm]]</code></a>
+                        Set the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-algorithm"><code>[[algorithm]]</code></a>
                         internal slot of <var>key</var> to <var>algorithm</var>.
                       </p>
                     </li>
@@ -1727,7 +1728,7 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
                             </li>
                             <li>
                               <p>
-                                Set the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-type"><code>[[type]]</code></a>
+                                Set the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-type"><code>[[type]]</code></a>
                                 internal slot of <var>Key</var> to "<a data-link-type="enum-value" href="https://www.w3.org/TR/webcrypto-2/#dom-keytype-private"><code>private</code></a>".
                               </p>
                             </li>
@@ -1763,7 +1764,7 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
                             </li>
                             <li>
                               <p>
-                                Set the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-type"><code>[[type]]</code></a>
+                                Set the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-type"><code>[[type]]</code></a>
                                 internal slot of <var>Key</var> to "<a data-link-type="enum-value" href="https://www.w3.org/TR/webcrypto-2/#dom-keytype-public"><code>public</code></a>".
                               </p>
                             </li>
@@ -1784,7 +1785,7 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
                     </li>
                     <li>
                       <p>
-                        Set the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-algorithm"><code>[[algorithm]]</code></a>
+                        Set the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-algorithm"><code>[[algorithm]]</code></a>
                         internal slot of <var>key</var> to <var>algorithm</var>.
                       </p>
                     </li>
@@ -1809,7 +1810,7 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
           <ol>
             <li>
               <p>
-                If the underlying cryptographic key material represented by the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-handle"><code>[[handle]]</code></a> internal slot of <var>key</var>
+                If the underlying cryptographic key material represented by the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-handle"><code>[[handle]]</code></a> internal slot of <var>key</var>
                 cannot be accessed, then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an <a data-link-type="exception" data-lt="OperationError" href="https://webidl.spec.whatwg.org/#operationerror"><code>OperationError</code></a>.
               </p>
             </li>
@@ -1820,14 +1821,14 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
                   <ol>
                     <li>
                       <p>
-                        If the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-type"><code>[[type]]</code></a> internal slot
+                        If the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-type"><code>[[type]]</code></a> internal slot
                         of <var>key</var> is not "<code>public</code>", then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an <a data-link-type="exception" data-lt="InvalidAccessError" href="https://webidl.spec.whatwg.org/#invalidaccesserror"><code>InvalidAccessError</code></a>.
                       </p>
                     </li>
                     <li>
                       <p>
                         Let <var>data</var> be a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#byte-sequence">byte sequence</a> containing
-                        the raw octets of the key represented by the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-handle"><code>[[handle]]</code></a> internal slot of
+                        the raw octets of the key represented by the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-handle"><code>[[handle]]</code></a> internal slot of
                         <var>key</var>.
                       </p>
                     </li>
@@ -1843,14 +1844,14 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
                   <ol>
                     <li>
                       <p>
-                        If the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-type"><code>[[type]]</code></a> internal slot
+                        If the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-type"><code>[[type]]</code></a> internal slot
                         of <var>key</var> is not "<code>private</code>", then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an <a data-link-type="exception" data-lt="InvalidAccessError" href="https://webidl.spec.whatwg.org/#invalidaccesserror"><code>InvalidAccessError</code></a>.
                       </p>
                     </li>
                     <li>
                       <p>
                         Let <var>data</var> be a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#byte-sequence">byte sequence</a> containing the concatenation of the <var>d</var> and <var>z</var>
-                        seed variables of the key represented by the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-handle"><code>[[handle]]</code></a>
+                        seed variables of the key represented by the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-handle"><code>[[handle]]</code></a>
                         internal slot of <var>key</var>.
                       </p>
                       <div class="note" role="note" id="issue-container-generatedID-3"><div role="heading" class="note-title marker" id="h-note-3" aria-level="4"><span>Note</span></div><div class="">
@@ -1899,20 +1900,20 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
                       <p>
                         Set the <a data-link-type="idl" href="#dom-jsonwebkey-pub" class="internalDFN" id="ref-for-dom-jsonwebkey-pub-5"><code>pub</code></a> attribute of <var>jwk</var>
                         to the base64url encoded public key corresponding
-                        to the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-handle"><code>[[handle]]</code></a>
+                        to the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-handle"><code>[[handle]]</code></a>
                         internal slot of <var>key</var>.
                       </p>
                     </li>
                     <li>
                       <dl class="switch">
                         <dt>
-                          If the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-type"><code>[[type]]</code></a> internal slot
+                          If the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-type"><code>[[type]]</code></a> internal slot
                           of <var>key</var> is "<a data-link-type="enum-value" href="https://www.w3.org/TR/webcrypto-2/#dom-keytype-private"><code>private</code></a>":
                         </dt>
                         <dd>
                           Set the <a data-link-type="idl" href="#dom-jsonwebkey-priv" class="internalDFN" id="ref-for-dom-jsonwebkey-priv-7"><code>priv</code></a> attribute of <var>jwk</var>
                           to the base64url encoded seed represented by
-                          the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-handle"><code>[[handle]]</code></a>
+                          the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-handle"><code>[[handle]]</code></a>
                           internal slot of <var>key</var>.
                         </dd>
                       </dl>
@@ -1924,7 +1925,7 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
                     </li>
                     <li>
                       <p>
-                        Set the <code>ext</code> attribute of <var>jwk</var> to the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-extractable"><code>[[extractable]]</code></a> internal slot
+                        Set the <code>ext</code> attribute of <var>jwk</var> to the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-extractable"><code>[[extractable]]</code></a> internal slot
                         of <var>key</var>.
                       </p>
                     </li>
@@ -1967,15 +1968,15 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
     <section id="ml-dsa-registration"><div class="header-wrapper"><h3 id="x7-2-registration"><bdi class="secno">7.2 </bdi>Registration</h3><a class="self-link" href="#ml-dsa-registration" aria-label="Permalink for Section 7.2"></a></div>
       
       <p>
-        The <a href="https://www.w3.org/TR/WebCryptoAPI/#recognized-algorithm-name">recognized algorithm names</a> for
+        The <a href="https://www.w3.org/TR/webcrypto-2/#recognized-algorithm-name">recognized algorithm names</a> for
         this algorithm are "<code>ML-DSA-44</code>", "<code>ML-DSA-65</code>" and "<code>ML-DSA-87</code>".
       </p>
       <table>
         <thead>
           <tr>
-            <th><a href="https://www.w3.org/TR/WebCryptoAPI/#supported-operations">Operation</a></th>
-            <th><a href="https://www.w3.org/TR/WebCryptoAPI/#algorithm-specific-params">Parameters</a></th>
-            <th><a href="https://www.w3.org/TR/WebCryptoAPI/#algorithm-result">Result</a></th>
+            <th><a href="https://www.w3.org/TR/webcrypto-2/#supported-operations">Operation</a></th>
+            <th><a href="https://www.w3.org/TR/webcrypto-2/#algorithm-specific-params">Parameters</a></th>
+            <th><a href="https://www.w3.org/TR/webcrypto-2/#algorithm-result">Result</a></th>
           </tr>
         </thead>
         <tbody>
@@ -2024,7 +2025,7 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
           <ol>
             <li>
               <p>
-                If the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-type"><code>[[type]]</code></a> internal slot of
+                If the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-type"><code>[[type]]</code></a> internal slot of
                 <var>key</var> is not "<a data-link-type="enum-value" href="https://www.w3.org/TR/webcrypto-2/#dom-keytype-private"><code>private</code></a>", then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an <a data-link-type="exception" data-lt="InvalidAccessError" href="https://webidl.spec.whatwg.org/#invalidaccesserror"><code>InvalidAccessError</code></a>.
               </p>
             </li>
@@ -2062,7 +2063,7 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
           <ol>
             <li>
               <p>
-                If the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-type"><code>[[type]]</code></a> internal slot of
+                If the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-type"><code>[[type]]</code></a> internal slot of
                 <var>key</var> is not "<a data-link-type="enum-value" href="https://www.w3.org/TR/webcrypto-2/#dom-keytype-public"><code>public</code></a>", then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an <a data-link-type="exception" data-lt="InvalidAccessError" href="https://webidl.spec.whatwg.org/#invalidaccesserror"><code>InvalidAccessError</code></a>.
               </p>
             </li>
@@ -2146,26 +2147,26 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
             </li>
             <li>
               <p>
-                Set the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-type"><code>[[type]]</code></a> internal slot of
+                Set the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-type"><code>[[type]]</code></a> internal slot of
                 <var>publicKey</var> to "<code>public</code>".
               </p>
             </li>
             <li>
               <p>
-                Set the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-algorithm"><code>[[algorithm]]</code></a> internal
+                Set the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-algorithm"><code>[[algorithm]]</code></a> internal
                 slot of <var>publicKey</var> to <var>algorithm</var>.
               </p>
             </li>
             <li>
               <p>
-                Set the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-extractable"><code>[[extractable]]</code></a> internal
+                Set the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-extractable"><code>[[extractable]]</code></a> internal
                 slot of <var>publicKey</var> to true.
               </p>
             </li>
             <li>
               <p>
-                Set the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-usages"><code>[[usages]]</code></a> internal slot of
-                <var>publicKey</var> to be the <a href="https://www.w3.org/TR/WebCryptoAPI/#concept-usage-intersection">usage intersection</a>
+                Set the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-usages"><code>[[usages]]</code></a> internal slot of
+                <var>publicKey</var> to be the <a href="https://www.w3.org/TR/webcrypto-2/#concept-usage-intersection">usage intersection</a>
                 of <var>usages</var> and <code>[ "verify" ]</code>.
               </p>
             </li>
@@ -2177,26 +2178,26 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
             </li>
             <li>
               <p>
-                Set the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-type"><code>[[type]]</code></a> internal slot of
+                Set the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-type"><code>[[type]]</code></a> internal slot of
                 <var>privateKey</var> to "<a data-link-type="enum-value" href="https://www.w3.org/TR/webcrypto-2/#dom-keytype-private"><code>private</code></a>".
               </p>
             </li>
             <li>
               <p>
-                Set the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-algorithm"><code>[[algorithm]]</code></a> internal
+                Set the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-algorithm"><code>[[algorithm]]</code></a> internal
                 slot of <var>privateKey</var> to <var>algorithm</var>.
               </p>
             </li>
             <li>
               <p>
-                Set the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-extractable"><code>[[extractable]]</code></a> internal
+                Set the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-extractable"><code>[[extractable]]</code></a> internal
                 slot of <var>privateKey</var> to <var>extractable</var>.
               </p>
             </li>
             <li>
               <p>
-                Set the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-usages"><code>[[usages]]</code></a> internal slot of
-                <var>privateKey</var> to be the <a href="https://www.w3.org/TR/WebCryptoAPI/#concept-usage-intersection">usage intersection</a>
+                Set the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-usages"><code>[[usages]]</code></a> internal slot of
+                <var>privateKey</var> to be the <a href="https://www.w3.org/TR/webcrypto-2/#concept-usage-intersection">usage intersection</a>
                 of <var>usages</var> and <code>[ "sign" ]</code>.
               </p>
             </li>
@@ -2265,13 +2266,13 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
                     </li>
                     <li>
                       <p>
-                        Set the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-type"><code>[[type]]</code></a> internal slot
+                        Set the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-type"><code>[[type]]</code></a> internal slot
                         of <var>key</var> to "<code>public</code>"
                       </p>
                     </li>
                     <li>
                       <p>
-                        Set the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-algorithm"><code>[[algorithm]]</code></a>
+                        Set the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-algorithm"><code>[[algorithm]]</code></a>
                         internal slot of <var>key</var> to <var>algorithm</var>.
                       </p>
                     </li>
@@ -2317,7 +2318,7 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
                     </li>
                     <li>
                       <p>
-                        Set the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-type"><code>[[type]]</code></a> internal slot
+                        Set the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-type"><code>[[type]]</code></a> internal slot
                         of <var>key</var> to "<a data-link-type="enum-value" href="https://www.w3.org/TR/webcrypto-2/#dom-keytype-private"><code>private</code></a>"
                       </p>
                     </li>
@@ -2335,7 +2336,7 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
                     </li>
                     <li>
                       <p>
-                        Set the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-algorithm"><code>[[algorithm]]</code></a>
+                        Set the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-algorithm"><code>[[algorithm]]</code></a>
                         internal slot of <var>key</var> to <var>algorithm</var>.
                       </p>
                     </li>
@@ -2428,7 +2429,7 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
                             </li>
                             <li>
                               <p>
-                                Set the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-type"><code>[[type]]</code></a>
+                                Set the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-type"><code>[[type]]</code></a>
                                 internal slot of <var>Key</var> to "<a data-link-type="enum-value" href="https://www.w3.org/TR/webcrypto-2/#dom-keytype-private"><code>private</code></a>".
                               </p>
                             </li>
@@ -2464,7 +2465,7 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
                             </li>
                             <li>
                               <p>
-                                Set the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-type"><code>[[type]]</code></a>
+                                Set the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-type"><code>[[type]]</code></a>
                                 internal slot of <var>Key</var> to "<a data-link-type="enum-value" href="https://www.w3.org/TR/webcrypto-2/#dom-keytype-public"><code>public</code></a>".
                               </p>
                             </li>
@@ -2485,7 +2486,7 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
                     </li>
                     <li>
                       <p>
-                        Set the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-algorithm"><code>[[algorithm]]</code></a>
+                        Set the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-algorithm"><code>[[algorithm]]</code></a>
                         internal slot of <var>key</var> to <var>algorithm</var>.
                       </p>
                     </li>
@@ -2519,7 +2520,7 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
             </li>
             <li>
               <p>
-                If the underlying cryptographic key material represented by the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-handle"><code>[[handle]]</code></a> internal slot of <var>key</var>
+                If the underlying cryptographic key material represented by the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-handle"><code>[[handle]]</code></a> internal slot of <var>key</var>
                 cannot be accessed, then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an <a data-link-type="exception" data-lt="OperationError" href="https://webidl.spec.whatwg.org/#operationerror"><code>OperationError</code></a>.
               </p>
             </li>
@@ -2532,14 +2533,14 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
                   <ol>
                     <li>
                       <p>
-                        If the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-type"><code>[[type]]</code></a> internal slot
+                        If the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-type"><code>[[type]]</code></a> internal slot
                         of <var>key</var> is not "<code>public</code>", then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an <a data-link-type="exception" data-lt="InvalidAccessError" href="https://webidl.spec.whatwg.org/#invalidaccesserror"><code>InvalidAccessError</code></a>.
                       </p>
                     </li>
                     <li>
                       <p>
                         Let <var>data</var> be a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#byte-sequence">byte sequence</a> containing the ML-DSA
-                        public key represented by the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-handle"><code>[[handle]]</code></a> internal slot of
+                        public key represented by the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-handle"><code>[[handle]]</code></a> internal slot of
                         <var>key</var>.
                       </p>
                     </li>
@@ -2555,14 +2556,14 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
                   <ol>
                     <li>
                       <p>
-                        If the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-type"><code>[[type]]</code></a> internal slot
+                        If the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-type"><code>[[type]]</code></a> internal slot
                         of <var>key</var> is not "<code>private</code>", then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an <a data-link-type="exception" data-lt="InvalidAccessError" href="https://webidl.spec.whatwg.org/#invalidaccesserror"><code>InvalidAccessError</code></a>.
                       </p>
                     </li>
                     <li>
                       <p>
                         Let <var>data</var> be a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#byte-sequence">byte sequence</a> containing the <var>ξ</var> seed variable
-                        of the key represented by the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-handle"><code>[[handle]]</code></a>
+                        of the key represented by the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-handle"><code>[[handle]]</code></a>
                         internal slot of <var>key</var>.
                       </p>
                       <div class="note" role="note" id="issue-container-generatedID-5"><div role="heading" class="note-title marker" id="h-note-5" aria-level="4"><span>Note</span></div><div class="">
@@ -2604,20 +2605,20 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
                       <p>
                         Set the <a data-link-type="idl" href="#dom-jsonwebkey-pub" class="internalDFN" id="ref-for-dom-jsonwebkey-pub-9"><code>pub</code></a> attribute of <var>jwk</var>
                         to the base64url encoded public key corresponding
-                        to the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-handle"><code>[[handle]]</code></a>
+                        to the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-handle"><code>[[handle]]</code></a>
                         internal slot of <var>key</var>.
                       </p>
                     </li>
                     <li>
                       <dl class="switch">
                         <dt>
-                          If the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-type"><code>[[type]]</code></a> internal slot
+                          If the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-type"><code>[[type]]</code></a> internal slot
                           of <var>key</var> is "<a data-link-type="enum-value" href="https://www.w3.org/TR/webcrypto-2/#dom-keytype-private"><code>private</code></a>":
                         </dt>
                         <dd>
                           Set the <a data-link-type="idl" href="#dom-jsonwebkey-priv" class="internalDFN" id="ref-for-dom-jsonwebkey-priv-13"><code>priv</code></a> attribute of <var>jwk</var>
                           to the base64url encoded seed represented by
-                          the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-handle"><code>[[handle]]</code></a>
+                          the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-handle"><code>[[handle]]</code></a>
                           internal slot of <var>key</var>.
                         </dd>
                       </dl>
@@ -2629,7 +2630,7 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
                     </li>
                     <li>
                       <p>
-                        Set the <code>ext</code> attribute of <var>jwk</var> to the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-extractable"><code>[[extractable]]</code></a> internal slot
+                        Set the <code>ext</code> attribute of <var>jwk</var> to the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-extractable"><code>[[extractable]]</code></a> internal slot
                         of <var>key</var>.
                       </p>
                     </li>
@@ -2672,7 +2673,7 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
     <section id="slh-dsa-registration"><div class="header-wrapper"><h3 id="x8-2-registration"><bdi class="secno">8.2 </bdi>Registration</h3><a class="self-link" href="#slh-dsa-registration" aria-label="Permalink for Section 8.2"></a></div>
       
       <p>
-        The <a href="https://www.w3.org/TR/WebCryptoAPI/#recognized-algorithm-name">recognized algorithm names</a> for
+        The <a href="https://www.w3.org/TR/webcrypto-2/#recognized-algorithm-name">recognized algorithm names</a> for
         this algorithm are "<code>SLH-DSA-SHA2-128s</code>", "<code>SLH-DSA-SHAKE-128s</code>",
         "<code>SLH-DSA-SHA2-128f</code>", "<code>SLH-DSA-SHAKE-128f</code>",
         "<code>SLH-DSA-SHA2-192s</code>", "<code>SLH-DSA-SHAKE-192s</code>",
@@ -2683,9 +2684,9 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
       <table>
         <thead>
           <tr>
-            <th><a href="https://www.w3.org/TR/WebCryptoAPI/#supported-operations">Operation</a></th>
-            <th><a href="https://www.w3.org/TR/WebCryptoAPI/#algorithm-specific-params">Parameters</a></th>
-            <th><a href="https://www.w3.org/TR/WebCryptoAPI/#algorithm-result">Result</a></th>
+            <th><a href="https://www.w3.org/TR/webcrypto-2/#supported-operations">Operation</a></th>
+            <th><a href="https://www.w3.org/TR/webcrypto-2/#algorithm-specific-params">Parameters</a></th>
+            <th><a href="https://www.w3.org/TR/webcrypto-2/#algorithm-result">Result</a></th>
           </tr>
         </thead>
         <tbody>
@@ -2727,7 +2728,7 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
           <ol>
             <li>
               <p>
-                If the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-type"><code>[[type]]</code></a> internal slot of
+                If the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-type"><code>[[type]]</code></a> internal slot of
                 <var>key</var> is not "<a data-link-type="enum-value" href="https://www.w3.org/TR/webcrypto-2/#dom-keytype-private"><code>private</code></a>", then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an <a data-link-type="exception" data-lt="InvalidAccessError" href="https://webidl.spec.whatwg.org/#invalidaccesserror"><code>InvalidAccessError</code></a>.
               </p>
             </li>
@@ -2765,7 +2766,7 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
           <ol>
             <li>
               <p>
-                If the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-type"><code>[[type]]</code></a> internal slot of
+                If the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-type"><code>[[type]]</code></a> internal slot of
                 <var>key</var> is not "<a data-link-type="enum-value" href="https://www.w3.org/TR/webcrypto-2/#dom-keytype-public"><code>public</code></a>", then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an <a data-link-type="exception" data-lt="InvalidAccessError" href="https://webidl.spec.whatwg.org/#invalidaccesserror"><code>InvalidAccessError</code></a>.
               </p>
             </li>
@@ -2842,26 +2843,26 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
             </li>
             <li>
               <p>
-                Set the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-type"><code>[[type]]</code></a> internal slot of
+                Set the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-type"><code>[[type]]</code></a> internal slot of
                 <var>publicKey</var> to "<code>public</code>".
               </p>
             </li>
             <li>
               <p>
-                Set the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-algorithm"><code>[[algorithm]]</code></a> internal
+                Set the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-algorithm"><code>[[algorithm]]</code></a> internal
                 slot of <var>publicKey</var> to <var>algorithm</var>.
               </p>
             </li>
             <li>
               <p>
-                Set the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-extractable"><code>[[extractable]]</code></a> internal
+                Set the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-extractable"><code>[[extractable]]</code></a> internal
                 slot of <var>publicKey</var> to true.
               </p>
             </li>
             <li>
               <p>
-                Set the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-usages"><code>[[usages]]</code></a> internal slot of
-                <var>publicKey</var> to be the <a href="https://www.w3.org/TR/WebCryptoAPI/#concept-usage-intersection">usage intersection</a>
+                Set the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-usages"><code>[[usages]]</code></a> internal slot of
+                <var>publicKey</var> to be the <a href="https://www.w3.org/TR/webcrypto-2/#concept-usage-intersection">usage intersection</a>
                 of <var>usages</var> and <code>[ "verify" ]</code>.
               </p>
             </li>
@@ -2873,26 +2874,26 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
             </li>
             <li>
               <p>
-                Set the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-type"><code>[[type]]</code></a> internal slot of
+                Set the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-type"><code>[[type]]</code></a> internal slot of
                 <var>privateKey</var> to "<a data-link-type="enum-value" href="https://www.w3.org/TR/webcrypto-2/#dom-keytype-private"><code>private</code></a>".
               </p>
             </li>
             <li>
               <p>
-                Set the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-algorithm"><code>[[algorithm]]</code></a> internal
+                Set the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-algorithm"><code>[[algorithm]]</code></a> internal
                 slot of <var>privateKey</var> to <var>algorithm</var>.
               </p>
             </li>
             <li>
               <p>
-                Set the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-extractable"><code>[[extractable]]</code></a> internal
+                Set the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-extractable"><code>[[extractable]]</code></a> internal
                 slot of <var>privateKey</var> to <var>extractable</var>.
               </p>
             </li>
             <li>
               <p>
-                Set the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-usages"><code>[[usages]]</code></a> internal slot of
-                <var>privateKey</var> to be the <a href="https://www.w3.org/TR/WebCryptoAPI/#concept-usage-intersection">usage intersection</a>
+                Set the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-usages"><code>[[usages]]</code></a> internal slot of
+                <var>privateKey</var> to be the <a href="https://www.w3.org/TR/webcrypto-2/#concept-usage-intersection">usage intersection</a>
                 of <var>usages</var> and <code>[ "sign" ]</code>.
               </p>
             </li>
@@ -2970,13 +2971,13 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
                     </li>
                     <li>
                       <p>
-                        Set the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-type"><code>[[type]]</code></a> internal slot
+                        Set the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-type"><code>[[type]]</code></a> internal slot
                         of <var>key</var> to "<code>public</code>"
                       </p>
                     </li>
                     <li>
                       <p>
-                        Set the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-algorithm"><code>[[algorithm]]</code></a>
+                        Set the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-algorithm"><code>[[algorithm]]</code></a>
                         internal slot of <var>key</var> to <var>algorithm</var>.
                       </p>
                     </li>
@@ -3010,7 +3011,7 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
                     </li>
                     <li>
                       <p>
-                        Set the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-type"><code>[[type]]</code></a> internal slot
+                        Set the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-type"><code>[[type]]</code></a> internal slot
                         of <var>key</var> to "<a data-link-type="enum-value" href="https://www.w3.org/TR/webcrypto-2/#dom-keytype-private"><code>private</code></a>".
                       </p>
                     </li>
@@ -3028,7 +3029,7 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
                     </li>
                     <li>
                       <p>
-                        Set the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-algorithm"><code>[[algorithm]]</code></a>
+                        Set the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-algorithm"><code>[[algorithm]]</code></a>
                         internal slot of <var>key</var> to <var>algorithm</var>.
                       </p>
                     </li>
@@ -3121,7 +3122,7 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
                             </li>
                             <li>
                               <p>
-                                Set the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-type"><code>[[type]]</code></a>
+                                Set the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-type"><code>[[type]]</code></a>
                                 internal slot of <var>Key</var> to "<a data-link-type="enum-value" href="https://www.w3.org/TR/webcrypto-2/#dom-keytype-private"><code>private</code></a>".
                               </p>
                             </li>
@@ -3157,7 +3158,7 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
                             </li>
                             <li>
                               <p>
-                                Set the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-type"><code>[[type]]</code></a>
+                                Set the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-type"><code>[[type]]</code></a>
                                 internal slot of <var>Key</var> to "<a data-link-type="enum-value" href="https://www.w3.org/TR/webcrypto-2/#dom-keytype-public"><code>public</code></a>".
                               </p>
                             </li>
@@ -3178,7 +3179,7 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
                     </li>
                     <li>
                       <p>
-                        Set the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-algorithm"><code>[[algorithm]]</code></a>
+                        Set the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-algorithm"><code>[[algorithm]]</code></a>
                         internal slot of <var>key</var> to <var>algorithm</var>.
                       </p>
                     </li>
@@ -3212,7 +3213,7 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
             </li>
             <li>
               <p>
-                If the underlying cryptographic key material represented by the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-handle"><code>[[handle]]</code></a> internal slot of <var>key</var>
+                If the underlying cryptographic key material represented by the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-handle"><code>[[handle]]</code></a> internal slot of <var>key</var>
                 cannot be accessed, then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an <a data-link-type="exception" data-lt="OperationError" href="https://webidl.spec.whatwg.org/#operationerror"><code>OperationError</code></a>.
               </p>
             </li>
@@ -3225,14 +3226,14 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
                   <ol>
                     <li>
                       <p>
-                        If the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-type"><code>[[type]]</code></a> internal slot
+                        If the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-type"><code>[[type]]</code></a> internal slot
                         of <var>key</var> is not "<code>public</code>", then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an <a data-link-type="exception" data-lt="InvalidAccessError" href="https://webidl.spec.whatwg.org/#invalidaccesserror"><code>InvalidAccessError</code></a>.
                       </p>
                     </li>
                     <li>
                       <p>
                         Let <var>data</var> be a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#byte-sequence">byte sequence</a> containing the SLH-DSA
-                        public key represented by the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-handle"><code>[[handle]]</code></a> internal slot of
+                        public key represented by the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-handle"><code>[[handle]]</code></a> internal slot of
                         <var>key</var>.
                       </p>
                     </li>
@@ -3248,14 +3249,14 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
                   <ol>
                     <li>
                       <p>
-                        If the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-type"><code>[[type]]</code></a> internal slot
+                        If the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-type"><code>[[type]]</code></a> internal slot
                         of <var>key</var> is not "<code>private</code>", then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an <a data-link-type="exception" data-lt="InvalidAccessError" href="https://webidl.spec.whatwg.org/#invalidaccesserror"><code>InvalidAccessError</code></a>.
                       </p>
                     </li>
                     <li>
                       <p>
                         Let <var>data</var> be a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#byte-sequence">byte sequence</a> containing the SLH-DSA
-                        private key represented by the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-handle"><code>[[handle]]</code></a> internal slot of
+                        private key represented by the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-handle"><code>[[handle]]</code></a> internal slot of
                         <var>key</var>.
                       </p>
                     </li>
@@ -3291,20 +3292,20 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
                       <p>
                         Set the <a data-link-type="idl" href="#dom-jsonwebkey-pub" class="internalDFN" id="ref-for-dom-jsonwebkey-pub-13"><code>pub</code></a> attribute of <var>jwk</var>
                         to the base64url encoded public key corresponding
-                        to the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-handle"><code>[[handle]]</code></a>
+                        to the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-handle"><code>[[handle]]</code></a>
                         internal slot of <var>key</var>.
                       </p>
                     </li>
                     <li>
                       <dl class="switch">
                         <dt>
-                          If the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-type"><code>[[type]]</code></a> internal slot
+                          If the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-type"><code>[[type]]</code></a> internal slot
                           of <var>key</var> is "<a data-link-type="enum-value" href="https://www.w3.org/TR/webcrypto-2/#dom-keytype-private"><code>private</code></a>":
                         </dt>
                         <dd>
                           Set the <a data-link-type="idl" href="#dom-jsonwebkey-priv" class="internalDFN" id="ref-for-dom-jsonwebkey-priv-19"><code>priv</code></a> attribute of <var>jwk</var>
                           to the base64url encoded private key represented by
-                          the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-handle"><code>[[handle]]</code></a>
+                          the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-handle"><code>[[handle]]</code></a>
                           internal slot of <var>key</var>.
                         </dd>
                       </dl>
@@ -3316,7 +3317,7 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
                     </li>
                     <li>
                       <p>
-                        Set the <code>ext</code> attribute of <var>jwk</var> to the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-extractable"><code>[[extractable]]</code></a> internal slot
+                        Set the <code>ext</code> attribute of <var>jwk</var> to the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-extractable"><code>[[extractable]]</code></a> internal slot
                         of <var>key</var>.
                       </p>
                     </li>
@@ -3360,15 +3361,15 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
     <section id="aes-ocb-registration"><div class="header-wrapper"><h3 id="x9-2-registration"><bdi class="secno">9.2 </bdi>Registration</h3><a class="self-link" href="#aes-ocb-registration" aria-label="Permalink for Section 9.2"></a></div>
       
       <p>
-        The <a href="https://www.w3.org/TR/WebCryptoAPI/#recognized-algorithm-name">recognized algorithm name</a> for
+        The <a href="https://www.w3.org/TR/webcrypto-2/#recognized-algorithm-name">recognized algorithm name</a> for
         this algorithm is "<code>AES-OCB</code>".
       </p>
       <table>
         <thead>
           <tr>
-            <th><a href="https://www.w3.org/TR/WebCryptoAPI/#supported-operations">Operation</a></th>
-            <th><a href="https://www.w3.org/TR/WebCryptoAPI/#algorithm-specific-params">Parameters</a></th>
-            <th><a href="https://www.w3.org/TR/WebCryptoAPI/#algorithm-result">Result</a></th>
+            <th><a href="https://www.w3.org/TR/webcrypto-2/#supported-operations">Operation</a></th>
+            <th><a href="https://www.w3.org/TR/webcrypto-2/#algorithm-specific-params">Parameters</a></th>
+            <th><a href="https://www.w3.org/TR/webcrypto-2/#algorithm-result">Result</a></th>
           </tr>
         </thead>
         <tbody>
@@ -3417,7 +3418,7 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
       <p>The <dfn data-dfn-for="AeadParams" id="dfn-AeadParams-tagLength" data-export="" data-dfn-type="dict-member" data-idl="field" data-title="tagLength" data-type="octet" tabindex="0" aria-haspopup="dialog"><code>tagLength</code></dfn> member represents the desired length of the authentication tag.</p>
       <div class="note" role="note" id="issue-container-generatedID-6"><div role="heading" class="note-title marker" id="h-note-6" aria-level="4"><span>Note</span></div><div class="">
         <p>
-          The <a data-link-type="idl" data-lt="AeadParams" href="#dfn-AeadParams" class="internalDFN" id="ref-for-dfn-AeadParams-4"><code>AeadParams</code></a> dictionary is identical to the <a data-link-type="dictionary" data-lt="AesGcmParams" href="https://www.w3.org/TR/webcrypto-2/#dfn-AesGcmParams"><code>AesGcmParams</code></a> dictionary of [<cite><a class="bibref" data-link-type="biblio" href="#bib-webcryptoapi" title="Web Cryptography API">WebCryptoAPI</a></cite>],
+          The <a data-link-type="idl" data-lt="AeadParams" href="#dfn-AeadParams" class="internalDFN" id="ref-for-dfn-AeadParams-4"><code>AeadParams</code></a> dictionary is identical to the <a data-link-type="dictionary" data-lt="AesGcmParams" href="https://www.w3.org/TR/webcrypto-2/#dfn-AesGcmParams"><code>AesGcmParams</code></a> dictionary of [<cite><a class="bibref" data-link-type="biblio" href="#bib-webcrypto" title="Web Cryptography Level 2">webcrypto</a></cite>],
           and the latter may be replaced by the former when merging this proposal.
         </p>
       </div></div>
@@ -3466,7 +3467,7 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
                 Let <var>C</var> be the output that results from performing
                 the OCB-ENCRYPT function described in Section 4.2 of
                 [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc7253" title="The OCB Authenticated-Encryption Algorithm">RFC7253</a></cite>] using AES as the block cipher, using
-                the key represented by <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-handle"><code>[[handle]]</code></a>
+                the key represented by <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-handle"><code>[[handle]]</code></a>
                 internal slot of <var>key</var> as the <var>K</var> input parameter,
                 the <a data-link-type="idl" href="#dfn-AeadParams-iv" class="internalDFN" id="ref-for-dfn-AeadParams-iv-3"><code>iv</code></a> member of <var>normalizedAlgorithm</var> as
                 the <var>N</var> input parameter,
@@ -3529,7 +3530,7 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
               <p>
                 Perform the OCB-DECRYPT function described in Section 4.3 of
                 [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc7253" title="The OCB Authenticated-Encryption Algorithm">RFC7253</a></cite>] using AES as the block cipher, using
-                the key represented by <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-handle"><code>[[handle]]</code></a>
+                the key represented by <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-handle"><code>[[handle]]</code></a>
                 internal slot of <var>key</var> as the <var>K</var> input parameter,
                 the <a data-link-type="idl" href="#dfn-AeadParams-iv" class="internalDFN" id="ref-for-dfn-AeadParams-iv-5"><code>iv</code></a> member of <var>normalizedAlgorithm</var> as
                 the <var>N</var> input parameter,
@@ -3620,19 +3621,19 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
             </li>
             <li>
               <p>
-                Set the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-algorithm"><code>[[algorithm]]</code></a> internal
+                Set the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-algorithm"><code>[[algorithm]]</code></a> internal
                 slot of <var>key</var> to <var>algorithm</var>.
               </p>
             </li>
             <li>
               <p>
-                Set the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-extractable"><code>[[extractable]]</code></a> internal
+                Set the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-extractable"><code>[[extractable]]</code></a> internal
                 slot of <var>key</var> to be <var>extractable</var>.
               </p>
             </li>
             <li>
               <p>
-                Set the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-usages"><code>[[usages]]</code></a> internal slot of
+                Set the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-usages"><code>[[usages]]</code></a> internal slot of
                 <var>key</var> to be <var>usages</var>.
               </p>
             </li>
@@ -3792,7 +3793,7 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
             </li>
             <li>
               <p>
-                Set the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-algorithm"><code>[[algorithm]]</code></a> internal
+                Set the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-algorithm"><code>[[algorithm]]</code></a> internal
                 slot of <var>key</var> to <var>algorithm</var>.
               </p>
             </li>
@@ -3808,7 +3809,7 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
           <ol>
             <li>
               <p>
-                If the underlying cryptographic key material represented by the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-handle"><code>[[handle]]</code></a> internal slot of <var>key</var>
+                If the underlying cryptographic key material represented by the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-handle"><code>[[handle]]</code></a> internal slot of <var>key</var>
                 cannot be accessed, then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an <a data-link-type="exception" data-lt="OperationError" href="https://webidl.spec.whatwg.org/#operationerror"><code>OperationError</code></a>.
               </p>
             </li>
@@ -3820,7 +3821,7 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
                     <li>
                       <p>
                         Let <var>data</var> be a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#byte-sequence">byte sequence</a> containing
-                        the raw octets of the key represented by <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-handle"><code>[[handle]]</code></a> internal slot of
+                        the raw octets of the key represented by <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-handle"><code>[[handle]]</code></a> internal slot of
                         <var>key</var>.
                       </p>
                     </li>
@@ -3849,7 +3850,7 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
                     <li>
                       <p>
                         Set the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-jsonwebkey-k"><code>k</code></a> attribute of <var>jwk</var> to be a string
-                        containing the raw octets of the key represented by <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-handle"><code>[[handle]]</code></a> internal slot of
+                        containing the raw octets of the key represented by <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-handle"><code>[[handle]]</code></a> internal slot of
                         <var>key</var>, encoded according to Section 6.4 of JSON Web Algorithms [<cite><a class="bibref" data-link-type="biblio" href="#bib-jwa" title="JSON Web Algorithms (JWA)">JWA</a></cite>].
                       </p>
                     </li>
@@ -3878,7 +3879,7 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
                     </li>
                     <li>
                       <p>
-                        Set the <code>ext</code> attribute of <var>jwk</var> to equal the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-extractable"><code>[[extractable]]</code></a> internal slot
+                        Set the <code>ext</code> attribute of <var>jwk</var> to equal the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-extractable"><code>[[extractable]]</code></a> internal slot
                         of <var>key</var>.
                       </p>
                     </li>
@@ -3940,15 +3941,15 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
     <section id="chacha20-poly1305-registration"><div class="header-wrapper"><h3 id="x10-2-registration"><bdi class="secno">10.2 </bdi>Registration</h3><a class="self-link" href="#chacha20-poly1305-registration" aria-label="Permalink for Section 10.2"></a></div>
       
       <p>
-        The <a href="https://www.w3.org/TR/WebCryptoAPI/#recognized-algorithm-name">recognized algorithm name</a> for
+        The <a href="https://www.w3.org/TR/webcrypto-2/#recognized-algorithm-name">recognized algorithm name</a> for
         this algorithm is "<code>ChaCha20-Poly1305</code>".
       </p>
       <table>
         <thead>
           <tr>
-            <th><a href="https://www.w3.org/TR/WebCryptoAPI/#supported-operations">Operation</a></th>
-            <th><a href="https://www.w3.org/TR/WebCryptoAPI/#algorithm-specific-params">Parameters</a></th>
-            <th><a href="https://www.w3.org/TR/WebCryptoAPI/#algorithm-result">Result</a></th>
+            <th><a href="https://www.w3.org/TR/webcrypto-2/#supported-operations">Operation</a></th>
+            <th><a href="https://www.w3.org/TR/webcrypto-2/#algorithm-specific-params">Parameters</a></th>
+            <th><a href="https://www.w3.org/TR/webcrypto-2/#algorithm-result">Result</a></th>
           </tr>
         </thead>
         <tbody>
@@ -4019,7 +4020,7 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
                 Let <var>ciphertext</var> be the output that results from
                 performing the AEAD_CHACHA20_POLY1305 encryption algorithm
                 described in Section 2.8 of [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc8439" title="ChaCha20 and Poly1305 for IETF Protocols">RFC8439</a></cite>], using
-                the key represented by <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-handle"><code>[[handle]]</code></a>
+                the key represented by <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-handle"><code>[[handle]]</code></a>
                 internal slot of <var>key</var> as the key input parameter,
                 the <a data-link-type="idl" href="#dfn-AeadParams-iv" class="internalDFN" id="ref-for-dfn-AeadParams-iv-7"><code>iv</code></a> member of <var>normalizedAlgorithm</var> as
                 the nonce input parameter,
@@ -4071,7 +4072,7 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
               <p>
                 Perform the AEAD_CHACHA20_POLY1305 decryption algorithm
                 described in Section 2.8 of [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc8439" title="ChaCha20 and Poly1305 for IETF Protocols">RFC8439</a></cite>], using
-                the key represented by <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-handle"><code>[[handle]]</code></a>
+                the key represented by <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-handle"><code>[[handle]]</code></a>
                 internal slot of <var>key</var> as the key input parameter,
                 the <a data-link-type="idl" href="#dfn-AeadParams-iv" class="internalDFN" id="ref-for-dfn-AeadParams-iv-9"><code>iv</code></a> member of <var>normalizedAlgorithm</var> as
                 the nonce input parameter,
@@ -4141,19 +4142,19 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
             </li>
             <li>
               <p>
-                Set the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-algorithm"><code>[[algorithm]]</code></a> internal
+                Set the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-algorithm"><code>[[algorithm]]</code></a> internal
                 slot of <var>key</var> to <var>algorithm</var>.
               </p>
             </li>
             <li>
               <p>
-                Set the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-extractable"><code>[[extractable]]</code></a> internal
+                Set the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-extractable"><code>[[extractable]]</code></a> internal
                 slot of <var>key</var> to be <var>extractable</var>.
               </p>
             </li>
             <li>
               <p>
-                Set the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-usages"><code>[[usages]]</code></a> internal slot of
+                Set the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-usages"><code>[[usages]]</code></a> internal slot of
                 <var>key</var> to be <var>usages</var>.
               </p>
             </li>
@@ -4291,7 +4292,7 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
             </li>
             <li>
               <p>
-                Set the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-algorithm"><code>[[algorithm]]</code></a> internal
+                Set the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-algorithm"><code>[[algorithm]]</code></a> internal
                 slot of <var>key</var> to <var>algorithm</var>.
               </p>
             </li>
@@ -4307,7 +4308,7 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
           <ol>
             <li>
               <p>
-                If the underlying cryptographic key material represented by the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-handle"><code>[[handle]]</code></a> internal slot of <var>key</var>
+                If the underlying cryptographic key material represented by the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-handle"><code>[[handle]]</code></a> internal slot of <var>key</var>
                 cannot be accessed, then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an <a data-link-type="exception" data-lt="OperationError" href="https://webidl.spec.whatwg.org/#operationerror"><code>OperationError</code></a>.
               </p>
             </li>
@@ -4319,7 +4320,7 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
                     <li>
                       <p>
                         Let <var>data</var> be a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#byte-sequence">byte sequence</a> containing
-                        the raw octets of the key represented by <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-handle"><code>[[handle]]</code></a> internal slot of
+                        the raw octets of the key represented by <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-handle"><code>[[handle]]</code></a> internal slot of
                         <var>key</var>.
                       </p>
                     </li>
@@ -4348,7 +4349,7 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
                     <li>
                       <p>
                         Set the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-jsonwebkey-k"><code>k</code></a> attribute of <var>jwk</var> to be a string
-                        containing the raw octets of the key represented by <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-handle"><code>[[handle]]</code></a> internal slot of
+                        containing the raw octets of the key represented by <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-handle"><code>[[handle]]</code></a> internal slot of
                         <var>key</var>, encoded according to Section 6.4 of JSON Web Algorithms [<cite><a class="bibref" data-link-type="biblio" href="#bib-jwa" title="JSON Web Algorithms (JWA)">JWA</a></cite>].
                       </p>
                     </li>
@@ -4367,7 +4368,7 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
                     </li>
                     <li>
                       <p>
-                        Set the <code>ext</code> attribute of <var>jwk</var> to equal the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-extractable"><code>[[extractable]]</code></a> internal slot
+                        Set the <code>ext</code> attribute of <var>jwk</var> to equal the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-extractable"><code>[[extractable]]</code></a> internal slot
                         of <var>key</var>.
                       </p>
                     </li>
@@ -4420,7 +4421,7 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
     <section id="sha3-registration"><div class="header-wrapper"><h3 id="x11-2-registration"><bdi class="secno">11.2 </bdi>Registration</h3><a class="self-link" href="#sha3-registration" aria-label="Permalink for Section 11.2"></a></div>
       
       <p>
-        The <a href="https://www.w3.org/TR/WebCryptoAPI/#recognized-algorithm-name">recognized algorithm names</a> are
+        The <a href="https://www.w3.org/TR/webcrypto-2/#recognized-algorithm-name">recognized algorithm names</a> are
         "<code id="alg-sha3-256">SHA3-256</code>",
         "<code id="alg-sha3-384">SHA3-384</code>", and
         "<code id="alg-sha3-512">SHA3-512</code>" for the respective SHA-3 algorithms.
@@ -4428,9 +4429,9 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
       <table>
         <thead>
           <tr>
-            <th><a href="https://www.w3.org/TR/WebCryptoAPI/#supported-operations">Operation</a></th>
-            <th><a href="https://www.w3.org/TR/WebCryptoAPI/#algorithm-specific-params">Parameters</a></th>
-            <th><a href="https://www.w3.org/TR/WebCryptoAPI/#algorithm-result">Result</a></th>
+            <th><a href="https://www.w3.org/TR/webcrypto-2/#supported-operations">Operation</a></th>
+            <th><a href="https://www.w3.org/TR/webcrypto-2/#algorithm-specific-params">Parameters</a></th>
+            <th><a href="https://www.w3.org/TR/webcrypto-2/#algorithm-result">Result</a></th>
           </tr>
         </thead>
         <tbody>
@@ -4509,16 +4510,16 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
     <section id="cshake-registration"><div class="header-wrapper"><h3 id="x12-2-registration"><bdi class="secno">12.2 </bdi>Registration</h3><a class="self-link" href="#cshake-registration" aria-label="Permalink for Section 12.2"></a></div>
       
       <p>
-        The <a href="https://www.w3.org/TR/WebCryptoAPI/#recognized-algorithm-name">recognized algorithm names</a> are
+        The <a href="https://www.w3.org/TR/webcrypto-2/#recognized-algorithm-name">recognized algorithm names</a> are
         "<code id="alg-cshake128">cSHAKE128</code>" and
         "<code id="alg-cshake256">cSHAKE256</code>".
       </p>
       <table>
         <thead>
           <tr>
-            <th><a href="https://www.w3.org/TR/WebCryptoAPI/#supported-operations">Operation</a></th>
-            <th><a href="https://www.w3.org/TR/WebCryptoAPI/#algorithm-specific-params">Parameters</a></th>
-            <th><a href="https://www.w3.org/TR/WebCryptoAPI/#algorithm-result">Result</a></th>
+            <th><a href="https://www.w3.org/TR/webcrypto-2/#supported-operations">Operation</a></th>
+            <th><a href="https://www.w3.org/TR/webcrypto-2/#algorithm-specific-params">Parameters</a></th>
+            <th><a href="https://www.w3.org/TR/webcrypto-2/#algorithm-result">Result</a></th>
           </tr>
         </thead>
         <tbody>
@@ -4624,16 +4625,16 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
     <section id="kmac-registration"><div class="header-wrapper"><h3 id="x13-2-registration"><bdi class="secno">13.2 </bdi>Registration</h3><a class="self-link" href="#kmac-registration" aria-label="Permalink for Section 13.2"></a></div>
       
       <p>
-        The <a href="https://www.w3.org/TR/WebCryptoAPI/#recognized-algorithm-name">recognized algorithm names</a> are
+        The <a href="https://www.w3.org/TR/webcrypto-2/#recognized-algorithm-name">recognized algorithm names</a> are
         "<code id="alg-kmac128">KMAC128</code>" and
         "<code id="alg-kmac256">KMAC256</code>".
       </p>
       <table>
         <thead>
           <tr>
-            <th><a href="https://www.w3.org/TR/WebCryptoAPI/#supported-operations">Operation</a></th>
-            <th><a href="https://www.w3.org/TR/WebCryptoAPI/#algorithm-specific-params">Parameters</a></th>
-            <th><a href="https://www.w3.org/TR/WebCryptoAPI/#algorithm-result">Result</a></th>
+            <th><a href="https://www.w3.org/TR/webcrypto-2/#supported-operations">Operation</a></th>
+            <th><a href="https://www.w3.org/TR/webcrypto-2/#algorithm-specific-params">Parameters</a></th>
+            <th><a href="https://www.w3.org/TR/webcrypto-2/#algorithm-result">Result</a></th>
           </tr>
         </thead>
         <tbody>
@@ -4724,7 +4725,7 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
                 <dd>
                   Let <var>mac</var> be the result of performing the KMAC128 function
                   defined in Section 4 of [<cite><a class="bibref" data-link-type="biblio" href="#bib-nist-sp800-185" title="NIST Special Publication 800-185: SHA-3 Derived Functions: cSHAKE, KMAC, TupleHash and ParallelHash">NIST-SP800-185</a></cite>] using
-                  the key represented by <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-handle"><code>[[handle]]</code></a>
+                  the key represented by <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-handle"><code>[[handle]]</code></a>
                   internal slot of <var>key</var> as the <var>K</var> input parameter,
                   <var>message</var> as the <var>X</var> input parameter,
                   the <a data-link-type="idl" href="#dfn-KmacParams-length" class="internalDFN" id="ref-for-dfn-KmacParams-length-2"><code>length</code></a> member of <var>normalizedAlgorithm</var> as
@@ -4740,7 +4741,7 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
                 <dd>
                   Let <var>mac</var> be the result of performing the KMAC256 function
                   defined in Section 4 of [<cite><a class="bibref" data-link-type="biblio" href="#bib-nist-sp800-185" title="NIST Special Publication 800-185: SHA-3 Derived Functions: cSHAKE, KMAC, TupleHash and ParallelHash">NIST-SP800-185</a></cite>] using
-                  the key represented by <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-handle"><code>[[handle]]</code></a>
+                  the key represented by <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-handle"><code>[[handle]]</code></a>
                   internal slot of <var>key</var> as the <var>K</var> input parameter,
                   <var>message</var> as the <var>X</var> input parameter,
                   the <a data-link-type="idl" href="#dfn-KmacParams-length" class="internalDFN" id="ref-for-dfn-KmacParams-length-3"><code>length</code></a> member of <var>normalizedAlgorithm</var> as
@@ -4777,7 +4778,7 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
                 <dd>
                   Let <var>mac</var> be the result of performing the KMAC128 function
                   defined in Section 4 of [<cite><a class="bibref" data-link-type="biblio" href="#bib-nist-sp800-185" title="NIST Special Publication 800-185: SHA-3 Derived Functions: cSHAKE, KMAC, TupleHash and ParallelHash">NIST-SP800-185</a></cite>] using
-                  the key represented by <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-handle"><code>[[handle]]</code></a>
+                  the key represented by <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-handle"><code>[[handle]]</code></a>
                   internal slot of <var>key</var> as the <var>K</var> input parameter,
                   <var>message</var> as the <var>X</var> input parameter,
                   the <a data-link-type="idl" href="#dfn-KmacParams-length" class="internalDFN" id="ref-for-dfn-KmacParams-length-4"><code>length</code></a> member of <var>normalizedAlgorithm</var> as
@@ -4793,7 +4794,7 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
                 <dd>
                   Let <var>mac</var> be the result of performing the KMAC256 function
                   defined in Section 4 of [<cite><a class="bibref" data-link-type="biblio" href="#bib-nist-sp800-185" title="NIST Special Publication 800-185: SHA-3 Derived Functions: cSHAKE, KMAC, TupleHash and ParallelHash">NIST-SP800-185</a></cite>] using
-                  the key represented by <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-handle"><code>[[handle]]</code></a>
+                  the key represented by <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-handle"><code>[[handle]]</code></a>
                   internal slot of <var>key</var> as the <var>K</var> input parameter,
                   <var>message</var> as the <var>X</var> input parameter,
                   the <a data-link-type="idl" href="#dfn-KmacParams-length" class="internalDFN" id="ref-for-dfn-KmacParams-length-5"><code>length</code></a> member of <var>normalizedAlgorithm</var> as
@@ -4883,19 +4884,19 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
             </li>
             <li>
               <p>
-                Set the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-algorithm"><code>[[algorithm]]</code></a> internal
+                Set the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-algorithm"><code>[[algorithm]]</code></a> internal
                 slot of <var>key</var> to <var>algorithm</var>.
               </p>
             </li>
             <li>
               <p>
-                Set the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-extractable"><code>[[extractable]]</code></a> internal
+                Set the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-extractable"><code>[[extractable]]</code></a> internal
                 slot of <var>key</var> to be <var>extractable</var>.
               </p>
             </li>
             <li>
               <p>
-                Set the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-usages"><code>[[usages]]</code></a> internal slot of
+                Set the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-usages"><code>[[usages]]</code></a> internal slot of
                 <var>key</var> to be <var>usages</var>.
               </p>
             </li>
@@ -5102,7 +5103,7 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
             </li>
             <li>
               <p>
-                Set the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-algorithm"><code>[[algorithm]]</code></a> internal
+                Set the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-algorithm"><code>[[algorithm]]</code></a> internal
                 slot of <var>key</var> to <var>algorithm</var>.
               </p>
             </li>
@@ -5118,19 +5119,19 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
           <ol>
             <li>
               <p>
-                If the underlying cryptographic key material represented by the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-handle"><code>[[handle]]</code></a> internal slot of <var>key</var>
+                If the underlying cryptographic key material represented by the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-handle"><code>[[handle]]</code></a> internal slot of <var>key</var>
                 cannot be accessed, then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an <a data-link-type="exception" data-lt="OperationError" href="https://webidl.spec.whatwg.org/#operationerror"><code>OperationError</code></a>.
               </p>
             </li>
             <li>
               <p>
-                Let <var>bits</var> be the raw bits of the key represented by <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-handle"><code>[[handle]]</code></a> internal slot of
+                Let <var>bits</var> be the raw bits of the key represented by <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-handle"><code>[[handle]]</code></a> internal slot of
                 <var>key</var>.
               </p>
             </li>
             <li>
               <p>
-                Let <var>data</var> be an <a href="https://www.w3.org/TR/WebCryptoAPI/#byte-sequence-containing">byte sequence containing</a> <var>bits</var>.
+                Let <var>data</var> be an <a href="https://www.w3.org/TR/webcrypto-2/#byte-sequence-containing">byte sequence containing</a> <var>bits</var>.
               </p>
             </li>
             <li>
@@ -5168,7 +5169,7 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
                     </li>
                     <li>
                       <p>
-                        Let <var>algorithm</var> be the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-algorithm"><code>[[algorithm]]</code></a> internal slot of
+                        Let <var>algorithm</var> be the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-algorithm"><code>[[algorithm]]</code></a> internal slot of
                         <var>key</var>.
                       </p>
                     </li>
@@ -5198,7 +5199,7 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
                     </li>
                     <li>
                       <p>
-                        Set the <code>ext</code> attribute of <var>jwk</var> to equal the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-extractable"><code>[[extractable]]</code></a> internal slot
+                        Set the <code>ext</code> attribute of <var>jwk</var> to equal the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-extractable"><code>[[extractable]]</code></a> internal slot
                         of <var>key</var>.
                       </p>
                     </li>
@@ -5280,7 +5281,7 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
     <section id="argon2-registration"><div class="header-wrapper"><h3 id="x14-2-registration"><bdi class="secno">14.2 </bdi>Registration</h3><a class="self-link" href="#argon2-registration" aria-label="Permalink for Section 14.2"></a></div>
       
       <p>
-        The <a href="https://www.w3.org/TR/WebCryptoAPI/#recognized-algorithm-name">recognized algorithm names</a> are
+        The <a href="https://www.w3.org/TR/webcrypto-2/#recognized-algorithm-name">recognized algorithm names</a> are
         "<code id="alg-argon2d">Argon2d</code>",
         "<code id="alg-argon2i">Argon2i</code>", and
         "<code id="alg-argon2id">Argon2id</code>" for the respective Argon2 types.
@@ -5288,9 +5289,9 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
       <table>
         <thead>
           <tr>
-            <th><a href="https://www.w3.org/TR/WebCryptoAPI/#supported-operations">Operation</a></th>
-            <th><a href="https://www.w3.org/TR/WebCryptoAPI/#algorithm-specific-params">Parameters</a></th>
-            <th><a href="https://www.w3.org/TR/WebCryptoAPI/#algorithm-result">Result</a></th>
+            <th><a href="https://www.w3.org/TR/webcrypto-2/#supported-operations">Operation</a></th>
+            <th><a href="https://www.w3.org/TR/webcrypto-2/#algorithm-specific-params">Parameters</a></th>
+            <th><a href="https://www.w3.org/TR/webcrypto-2/#algorithm-result">Result</a></th>
           </tr>
         </thead>
         <tbody>
@@ -5417,7 +5418,7 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
               <p>
                 Let <var>result</var> be the result of performing the Argon2 function defined
                 in Section 3 of [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc9106" title="Argon2 Memory-Hard Function for Password Hashing and Proof-of-Work Applications">RFC9106</a></cite>] using
-                the password represented by <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-handle"><code>[[handle]]</code></a> internal slot of <var>key</var>
+                the password represented by <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-handle"><code>[[handle]]</code></a> internal slot of <var>key</var>
                 as the message, <var>P</var>,
                 the <a data-link-type="idl" href="#dfn-Argon2Params-nonce" class="internalDFN" id="ref-for-dfn-Argon2Params-nonce-2"><code>nonce</code></a> attribute of
                 <var>normalizedAlgorithm</var> as the nonce, <var>S</var>,
@@ -5478,13 +5479,13 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
             </li>
             <li>
               <p>
-                Set the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-type"><code>[[type]]</code></a> internal slot of
+                Set the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-type"><code>[[type]]</code></a> internal slot of
                 <var>key</var> to "<a data-link-type="enum-value" href="https://www.w3.org/TR/webcrypto-2/#dom-keytype-secret"><code>secret</code></a>".
               </p>
             </li>
             <li>
               <p>
-                Set the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-extractable"><code>[[extractable]]</code></a> internal slot of
+                Set the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-extractable"><code>[[extractable]]</code></a> internal slot of
                 <var>key</var> to <code>false</code>.
               </p>
             </li>
@@ -5503,7 +5504,7 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
             </li>
             <li>
               <p>
-                Set the <a href="https://www.w3.org/TR/WebCryptoAPI/#dfn-CryptoKey-slot-algorithm"><code>[[algorithm]]</code></a> internal
+                Set the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-algorithm"><code>[[algorithm]]</code></a> internal
                 slot of <var>key</var> to <var>algorithm</var>.
               </p>
             </li>
@@ -5725,8 +5726,6 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
       <a href="https://www.rfc-editor.org/rfc/rfc9106"><cite>Argon2 Memory-Hard Function for Password Hashing and Proof-of-Work Applications</cite></a>. A. Biryukov; D. Dinu; D. Khovratovich; S. Josefsson.  IETF. September 2021. Informational. URL: <a href="https://www.rfc-editor.org/rfc/rfc9106">https://www.rfc-editor.org/rfc/rfc9106</a>
     </dd><dt id="bib-webcrypto">[webcrypto]</dt><dd>
       <a href="https://www.w3.org/TR/webcrypto-2/"><cite>Web Cryptography Level 2</cite></a>. Daniel Huigens.  W3C. 22 April 2025. FPWD. URL: <a href="https://www.w3.org/TR/webcrypto-2/">https://www.w3.org/TR/webcrypto-2/</a>
-    </dd><dt id="bib-webcryptoapi">[WebCryptoAPI]</dt><dd>
-      <a href="https://www.w3.org/TR/WebCryptoAPI/"><cite>Web Cryptography API</cite></a>. Mark Watson.  W3C. 26 January 2017. W3C Recommendation. URL: <a href="https://www.w3.org/TR/WebCryptoAPI/">https://www.w3.org/TR/WebCryptoAPI/</a>
     </dd><dt id="bib-webidl">[WebIDL]</dt><dd>
       <a href="https://webidl.spec.whatwg.org/"><cite>Web IDL Standard</cite></a>. Edgar Chen; Timothy Gu.  WHATWG. Living Standard. URL: <a href="https://webidl.spec.whatwg.org/">https://webidl.spec.whatwg.org/</a>
     </dd></dl>
