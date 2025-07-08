@@ -339,7 +339,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           discussion of this specification.
         
     
-  </p></section><nav id="toc"><h2 class="introductory" id="table-of-contents">Table of Contents</h2><ol class="toc"><li class="tocline"><a class="tocxref" href="#abstract">Abstract</a></li><li class="tocline"><a class="tocxref" href="#sotd">Status of This Document</a></li><li class="tocline"><a class="tocxref" href="#introduction"><bdi class="secno">1. </bdi>Introduction</a></li><li class="tocline"><a class="tocxref" href="#specification-conventions"><bdi class="secno">2. </bdi>Specification Conventions</a></li><li class="tocline"><a class="tocxref" href="#partial-subtlecrypto-interface"><bdi class="secno">3. </bdi>Partial SubtleCrypto interface</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#subtlecrypto-interface-datatypes"><bdi class="secno">3.1 </bdi>Data Types</a></li><li class="tocline"><a class="tocxref" href="#partial-subtlecrypto-interface-methods"><bdi class="secno">3.2 </bdi>Methods and Parameters</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#SubtleCrypto-method-encapsulateKey"><bdi class="secno">3.2.1 </bdi>The encapsulateKey method</a></li><li class="tocline"><a class="tocxref" href="#SubtleCrypto-method-encapsulateBits"><bdi class="secno">3.2.2 </bdi>The encapsulateBits method</a></li><li class="tocline"><a class="tocxref" href="#SubtleCrypto-method-decapsulateKey"><bdi class="secno">3.2.3 </bdi>The decapsulateKey method</a></li><li class="tocline"><a class="tocxref" href="#SubtleCrypto-method-decapsulateBits"><bdi class="secno">3.2.4 </bdi>The decapsulateBits method</a></li><li class="tocline"><a class="tocxref" href="#SubtleCrypto-method-supports"><bdi class="secno">3.2.5 </bdi>The supports method</a></li></ol></li><li class="tocline"><a class="tocxref" href="#partial-subtlecrypto-interface-checking-support-for-algorithm"><bdi class="secno">3.3 </bdi>Checking support for an algorithm</a></li></ol></li><li class="tocline"><a class="tocxref" href="#encapsulation"><bdi class="secno">4. </bdi>Encapsulation dictionaries</a></li><li class="tocline"><a class="tocxref" href="#JsonWebKey-dictionary"><bdi class="secno">5. </bdi>JsonWebKey dictionary</a></li><li class="tocline"><a class="tocxref" href="#ml-kem"><bdi class="secno">6. </bdi>ML-KEM</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#ml-kem-description"><bdi class="secno">6.1 </bdi>Description</a></li><li class="tocline"><a class="tocxref" href="#ml-kem-registration"><bdi class="secno">6.2 </bdi>Registration</a></li><li class="tocline"><a class="tocxref" href="#ml-kem-operations"><bdi class="secno">6.3 </bdi>Operations</a></li></ol></li><li class="tocline"><a class="tocxref" href="#ml-dsa"><bdi class="secno">7. </bdi>ML-DSA</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#ml-dsa-description"><bdi class="secno">7.1 </bdi>Description</a></li><li class="tocline"><a class="tocxref" href="#ml-dsa-registration"><bdi class="secno">7.2 </bdi>Registration</a></li><li class="tocline"><a class="tocxref" href="#context-params"><bdi class="secno">7.3 </bdi><span data-idl="dictionary" data-export="" data-dfn-type="dictionary" data-title="ContextParams" data-dfn-for=""><code>ContextParams</code></span> dictionary</a></li><li class="tocline"><a class="tocxref" href="#ml-dsa-operations"><bdi class="secno">7.4 </bdi>Operations</a></li></ol></li><li class="tocline"><a class="tocxref" href="#slh-dsa"><bdi class="secno">8. </bdi>SLH-DSA</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#slh-dsa-description"><bdi class="secno">8.1 </bdi>Description</a></li><li class="tocline"><a class="tocxref" href="#slh-dsa-registration"><bdi class="secno">8.2 </bdi>Registration</a></li><li class="tocline"><a class="tocxref" href="#slh-dsa-operations"><bdi class="secno">8.3 </bdi>Operations</a></li></ol></li><li class="tocline"><a class="tocxref" href="#aes-ocb"><bdi class="secno">9. </bdi>AES-OCB</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#aes-ocb-description"><bdi class="secno">9.1 </bdi>Description</a></li><li class="tocline"><a class="tocxref" href="#aes-ocb-registration"><bdi class="secno">9.2 </bdi>Registration</a></li><li class="tocline"><a class="tocxref" href="#aead-params"><bdi class="secno">9.3 </bdi><span data-idl="dictionary" data-export="" data-dfn-type="dictionary" data-title="AeadParams" data-dfn-for=""><code>AeadParams</code></span> dictionary</a></li><li class="tocline"><a class="tocxref" href="#aes-ocb-operations"><bdi class="secno">9.4 </bdi>Operations</a></li></ol></li><li class="tocline"><a class="tocxref" href="#chacha20-poly1305"><bdi class="secno">10. </bdi>ChaCha20-Poly1305</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#chacha20-poly1305-description"><bdi class="secno">10.1 </bdi>Description</a></li><li class="tocline"><a class="tocxref" href="#chacha20-poly1305-registration"><bdi class="secno">10.2 </bdi>Registration</a></li><li class="tocline"><a class="tocxref" href="#chacha20-poly1305-operations"><bdi class="secno">10.3 </bdi>Operations</a></li></ol></li><li class="tocline"><a class="tocxref" href="#sha3"><bdi class="secno">11. </bdi>SHA-3</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#sha3-description"><bdi class="secno">11.1 </bdi>Description</a></li><li class="tocline"><a class="tocxref" href="#sha3-registration"><bdi class="secno">11.2 </bdi>Registration</a></li><li class="tocline"><a class="tocxref" href="#sha3-operations"><bdi class="secno">11.3 </bdi>Operations</a></li></ol></li><li class="tocline"><a class="tocxref" href="#cshake"><bdi class="secno">12. </bdi>cSHAKE</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#cshake-description"><bdi class="secno">12.1 </bdi>Description</a></li><li class="tocline"><a class="tocxref" href="#cshake-registration"><bdi class="secno">12.2 </bdi>Registration</a></li><li class="tocline"><a class="tocxref" href="#cshake-params"><bdi class="secno">12.3 </bdi><span data-idl="dictionary" data-export="" data-dfn-type="dictionary" data-title="CShakeParams" data-dfn-for=""><code>CShakeParams</code></span> dictionary</a></li><li class="tocline"><a class="tocxref" href="#cshake-operations"><bdi class="secno">12.4 </bdi>Operations</a></li></ol></li><li class="tocline"><a class="tocxref" href="#kmac"><bdi class="secno">13. </bdi>KMAC</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#kmac-description"><bdi class="secno">13.1 </bdi>Description</a></li><li class="tocline"><a class="tocxref" href="#kmac-registration"><bdi class="secno">13.2 </bdi>Registration</a></li><li class="tocline"><a class="tocxref" href="#kmac-keygen-params"><bdi class="secno">13.3 </bdi><span data-idl="dictionary" data-export="" data-dfn-type="dictionary" data-title="KmacKeyGenParams" data-dfn-for=""><code>KmacKeyGenParams</code></span> dictionary</a></li><li class="tocline"><a class="tocxref" href="#kmac-importparams"><bdi class="secno">13.4 </bdi><span data-idl="dictionary" data-export="" data-dfn-type="dictionary" data-title="KmacImportParams" data-dfn-for=""><code>KmacImportParams</code></span> dictionary</a></li><li class="tocline"><a class="tocxref" href="#KmacKeyAlgorithm-dictionary"><bdi class="secno">13.5 </bdi><span data-idl="dictionary" data-export="" data-dfn-type="dictionary" data-title="KmacKeyAlgorithm" data-dfn-for=""><code>KmacKeyAlgorithm</code></span> dictionary</a></li><li class="tocline"><a class="tocxref" href="#kmac-params"><bdi class="secno">13.6 </bdi><span data-idl="dictionary" data-export="" data-dfn-type="dictionary" data-title="KmacParams" data-dfn-for=""><code>KmacParams</code></span> dictionary</a></li><li class="tocline"><a class="tocxref" href="#kmac-operations"><bdi class="secno">13.7 </bdi>Operations</a></li></ol></li><li class="tocline"><a class="tocxref" href="#argon2"><bdi class="secno">14. </bdi>Argon2</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#argon2-description"><bdi class="secno">14.1 </bdi>Description</a></li><li class="tocline"><a class="tocxref" href="#argon2-registration"><bdi class="secno">14.2 </bdi>Registration</a></li><li class="tocline"><a class="tocxref" href="#argon2-params"><bdi class="secno">14.3 </bdi><span data-idl="dictionary" data-export="" data-dfn-type="dictionary" data-title="Argon2Params" data-dfn-for=""><code>Argon2Params</code></span> dictionary</a></li><li class="tocline"><a class="tocxref" href="#argon2-operations"><bdi class="secno">14.4 </bdi>Operations</a></li></ol></li><li class="tocline"><a class="tocxref" href="#usage-example"><bdi class="secno">15. </bdi>Usage Example</a></li><li class="tocline"><a class="tocxref" href="#jwk-mapping"><bdi class="secno">A. </bdi>Mapping between JSON Web Key / JSON Web Algorithm</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#algorithm-mappings"><bdi class="secno">A.1 </bdi>Algorithm mappings</a></li></ol></li><li class="tocline"><a class="tocxref" href="#conformance"><bdi class="secno">B. </bdi>Conformance</a></li><li class="tocline"><a class="tocxref" href="#references"><bdi class="secno">C. </bdi>References</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#normative-references"><bdi class="secno">C.1 </bdi>Normative references</a></li></ol></li></ol></nav>
+  </p></section><nav id="toc"><h2 class="introductory" id="table-of-contents">Table of Contents</h2><ol class="toc"><li class="tocline"><a class="tocxref" href="#abstract">Abstract</a></li><li class="tocline"><a class="tocxref" href="#sotd">Status of This Document</a></li><li class="tocline"><a class="tocxref" href="#introduction"><bdi class="secno">1. </bdi>Introduction</a></li><li class="tocline"><a class="tocxref" href="#specification-conventions"><bdi class="secno">2. </bdi>Specification Conventions</a></li><li class="tocline"><a class="tocxref" href="#partial-subtlecrypto-interface"><bdi class="secno">3. </bdi>Partial SubtleCrypto interface</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#subtlecrypto-interface-datatypes"><bdi class="secno">3.1 </bdi>Data Types</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#subtlecrypto-interface-keyformat"><bdi class="secno">3.1.1 </bdi>Key Formats</a></li><li class="tocline"><a class="tocxref" href="#subtlecrypto-interface-keyusage"><bdi class="secno">3.1.2 </bdi>Key Usages</a></li></ol></li><li class="tocline"><a class="tocxref" href="#partial-subtlecrypto-interface-methods"><bdi class="secno">3.2 </bdi>Methods and Parameters</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#SubtleCrypto-method-encapsulateKey"><bdi class="secno">3.2.1 </bdi>The encapsulateKey method</a></li><li class="tocline"><a class="tocxref" href="#SubtleCrypto-method-encapsulateBits"><bdi class="secno">3.2.2 </bdi>The encapsulateBits method</a></li><li class="tocline"><a class="tocxref" href="#SubtleCrypto-method-decapsulateKey"><bdi class="secno">3.2.3 </bdi>The decapsulateKey method</a></li><li class="tocline"><a class="tocxref" href="#SubtleCrypto-method-decapsulateBits"><bdi class="secno">3.2.4 </bdi>The decapsulateBits method</a></li><li class="tocline"><a class="tocxref" href="#SubtleCrypto-method-supports"><bdi class="secno">3.2.5 </bdi>The supports method</a></li></ol></li><li class="tocline"><a class="tocxref" href="#partial-subtlecrypto-interface-checking-support-for-algorithm"><bdi class="secno">3.3 </bdi>Checking support for an algorithm</a></li></ol></li><li class="tocline"><a class="tocxref" href="#encapsulation"><bdi class="secno">4. </bdi>Encapsulation dictionaries</a></li><li class="tocline"><a class="tocxref" href="#JsonWebKey-dictionary"><bdi class="secno">5. </bdi>JsonWebKey dictionary</a></li><li class="tocline"><a class="tocxref" href="#ml-kem"><bdi class="secno">6. </bdi>ML-KEM</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#ml-kem-description"><bdi class="secno">6.1 </bdi>Description</a></li><li class="tocline"><a class="tocxref" href="#ml-kem-registration"><bdi class="secno">6.2 </bdi>Registration</a></li><li class="tocline"><a class="tocxref" href="#ml-kem-operations"><bdi class="secno">6.3 </bdi>Operations</a></li></ol></li><li class="tocline"><a class="tocxref" href="#ml-dsa"><bdi class="secno">7. </bdi>ML-DSA</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#ml-dsa-description"><bdi class="secno">7.1 </bdi>Description</a></li><li class="tocline"><a class="tocxref" href="#ml-dsa-registration"><bdi class="secno">7.2 </bdi>Registration</a></li><li class="tocline"><a class="tocxref" href="#context-params"><bdi class="secno">7.3 </bdi><span data-idl="dictionary" data-export="" data-dfn-type="dictionary" data-title="ContextParams" data-dfn-for=""><code>ContextParams</code></span> dictionary</a></li><li class="tocline"><a class="tocxref" href="#ml-dsa-operations"><bdi class="secno">7.4 </bdi>Operations</a></li></ol></li><li class="tocline"><a class="tocxref" href="#slh-dsa"><bdi class="secno">8. </bdi>SLH-DSA</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#slh-dsa-description"><bdi class="secno">8.1 </bdi>Description</a></li><li class="tocline"><a class="tocxref" href="#slh-dsa-registration"><bdi class="secno">8.2 </bdi>Registration</a></li><li class="tocline"><a class="tocxref" href="#slh-dsa-operations"><bdi class="secno">8.3 </bdi>Operations</a></li></ol></li><li class="tocline"><a class="tocxref" href="#aes-ocb"><bdi class="secno">9. </bdi>AES-OCB</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#aes-ocb-description"><bdi class="secno">9.1 </bdi>Description</a></li><li class="tocline"><a class="tocxref" href="#aes-ocb-registration"><bdi class="secno">9.2 </bdi>Registration</a></li><li class="tocline"><a class="tocxref" href="#aead-params"><bdi class="secno">9.3 </bdi><span data-idl="dictionary" data-export="" data-dfn-type="dictionary" data-title="AeadParams" data-dfn-for=""><code>AeadParams</code></span> dictionary</a></li><li class="tocline"><a class="tocxref" href="#aes-ocb-operations"><bdi class="secno">9.4 </bdi>Operations</a></li></ol></li><li class="tocline"><a class="tocxref" href="#chacha20-poly1305"><bdi class="secno">10. </bdi>ChaCha20-Poly1305</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#chacha20-poly1305-description"><bdi class="secno">10.1 </bdi>Description</a></li><li class="tocline"><a class="tocxref" href="#chacha20-poly1305-registration"><bdi class="secno">10.2 </bdi>Registration</a></li><li class="tocline"><a class="tocxref" href="#chacha20-poly1305-operations"><bdi class="secno">10.3 </bdi>Operations</a></li></ol></li><li class="tocline"><a class="tocxref" href="#sha3"><bdi class="secno">11. </bdi>SHA-3</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#sha3-description"><bdi class="secno">11.1 </bdi>Description</a></li><li class="tocline"><a class="tocxref" href="#sha3-registration"><bdi class="secno">11.2 </bdi>Registration</a></li><li class="tocline"><a class="tocxref" href="#sha3-operations"><bdi class="secno">11.3 </bdi>Operations</a></li></ol></li><li class="tocline"><a class="tocxref" href="#cshake"><bdi class="secno">12. </bdi>cSHAKE</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#cshake-description"><bdi class="secno">12.1 </bdi>Description</a></li><li class="tocline"><a class="tocxref" href="#cshake-registration"><bdi class="secno">12.2 </bdi>Registration</a></li><li class="tocline"><a class="tocxref" href="#cshake-params"><bdi class="secno">12.3 </bdi><span data-idl="dictionary" data-export="" data-dfn-type="dictionary" data-title="CShakeParams" data-dfn-for=""><code>CShakeParams</code></span> dictionary</a></li><li class="tocline"><a class="tocxref" href="#cshake-operations"><bdi class="secno">12.4 </bdi>Operations</a></li></ol></li><li class="tocline"><a class="tocxref" href="#kmac"><bdi class="secno">13. </bdi>KMAC</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#kmac-description"><bdi class="secno">13.1 </bdi>Description</a></li><li class="tocline"><a class="tocxref" href="#kmac-registration"><bdi class="secno">13.2 </bdi>Registration</a></li><li class="tocline"><a class="tocxref" href="#kmac-keygen-params"><bdi class="secno">13.3 </bdi><span data-idl="dictionary" data-export="" data-dfn-type="dictionary" data-title="KmacKeyGenParams" data-dfn-for=""><code>KmacKeyGenParams</code></span> dictionary</a></li><li class="tocline"><a class="tocxref" href="#kmac-importparams"><bdi class="secno">13.4 </bdi><span data-idl="dictionary" data-export="" data-dfn-type="dictionary" data-title="KmacImportParams" data-dfn-for=""><code>KmacImportParams</code></span> dictionary</a></li><li class="tocline"><a class="tocxref" href="#KmacKeyAlgorithm-dictionary"><bdi class="secno">13.5 </bdi><span data-idl="dictionary" data-export="" data-dfn-type="dictionary" data-title="KmacKeyAlgorithm" data-dfn-for=""><code>KmacKeyAlgorithm</code></span> dictionary</a></li><li class="tocline"><a class="tocxref" href="#kmac-params"><bdi class="secno">13.6 </bdi><span data-idl="dictionary" data-export="" data-dfn-type="dictionary" data-title="KmacParams" data-dfn-for=""><code>KmacParams</code></span> dictionary</a></li><li class="tocline"><a class="tocxref" href="#kmac-operations"><bdi class="secno">13.7 </bdi>Operations</a></li></ol></li><li class="tocline"><a class="tocxref" href="#argon2"><bdi class="secno">14. </bdi>Argon2</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#argon2-description"><bdi class="secno">14.1 </bdi>Description</a></li><li class="tocline"><a class="tocxref" href="#argon2-registration"><bdi class="secno">14.2 </bdi>Registration</a></li><li class="tocline"><a class="tocxref" href="#argon2-params"><bdi class="secno">14.3 </bdi><span data-idl="dictionary" data-export="" data-dfn-type="dictionary" data-title="Argon2Params" data-dfn-for=""><code>Argon2Params</code></span> dictionary</a></li><li class="tocline"><a class="tocxref" href="#argon2-operations"><bdi class="secno">14.4 </bdi>Operations</a></li></ol></li><li class="tocline"><a class="tocxref" href="#usage-example"><bdi class="secno">15. </bdi>Usage Example</a></li><li class="tocline"><a class="tocxref" href="#jwk-mapping"><bdi class="secno">A. </bdi>Mapping between JSON Web Key / JSON Web Algorithm</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#algorithm-mappings"><bdi class="secno">A.1 </bdi>Algorithm mappings</a></li></ol></li><li class="tocline"><a class="tocxref" href="#conformance"><bdi class="secno">B. </bdi>Conformance</a></li><li class="tocline"><a class="tocxref" href="#references"><bdi class="secno">C. </bdi>References</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#normative-references"><bdi class="secno">C.1 </bdi>Normative references</a></li></ol></li></ol></nav>
   <section id="introduction" class="informative"><div class="header-wrapper"><h2 id="x1-introduction"><bdi class="secno">1. </bdi>Introduction</h2><a class="self-link" href="#introduction" aria-label="Permalink for Section 1."></a></div><p><em>This section is non-normative.</em></p>
     
     <p>
@@ -397,7 +397,7 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
     <a data-link-type="interface" href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey">CryptoKey</a></span> <span class="idlParamName">encapsulationKey</span>,<span class="idlType">
     <a data-link-type="typedef" href="https://www.w3.org/TR/webcrypto-2/#dom-algorithmidentifier">AlgorithmIdentifier</a></span> <span class="idlParamName">sharedKeyAlgorithm</span>,<span class="idlType">
     <a data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-boolean">boolean</a></span> <span class="idlParamName">extractable</span>,<span class="idlType">
-    <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#idl-sequence">sequence</a>&lt;<a data-link-type="enum" href="https://www.w3.org/TR/webcrypto-2/#dom-keyusage">KeyUsage</a>&gt;</span> <span class="idlParamName">keyUsages</span>
+    <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#idl-sequence">sequence</a>&lt;<a data-link-type="idl" href="#dom-keyusage" class="internalDFN" id="ref-for-dom-keyusage-1"><code>KeyUsage</code></a>&gt;</span> <span class="idlParamName">keyUsages</span>
   );</span><span data-idl="" class="idlMethod" id="idl-def-subtlecrypto-encapsulatebits-encapsulationalgorithm-encapsulationkey" data-title="encapsulateBits" data-dfn-for="SubtleCrypto"><span class="idlType">
   <a data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-promise">Promise</a>&lt;<a data-link-type="idl" href="#dfn-EncapsulatedBits" class="internalDFN" id="ref-for-dfn-EncapsulatedBits-1"><code>EncapsulatedBits</code></a>&gt;</span> <a class="internalDFN idlName" data-link-type="method" href="#dfn-SubtleCrypto-method-encapsulateBits" id="ref-for-dfn-SubtleCrypto-method-encapsulateBits-2"><code>encapsulateBits</code></a>(<span class="idlType">
     <a data-link-type="typedef" href="https://www.w3.org/TR/webcrypto-2/#dom-algorithmidentifier">AlgorithmIdentifier</a></span> <span class="idlParamName">encapsulationAlgorithm</span>,<span class="idlType">
@@ -410,7 +410,7 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
     <a data-link-type="typedef" href="https://webidl.spec.whatwg.org/#BufferSource">BufferSource</a></span> <span class="idlParamName">ciphertext</span>,<span class="idlType">
     <a data-link-type="typedef" href="https://www.w3.org/TR/webcrypto-2/#dom-algorithmidentifier">AlgorithmIdentifier</a></span> <span class="idlParamName">sharedKeyAlgorithm</span>,<span class="idlType">
     <a data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-boolean">boolean</a></span> <span class="idlParamName">extractable</span>,<span class="idlType">
-    <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#idl-sequence">sequence</a>&lt;<a data-link-type="enum" href="https://www.w3.org/TR/webcrypto-2/#dom-keyusage">KeyUsage</a>&gt;</span> <span class="idlParamName">keyUsages</span>
+    <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#idl-sequence">sequence</a>&lt;<a data-link-type="idl" href="#dom-keyusage" class="internalDFN" id="ref-for-dom-keyusage-2"><code>KeyUsage</code></a>&gt;</span> <span class="idlParamName">keyUsages</span>
   );</span><span data-idl="" class="idlMethod" id="idl-def-subtlecrypto-decapsulatebits-decapsulationalgorithm-decapsulationkey-ciphertext" data-title="decapsulateBits" data-dfn-for="SubtleCrypto"><span class="idlType">
   <a data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-promise">Promise</a>&lt;<a data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-ArrayBuffer">ArrayBuffer</a>&gt;</span> <a class="internalDFN idlName" data-link-type="method" href="#dfn-SubtleCrypto-method-decapsulateBits" id="ref-for-dfn-SubtleCrypto-method-decapsulateBits-2"><code>decapsulateBits</code></a>(<span class="idlType">
     <a data-link-type="typedef" href="https://www.w3.org/TR/webcrypto-2/#dom-algorithmidentifier">AlgorithmIdentifier</a></span> <span class="idlParamName">decapsulationAlgorithm</span>,<span class="idlType">
@@ -428,36 +428,60 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
 
     <section id="subtlecrypto-interface-datatypes"><div class="header-wrapper"><h3 id="x3-1-data-types"><bdi class="secno">3.1 </bdi>Data Types</h3><a class="self-link" href="#subtlecrypto-interface-datatypes" aria-label="Permalink for Section 3.1"></a></div>
       
-      <p>
-        This specification replaces the definition of <a href="https://www.w3.org/TR/webcrypto-2/#dfn-KeyFormat"><code>KeyFormat</code></a>
-        in [<cite><a class="bibref" data-link-type="biblio" href="#bib-webcrypto" title="Web Cryptography Level 2">webcrypto</a></cite>] with the following:
-      </p>
-      <pre class="idl def" id="webidl-1896181443"><span class="idlHeader"><a class="self-link" href="#webidl-1896181443">WebIDL</a></span><code><span data-idl="" class="idlEnum" id="idl-def-keyformat" data-title="KeyFormat">enum <dfn data-export="" data-dfn-type="enum" id="dom-keyformat" data-idl="enum" data-title="KeyFormat" data-dfn-for="" class="idlID" tabindex="0" aria-haspopup="dialog"><code>KeyFormat</code></dfn> { <span class="idlEnumItem">"<a class="internalDFN" data-link-type="enum-value" href="#dom-keyformat-raw-public" id="ref-for-dom-keyformat-raw-public-1"><code>raw-public</code></a>"</span>, <span class="idlEnumItem">"<a class="internalDFN" data-link-type="enum-value" href="#dom-keyformat-raw-private" id="ref-for-dom-keyformat-raw-private-1"><code>raw-private</code></a>"</span>, <span class="idlEnumItem">"<a class="internalDFN" data-link-type="enum-value" href="#dom-keyformat-raw-seed" id="ref-for-dom-keyformat-raw-seed-1"><code>raw-seed</code></a>"</span>, <span class="idlEnumItem">"<a class="internalDFN" data-link-type="enum-value" href="#dom-keyformat-raw-secret" id="ref-for-dom-keyformat-raw-secret-1"><code>raw-secret</code></a>"</span>, <span class="idlEnumItem">"<dfn data-export="" data-dfn-type="enum-value" id="dom-keyformat-raw" data-idl="enum-value" data-title="raw" data-dfn-for="KeyFormat" tabindex="0" aria-haspopup="dialog"><code>raw</code></dfn>"</span>, <span class="idlEnumItem">"<dfn data-export="" data-dfn-type="enum-value" id="dom-keyformat-spki" data-idl="enum-value" data-title="spki" data-dfn-for="KeyFormat" tabindex="0" aria-haspopup="dialog"><code>spki</code></dfn>"</span>, <span class="idlEnumItem">"<dfn data-export="" data-dfn-type="enum-value" id="dom-keyformat-pkcs8" data-idl="enum-value" data-title="pkcs8" data-dfn-for="KeyFormat" tabindex="0" aria-haspopup="dialog"><code>pkcs8</code></dfn>"</span>, <span class="idlEnumItem">"<dfn data-export="" data-dfn-type="enum-value" id="dom-keyformat-jwk" data-idl="enum-value" data-title="jwk" data-dfn-for="KeyFormat" tabindex="0" aria-haspopup="dialog"><code>jwk</code></dfn>"</span> };</span></code></pre>
-      <p>
-        This specification specifies a number of new <a href="https://www.w3.org/TR/webcrypto-2/#dfn-RecognizedKeyFormats">recognized key format values</a>:
-      </p>
-      <dl data-dfn-for="KeyFormat">
-        <dt><dfn data-idl="enum-value" data-export="" data-dfn-type="enum-value" id="dom-keyformat-raw-public" data-title="raw-public" data-dfn-for="KeyFormat" tabindex="0" aria-haspopup="dialog"><code>raw-public</code></dfn></dt>
-        <dd>An unformatted sequence of public key bytes.</dd>
-        <dt><dfn data-idl="enum-value" data-export="" data-dfn-type="enum-value" id="dom-keyformat-raw-private" data-title="raw-private" data-dfn-for="KeyFormat" tabindex="0" aria-haspopup="dialog"><code>raw-private</code></dfn></dt>
-        <dd>An unformatted sequence of private key bytes.</dd>
-        <dt><dfn data-idl="enum-value" data-export="" data-dfn-type="enum-value" id="dom-keyformat-raw-seed" data-title="raw-seed" data-dfn-for="KeyFormat" tabindex="0" aria-haspopup="dialog"><code>raw-seed</code></dfn></dt>
-        <dd>An unformatted sequence of private key seed bytes.</dd>
-        <dt><dfn data-idl="enum-value" data-export="" data-dfn-type="enum-value" id="dom-keyformat-raw-secret" data-title="raw-secret" data-dfn-for="KeyFormat" tabindex="0" aria-haspopup="dialog"><code>raw-secret</code></dfn></dt>
-        <dd>An unformatted sequence of secret key bytes.</dd>
-      </dl>
-      <p>
-        For all existing symmetric algorithms in [<cite><a class="bibref" data-link-type="biblio" href="#bib-webcrypto" title="Web Cryptography Level 2">webcrypto</a></cite>],
-        "<a data-link-type="idl" href="#dom-keyformat-raw-secret" class="internalDFN" id="ref-for-dom-keyformat-raw-secret-2"><code>raw-secret</code></a>" acts as an alias of "<a data-link-type="idl" href="#dom-keyformat-raw" class="internalDFN" id="ref-for-dom-keyformat-raw-1"><code>raw</code></a>".
-      </p>
-      <p>
-        For all existing asymmetric algorithms in [<cite><a class="bibref" data-link-type="biblio" href="#bib-webcrypto" title="Web Cryptography Level 2">webcrypto</a></cite>],
-        "<a data-link-type="idl" href="#dom-keyformat-raw-public" class="internalDFN" id="ref-for-dom-keyformat-raw-public-2"><code>raw-public</code></a>" acts as an alias of "<a data-link-type="idl" href="#dom-keyformat-raw" class="internalDFN" id="ref-for-dom-keyformat-raw-2"><code>raw</code></a>".
-      </p>
-      <p>
-        In the <a data-link-type="method" data-lt="deriveKey()" href="https://www.w3.org/TR/webcrypto-2/#dfn-SubtleCrypto-method-deriveKey"><code>deriveKey</code></a><code>()</code> method, in the import key step,
-        "<a data-link-type="idl" href="#dom-keyformat-raw-secret" class="internalDFN" id="ref-for-dom-keyformat-raw-secret-3"><code>raw-secret</code></a>" must be used as the format instead of "<a data-link-type="idl" href="#dom-keyformat-raw" class="internalDFN" id="ref-for-dom-keyformat-raw-3"><code>raw</code></a>".
-      </p>
+      <section id="subtlecrypto-interface-keyformat"><div class="header-wrapper"><h4 id="x3-1-1-key-formats"><bdi class="secno">3.1.1 </bdi>Key Formats</h4><a class="self-link" href="#subtlecrypto-interface-keyformat" aria-label="Permalink for Section 3.1.1"></a></div>
+        
+        <p>
+          This specification replaces the definition of <a href="https://www.w3.org/TR/webcrypto-2/#dfn-KeyFormat"><code>KeyFormat</code></a>
+          in [<cite><a class="bibref" data-link-type="biblio" href="#bib-webcrypto" title="Web Cryptography Level 2">webcrypto</a></cite>] with the following:
+        </p>
+        <pre class="idl def" id="webidl-1896181443"><span class="idlHeader"><a class="self-link" href="#webidl-1896181443">WebIDL</a></span><code><span data-idl="" class="idlEnum" id="idl-def-keyformat" data-title="KeyFormat">enum <dfn data-export="" data-dfn-type="enum" id="dom-keyformat" data-idl="enum" data-title="KeyFormat" data-dfn-for="" class="idlID" tabindex="0" aria-haspopup="dialog"><code>KeyFormat</code></dfn> { <span class="idlEnumItem">"<a class="internalDFN" data-link-type="enum-value" href="#dom-keyformat-raw-public" id="ref-for-dom-keyformat-raw-public-1"><code>raw-public</code></a>"</span>, <span class="idlEnumItem">"<a class="internalDFN" data-link-type="enum-value" href="#dom-keyformat-raw-private" id="ref-for-dom-keyformat-raw-private-1"><code>raw-private</code></a>"</span>, <span class="idlEnumItem">"<a class="internalDFN" data-link-type="enum-value" href="#dom-keyformat-raw-seed" id="ref-for-dom-keyformat-raw-seed-1"><code>raw-seed</code></a>"</span>, <span class="idlEnumItem">"<a class="internalDFN" data-link-type="enum-value" href="#dom-keyformat-raw-secret" id="ref-for-dom-keyformat-raw-secret-1"><code>raw-secret</code></a>"</span>, <span class="idlEnumItem">"<dfn data-export="" data-dfn-type="enum-value" id="dom-keyformat-raw" data-idl="enum-value" data-title="raw" data-dfn-for="KeyFormat" tabindex="0" aria-haspopup="dialog"><code>raw</code></dfn>"</span>, <span class="idlEnumItem">"<dfn data-export="" data-dfn-type="enum-value" id="dom-keyformat-spki" data-idl="enum-value" data-title="spki" data-dfn-for="KeyFormat" tabindex="0" aria-haspopup="dialog"><code>spki</code></dfn>"</span>, <span class="idlEnumItem">"<dfn data-export="" data-dfn-type="enum-value" id="dom-keyformat-pkcs8" data-idl="enum-value" data-title="pkcs8" data-dfn-for="KeyFormat" tabindex="0" aria-haspopup="dialog"><code>pkcs8</code></dfn>"</span>, <span class="idlEnumItem">"<dfn data-export="" data-dfn-type="enum-value" id="dom-keyformat-jwk" data-idl="enum-value" data-title="jwk" data-dfn-for="KeyFormat" tabindex="0" aria-haspopup="dialog"><code>jwk</code></dfn>"</span> };</span></code></pre>
+        <p>
+          This specification specifies a number of new <a href="https://www.w3.org/TR/webcrypto-2/#dfn-RecognizedKeyFormats">recognized key format values</a>:
+        </p>
+        <dl data-dfn-for="KeyFormat">
+          <dt><dfn data-idl="enum-value" data-export="" data-dfn-type="enum-value" id="dom-keyformat-raw-public" data-title="raw-public" data-dfn-for="KeyFormat" tabindex="0" aria-haspopup="dialog"><code>raw-public</code></dfn></dt>
+          <dd>An unformatted sequence of public key bytes.</dd>
+          <dt><dfn data-idl="enum-value" data-export="" data-dfn-type="enum-value" id="dom-keyformat-raw-private" data-title="raw-private" data-dfn-for="KeyFormat" tabindex="0" aria-haspopup="dialog"><code>raw-private</code></dfn></dt>
+          <dd>An unformatted sequence of private key bytes.</dd>
+          <dt><dfn data-idl="enum-value" data-export="" data-dfn-type="enum-value" id="dom-keyformat-raw-seed" data-title="raw-seed" data-dfn-for="KeyFormat" tabindex="0" aria-haspopup="dialog"><code>raw-seed</code></dfn></dt>
+          <dd>An unformatted sequence of private key seed bytes.</dd>
+          <dt><dfn data-idl="enum-value" data-export="" data-dfn-type="enum-value" id="dom-keyformat-raw-secret" data-title="raw-secret" data-dfn-for="KeyFormat" tabindex="0" aria-haspopup="dialog"><code>raw-secret</code></dfn></dt>
+          <dd>An unformatted sequence of secret key bytes.</dd>
+        </dl>
+        <p>
+          For all existing symmetric algorithms in [<cite><a class="bibref" data-link-type="biblio" href="#bib-webcrypto" title="Web Cryptography Level 2">webcrypto</a></cite>],
+          "<a data-link-type="idl" href="#dom-keyformat-raw-secret" class="internalDFN" id="ref-for-dom-keyformat-raw-secret-2"><code>raw-secret</code></a>" acts as an alias of "<a data-link-type="idl" href="#dom-keyformat-raw" class="internalDFN" id="ref-for-dom-keyformat-raw-1"><code>raw</code></a>".
+        </p>
+        <p>
+          For all existing asymmetric algorithms in [<cite><a class="bibref" data-link-type="biblio" href="#bib-webcrypto" title="Web Cryptography Level 2">webcrypto</a></cite>],
+          "<a data-link-type="idl" href="#dom-keyformat-raw-public" class="internalDFN" id="ref-for-dom-keyformat-raw-public-2"><code>raw-public</code></a>" acts as an alias of "<a data-link-type="idl" href="#dom-keyformat-raw" class="internalDFN" id="ref-for-dom-keyformat-raw-2"><code>raw</code></a>".
+        </p>
+        <p>
+          In the <a data-link-type="method" data-lt="deriveKey()" href="https://www.w3.org/TR/webcrypto-2/#dfn-SubtleCrypto-method-deriveKey"><code>deriveKey</code></a><code>()</code> method, in the import key step,
+          "<a data-link-type="idl" href="#dom-keyformat-raw-secret" class="internalDFN" id="ref-for-dom-keyformat-raw-secret-3"><code>raw-secret</code></a>" must be used as the format instead of "<a data-link-type="idl" href="#dom-keyformat-raw" class="internalDFN" id="ref-for-dom-keyformat-raw-3"><code>raw</code></a>".
+        </p>
+      </section>
+      <section id="subtlecrypto-interface-keyusage"><div class="header-wrapper"><h4 id="x3-1-2-key-usages"><bdi class="secno">3.1.2 </bdi>Key Usages</h4><a class="self-link" href="#subtlecrypto-interface-keyusage" aria-label="Permalink for Section 3.1.2"></a></div>
+        
+        <p>
+          This specification replaces the definition of <a href="https://www.w3.org/TR/webcrypto-2/#dfn-KeyUsage"><code>KeyUsage</code></a>
+          in [<cite><a class="bibref" data-link-type="biblio" href="#bib-webcrypto" title="Web Cryptography Level 2">webcrypto</a></cite>] with the following:
+        </p>
+        <pre class="idl def" id="webidl-712964944"><span class="idlHeader"><a class="self-link" href="#webidl-712964944">WebIDL</a></span><code><span data-idl="" class="idlEnum" id="idl-def-keyusage" data-title="KeyUsage">enum <dfn data-export="" data-dfn-type="enum" id="dom-keyusage" data-idl="enum" data-title="KeyUsage" data-dfn-for="" class="idlID" tabindex="0" aria-haspopup="dialog"><code>KeyUsage</code></dfn> { <span class="idlEnumItem">"<dfn data-export="" data-dfn-type="enum-value" id="dom-keyusage-encrypt" data-idl="enum-value" data-title="encrypt" data-dfn-for="KeyUsage" tabindex="0" aria-haspopup="dialog"><code>encrypt</code></dfn>"</span>, <span class="idlEnumItem">"<dfn data-export="" data-dfn-type="enum-value" id="dom-keyusage-decrypt" data-idl="enum-value" data-title="decrypt" data-dfn-for="KeyUsage" tabindex="0" aria-haspopup="dialog"><code>decrypt</code></dfn>"</span>, <span class="idlEnumItem">"<dfn data-export="" data-dfn-type="enum-value" id="dom-keyusage-sign" data-idl="enum-value" data-title="sign" data-dfn-for="KeyUsage" tabindex="0" aria-haspopup="dialog"><code>sign</code></dfn>"</span>, <span class="idlEnumItem">"<dfn data-export="" data-dfn-type="enum-value" id="dom-keyusage-verify" data-idl="enum-value" data-title="verify" data-dfn-for="KeyUsage" tabindex="0" aria-haspopup="dialog"><code>verify</code></dfn>"</span>, <span class="idlEnumItem">"<dfn data-export="" data-dfn-type="enum-value" id="dom-keyusage-derivekey" data-idl="enum-value" data-title="deriveKey" data-dfn-for="KeyUsage" tabindex="0" aria-haspopup="dialog"><code>deriveKey</code></dfn>"</span>, <span class="idlEnumItem">"<dfn data-export="" data-dfn-type="enum-value" id="dom-keyusage-derivebits" data-idl="enum-value" data-title="deriveBits" data-dfn-for="KeyUsage" tabindex="0" aria-haspopup="dialog"><code>deriveBits</code></dfn>"</span>, <span class="idlEnumItem">"<dfn data-export="" data-dfn-type="enum-value" id="dom-keyusage-wrapkey" data-idl="enum-value" data-title="wrapKey" data-dfn-for="KeyUsage" tabindex="0" aria-haspopup="dialog"><code>wrapKey</code></dfn>"</span>, <span class="idlEnumItem">"<dfn data-export="" data-dfn-type="enum-value" id="dom-keyusage-unwrapkey" data-idl="enum-value" data-title="unwrapKey" data-dfn-for="KeyUsage" tabindex="0" aria-haspopup="dialog"><code>unwrapKey</code></dfn>"</span>, <span class="idlEnumItem">"<a class="internalDFN" data-link-type="enum-value" href="#dom-keyusage-encapsulatekey" id="ref-for-dom-keyusage-encapsulatekey-1"><code>encapsulateKey</code></a>"</span>, <span class="idlEnumItem">"<a class="internalDFN" data-link-type="enum-value" href="#dom-keyusage-encapsulatebits" id="ref-for-dom-keyusage-encapsulatebits-1"><code>encapsulateBits</code></a>"</span>, <span class="idlEnumItem">"<a class="internalDFN" data-link-type="enum-value" href="#dom-keyusage-decapsulatekey" id="ref-for-dom-keyusage-decapsulatekey-1"><code>decapsulateKey</code></a>"</span>, <span class="idlEnumItem">"<a class="internalDFN" data-link-type="enum-value" href="#dom-keyusage-decapsulatebits" id="ref-for-dom-keyusage-decapsulatebits-1"><code>decapsulateBits</code></a>"</span> };</span></code></pre>
+        <p>
+          This specification specifies a number of new <a href="https://www.w3.org/TR/webcrypto-2/#dfn-RecognizedKeyUsages">recognized key usage values</a>:
+        </p>
+        <dl data-dfn-for="KeyUsage">
+          <dt><dfn data-idl="enum-value" data-export="" data-dfn-type="enum-value" id="dom-keyusage-encapsulatekey" data-title="encapsulateKey" data-dfn-for="KeyUsage" tabindex="0" aria-haspopup="dialog"><code>encapsulateKey</code></dfn></dt>
+          <dd>Enable using the key with <a data-link-type="interface" data-lt="SubtleCrypto" href="https://www.w3.org/TR/webcrypto-2/#dfn-SubtleCrypto"><code>SubtleCrypto</code></a>.<a data-link-type="idl" href="#dfn-SubtleCrypto-method-encapsulateKey" class="internalDFN" id="ref-for-dfn-SubtleCrypto-method-encapsulateKey-3"><code>encapsulateKey</code></a>.</dd>
+          <dt><dfn data-idl="enum-value" data-export="" data-dfn-type="enum-value" id="dom-keyusage-encapsulatebits" data-title="encapsulateBits" data-dfn-for="KeyUsage" tabindex="0" aria-haspopup="dialog"><code>encapsulateBits</code></dfn></dt>
+          <dd>Enable using the key with <a data-link-type="interface" data-lt="SubtleCrypto" href="https://www.w3.org/TR/webcrypto-2/#dfn-SubtleCrypto"><code>SubtleCrypto</code></a>.<a data-link-type="idl" href="#dfn-SubtleCrypto-method-encapsulateBits" class="internalDFN" id="ref-for-dfn-SubtleCrypto-method-encapsulateBits-3"><code>encapsulateBits</code></a>.</dd>
+          <dt><dfn data-idl="enum-value" data-export="" data-dfn-type="enum-value" id="dom-keyusage-decapsulatekey" data-title="decapsulateKey" data-dfn-for="KeyUsage" tabindex="0" aria-haspopup="dialog"><code>decapsulateKey</code></dfn></dt>
+          <dd>Enable using the key with <a data-link-type="interface" data-lt="SubtleCrypto" href="https://www.w3.org/TR/webcrypto-2/#dfn-SubtleCrypto"><code>SubtleCrypto</code></a>.<a data-link-type="idl" href="#dfn-SubtleCrypto-method-decapsulateKey" class="internalDFN" id="ref-for-dfn-SubtleCrypto-method-decapsulateKey-3"><code>decapsulateKey</code></a>.</dd>
+          <dt><dfn data-idl="enum-value" data-export="" data-dfn-type="enum-value" id="dom-keyusage-decapsulatebits" data-title="decapsulateBits" data-dfn-for="KeyUsage" tabindex="0" aria-haspopup="dialog"><code>decapsulateBits</code></dfn></dt>
+          <dd>Enable using the key with <a data-link-type="interface" data-lt="SubtleCrypto" href="https://www.w3.org/TR/webcrypto-2/#dfn-SubtleCrypto"><code>SubtleCrypto</code></a>.<a data-link-type="idl" href="#dfn-SubtleCrypto-method-decapsulateBits" class="internalDFN" id="ref-for-dfn-SubtleCrypto-method-decapsulateBits-3"><code>decapsulateBits</code></a>.</dd>
+        </dl>
+      </section>
     </section>
 
     <section id="partial-subtlecrypto-interface-methods"><div class="header-wrapper"><h3 id="x3-2-methods-and-parameters"><bdi class="secno">3.2 </bdi>Methods and Parameters</h3><a class="self-link" href="#partial-subtlecrypto-interface-methods" aria-label="Permalink for Section 3.2"></a></div>
@@ -475,7 +499,7 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
               Let <var>encapsulationAlgorithm</var>, <var>encapsulationKey</var>, <var>sharedKeyAlgorithm</var>,
               <var>extractable</var> and <var>usages</var> be the <code>encapsulationAlgorithm</code>, <code>encapsulationKey</code>,
               <code>sharedKeyAlgorithm</code>, <code>extractable</code> and <code>keyUsages</code> parameters passed to the
-              <a data-link-type="idl" data-lt="encapsulateKey()" href="#dfn-SubtleCrypto-method-encapsulateKey" class="internalDFN" id="ref-for-dfn-SubtleCrypto-method-encapsulateKey-3"><code>encapsulateKey</code></a><code>()</code> method,
+              <a data-link-type="idl" data-lt="encapsulateKey()" href="#dfn-SubtleCrypto-method-encapsulateKey" class="internalDFN" id="ref-for-dfn-SubtleCrypto-method-encapsulateKey-4"><code>encapsulateKey</code></a><code>()</code> method,
               respectively.
             </p>
           </li>
@@ -605,7 +629,7 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
             <p>
               Let <var>encapsulationAlgorithm</var> and <var>encapsulationKey</var> be the <code>encapsulationAlgorithm</code>
               and <code>encapsulationKey</code> parameters passed to the
-              <a data-link-type="idl" data-lt="encapsulateBits()" href="#dfn-SubtleCrypto-method-encapsulateBits" class="internalDFN" id="ref-for-dfn-SubtleCrypto-method-encapsulateBits-3"><code>encapsulateBits</code></a><code>()</code> method,
+              <a data-link-type="idl" data-lt="encapsulateBits()" href="#dfn-SubtleCrypto-method-encapsulateBits" class="internalDFN" id="ref-for-dfn-SubtleCrypto-method-encapsulateBits-4"><code>encapsulateBits</code></a><code>()</code> method,
               respectively.
             </p>
           </li>
@@ -703,7 +727,7 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
             <p>
               Let <var>decapsulationAlgorithm</var>, <var>decapsulationKey</var>, <var>sharedKeyAlgorithm</var>,
               <var>extractable</var> and <var>usages</var> be the <code>decapsulationAlgorithm</code>, <code>decapsulationKey</code>, <code>sharedKeyAlgorithm</code>, <code>extractable</code> and <code>keyUsages</code> parameters passed to the
-              <a data-link-type="idl" data-lt="decapsulateKey()" href="#dfn-SubtleCrypto-method-decapsulateKey" class="internalDFN" id="ref-for-dfn-SubtleCrypto-method-decapsulateKey-3"><code>decapsulateKey</code></a><code>()</code> method,
+              <a data-link-type="idl" data-lt="decapsulateKey()" href="#dfn-SubtleCrypto-method-decapsulateKey" class="internalDFN" id="ref-for-dfn-SubtleCrypto-method-decapsulateKey-4"><code>decapsulateKey</code></a><code>()</code> method,
               respectively.
             </p>
           </li>
@@ -711,7 +735,7 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
             <p>
               Let <var>ciphertext</var> be the result of
               <a data-link-type="dfn" data-lt="get a copy of the buffer source" href="https://webidl.spec.whatwg.org/#dfn-get-buffer-source-copy">getting a copy of the bytes held by</a> the <code>ciphertext</code> parameter passed to the
-              <a data-link-type="idl" data-lt="decapsulateKey()" href="#dfn-SubtleCrypto-method-decapsulateKey" class="internalDFN" id="ref-for-dfn-SubtleCrypto-method-decapsulateKey-4"><code>decapsulateKey</code></a><code>()</code> method.
+              <a data-link-type="idl" data-lt="decapsulateKey()" href="#dfn-SubtleCrypto-method-decapsulateKey" class="internalDFN" id="ref-for-dfn-SubtleCrypto-method-decapsulateKey-5"><code>decapsulateKey</code></a><code>()</code> method.
             </p>
           </li>
           <li>
@@ -828,7 +852,7 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
           <li>
             <p>
               Let <var>decapsulationAlgorithm</var> and <var>decapsulationKey</var> be the <code>decapsulationAlgorithm</code> and <code>decapsulationKey</code> parameters passed to the
-              <a data-link-type="idl" data-lt="decapsulateBits()" href="#dfn-SubtleCrypto-method-decapsulateBits" class="internalDFN" id="ref-for-dfn-SubtleCrypto-method-decapsulateBits-3"><code>decapsulateBits</code></a><code>()</code> method,
+              <a data-link-type="idl" data-lt="decapsulateBits()" href="#dfn-SubtleCrypto-method-decapsulateBits" class="internalDFN" id="ref-for-dfn-SubtleCrypto-method-decapsulateBits-4"><code>decapsulateBits</code></a><code>()</code> method,
               respectively.
             </p>
           </li>
@@ -836,7 +860,7 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
             <p>
               Let <var>ciphertext</var> be the result of
               <a data-link-type="dfn" data-lt="get a copy of the buffer source" href="https://webidl.spec.whatwg.org/#dfn-get-buffer-source-copy">getting a copy of the bytes held by</a> the <code>ciphertext</code> parameter passed to the
-              <a data-link-type="idl" data-lt="decapsulateBits()" href="#dfn-SubtleCrypto-method-decapsulateBits" class="internalDFN" id="ref-for-dfn-SubtleCrypto-method-decapsulateBits-4"><code>decapsulateBits</code></a><code>()</code> method.
+              <a data-link-type="idl" data-lt="decapsulateBits()" href="#dfn-SubtleCrypto-method-decapsulateBits" class="internalDFN" id="ref-for-dfn-SubtleCrypto-method-decapsulateBits-5"><code>decapsulateBits</code></a><code>()</code> method.
             </p>
           </li>
           <li>
@@ -5750,7 +5774,7 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-      <a href="#ref-for-dom-keyformat-raw-1" title="§ 3.1 Data Types">§ 3.1 Data Types</a> <a href="#ref-for-dom-keyformat-raw-2" title="Reference 2">(2)</a> <a href="#ref-for-dom-keyformat-raw-3" title="Reference 3">(3)</a> 
+      <a href="#ref-for-dom-keyformat-raw-1" title="§ 3.1.1 Key Formats">§ 3.1.1 Key Formats</a> <a href="#ref-for-dom-keyformat-raw-2" title="Reference 2">(2)</a> <a href="#ref-for-dom-keyformat-raw-3" title="Reference 3">(3)</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dom-keyformat-spki" aria-label="Links in this document to definition: spki">
@@ -5804,7 +5828,7 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-      <a href="#ref-for-dom-keyformat-raw-public-1" title="§ 3.1 Data Types">§ 3.1 Data Types</a> <a href="#ref-for-dom-keyformat-raw-public-2" title="Reference 2">(2)</a> 
+      <a href="#ref-for-dom-keyformat-raw-public-1" title="§ 3.1.1 Key Formats">§ 3.1.1 Key Formats</a> <a href="#ref-for-dom-keyformat-raw-public-2" title="Reference 2">(2)</a> 
     </li><li>
       <a href="#ref-for-dom-keyformat-raw-public-3" title="§ 6.3 Operations">§ 6.3 Operations</a> <a href="#ref-for-dom-keyformat-raw-public-4" title="Reference 2">(2)</a> 
     </li><li>
@@ -5822,7 +5846,7 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-      <a href="#ref-for-dom-keyformat-raw-private-1" title="§ 3.1 Data Types">§ 3.1 Data Types</a> 
+      <a href="#ref-for-dom-keyformat-raw-private-1" title="§ 3.1.1 Key Formats">§ 3.1.1 Key Formats</a> 
     </li><li>
       <a href="#ref-for-dom-keyformat-raw-private-2" title="§ 8.3 Operations">§ 8.3 Operations</a> <a href="#ref-for-dom-keyformat-raw-private-3" title="Reference 2">(2)</a> 
     </li>
@@ -5836,7 +5860,7 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-      <a href="#ref-for-dom-keyformat-raw-seed-1" title="§ 3.1 Data Types">§ 3.1 Data Types</a> 
+      <a href="#ref-for-dom-keyformat-raw-seed-1" title="§ 3.1.1 Key Formats">§ 3.1.1 Key Formats</a> 
     </li><li>
       <a href="#ref-for-dom-keyformat-raw-seed-2" title="§ 6.3 Operations">§ 6.3 Operations</a> <a href="#ref-for-dom-keyformat-raw-seed-3" title="Reference 2">(2)</a> 
     </li><li>
@@ -5852,7 +5876,7 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-      <a href="#ref-for-dom-keyformat-raw-secret-1" title="§ 3.1 Data Types">§ 3.1 Data Types</a> <a href="#ref-for-dom-keyformat-raw-secret-2" title="Reference 2">(2)</a> <a href="#ref-for-dom-keyformat-raw-secret-3" title="Reference 3">(3)</a> 
+      <a href="#ref-for-dom-keyformat-raw-secret-1" title="§ 3.1.1 Key Formats">§ 3.1.1 Key Formats</a> <a href="#ref-for-dom-keyformat-raw-secret-2" title="Reference 2">(2)</a> <a href="#ref-for-dom-keyformat-raw-secret-3" title="Reference 3">(3)</a> 
     </li><li>
       <a href="#ref-for-dom-keyformat-raw-secret-4" title="§ 3.2.1 The encapsulateKey method">§ 3.2.1 The encapsulateKey method</a> 
     </li><li>
@@ -5865,6 +5889,146 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
       <a href="#ref-for-dom-keyformat-raw-secret-10" title="§ 13.7 Operations">§ 13.7 Operations</a> <a href="#ref-for-dom-keyformat-raw-secret-11" title="Reference 2">(2)</a> 
     </li><li>
       <a href="#ref-for-dom-keyformat-raw-secret-12" title="§ 14.4 Operations">§ 14.4 Operations</a> 
+    </li>
+  </ul>
+    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dom-keyusage" aria-label="Links in this document to definition: KeyUsage">
+      <span class="caret"></span>
+      <div>
+        <a class="self-link" href="#dom-keyusage" aria-label="Permalink for definition: KeyUsage. Activate to close this dialog.">Permalink</a>
+        <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> 
+      </div>
+      <p><b>Referenced in:</b></p>
+      <ul>
+    <li>
+      <a href="#ref-for-dom-keyusage-1" title="§ 3. Partial SubtleCrypto interface">§ 3. Partial SubtleCrypto interface</a> <a href="#ref-for-dom-keyusage-2" title="Reference 2">(2)</a> 
+    </li>
+  </ul>
+    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dom-keyusage-encrypt" aria-label="Links in this document to definition: encrypt">
+      <span class="caret"></span>
+      <div>
+        <a class="self-link" href="#dom-keyusage-encrypt" aria-label="Permalink for definition: encrypt. Activate to close this dialog.">Permalink</a>
+        <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> 
+      </div>
+      <p><b>Referenced in:</b></p>
+      <ul>
+      <li>Not referenced in this document.</li>
+    </ul>
+    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dom-keyusage-decrypt" aria-label="Links in this document to definition: decrypt">
+      <span class="caret"></span>
+      <div>
+        <a class="self-link" href="#dom-keyusage-decrypt" aria-label="Permalink for definition: decrypt. Activate to close this dialog.">Permalink</a>
+        <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> 
+      </div>
+      <p><b>Referenced in:</b></p>
+      <ul>
+      <li>Not referenced in this document.</li>
+    </ul>
+    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dom-keyusage-sign" aria-label="Links in this document to definition: sign">
+      <span class="caret"></span>
+      <div>
+        <a class="self-link" href="#dom-keyusage-sign" aria-label="Permalink for definition: sign. Activate to close this dialog.">Permalink</a>
+        <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> 
+      </div>
+      <p><b>Referenced in:</b></p>
+      <ul>
+      <li>Not referenced in this document.</li>
+    </ul>
+    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dom-keyusage-verify" aria-label="Links in this document to definition: verify">
+      <span class="caret"></span>
+      <div>
+        <a class="self-link" href="#dom-keyusage-verify" aria-label="Permalink for definition: verify. Activate to close this dialog.">Permalink</a>
+        <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> 
+      </div>
+      <p><b>Referenced in:</b></p>
+      <ul>
+      <li>Not referenced in this document.</li>
+    </ul>
+    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dom-keyusage-derivekey" aria-label="Links in this document to definition: deriveKey">
+      <span class="caret"></span>
+      <div>
+        <a class="self-link" href="#dom-keyusage-derivekey" aria-label="Permalink for definition: deriveKey. Activate to close this dialog.">Permalink</a>
+        <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> 
+      </div>
+      <p><b>Referenced in:</b></p>
+      <ul>
+      <li>Not referenced in this document.</li>
+    </ul>
+    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dom-keyusage-derivebits" aria-label="Links in this document to definition: deriveBits">
+      <span class="caret"></span>
+      <div>
+        <a class="self-link" href="#dom-keyusage-derivebits" aria-label="Permalink for definition: deriveBits. Activate to close this dialog.">Permalink</a>
+        <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> 
+      </div>
+      <p><b>Referenced in:</b></p>
+      <ul>
+      <li>Not referenced in this document.</li>
+    </ul>
+    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dom-keyusage-wrapkey" aria-label="Links in this document to definition: wrapKey">
+      <span class="caret"></span>
+      <div>
+        <a class="self-link" href="#dom-keyusage-wrapkey" aria-label="Permalink for definition: wrapKey. Activate to close this dialog.">Permalink</a>
+        <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> 
+      </div>
+      <p><b>Referenced in:</b></p>
+      <ul>
+      <li>Not referenced in this document.</li>
+    </ul>
+    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dom-keyusage-unwrapkey" aria-label="Links in this document to definition: unwrapKey">
+      <span class="caret"></span>
+      <div>
+        <a class="self-link" href="#dom-keyusage-unwrapkey" aria-label="Permalink for definition: unwrapKey. Activate to close this dialog.">Permalink</a>
+        <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> 
+      </div>
+      <p><b>Referenced in:</b></p>
+      <ul>
+      <li>Not referenced in this document.</li>
+    </ul>
+    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dom-keyusage-encapsulatekey" aria-label="Links in this document to definition: encapsulateKey">
+      <span class="caret"></span>
+      <div>
+        <a class="self-link" href="#dom-keyusage-encapsulatekey" aria-label="Permalink for definition: encapsulateKey. Activate to close this dialog.">Permalink</a>
+        <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> <a class="marker idl-block" title="Jump to IDL declaration" href="#webidl-712964944">IDL</a>
+      </div>
+      <p><b>Referenced in:</b></p>
+      <ul>
+    <li>
+      <a href="#ref-for-dom-keyusage-encapsulatekey-1" title="§ 3.1.2 Key Usages">§ 3.1.2 Key Usages</a> 
+    </li>
+  </ul>
+    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dom-keyusage-encapsulatebits" aria-label="Links in this document to definition: encapsulateBits">
+      <span class="caret"></span>
+      <div>
+        <a class="self-link" href="#dom-keyusage-encapsulatebits" aria-label="Permalink for definition: encapsulateBits. Activate to close this dialog.">Permalink</a>
+        <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> <a class="marker idl-block" title="Jump to IDL declaration" href="#webidl-712964944">IDL</a>
+      </div>
+      <p><b>Referenced in:</b></p>
+      <ul>
+    <li>
+      <a href="#ref-for-dom-keyusage-encapsulatebits-1" title="§ 3.1.2 Key Usages">§ 3.1.2 Key Usages</a> 
+    </li>
+  </ul>
+    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dom-keyusage-decapsulatekey" aria-label="Links in this document to definition: decapsulateKey">
+      <span class="caret"></span>
+      <div>
+        <a class="self-link" href="#dom-keyusage-decapsulatekey" aria-label="Permalink for definition: decapsulateKey. Activate to close this dialog.">Permalink</a>
+        <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> <a class="marker idl-block" title="Jump to IDL declaration" href="#webidl-712964944">IDL</a>
+      </div>
+      <p><b>Referenced in:</b></p>
+      <ul>
+    <li>
+      <a href="#ref-for-dom-keyusage-decapsulatekey-1" title="§ 3.1.2 Key Usages">§ 3.1.2 Key Usages</a> 
+    </li>
+  </ul>
+    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dom-keyusage-decapsulatebits" aria-label="Links in this document to definition: decapsulateBits">
+      <span class="caret"></span>
+      <div>
+        <a class="self-link" href="#dom-keyusage-decapsulatebits" aria-label="Permalink for definition: decapsulateBits. Activate to close this dialog.">Permalink</a>
+        <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> <a class="marker idl-block" title="Jump to IDL declaration" href="#webidl-712964944">IDL</a>
+      </div>
+      <p><b>Referenced in:</b></p>
+      <ul>
+    <li>
+      <a href="#ref-for-dom-keyusage-decapsulatebits-1" title="§ 3.1.2 Key Usages">§ 3.1.2 Key Usages</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-SubtleCrypto-method-encapsulateKey" aria-label="Links in this document to definition: encapsulateKey(encapsulationAlgorithm, encapsulationKey, sharedKeyAlgorithm, extractable, usages)">
@@ -5880,7 +6044,9 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
     </li><li>
       <a href="#ref-for-dfn-SubtleCrypto-method-encapsulateKey-2" title="§ 3. Partial SubtleCrypto interface">§ 3. Partial SubtleCrypto interface</a> 
     </li><li>
-      <a href="#ref-for-dfn-SubtleCrypto-method-encapsulateKey-3" title="§ 3.2.1 The encapsulateKey method">§ 3.2.1 The encapsulateKey method</a> 
+      <a href="#ref-for-dfn-SubtleCrypto-method-encapsulateKey-3" title="§ 3.1.2 Key Usages">§ 3.1.2 Key Usages</a> 
+    </li><li>
+      <a href="#ref-for-dfn-SubtleCrypto-method-encapsulateKey-4" title="§ 3.2.1 The encapsulateKey method">§ 3.2.1 The encapsulateKey method</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-SubtleCrypto-method-encapsulateBits" aria-label="Links in this document to definition: encapsulateBits(encapsulationAlgorithm, encapsulationKey)">
@@ -5896,7 +6062,9 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
     </li><li>
       <a href="#ref-for-dfn-SubtleCrypto-method-encapsulateBits-2" title="§ 3. Partial SubtleCrypto interface">§ 3. Partial SubtleCrypto interface</a> 
     </li><li>
-      <a href="#ref-for-dfn-SubtleCrypto-method-encapsulateBits-3" title="§ 3.2.2 The encapsulateBits method">§ 3.2.2 The encapsulateBits method</a> 
+      <a href="#ref-for-dfn-SubtleCrypto-method-encapsulateBits-3" title="§ 3.1.2 Key Usages">§ 3.1.2 Key Usages</a> 
+    </li><li>
+      <a href="#ref-for-dfn-SubtleCrypto-method-encapsulateBits-4" title="§ 3.2.2 The encapsulateBits method">§ 3.2.2 The encapsulateBits method</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-SubtleCrypto-method-decapsulateKey" aria-label="Links in this document to definition: decapsulateKey(decapsulationAlgorithm, decapsulationKey, ciphertext, sharedKeyAlgorithm, extractable, usages)">
@@ -5912,7 +6080,9 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
     </li><li>
       <a href="#ref-for-dfn-SubtleCrypto-method-decapsulateKey-2" title="§ 3. Partial SubtleCrypto interface">§ 3. Partial SubtleCrypto interface</a> 
     </li><li>
-      <a href="#ref-for-dfn-SubtleCrypto-method-decapsulateKey-3" title="§ 3.2.3 The decapsulateKey method">§ 3.2.3 The decapsulateKey method</a> <a href="#ref-for-dfn-SubtleCrypto-method-decapsulateKey-4" title="Reference 2">(2)</a> 
+      <a href="#ref-for-dfn-SubtleCrypto-method-decapsulateKey-3" title="§ 3.1.2 Key Usages">§ 3.1.2 Key Usages</a> 
+    </li><li>
+      <a href="#ref-for-dfn-SubtleCrypto-method-decapsulateKey-4" title="§ 3.2.3 The decapsulateKey method">§ 3.2.3 The decapsulateKey method</a> <a href="#ref-for-dfn-SubtleCrypto-method-decapsulateKey-5" title="Reference 2">(2)</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-SubtleCrypto-method-decapsulateBits" aria-label="Links in this document to definition: decapsulateBits(decapsulationAlgorithm, decapsulationKey, ciphertext)">
@@ -5928,7 +6098,9 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
     </li><li>
       <a href="#ref-for-dfn-SubtleCrypto-method-decapsulateBits-2" title="§ 3. Partial SubtleCrypto interface">§ 3. Partial SubtleCrypto interface</a> 
     </li><li>
-      <a href="#ref-for-dfn-SubtleCrypto-method-decapsulateBits-3" title="§ 3.2.4 The decapsulateBits method">§ 3.2.4 The decapsulateBits method</a> <a href="#ref-for-dfn-SubtleCrypto-method-decapsulateBits-4" title="Reference 2">(2)</a> 
+      <a href="#ref-for-dfn-SubtleCrypto-method-decapsulateBits-3" title="§ 3.1.2 Key Usages">§ 3.1.2 Key Usages</a> 
+    </li><li>
+      <a href="#ref-for-dfn-SubtleCrypto-method-decapsulateBits-4" title="§ 3.2.4 The decapsulateBits method">§ 3.2.4 The decapsulateBits method</a> <a href="#ref-for-dfn-SubtleCrypto-method-decapsulateBits-5" title="Reference 2">(2)</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-SubtleCrypto-method-supports" aria-label="Links in this document to definition: supports(operation, algorithm, length)">
