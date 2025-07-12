@@ -260,8 +260,8 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       "date": "October 2024"
     }
   },
-  "publishISODate": "2025-07-08T00:00:00.000Z",
-  "generatedSubtitle": "Draft Community Group Report 08 July 2025"
+  "publishISODate": "2025-07-12T00:00:00.000Z",
+  "generatedSubtitle": "Draft Community Group Report 12 July 2025"
 }</script>
 <link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2021/cg-draft"></head>
 
@@ -270,7 +270,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     <h1 id="title" class="title">Modern Algorithms in the Web Cryptography API</h1> 
     <p id="w3c-state">
       <a href="https://www.w3.org/standards/types#reports">Draft Community Group Report</a>
-      <time class="dt-published" datetime="2025-07-08">08 July 2025</time>
+      <time class="dt-published" datetime="2025-07-12">12 July 2025</time>
     </p>
     <dl>
       
@@ -996,15 +996,11 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
           </li>
           <li>
             <dl class="switch">
-              <dt>If <var>operation</var> is "<code>deriveKey</code>":</dt>
+              <dt>If <var>operation</var> is "<code>deriveKey</code>", "<code>unwrapKey</code>", "<code>encapsulateKey</code>" or "<code>decapsulateKey</code>":</dt>
               <dd>
                 <p>
                   If the result of <a data-link-type="dfn|abstract-op" data-lt="check support for an algorithm" href="#dfn-check-support-for-algorithm" class="internalDFN" id="ref-for-dfn-check-support-for-algorithm-2">checking support for an algorithm</a>
                   with <code>op</code> set to "<code>importKey</code>"
-                  and <code>alg</code> set to <var>additionalAlgorithm</var>
-                  is false, or
-                  the result of <a data-link-type="dfn|abstract-op" data-lt="check support for an algorithm" href="#dfn-check-support-for-algorithm" class="internalDFN" id="ref-for-dfn-check-support-for-algorithm-3">checking support for an algorithm</a>
-                  with <code>op</code> set to "<code>get key length</code>"
                   and <code>alg</code> set to <var>additionalAlgorithm</var>
                   is false,
                   return false.
@@ -1013,28 +1009,8 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
               <dt>If <var>operation</var> is "<code>wrapKey</code>":</dt>
               <dd>
                 <p>
-                  If the result of <a data-link-type="dfn|abstract-op" data-lt="check support for an algorithm" href="#dfn-check-support-for-algorithm" class="internalDFN" id="ref-for-dfn-check-support-for-algorithm-4">checking support for an algorithm</a>
+                  If the result of <a data-link-type="dfn|abstract-op" data-lt="check support for an algorithm" href="#dfn-check-support-for-algorithm" class="internalDFN" id="ref-for-dfn-check-support-for-algorithm-3">checking support for an algorithm</a>
                   with <code>op</code> set to "<code>exportKey</code>"
-                  and <code>alg</code> set to <var>additionalAlgorithm</var>
-                  is false,
-                  return false.
-                </p>
-              </dd>
-              <dt>If <var>operation</var> is "<code>unwrapKey</code>":</dt>
-              <dd>
-                <p>
-                  If the result of <a data-link-type="dfn|abstract-op" data-lt="check support for an algorithm" href="#dfn-check-support-for-algorithm" class="internalDFN" id="ref-for-dfn-check-support-for-algorithm-5">checking support for an algorithm</a>
-                  with <code>op</code> set to "<code>importKey</code>"
-                  and <code>alg</code> set to <var>additionalAlgorithm</var>
-                  is false,
-                  return false.
-                </p>
-              </dd>
-              <dt>If <var>operation</var> is "<code>encapsulateKey</code>" or "<code>decapsulateKey</code>":</dt>
-              <dd>
-                <p>
-                  If the result of <a data-link-type="dfn|abstract-op" data-lt="check support for an algorithm" href="#dfn-check-support-for-algorithm" class="internalDFN" id="ref-for-dfn-check-support-for-algorithm-6">checking support for an algorithm</a>
-                  with <code>op</code> set to "<code>importKey</code>"
                   and <code>alg</code> set to <var>additionalAlgorithm</var>
                   is false,
                   return false.
@@ -1044,8 +1020,52 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
           </li>
           <li>
             <p>
-              Return the result of <a data-link-type="dfn|abstract-op" data-lt="check support for an algorithm" href="#dfn-check-support-for-algorithm" class="internalDFN" id="ref-for-dfn-check-support-for-algorithm-7">checking support for an algorithm</a>,
-              with <code>op</code> set to <var>operation</var> and <code>alg</code> set to <var>algorithm</var>.
+              Let <var>length</var> be null.
+            </p>
+          </li>
+          <li>
+            <dl class="switch">
+              <dt>If <var>operation</var> is "<code>deriveKey</code>":</dt>
+              <dd>
+                <ol>
+                  <li>
+                    <p>
+                      If the result of <a data-link-type="dfn|abstract-op" data-lt="check support for an algorithm" href="#dfn-check-support-for-algorithm" class="internalDFN" id="ref-for-dfn-check-support-for-algorithm-4">checking support for an algorithm</a>
+                      with <code>op</code> set to "<code>get key length</code>"
+                      and <code>alg</code> set to <var>additionalAlgorithm</var>
+                      is false,
+                      return false.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Let <var>normalizedAdditionalAlgorithm</var> be the result of
+                      <a href="https://www.w3.org/TR/webcrypto-2/#dfn-normalize-an-algorithm">normalizing an algorithm</a>, with
+                      <code>alg</code> set to <var>additionalAlgorithm</var> and <code>op</code> set to
+                      "<code>get key length</code>".
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Let <var>length</var> be the result of performing the get key length
+                      algorithm specified by <var>additionalAlgorithm</var> using
+                      <var>normalizedAdditionalAlgorithm</var>.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Set <var>operation</var> to "<code>deriveBits</code>".
+                    </p>
+                  </li>
+                </ol>
+              </dd>
+            </dl>
+          </li>
+          <li>
+            <p>
+              Return the result of <a data-link-type="dfn|abstract-op" data-lt="check support for an algorithm" href="#dfn-check-support-for-algorithm" class="internalDFN" id="ref-for-dfn-check-support-for-algorithm-5">checking support for an algorithm</a>,
+              with <code>op</code> set to <var>operation</var>, <code>alg</code> set to <var>algorithm</var>,
+              and <code>length</code> set to <var>length</var>.
             </p>
           </li>
         </ol>
@@ -1058,15 +1078,10 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
         The <dfn id="dfn-check-support-for-algorithm" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">check support for an algorithm</dfn> algorithm
         defines a process for checking whether the given algorithm is supported for the given operation.
         Its input is an operation name <var>op</var>, an <a data-link-type="typedef" data-lt="AlgorithmIdentifier" href="https://www.w3.org/TR/webcrypto-2/#dom-algorithmidentifier"><code>AlgorithmIdentifier</code></a> <var>alg</var>,
-        and an optional <var>length</var> parameter. Its output is a boolean.
+        and a <var>length</var> parameter. Its output is a boolean.
         It behaves as follows:
       </p>
       <ol>
-        <li>
-          <p>
-            If <var>op</var> is "<code>deriveKey</code>", set <var>op</var> to "<code>deriveBits</code>".
-          </p>
-        </li>
         <li>
           <p>
             If <var>op</var> is "<code>encapsulateKey</code>" or "<code>encapsulateBits</code>", set <var>op</var> is "<code>encapsulate</code>".
@@ -1092,7 +1107,7 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
                 <li>
                   <p>
                     If <var>op</var> is "<code>wrapKey</code>",
-                    return the result of <a data-link-type="dfn|abstract-op" data-lt="check support for an algorithm" href="#dfn-check-support-for-algorithm" class="internalDFN" id="ref-for-dfn-check-support-for-algorithm-8">checking support for an algorithm</a>
+                    return the result of <a data-link-type="dfn|abstract-op" data-lt="check support for an algorithm" href="#dfn-check-support-for-algorithm" class="internalDFN" id="ref-for-dfn-check-support-for-algorithm-6">checking support for an algorithm</a>
                     with <code>op</code> set to "<code>encrypt</code>"
                     and <code>alg</code> set to <var>alg</var>.
                   </p>
@@ -1100,7 +1115,7 @@ partial interface <a data-idl="partial" data-link-type="interface" data-title="S
                 <li>
                   <p>
                     If <var>op</var> is "<code>unwrapKey</code>",
-                    return the result of <a data-link-type="dfn|abstract-op" data-lt="check support for an algorithm" href="#dfn-check-support-for-algorithm" class="internalDFN" id="ref-for-dfn-check-support-for-algorithm-9">checking support for an algorithm</a>
+                    return the result of <a data-link-type="dfn|abstract-op" data-lt="check support for an algorithm" href="#dfn-check-support-for-algorithm" class="internalDFN" id="ref-for-dfn-check-support-for-algorithm-7">checking support for an algorithm</a>
                     with <code>op</code> set to "<code>decrypt</code>"
                     and <code>alg</code> set to <var>alg</var>.
                   </p>
@@ -6138,9 +6153,9 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-      <a href="#ref-for-dfn-check-support-for-algorithm-1" title="§ 3.2.5 The supports method">§ 3.2.5 The supports method</a> <a href="#ref-for-dfn-check-support-for-algorithm-2" title="Reference 2">(2)</a> <a href="#ref-for-dfn-check-support-for-algorithm-3" title="Reference 3">(3)</a> <a href="#ref-for-dfn-check-support-for-algorithm-4" title="Reference 4">(4)</a> <a href="#ref-for-dfn-check-support-for-algorithm-5" title="Reference 5">(5)</a> <a href="#ref-for-dfn-check-support-for-algorithm-6" title="Reference 6">(6)</a> <a href="#ref-for-dfn-check-support-for-algorithm-7" title="Reference 7">(7)</a> 
+      <a href="#ref-for-dfn-check-support-for-algorithm-1" title="§ 3.2.5 The supports method">§ 3.2.5 The supports method</a> <a href="#ref-for-dfn-check-support-for-algorithm-2" title="Reference 2">(2)</a> <a href="#ref-for-dfn-check-support-for-algorithm-3" title="Reference 3">(3)</a> <a href="#ref-for-dfn-check-support-for-algorithm-4" title="Reference 4">(4)</a> <a href="#ref-for-dfn-check-support-for-algorithm-5" title="Reference 5">(5)</a> 
     </li><li>
-      <a href="#ref-for-dfn-check-support-for-algorithm-8" title="§ 3.3 Checking support for an algorithm">§ 3.3 Checking support for an algorithm</a> <a href="#ref-for-dfn-check-support-for-algorithm-9" title="Reference 2">(2)</a> 
+      <a href="#ref-for-dfn-check-support-for-algorithm-6" title="§ 3.3 Checking support for an algorithm">§ 3.3 Checking support for an algorithm</a> <a href="#ref-for-dfn-check-support-for-algorithm-7" title="Reference 2">(2)</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-EncapsulatedKey" aria-label="Links in this document to definition: EncapsulatedKey">
