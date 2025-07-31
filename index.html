@@ -754,27 +754,22 @@ enum KeyUsage { "encrypt", "decrypt", "sign", "verify", "deriveKey", "deriveBits
           </li>
           <li>
             <p>
-              If the |key| does not support deriving a public key
-              from its private key material, then [= exception/throw =] a {{NotSupportedError}}.
+              Let |algorithm| be the <a data-cite="webcrypto#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a> internal slot of |key|.
             </p>
           </li>
           <li>
             <p>
-              Let |publicKeyAlgorithm| be the <a data-cite="webcrypto#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a> internal slot of |key|.
+              If the cryptographic algorithm identified by |algorithm|
+              does not support deriving a public key from a private key,
+              then [= exception/throw =] a {{NotSupportedError}}.
             </p>
           </li>
           <li>
             <p>
-              For each entry |usage| in |usages|:
+              If |usages| contains an entry which is not supported for a public key
+              by the algorithm identified by |algorithm|,
+              then [= exception/throw =] a {{SyntaxError}}.
             </p>
-            <ol>
-              <li>
-                <p>
-                  If |usage| is not applicable to a {{CryptoKey}} with <a data-cite="webcrypto#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a> set to |publicKeyAlgorithm| and  <a data-cite="webcrypto#dfn-CryptoKey-slot-type">`[[type]]`</a> set to {{KeyType/"public"}},
-                  then [= exception/throw =] a {{SyntaxError}}.
-                </p>
-              </li>
-            </ol>
           </li>
           <li>
             <p>
