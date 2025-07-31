@@ -17,6 +17,7 @@ Additionally, it proposes to add functions for key encapsulation and decapsulati
 `SubtleCrypto.decapsulateKey` and `SubtleCrypto.decapsulateBits`.
 
 Finally, it proposes to add a `SubtleCrypto.supports` function,
-for improved algorithm support detection.
+for improved algorithm support detection and a `SubtleCrypto.getPublicKey`
+to be able to derive a public key from its corresponding private key.
 
 See the [draft specification](https://twiss.github.io/webcrypto-modern-algos/).

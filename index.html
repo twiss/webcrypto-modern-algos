@@ -135,6 +135,11 @@
       <a href="#dfn-SubtleCrypto-method-decapsulateBits">`SubtleCrypto.decapsulateBits`</a>.
     </p>
     <p>
+      Additionally, this proposal also introduces the <a href="#dfn-SubtleCrypto-method-getPublicKey">`SubtleCrypto.getPublicKey`</a> function,
+      which provides a convenient way to derive a public key from an asymmetric private key,
+      eliminating the need to store both the public and private key separately when only the private key is needed.
+    </p>
+    <p>
       Finally, this proposal aims to make feature detection easier,
       by adding a <a href="#dfn-SubtleCrypto-method-supports">`SubtleCrypto.supports`</a> function,
       which can be used to detect whether a given algorithm identifier
