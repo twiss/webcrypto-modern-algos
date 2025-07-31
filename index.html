@@ -135,6 +135,11 @@
       <a href="#dfn-SubtleCrypto-method-decapsulateBits">`SubtleCrypto.decapsulateBits`</a>.
     </p>
     <p>
+      Additionally, this proposal also introduces the <a href="#dfn-SubtleCrypto-method-getPublicKey">`SubtleCrypto.getPublicKey`</a> function,
+      which provides a convenient way to derive a public key from an asymmetric private key,
+      eliminating the need to store both the public and private key separately when only the private key is needed.
+    </p>
+    <p>
       Finally, this proposal aims to make feature detection easier,
       by adding a <a href="#dfn-SubtleCrypto-method-supports">`SubtleCrypto.supports`</a> function,
       which can be used to detect whether a given algorithm identifier
@@ -185,6 +190,11 @@ partial interface SubtleCrypto {
     AlgorithmIdentifier decapsulationAlgorithm,
     CryptoKey decapsulationKey,
     BufferSource ciphertext
+  );
+
+  Promise&lt;CryptoKey> getPublicKey(
+    CryptoKey key,
+    sequence&lt;KeyUsage> keyUsages
   );
 
   static boolean supports(DOMString operation,
@@ -720,6 +730,128 @@ enum KeyUsage { "encrypt", "decrypt", "sign", "verify", "deriveKey", "deriveBits
           </li>
         </ol>
       </section>
+
+      <section id="SubtleCrypto-method-getPublicKey">
+        <h4>The getPublicKey method</h4>
+        <p>
+          The <dfn id="dfn-SubtleCrypto-method-getPublicKey" data-dfn-for=SubtleCrypto data-lt="getPublicKey">getPublicKey(|key|, |usages|)</dfn>
+          method returns the public key corresponding to a given private key.
+          It behaves as follows:
+        </p>
+        <ol>
+          <li>
+            <p>
+              Let |key| and |usages| be the `key` and `keyUsages` parameters passed to the
+              {{SubtleCrypto/getPublicKey()}} method,
+              respectively.
+            </p>
+          </li>
+          <li>
+            <p>
+              Let |algorithm| be the <a data-cite="webcrypto#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a> internal slot of |key|.
+            </p>
+          </li>
+          <li>
+            <p>
+              If the cryptographic algorithm identified by |algorithm|
+              does not support deriving a public key from a private key,
+              then return a Promise rejected with a {{NotSupportedError}}.
+            </p>
+          </li>
+          <li>
+            <p>
+              Let |realm| be the [= relevant realm =] of [= this =].
+            </p>
+          </li>
+          <li>
+            <p>
+              Let |promise| be a new Promise.
+            </p>
+          </li>
+          <li>
+            <p>
+              Return |promise| and perform the remaining steps [= in parallel =].
+            </p>
+          </li>
+          <li>
+            <p>
+              If the following steps or referenced procedures say to
+              [= exception/throw =] an error,
+              [= queue a global task =] on the <a data-cite="webcrypto#dfn-crypto-task-source">crypto task source</a>,
+              given |realm|'s global object,
+              to reject |promise| with the returned error;
+              and then <a data-cite="webcrypto#terminate-the-algorithm">terminate the algorithm</a>.
+            </p>
+          </li>
+          <li>
+            <p>
+              If the <a data-cite="webcrypto#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot of
+              |key| is not {{KeyType/"private"}}, then [= exception/throw =] an {{InvalidAccessError}}.
+            </p>
+          </li>
+          <li>
+            <p>
+              If |usages| contains an entry which is not supported for a public key
+              by the algorithm identified by |algorithm|,
+              then [= exception/throw =] a {{SyntaxError}}.
+            </p>
+          </li>
+          <li>
+            <p>
+              Let |publicKey| be a new {{CryptoKey}} representing the public key corresponding to
+              the private key represented by the <a data-cite="webcrypto#dfn-CryptoKey-slot-handle">`[[handle]]`</a>
+              internal slot of |key|.
+            </p>
+          </li>
+          <li>
+            <p>
+              If an error occurred, then [= exception/throw =] a {{OperationError}}.
+            </p>
+          </li>
+          <li>
+            <p>
+              Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot of
+              |publicKey| to {{KeyType/"public"}}.
+            </p>
+          </li>
+          <li>
+            <p>
+              Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a> internal
+              slot of |publicKey| to |publicKeyAlgorithm|.
+            </p>
+          </li>
+          <li>
+            <p>
+              Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-extractable">`[[extractable]]`</a> internal
+              slot of |publicKey| to true.
+            </p>
+          </li>
+          <li>
+            <p>
+              Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-usages">`[[usages]]`</a> internal slot of
+              |publicKey| to |usages|.
+            </p>
+          </li>
+          <li>
+            <p>
+              [= Queue a global task =] on the <a data-cite="webcrypto#dfn-crypto-task-source">crypto task source</a>,
+              given |realm|'s global object, to perform the remaining steps.
+            </p>
+          </li>
+          <li>
+            <p>
+              Let |result| be the result of converting |publicKey| to an ECMAScript Object in |realm|, as defined by [[WebIDL]].
+            </p>
+          </li>
+          <li>
+            <p>
+              Resolve |promise| with
+              |result|.
+            </p>
+          </li>
+        </ol>
+      </section>
+
       <section id="SubtleCrypto-method-supports">
         <h4>The supports method</h4>
         <p>
@@ -737,7 +869,7 @@ enum KeyUsage { "encrypt", "decrypt", "sign", "verify", "deriveKey", "deriveBits
               "`digest`", "`generateKey`", "`deriveKey`", "`deriveBits`",
               "`importKey`", "`exportKey`", "`wrapKey`", "`unwrapKey`",
               "`encapsulateKey`", "`encapsulateBits`",
-              "`decapsulateKey`" or "`decapsulateBits`",
+              "`decapsulateKey`", "`decapsulateBits`" or "`getPublicKey`",
               return false.
             </p>
           </li>
@@ -766,7 +898,7 @@ enum KeyUsage { "encrypt", "decrypt", "sign", "verify", "deriveKey", "deriveBits
               "`digest`", "`generateKey`", "`deriveKey`", "`deriveBits`",
               "`importKey`", "`exportKey`", "`wrapKey`", "`unwrapKey`",
               "`encapsulateKey`", "`encapsulateBits`",
-              "`decapsulateKey`" or "`decapsulateBits`",
+              "`decapsulateKey`", "`decapsulateBits`" or "`getPublicKey`",
               return false.
             </p>
           </li>
@@ -867,6 +999,39 @@ enum KeyUsage { "encrypt", "decrypt", "sign", "verify", "deriveKey", "deriveBits
           <p>
             If |op| is "`decapsulateKey`" or "`decapsulateBits`", set |op| to "`decapsulate`".
           </p>
+        </li>
+        <li>
+          <dl class="switch">
+            <dt>If |op| is "`getPublicKey`":</dt>
+            <dd>
+              <ol>
+                <li>
+                  <p>
+                    Let |normalizedAlgorithm| be the result of
+                    <a data-cite="webcrypto#dfn-normalize-an-algorithm">normalizing an algorithm</a>, with
+                    `alg` set to |alg| and `op` set to "`exportKey`".
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    If an error occurred, return false.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    If the cryptographic algorithm identified by |normalizedAlgorithm|
+                    does not support deriving a public key from a private key,
+                    then return false.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Otherwise, return true.
+                  </p>
+                </li>
+              </ol>
+            </dd>
+          </dl>
         </li>
         <li>
           <p>
