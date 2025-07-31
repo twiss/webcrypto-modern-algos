@@ -187,6 +187,11 @@ partial interface SubtleCrypto {
     BufferSource ciphertext
   );
 
+  CryptoKey getPublicKey(
+    CryptoKey key,
+    sequence&lt;KeyUsage> keyUsages
+  );
+
   static boolean supports(DOMString operation,
                    AlgorithmIdentifier algorithm,
                    optional unsigned long? length = null);
@@ -720,6 +725,105 @@ enum KeyUsage { "encrypt", "decrypt", "sign", "verify", "deriveKey", "deriveBits
           </li>
         </ol>
       </section>
+
+      <section id="SubtleCrypto-method-getPublicKey">
+        <h4>The getPublicKey method</h4>
+        <p>
+          The <dfn id="dfn-SubtleCrypto-method-getPublicKey" data-dfn-for=SubtleCrypto data-lt="getPublicKey">getPublicKey(|key|, |usages|)</dfn>
+          method returns the public key corresponding to a given private key.
+          It behaves as follows:
+        </p>
+        <ol>
+          <li>
+            <p>
+              Let |key| and |usages| be the `key` and `keyUsages` parameters passed to the
+              {{SubtleCrypto/getPublicKey()}} method,
+              respectively.
+            </p>
+          </li>
+          <li>
+            <p>
+              If the <a data-cite="webcrypto#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot of
+              |key| is not {{KeyType/"private"}}, then [= exception/throw =] an {{InvalidAccessError}}.
+            </p>
+          </li>
+          <li>
+            <p>
+              If the |key| does not support deriving a public key
+              from its private key material, then [= exception/throw =] a {{NotSupportedError}}.
+            </p>
+          </li>
+          <li>
+            <p>
+              Let |publicKeyAlgorithm| be the <a data-cite="webcrypto#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a> internal slot of |key|.
+            </p>
+          </li>
+          <li>
+            <p>
+              For each entry |usage| in |usages|:
+            </p>
+            <ol>
+              <li>
+                <p>
+                  If |usage| is not applicable to a {{CryptoKey}} with <a data-cite="webcrypto#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a> set to |publicKeyAlgorithm| and  <a data-cite="webcrypto#dfn-CryptoKey-slot-type">`[[type]]`</a> set to {{KeyType/"public"}},
+                  then [= exception/throw =] a {{SyntaxError}}.
+                </p>
+              </li>
+            </ol>
+          </li>
+          <li>
+            <p>
+              Let |keyData| be the public key representation derived from |key|.
+            </p>
+          </li>
+          <li>
+            <p>
+              If an error occurred, then [= exception/throw =] a {{NotSupportedError}}.
+            </p>
+          </li>
+          <li>
+            <p>
+              Let |publicKey| be a new {{CryptoKey}}.
+            </p>
+          </li>
+          <li>
+            <p>
+              Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-handle">`[[handle]]`</a> internal slot of
+              |publicKey| to |keyData|.
+            </p>
+          </li>
+          <li>
+            <p>
+              Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot of
+              |publicKey| to {{KeyType/"public"}}.
+            </p>
+          </li>
+          <li>
+            <p>
+              Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a> internal
+              slot of |publicKey| to |publicKeyAlgorithm|.
+            </p>
+          </li>
+          <li>
+            <p>
+              Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-extractable">`[[extractable]]`</a> internal
+              slot of |publicKey| to true.
+            </p>
+          </li>
+          <li>
+            <p>
+              Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-usages">`[[usages]]`</a> internal slot of
+              |publicKey| to |usages|.
+            </p>
+          </li>
+          <li>
+            <p>
+              Return |publicKey|.
+            </p>
+          </li>
+        </ol>
+      </section>
+
       <section id="SubtleCrypto-method-supports">
         <h4>The supports method</h4>
         <p>
@@ -737,7 +841,7 @@ enum KeyUsage { "encrypt", "decrypt", "sign", "verify", "deriveKey", "deriveBits
               "`digest`", "`generateKey`", "`deriveKey`", "`deriveBits`",
               "`importKey`", "`exportKey`", "`wrapKey`", "`unwrapKey`",
               "`encapsulateKey`", "`encapsulateBits`",
-              "`decapsulateKey`" or "`decapsulateBits`",
+              "`decapsulateKey`", "`decapsulateBits`" or "`getPublicKey`",
               return false.
             </p>
           </li>
@@ -766,7 +870,7 @@ enum KeyUsage { "encrypt", "decrypt", "sign", "verify", "deriveKey", "deriveBits
               "`digest`", "`generateKey`", "`deriveKey`", "`deriveBits`",
               "`importKey`", "`exportKey`", "`wrapKey`", "`unwrapKey`",
               "`encapsulateKey`", "`encapsulateBits`",
-              "`decapsulateKey`" or "`decapsulateBits`",
+              "`decapsulateKey`", "`decapsulateBits`" or "`getPublicKey`",
               return false.
             </p>
           </li>
@@ -866,6 +970,11 @@ enum KeyUsage { "encrypt", "decrypt", "sign", "verify", "deriveKey", "deriveBits
         <li>
           <p>
             If |op| is "`decapsulateKey`" or "`decapsulateBits`", set |op| to "`decapsulate`".
+          </p>
+        </li>
+        <li>
+          <p>
+            If |op| is "`getPublicKey`", set |op| is "`exportKey`".
           </p>
         </li>
         <li>
