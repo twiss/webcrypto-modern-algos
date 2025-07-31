@@ -964,9 +964,32 @@ enum KeyUsage { "encrypt", "decrypt", "sign", "verify", "deriveKey", "deriveBits
           </p>
         </li>
         <li>
-          <p>
-            If |op| is "`getPublicKey`", set |op| to "`exportKey`".
-          </p>
+          <dl class="switch">
+            <dt>If |op| is "`getPublicKey`":</dt>
+            <dd>
+              <ol>
+                <li>
+                  <p>
+                    Let |normalizedAlgorithm| be the result of
+                    <a data-cite="webcrypto#dfn-normalize-an-algorithm">normalizing an algorithm</a>, with
+                    `alg` set to |alg| and `op` set to "`exportKey`".
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    If the cryptographic algorithm identified by |normalizedAlgorithm|
+                    does not support deriving a public key from a private key,
+                    then return false.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Otherwise, return true.
+                  </p>
+                </li>
+              </ol>
+            </dd>
+          </dl>
         </li>
         <li>
           <p>
