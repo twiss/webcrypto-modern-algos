@@ -5166,195 +5166,193 @@ dictionary Argon2Params : Algorithm {
     </section>
     <section id="argon2-operations">
       <h4>Operations</h4>
-      <dl>
-        <dt>Derive Bits</dt>
-        <dd>
-          <ol>
-            <li>
-              <p>
-                If |length| is null, or is less than 32 (4*8), then [= exception/throw =] an {{OperationError}}.
-              </p>
-            </li>
-            <li>
-              <p>
-                If the {{Argon2Params/version}} member
-                of |normalizedAlgorithm| is present and is not 19 (0x13),
-                then [= exception/throw =] an
-                {{OperationError}}.
-              </p>
-            </li>
-            <li>
-              <p>
-                If the {{Argon2Params/parallelism}} member of |normalizedAlgorithm| is zero,
-                or greater than 16777215 (2^24-1),
-                then [= exception/throw =] an {{OperationError}}.
-              </p>
-            </li>
-            <li>
-              <p>
-                If the {{Argon2Params/memory}} member of |normalizedAlgorithm| is less than
-                8 times the {{Argon2Params/parallelism}} member of |normalizedAlgorithm|,
-                then [= exception/throw =] an {{OperationError}}.
-              </p>
-            </li>
-            <li>
-              <p>
-                If the {{Argon2Params/passes}} member of |normalizedAlgorithm| is zero,
-                then [= exception/throw =] an {{OperationError}}.
-              </p>
-            </li>
-            <li>
-              <dl class="switch">
-                <dt>
-                  If the {{Algorithm/name}} member of
-                  |normalizedAlgorithm| is a case-sensitive string match for
-                  "`Argon2d`":
-                </dt>
-                <dd>
-                  Let |type| be 0.
-                </dd>
-                <dt>
-                  If the {{Algorithm/name}} member of
-                  |normalizedAlgorithm| is a case-sensitive string match for
-                  "`Argon2i`":
-                </dt>
-                <dd>
-                  Let |type| be 1.
-                </dd>
-                <dt>
-                  If the {{Algorithm/name}} member of
-                  |normalizedAlgorithm| is a case-sensitive string match for
-                  "`Argon2id`":
-                </dt>
-                <dd>
-                  Let |type| be 2.
-                </dd>
-              </dl>
-            </li>
-            <li>
-              <p>
-                Let |secretValue| be the {{Argon2Params/secretValue}} member of
-                |normalizedAlgorithm|, if present.
-              </p>
-            </li>
-            <li>
-              <p>
-                Let |associatedData| be the {{Argon2Params/associatedData}} member of
-                |normalizedAlgorithm|, if present.
-              </p>
-            </li>
-            <li>
-              <p>
-                Let |result| be the result of performing the Argon2 function defined
-                in Section 3 of [[RFC9106]] using
-                the password represented by <a data-cite="webcrypto#dfn-CryptoKey-slot-handle">`[[handle]]`</a> internal slot of |key|
-                as the message, |P|,
-                the {{Argon2Params/nonce}} attribute of
-                |normalizedAlgorithm| as the nonce, |S|,
-                the value of the {{Argon2Params/parallelism}} attribute
-                of |normalizedAlgorithm| as the degree of parallelism, |p|,
-                the value of the {{Argon2Params/memory}} attribute
-                of |normalizedAlgorithm| as the memory size, |m|,
-                the value of the {{Argon2Params/passes}} attribute
-                of |normalizedAlgorithm| as the number of passes, |t|,
-                0x13 as the version number, |v|,
-                |secretValue| (if present) as the secret value, |K|,
-                |associatedData| (if present) as the associated data, |X|,
-                |type| as the type, |y|, and
-                |length| divided by 8 as the tag length, |T|.
-              </p>
-            </li>
-            <li>
-              <p>
-                If the key derivation operation fails,
-                then [= exception/throw =] an
-                {{OperationError}}.
-              </p>
-            </li>
-            <li>
-              <p>
-                Return |result|.
-              </p>
-            </li>
-          </ol>
-        </dd>
-        <dt>Import key</dt>
-        <dd>
-          <ol>
-            <li>
-              <p>
-                If |format| is not {{KeyFormat/"raw-secret"}}, [= exception/throw =] a {{NotSupportedError}}
-              </p>
-            </li>
-            <li>
-              <p>
-                If |usages| contains a value that is not
-                "`deriveKey`"  or "`deriveBits`", then
-                [= exception/throw =] a {{SyntaxError}}.
-              </p>
-            </li>
-            <li>
-              <p>
-                If |extractable| is not `false`,
-                then [= exception/throw =] a
-                {{SyntaxError}}.
-              </p>
-            </li>
-            <li>
-              <p>
-                Let |key| be a new {{CryptoKey}}
-                representing |keyData|.
-              </p>
-            </li>
-            <li>
-              <p>
-                Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot of
-                |key| to {{KeyType/"secret"}}.
-              </p>
-            </li>
-            <li>
-              <p>
-                Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-extractable">`[[extractable]]`</a> internal slot of
-                |key| to `false`.
-              </p>
-            </li>
-            <li>
-              <p>
-                Let |algorithm| be a new {{KeyAlgorithm}}
-                object.
-              </p>
-            </li>
-            <li>
-              <p>
-                Set the {{KeyAlgorithm/name}} attribute of
-                |algorithm| to the {{Algorithm/name}} member of
-                |normalizedAlgorithm|.
-              </p>
-            </li>
-            <li>
-              <p>
-                Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a> internal
-                slot of |key| to |algorithm|.
-              </p>
-            </li>
-            <li>
-              <p>
-                Return |key|.
-              </p>
-            </li>
-          </ol>
-        </dd>
-        <dt>Get key length</dt>
-        <dd>
-          <ol>
-            <li>
-              <p>
-                Return null.
-              </p>
-            </li>
-          </ol>
-        </dd>
-      </dl>
+      <section id="argon2-operations-derive-bits">
+        <h5>Derive Bits</h5>
+        <ol>
+          <li>
+            <p>
+              If |length| is null, or is less than 32 (4*8), then [= exception/throw =] an {{OperationError}}.
+            </p>
+          </li>
+          <li>
+            <p>
+              If the {{Argon2Params/version}} member
+              of |normalizedAlgorithm| is present and is not 19 (0x13),
+              then [= exception/throw =] an
+              {{OperationError}}.
+            </p>
+          </li>
+          <li>
+            <p>
+              If the {{Argon2Params/parallelism}} member of |normalizedAlgorithm| is zero,
+              or greater than 16777215 (2^24-1),
+              then [= exception/throw =] an {{OperationError}}.
+            </p>
+          </li>
+          <li>
+            <p>
+              If the {{Argon2Params/memory}} member of |normalizedAlgorithm| is less than
+              8 times the {{Argon2Params/parallelism}} member of |normalizedAlgorithm|,
+              then [= exception/throw =] an {{OperationError}}.
+            </p>
+          </li>
+          <li>
+            <p>
+              If the {{Argon2Params/passes}} member of |normalizedAlgorithm| is zero,
+              then [= exception/throw =] an {{OperationError}}.
+            </p>
+          </li>
+          <li>
+            <dl class="switch">
+              <dt>
+                If the {{Algorithm/name}} member of
+                |normalizedAlgorithm| is a case-sensitive string match for
+                "`Argon2d`":
+              </dt>
+              <dd>
+                Let |type| be 0.
+              </dd>
+              <dt>
+                If the {{Algorithm/name}} member of
+                |normalizedAlgorithm| is a case-sensitive string match for
+                "`Argon2i`":
+              </dt>
+              <dd>
+                Let |type| be 1.
+              </dd>
+              <dt>
+                If the {{Algorithm/name}} member of
+                |normalizedAlgorithm| is a case-sensitive string match for
+                "`Argon2id`":
+              </dt>
+              <dd>
+                Let |type| be 2.
+              </dd>
+            </dl>
+          </li>
+          <li>
+            <p>
+              Let |secretValue| be the {{Argon2Params/secretValue}} member of
+              |normalizedAlgorithm|, if present.
+            </p>
+          </li>
+          <li>
+            <p>
+              Let |associatedData| be the {{Argon2Params/associatedData}} member of
+              |normalizedAlgorithm|, if present.
+            </p>
+          </li>
+          <li>
+            <p>
+              Let |result| be the result of performing the Argon2 function defined
+              in Section 3 of [[RFC9106]] using
+              the password represented by <a data-cite="webcrypto#dfn-CryptoKey-slot-handle">`[[handle]]`</a> internal slot of |key|
+              as the message, |P|,
+              the {{Argon2Params/nonce}} attribute of
+              |normalizedAlgorithm| as the nonce, |S|,
+              the value of the {{Argon2Params/parallelism}} attribute
+              of |normalizedAlgorithm| as the degree of parallelism, |p|,
+              the value of the {{Argon2Params/memory}} attribute
+              of |normalizedAlgorithm| as the memory size, |m|,
+              the value of the {{Argon2Params/passes}} attribute
+              of |normalizedAlgorithm| as the number of passes, |t|,
+              0x13 as the version number, |v|,
+              |secretValue| (if present) as the secret value, |K|,
+              |associatedData| (if present) as the associated data, |X|,
+              |type| as the type, |y|, and
+              |length| divided by 8 as the tag length, |T|.
+            </p>
+          </li>
+          <li>
+            <p>
+              If the key derivation operation fails,
+              then [= exception/throw =] an
+              {{OperationError}}.
+            </p>
+          </li>
+          <li>
+            <p>
+              Return |result|.
+            </p>
+          </li>
+        </ol>
+      </section>
+      <section id="argon2-operations-import-key">
+        <h5>Import key</h5>
+        <ol>
+          <li>
+            <p>
+              If |format| is not {{KeyFormat/"raw-secret"}}, [= exception/throw =] a {{NotSupportedError}}
+            </p>
+          </li>
+          <li>
+            <p>
+              If |usages| contains a value that is not
+              "`deriveKey`"  or "`deriveBits`", then
+              [= exception/throw =] a {{SyntaxError}}.
+            </p>
+          </li>
+          <li>
+            <p>
+              If |extractable| is not `false`,
+              then [= exception/throw =] a
+              {{SyntaxError}}.
+            </p>
+          </li>
+          <li>
+            <p>
+              Let |key| be a new {{CryptoKey}}
+              representing |keyData|.
+            </p>
+          </li>
+          <li>
+            <p>
+              Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot of
+              |key| to {{KeyType/"secret"}}.
+            </p>
+          </li>
+          <li>
+            <p>
+              Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-extractable">`[[extractable]]`</a> internal slot of
+              |key| to `false`.
+            </p>
+          </li>
+          <li>
+            <p>
+              Let |algorithm| be a new {{KeyAlgorithm}}
+              object.
+            </p>
+          </li>
+          <li>
+            <p>
+              Set the {{KeyAlgorithm/name}} attribute of
+              |algorithm| to the {{Algorithm/name}} member of
+              |normalizedAlgorithm|.
+            </p>
+          </li>
+          <li>
+            <p>
+              Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a> internal
+              slot of |key| to |algorithm|.
+            </p>
+          </li>
+          <li>
+            <p>
+              Return |key|.
+            </p>
+          </li>
+        </ol>
+      </section>
+      <section id="argon2-operations-get-key-length">
+        <h5>Get key length</h5>
+        <ol>
+          <li>
+            <p>
+              Return null.
+            </p>
+          </li>
+        </ol>
+      </section>
     </section>
   </section>
 
