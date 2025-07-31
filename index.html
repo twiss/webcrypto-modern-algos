@@ -977,6 +977,11 @@ enum KeyUsage { "encrypt", "decrypt", "sign", "verify", "deriveKey", "deriveBits
                 </li>
                 <li>
                   <p>
+                    If an error occurred, return false.
+                  </p>
+                </li>
+                <li>
+                  <p>
                     If the cryptographic algorithm identified by |normalizedAlgorithm|
                     does not support deriving a public key from a private key,
                     then return false.
