@@ -1074,704 +1074,702 @@ dictionary JsonWebKey {
     </section>
     <section id="ml-kem-operations">
       <h4>Operations</h4>
-      <dl>
-        <dt>Encapsulate</dt>
-        <dd>
-          <ol>
-            <li>
+      <section id="ml-kem-operations-encapsulate">
+        <h5>Encapsulate</h5>
+        <ol>
+          <li>
+            <p>
+              If the <a data-cite="webcrypto#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot of
+              |key| is not {{KeyType/"public"}}, then [= exception/throw =] an {{InvalidAccessError}}.
+            </p>
+          </li>
+          <li>
+            <p>
+              Perform the encapsulation key check described in
+              Section 7.2 of [[FIPS-203]] with the parameter set
+              indicated by the {{Algorithm/name}} member of |algorithm|,
+              using the key represented by the <a data-cite="webcrypto#dfn-CryptoKey-slot-handle">`[[handle]]`</a>
+              internal slot of |key| as the <var class="overline">ek</var> input parameter.
+            </p>
+            <div class=note>
               <p>
-                If the <a data-cite="webcrypto#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot of
-                |key| is not {{KeyType/"public"}}, then [= exception/throw =] an {{InvalidAccessError}}.
+                The result of this check may be cached or precomputed
+                for the {{CryptoKey}} object if desirable for performance.
               </p>
-            </li>
-            <li>
+            </div>
+          </li>
+          <li>
+            <p>
+              If the encapsulation key check failed, return an {{OperationError}}.
+            </p>
+          </li>
+          <li>
+            <p>
+              Let |sharedKey| and |ciphertext| be the outputs that result
+              from performing the ML-KEM.Encaps function described in
+              Section 7.2 of [[FIPS-203]] with the parameter set
+              indicated by the {{Algorithm/name}} member of |algorithm|,
+              using the key represented by the <a data-cite="webcrypto#dfn-CryptoKey-slot-handle">`[[handle]]`</a>
+              internal slot of |key| as the |ek| input parameter.
+            </p>
+          </li>
+          <li>
+            <p>
+              If the ML-KEM.Encaps function returned an error, return an {{OperationError}}.
+            </p>
+          </li>
+          <li>
+            <p>
+              Let |result| be a new {{EncapsulatedBits}}
+              dictionary.
+            </p>
+          </li>
+          <li>
+            <p>
+              Set the {{EncapsulatedBits/sharedKey}} attribute
+              of |result| to the result of [= ArrayBuffer/create | creating =]
+              an {{ArrayBuffer}} containing |sharedKey|.
+            </p>
+          </li>
+          <li>
+            <p>
+              Set the {{EncapsulatedBits/ciphertext}} attribute
+              of |result| to the result of [= ArrayBuffer/create | creating =]
+              an {{ArrayBuffer}} containing |ciphertext|.
+            </p>
+          </li>
+          <li>
+            <p>
+              Return |result|.
+            </p>
+          </li>
+        </ol>
+      </section>
+      <section id="ml-kem-operations-decapsulate">
+        <h5>Decapsulate</h5>
+        <ol>
+          <li>
+            <p>
+              If the <a data-cite="webcrypto#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot of
+              |key| is not {{KeyType/"private"}}, then [= exception/throw =] an {{InvalidAccessError}}.
+            </p>
+          </li>
+          <li>
+            <p>
+              Perform the decapsulation input check described in
+              Section 7.3 of [[FIPS-203]] with the parameter set
+              indicated by the {{Algorithm/name}} member of |algorithm|,
+              using the key represented by the <a data-cite="webcrypto#dfn-CryptoKey-slot-handle">`[[handle]]`</a>
+              internal slot of |key| as the <var class="overline">dk</var> input parameter, and
+              |ciphertext| as the <var class="overline">c</var> input parameter.
+            </p>
+            <div class=note>
               <p>
-                Perform the encapsulation key check described in
-                Section 7.2 of [[FIPS-203]] with the parameter set
-                indicated by the {{Algorithm/name}} member of |algorithm|,
-                using the key represented by the <a data-cite="webcrypto#dfn-CryptoKey-slot-handle">`[[handle]]`</a>
-                internal slot of |key| as the <var class="overline">ek</var> input parameter.
+                The result of the decapsulation key type check and the hash check
+                may be cached or precomputed for the {{CryptoKey}} object
+                if desirable for performance.
               </p>
-              <div class=note>
-                <p>
-                  The result of this check may be cached or precomputed
-                  for the {{CryptoKey}} object if desirable for performance.
-                </p>
-              </div>
-            </li>
-            <li>
-              <p>
-                If the encapsulation key check failed, return an {{OperationError}}.
-              </p>
-            </li>
-            <li>
-              <p>
-                Let |sharedKey| and |ciphertext| be the outputs that result
-                from performing the ML-KEM.Encaps function described in
-                Section 7.2 of [[FIPS-203]] with the parameter set
-                indicated by the {{Algorithm/name}} member of |algorithm|,
-                using the key represented by the <a data-cite="webcrypto#dfn-CryptoKey-slot-handle">`[[handle]]`</a>
-                internal slot of |key| as the |ek| input parameter.
-              </p>
-            </li>
-            <li>
-              <p>
-                If the ML-KEM.Encaps function returned an error, return an {{OperationError}}.
-              </p>
-            </li>
-            <li>
-              <p>
-                Let |result| be a new {{EncapsulatedBits}}
-                dictionary.
-              </p>
-            </li>
-            <li>
-              <p>
-                Set the {{EncapsulatedBits/sharedKey}} attribute
-                of |result| to the result of [= ArrayBuffer/create | creating =]
-                an {{ArrayBuffer}} containing |sharedKey|.
-              </p>
-            </li>
-            <li>
-              <p>
-                Set the {{EncapsulatedBits/ciphertext}} attribute
-                of |result| to the result of [= ArrayBuffer/create | creating =]
-                an {{ArrayBuffer}} containing |ciphertext|.
-              </p>
-            </li>
-            <li>
-              <p>
-                Return |result|.
-              </p>
-            </li>
-          </ol>
-        </dd>
-        <dt>Decapsulate</dt>
-        <dd>
-          <ol>
-            <li>
-              <p>
-                If the <a data-cite="webcrypto#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot of
-                |key| is not {{KeyType/"private"}}, then [= exception/throw =] an {{InvalidAccessError}}.
-              </p>
-            </li>
-            <li>
-              <p>
-                Perform the decapsulation input check described in
-                Section 7.3 of [[FIPS-203]] with the parameter set
-                indicated by the {{Algorithm/name}} member of |algorithm|,
-                using the key represented by the <a data-cite="webcrypto#dfn-CryptoKey-slot-handle">`[[handle]]`</a>
-                internal slot of |key| as the <var class="overline">dk</var> input parameter, and
-                |ciphertext| as the <var class="overline">c</var> input parameter.
-              </p>
-              <div class=note>
-                <p>
-                  The result of the decapsulation key type check and the hash check
-                  may be cached or precomputed for the {{CryptoKey}} object
-                  if desirable for performance.
-                </p>
-              </div>
-            </li>
-            <li>
-              <p>
-                If the decapsulation key check failed, return an {{OperationError}}.
-              </p>
-            </li>
-            <li>
-              <p>
-                Let |sharedKey| be the output that results
-                from performing the ML-KEM.Decaps function described in
-                Section 7.3 of [[FIPS-203]] with the parameter set
-                indicated by the {{Algorithm/name}} member of |algorithm|,
-                using the key represented by the <a data-cite="webcrypto#dfn-CryptoKey-slot-handle">`[[handle]]`</a>
-                internal slot of |key| as the |dk| input parameter, and
-                |ciphertext| as the |c| input parameter.
-              </p>
-            </li>
-            <li>
-              <p>
-                Return |sharedKey|.
-              </p>
-            </li>
-          </ol>
-        </dd>
-        <dt>Generate Key</dt>
-        <dd>
-          <ol>
-            <li>
-              <p>
-                If |usages| contains any entry which is not
-                one of "`encapsulateKey`", "`encapsulateBits`",
-                "`decapsulateKey`" or "`decapsulateBits`",
-                then [= exception/throw =] a
-                {{SyntaxError}}.
-              </p>
-            </li>
+            </div>
+          </li>
+          <li>
+            <p>
+              If the decapsulation key check failed, return an {{OperationError}}.
+            </p>
+          </li>
+          <li>
+            <p>
+              Let |sharedKey| be the output that results
+              from performing the ML-KEM.Decaps function described in
+              Section 7.3 of [[FIPS-203]] with the parameter set
+              indicated by the {{Algorithm/name}} member of |algorithm|,
+              using the key represented by the <a data-cite="webcrypto#dfn-CryptoKey-slot-handle">`[[handle]]`</a>
+              internal slot of |key| as the |dk| input parameter, and
+              |ciphertext| as the |c| input parameter.
+            </p>
+          </li>
+          <li>
+            <p>
+              Return |sharedKey|.
+            </p>
+          </li>
+        </ol>
+      </section>
+      <section id="ml-kem-operations-generate-key">
+        <h5>Generate Key</h5>
+        <ol>
+          <li>
+            <p>
+              If |usages| contains any entry which is not
+              one of "`encapsulateKey`", "`encapsulateBits`",
+              "`decapsulateKey`" or "`decapsulateBits`",
+              then [= exception/throw =] a
+              {{SyntaxError}}.
+            </p>
+          </li>
 
-            <li>
+          <li>
+            <p>
+              Generate an ML-KEM key pair, as described in
+              Section 7.1 of [[FIPS-203]], with the parameter set
+              indicated by the {{Algorithm/name}} member of |normalizedAlgorithm|.
+            </p>
+            <div class=note>
               <p>
-                Generate an ML-KEM key pair, as described in
-                Section 7.1 of [[FIPS-203]], with the parameter set
-                indicated by the {{Algorithm/name}} member of |normalizedAlgorithm|.
+                In order to be able to export the seed `(d, z)`,
+                `d` and `z` need to be stored as part of the generated
+                key material.
               </p>
-              <div class=note>
+            </div>
+          </li>
+          <li>
+            <p>
+              If the key generation step fails,
+              then [= exception/throw =] an
+              {{OperationError}}.
+            </p>
+          </li>
+          <li>
+            <p>
+              Let |algorithm| be a new {{KeyAlgorithm}} object.
+            </p>
+          </li>
+          <li>
+            <p>
+              Set the {{KeyAlgorithm/name}} attribute of
+              |algorithm| to the {{Algorithm/name}} attribute of
+              |normalizedAlgorithm|.
+            </p>
+          </li>
+          <li>
+            <p>
+              Let |publicKey| be a new {{CryptoKey}}
+              representing the encapsulation key of the generated key pair.
+            </p>
+          </li>
+          <li>
+            <p>
+              Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot of
+              |publicKey| to "`public`".
+            </p>
+          </li>
+          <li>
+            <p>
+              Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a> internal
+              slot of |publicKey| to |algorithm|.
+            </p>
+          </li>
+          <li>
+            <p>
+              Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-extractable">`[[extractable]]`</a> internal
+              slot of |publicKey| to true.
+            </p>
+          </li>
+          <li>
+            <p>
+              Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-usages">`[[usages]]`</a> internal slot of
+              |publicKey| to be the
+              <a data-cite="webcrypto#concept-usage-intersection">usage intersection</a> of
+              |usages| and `[ "encapsulateKey", "encapsulateBits" ]`.
+            </p>
+          </li>
+          <li>
+            <p>
+              Let |privateKey| be a new {{CryptoKey}}
+              representing the decapsulation key of the generated key pair.
+            </p>
+          </li>
+          <li>
+            <p>
+              Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot of
+              |privateKey| to {{KeyType/"private"}}.
+            </p>
+          </li>
+          <li>
+            <p>
+              Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a> internal
+              slot of |privateKey| to |algorithm|.
+            </p>
+          </li>
+          <li>
+            <p>
+              Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-extractable">`[[extractable]]`</a> internal
+              slot of |privateKey| to |extractable|.
+            </p>
+          </li>
+          <li>
+            <p>
+              Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-usages">`[[usages]]`</a> internal slot of
+              |privateKey| to be the
+              <a data-cite="webcrypto#concept-usage-intersection">usage intersection</a> of
+              |usages| and `[ "decapsulateKey", "decapsulateBits" ]`.
+            </p>
+          </li>
+          <li>
+            <p>
+              Let |result| be a new {{CryptoKeyPair}}
+              dictionary.
+            </p>
+          </li>
+          <li>
+            <p>
+              Set the {{CryptoKeyPair/publicKey}} attribute
+              of |result| to be |publicKey|.
+            </p>
+          </li>
+          <li>
+            <p>
+              Set the {{CryptoKeyPair/privateKey}} attribute
+              of |result| to be |privateKey|.
+            </p>
+          </li>
+          <li>
+            <p>
+              Return |result|.
+            </p>
+          </li>
+        </ol>
+      </section>
+      <section id="ml-kem-operations-import-key">
+        <h5>Import Key</h5>
+        <ol>
+          <li>
+            <dl class="switch">
+              <dt>If |format| is {{KeyFormat/"raw-public"}}:</dt>
+              <dd>
+                <ol>
+                  <li>
+                    <p>
+                      If |usages| contains an entry which is not
+                      "`encapsulateKey`" or "`encapsulateBits`"
+                      then [= exception/throw =] a
+                      {{SyntaxError}}.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Let |data| be |keyData|.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Let |key| be a new {{CryptoKey}}
+                      that represents the ML-KEM public key data in |data|.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot
+                      of |key| to {{KeyType/"public"}}
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Let |algorithm| be a new {{KeyAlgorithm}}.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Set the {{KeyAlgorithm/name}} attribute of
+                      |algorithm| to the {{Algorithm/name}} attribute of
+                      |normalizedAlgorithm|.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a>
+                      internal slot of |key| to |algorithm|.
+                    </p>
+                  </li>
+                </ol>
+              </dd>
+              <dt>If |format| is {{KeyFormat/"raw-seed"}}:</dt>
+              <dd>
+                <ol>
+                  <li>
+                    <p>
+                      If |usages| contains an entry which is not
+                      "`decapsulateKey`" or "`decapsulateBits`"
+                      then [= exception/throw =] a
+                      {{SyntaxError}}.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Let |data| be |keyData|.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      If the length in bits of |data| is not 512
+                      then [= exception/throw =] a
+                      {{DataError}}.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Let |privateKey| be the result of performing the
+                      ML-KEM.KeyGen_internal function described in
+                      Section 6.1 of [[FIPS-203]] with the parameter set
+                      indicated by the {{Algorithm/name}} member of |normalizedAlgorithm|,
+                      using the first 256 bits of |data| as |d| and
+                      the last 256 bits of |data| as |z|.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Let |key| be a new {{CryptoKey}}
+                      that represents the ML-KEM private key identified by |privateKey|.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot
+                      of |key| to {{KeyType/"private"}}
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Let |algorithm| be a new {{KeyAlgorithm}}.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Set the {{KeyAlgorithm/name}} attribute of
+                      |algorithm| to the {{Algorithm/name}} attribute of
+                      |normalizedAlgorithm|.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a>
+                      internal slot of |key| to |algorithm|.
+                    </p>
+                  </li>
+                </ol>
+              </dd>
+              <dt>If |format| is {{KeyFormat/"jwk"}}:</dt>
+              <dd>
+                <ol>
+                  <li>
+                    <dl class="switch">
+                      <dt>If |keyData| is a {{JsonWebKey}} dictionary:</dt>
+                      <dd><p>Let |jwk| equal |keyData|.</p></dd>
+                      <dt>Otherwise:</dt>
+                      <dd><p>[= exception/Throw =] a {{DataError}}.</p></dd>
+                    </dl>
+                  </li>
+                  <li>
+                    <p>
+                      If the {{JsonWebKey/priv}} field of |jwk| is present
+                      and if |usages| contains an entry which is not
+                      "`decapsulateKey`" or "`decapsulateBits`"
+                      then [= exception/throw =] a
+                      {{SyntaxError}}.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      If the {{JsonWebKey/priv}} field of |jwk| is not present
+                      and if |usages| contains an entry which is not
+                      "`encapsulateKey`" or "`encapsulateBits`"
+                      then [= exception/throw =] a
+                      {{SyntaxError}}.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      If the {{JsonWebKey/kty}} field of |jwk| is not
+                      "`AKP`",
+                      then [= exception/throw =] a
+                      {{DataError}}.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      If the {{JsonWebKey/alg}} field of |jwk| is not
+                      one of the `alg` values corresponding to the
+                      {{Algorithm/name}} member of |normalizedAlgorithm|
+                      indicated in Section 8 of [[draft-ietf-jose-pqc-kem-01]]
+                      (Figure 1 or 2), then [= exception/throw =] a
+                      {{DataError}}.
+                    </p>
+                    <p class="example">
+                      For example, `MLKEM512` and `MLKEM512+A128KW`
+                      are valid "alg" values for ML-KEM-512.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      If |usages| is non-empty and the {{JsonWebKey/use}} field of |jwk| is present
+                      and is not equal to "`enc`", then [= exception/throw =] a
+                      {{DataError}}.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      If the {{JsonWebKey/key_ops}} field of |jwk| is present, and
+                      is invalid according to the requirements of JSON Web
+                      Key [[JWK]], or it does not contain all of the specified |usages|
+                      values,
+                      then [= exception/throw =] a
+                      {{DataError}}.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      If the {{JsonWebKey/ext}} field of |jwk| is present and
+                      has the value false and |extractable| is true,
+                      then [= exception/throw =] a
+                      {{DataError}}.
+                    </p>
+                  </li>
+                  <li>
+                    <dl class="switch">
+                      <dt>If the {{JsonWebKey/priv}} field of |jwk| is present:</dt>
+                      <dd>
+                        <ol>
+                          <li>
+                            <p>
+                              If the {{JsonWebKey/priv}} attribute of |jwk|
+                              does not contain a valid base64url encoded seed
+                              representing an ML-KEM private key,
+                              then [= exception/throw =] a {{DataError}}.
+                            </p>
+                          </li>
+                          <li>
+                            <p>
+                              Let |key| be a new {{CryptoKey}} object that represents the
+                              ML-KEM private key identified by interpreting the
+                              {{JsonWebKey/priv}} attribute of |jwk|
+                              as a base64url encoded seed.
+                            </p>
+                          </li>
+                          <li>
+                            <p>
+                              Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-type">`[[type]]`</a>
+                              internal slot of |Key| to {{KeyType/"private"}}.
+                            </p>
+                          </li>
+                          <li>
+                            <p>
+                              If the {{JsonWebKey/pub}} attribute of |jwk|
+                              does not contain the base64url encoded public key
+                              representing the ML-KEM public key
+                              corresponding to |key|,
+                              then [= exception/throw =] a {{DataError}}.
+                            </p>
+                          </li>
+                        </ol>
+                      </dd>
+                      <dt>Otherwise:</dt>
+                      <dd>
+                        <ol>
+                          <li>
+                            <p>
+                              If the {{JsonWebKey/pub}} attribute of |jwk|
+                              does not contain a valid base64url encoded public key
+                              representing an ML-KEM public key,
+                              then [= exception/throw =] a {{DataError}}.
+                            </p>
+                          </li>
+                          <li>
+                            <p>
+                              Let |key| be a new {{CryptoKey}} object that represents the
+                              ML-KEM public key identified by interpreting the
+                              {{JsonWebKey/pub}} attribute of |jwk|
+                              as a base64url encoded public key.
+                            </p>
+                          </li>
+                          <li>
+                            <p>
+                              Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-type">`[[type]]`</a>
+                              internal slot of |Key| to {{KeyType/"public"}}.
+                            </p>
+                          </li>
+                        </ol>
+                      </dd>
+                    </dl>
+                  </li>
+                  <li>
+                    <p>
+                      Let |algorithm| be a new instance of a {{KeyAlgorithm}} object.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Set the {{KeyAlgorithm/name}} attribute of
+                      |algorithm| to the {{Algorithm/name}} member of |normalizedAlgorithm|.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a>
+                      internal slot of |key| to |algorithm|.
+                    </p>
+                  </li>
+                </ol>
+              </dd>
+              <dt>Otherwise:</dt>
+              <dd>
+                [= exception/throw =] a
+                {{NotSupportedError}}.
+              </dd>
+            </dl>
+          </li>
+          <li>
+            <p>
+              Return |key|.
+            </p>
+          </li>
+        </ol>
+      </section>
+      <section id="ml-kem-operations-export-key">
+        <h5>Export Key</h5>
+        <ol>
+          <li>
+            <p>
+              If the underlying cryptographic key material represented by the <a data-cite="webcrypto#dfn-CryptoKey-slot-handle">`[[handle]]`</a> internal slot of |key|
+              cannot be accessed, then [= exception/throw =] an {{OperationError}}.
+            </p>
+          </li>
+          <li>
+            <dl class="switch">
+              <dt>If |format| is {{KeyFormat/"raw-public"}}:</dt>
+              <dd>
+                <ol>
+                  <li>
+                    <p>
+                      If the <a data-cite="webcrypto#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot
+                      of |key| is not "`public`", then [= exception/throw =] an {{InvalidAccessError}}.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Let |data| be a [= byte sequence =] containing
+                      the raw octets of the key represented by the <a data-cite="webcrypto#dfn-CryptoKey-slot-handle">`[[handle]]`</a> internal slot of
+                      |key|.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Let |result| be |data|.
+                    </p>
+                  </li>
+                </ol>
+              </dd>
+              <dt>If |format| is {{KeyFormat/"raw-seed"}}:</dt>
+              <dd>
+                <ol>
+                  <li>
+                    <p>
+                      If the <a data-cite="webcrypto#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot
+                      of |key| is not "`private`", then [= exception/throw =] an {{InvalidAccessError}}.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Let |data| be a [= byte sequence =] containing the concatenation of the |d| and |z|
+                      seed variables of the key represented by the <a data-cite="webcrypto#dfn-CryptoKey-slot-handle">`[[handle]]`</a>
+                      internal slot of |key|.
+                    </p>
+                    <div class=note>
+                      <p>
+                        The |d| and |z| seed variables were sampled in the ML-KEM.KeyGen function
+                        as described in Section 7.1 of [[FIPS-203]].
+                      </p>
+                    </div>
+                  </li>
+                  <li>
+                    <p>
+                      Let |result| be |data|.
+                    </p>
+                  </li>
+                </ol>
+              </dd>
+              <dt>If |format| is {{KeyFormat/"jwk"}}:</dt>
+              <dd>
+                <ol>
+                  <li>
+                    <p>
+                      Let |jwk| be a new {{JsonWebKey}}
+                      dictionary.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Set the `kty` attribute of |jwk| to
+                      "`AKP`".
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Set the `alg` attribute of |jwk| to
+                      the `alg` value corresponding to the
+                      {{Algorithm/name}} member of |normalizedAlgorithm|
+                      indicated in Section 8 of [[draft-ietf-jose-pqc-kem-01]]
+                      (Figure 1).
+                    </p>
+                    <p class="example">
+                      For example, `MLKEM512` is the "alg" value
+                      used for ML-KEM-512.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Set the {{JsonWebKey/pub}} attribute of |jwk|
+                      to the base64url encoded public key corresponding
+                      to the <a data-cite="webcrypto#dfn-CryptoKey-slot-handle">`[[handle]]`</a>
+                      internal slot of |key|.
+                    </p>
+                  </li>
+                  <li>
+                    <dl class="switch">
+                      <dt>
+                        If the <a data-cite="webcrypto#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot
+                        of |key| is {{KeyType/"private"}}:
+                      </dt>
+                      <dd>
+                        Set the {{JsonWebKey/priv}} attribute of |jwk|
+                        to the base64url encoded seed represented by
+                        the <a data-cite="webcrypto#dfn-CryptoKey-slot-handle">`[[handle]]`</a>
+                        internal slot of |key|.
+                      </dd>
+                    </dl>
+                  </li>
+                  <li>
+                    <p>
+                      Set the `key_ops` attribute of |jwk| to the {{CryptoKey/usages}} attribute of |key|.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Set the `ext` attribute of |jwk| to the <a data-cite="webcrypto#dfn-CryptoKey-slot-extractable">`[[extractable]]`</a> internal slot
+                      of |key|.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Let |result| be |jwk|.
+                    </p>
+                  </li>
+                </ol>
+              </dd>
+              <dt>Otherwise:</dt>
+              <dd>
                 <p>
-                  In order to be able to export the seed `(d, z)`,
-                  `d` and `z` need to be stored as part of the generated
-                  key material.
-                </p>
-              </div>
-            </li>
-            <li>
-              <p>
-                If the key generation step fails,
-                then [= exception/throw =] an
-                {{OperationError}}.
-              </p>
-            </li>
-            <li>
-              <p>
-                Let |algorithm| be a new {{KeyAlgorithm}} object.
-              </p>
-            </li>
-            <li>
-              <p>
-                Set the {{KeyAlgorithm/name}} attribute of
-                |algorithm| to the {{Algorithm/name}} attribute of
-                |normalizedAlgorithm|.
-              </p>
-            </li>
-            <li>
-              <p>
-                Let |publicKey| be a new {{CryptoKey}}
-                representing the encapsulation key of the generated key pair.
-              </p>
-            </li>
-            <li>
-              <p>
-                Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot of
-                |publicKey| to "`public`".
-              </p>
-            </li>
-            <li>
-              <p>
-                Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a> internal
-                slot of |publicKey| to |algorithm|.
-              </p>
-            </li>
-            <li>
-              <p>
-                Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-extractable">`[[extractable]]`</a> internal
-                slot of |publicKey| to true.
-              </p>
-            </li>
-            <li>
-              <p>
-                Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-usages">`[[usages]]`</a> internal slot of
-                |publicKey| to be the
-                <a data-cite="webcrypto#concept-usage-intersection">usage intersection</a> of
-                |usages| and `[ "encapsulateKey", "encapsulateBits" ]`.
-              </p>
-            </li>
-            <li>
-              <p>
-                Let |privateKey| be a new {{CryptoKey}}
-                representing the decapsulation key of the generated key pair.
-              </p>
-            </li>
-            <li>
-              <p>
-                Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot of
-                |privateKey| to {{KeyType/"private"}}.
-              </p>
-            </li>
-            <li>
-              <p>
-                Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a> internal
-                slot of |privateKey| to |algorithm|.
-              </p>
-            </li>
-            <li>
-              <p>
-                Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-extractable">`[[extractable]]`</a> internal
-                slot of |privateKey| to |extractable|.
-              </p>
-            </li>
-            <li>
-              <p>
-                Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-usages">`[[usages]]`</a> internal slot of
-                |privateKey| to be the
-                <a data-cite="webcrypto#concept-usage-intersection">usage intersection</a> of
-                |usages| and `[ "decapsulateKey", "decapsulateBits" ]`.
-              </p>
-            </li>
-            <li>
-              <p>
-                Let |result| be a new {{CryptoKeyPair}}
-                dictionary.
-              </p>
-            </li>
-            <li>
-              <p>
-                Set the {{CryptoKeyPair/publicKey}} attribute
-                of |result| to be |publicKey|.
-              </p>
-            </li>
-            <li>
-              <p>
-                Set the {{CryptoKeyPair/privateKey}} attribute
-                of |result| to be |privateKey|.
-              </p>
-            </li>
-            <li>
-              <p>
-                Return |result|.
-              </p>
-            </li>
-          </ol>
-        </dd>
-        <dt>Import Key</dt>
-        <dd>
-          <ol>
-            <li>
-              <dl class="switch">
-                <dt>If |format| is {{KeyFormat/"raw-public"}}:</dt>
-                <dd>
-                  <ol>
-                    <li>
-                      <p>
-                        If |usages| contains an entry which is not
-                        "`encapsulateKey`" or "`encapsulateBits`"
-                        then [= exception/throw =] a
-                        {{SyntaxError}}.
-                      </p>
-                    </li>
-                    <li>
-                      <p>
-                        Let |data| be |keyData|.
-                      </p>
-                    </li>
-                    <li>
-                      <p>
-                        Let |key| be a new {{CryptoKey}}
-                        that represents the ML-KEM public key data in |data|.
-                      </p>
-                    </li>
-                    <li>
-                      <p>
-                        Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot
-                        of |key| to {{KeyType/"public"}}
-                      </p>
-                    </li>
-                    <li>
-                      <p>
-                        Let |algorithm| be a new {{KeyAlgorithm}}.
-                      </p>
-                    </li>
-                    <li>
-                      <p>
-                        Set the {{KeyAlgorithm/name}} attribute of
-                        |algorithm| to the {{Algorithm/name}} attribute of
-                        |normalizedAlgorithm|.
-                      </p>
-                    </li>
-                    <li>
-                      <p>
-                        Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a>
-                        internal slot of |key| to |algorithm|.
-                      </p>
-                    </li>
-                  </ol>
-                </dd>
-                <dt>If |format| is {{KeyFormat/"raw-seed"}}:</dt>
-                <dd>
-                  <ol>
-                    <li>
-                      <p>
-                        If |usages| contains an entry which is not
-                        "`decapsulateKey`" or "`decapsulateBits`"
-                        then [= exception/throw =] a
-                        {{SyntaxError}}.
-                      </p>
-                    </li>
-                    <li>
-                      <p>
-                        Let |data| be |keyData|.
-                      </p>
-                    </li>
-                    <li>
-                      <p>
-                        If the length in bits of |data| is not 512
-                        then [= exception/throw =] a
-                        {{DataError}}.
-                      </p>
-                    </li>
-                    <li>
-                      <p>
-                        Let |privateKey| be the result of performing the
-                        ML-KEM.KeyGen_internal function described in
-                        Section 6.1 of [[FIPS-203]] with the parameter set
-                        indicated by the {{Algorithm/name}} member of |normalizedAlgorithm|,
-                        using the first 256 bits of |data| as |d| and
-                        the last 256 bits of |data| as |z|.
-                      </p>
-                    </li>
-                    <li>
-                      <p>
-                        Let |key| be a new {{CryptoKey}}
-                        that represents the ML-KEM private key identified by |privateKey|.
-                      </p>
-                    </li>
-                    <li>
-                      <p>
-                        Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot
-                        of |key| to {{KeyType/"private"}}
-                      </p>
-                    </li>
-                    <li>
-                      <p>
-                        Let |algorithm| be a new {{KeyAlgorithm}}.
-                      </p>
-                    </li>
-                    <li>
-                      <p>
-                        Set the {{KeyAlgorithm/name}} attribute of
-                        |algorithm| to the {{Algorithm/name}} attribute of
-                        |normalizedAlgorithm|.
-                      </p>
-                    </li>
-                    <li>
-                      <p>
-                        Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a>
-                        internal slot of |key| to |algorithm|.
-                      </p>
-                    </li>
-                  </ol>
-                </dd>
-                <dt>If |format| is {{KeyFormat/"jwk"}}:</dt>
-                <dd>
-                  <ol>
-                    <li>
-                      <dl class="switch">
-                        <dt>If |keyData| is a {{JsonWebKey}} dictionary:</dt>
-                        <dd><p>Let |jwk| equal |keyData|.</p></dd>
-                        <dt>Otherwise:</dt>
-                        <dd><p>[= exception/Throw =] a {{DataError}}.</p></dd>
-                      </dl>
-                    </li>
-                    <li>
-                      <p>
-                        If the {{JsonWebKey/priv}} field of |jwk| is present
-                        and if |usages| contains an entry which is not
-                        "`decapsulateKey`" or "`decapsulateBits`"
-                        then [= exception/throw =] a
-                        {{SyntaxError}}.
-                      </p>
-                    </li>
-                    <li>
-                      <p>
-                        If the {{JsonWebKey/priv}} field of |jwk| is not present
-                        and if |usages| contains an entry which is not
-                        "`encapsulateKey`" or "`encapsulateBits`"
-                        then [= exception/throw =] a
-                        {{SyntaxError}}.
-                      </p>
-                    </li>
-                    <li>
-                      <p>
-                        If the {{JsonWebKey/kty}} field of |jwk| is not
-                        "`AKP`",
-                        then [= exception/throw =] a
-                        {{DataError}}.
-                      </p>
-                    </li>
-                    <li>
-                      <p>
-                        If the {{JsonWebKey/alg}} field of |jwk| is not
-                        one of the `alg` values corresponding to the
-                        {{Algorithm/name}} member of |normalizedAlgorithm|
-                        indicated in Section 8 of [[draft-ietf-jose-pqc-kem-01]]
-                        (Figure 1 or 2), then [= exception/throw =] a
-                        {{DataError}}.
-                      </p>
-                      <p class="example">
-                        For example, `MLKEM512` and `MLKEM512+A128KW`
-                        are valid "alg" values for ML-KEM-512.
-                      </p>
-                    </li>
-                    <li>
-                      <p>
-                        If |usages| is non-empty and the {{JsonWebKey/use}} field of |jwk| is present
-                        and is not equal to "`enc`", then [= exception/throw =] a
-                        {{DataError}}.
-                      </p>
-                    </li>
-                    <li>
-                      <p>
-                        If the {{JsonWebKey/key_ops}} field of |jwk| is present, and
-                        is invalid according to the requirements of JSON Web
-                        Key [[JWK]], or it does not contain all of the specified |usages|
-                        values,
-                        then [= exception/throw =] a
-                        {{DataError}}.
-                      </p>
-                    </li>
-                    <li>
-                      <p>
-                        If the {{JsonWebKey/ext}} field of |jwk| is present and
-                        has the value false and |extractable| is true,
-                        then [= exception/throw =] a
-                        {{DataError}}.
-                      </p>
-                    </li>
-                    <li>
-                      <dl class="switch">
-                        <dt>If the {{JsonWebKey/priv}} field of |jwk| is present:</dt>
-                        <dd>
-                          <ol>
-                            <li>
-                              <p>
-                                If the {{JsonWebKey/priv}} attribute of |jwk|
-                                does not contain a valid base64url encoded seed
-                                representing an ML-KEM private key,
-                                then [= exception/throw =] a {{DataError}}.
-                              </p>
-                            </li>
-                            <li>
-                              <p>
-                                Let |key| be a new {{CryptoKey}} object that represents the
-                                ML-KEM private key identified by interpreting the
-                                {{JsonWebKey/priv}} attribute of |jwk|
-                                as a base64url encoded seed.
-                              </p>
-                            </li>
-                            <li>
-                              <p>
-                                Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-type">`[[type]]`</a>
-                                internal slot of |Key| to {{KeyType/"private"}}.
-                              </p>
-                            </li>
-                            <li>
-                              <p>
-                                If the {{JsonWebKey/pub}} attribute of |jwk|
-                                does not contain the base64url encoded public key
-                                representing the ML-KEM public key
-                                corresponding to |key|,
-                                then [= exception/throw =] a {{DataError}}.
-                              </p>
-                            </li>
-                          </ol>
-                        </dd>
-                        <dt>Otherwise:</dt>
-                        <dd>
-                          <ol>
-                            <li>
-                              <p>
-                                If the {{JsonWebKey/pub}} attribute of |jwk|
-                                does not contain a valid base64url encoded public key
-                                representing an ML-KEM public key,
-                                then [= exception/throw =] a {{DataError}}.
-                              </p>
-                            </li>
-                            <li>
-                              <p>
-                                Let |key| be a new {{CryptoKey}} object that represents the
-                                ML-KEM public key identified by interpreting the
-                                {{JsonWebKey/pub}} attribute of |jwk|
-                                as a base64url encoded public key.
-                              </p>
-                            </li>
-                            <li>
-                              <p>
-                                Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-type">`[[type]]`</a>
-                                internal slot of |Key| to {{KeyType/"public"}}.
-                              </p>
-                            </li>
-                          </ol>
-                        </dd>
-                      </dl>
-                    </li>
-                    <li>
-                      <p>
-                        Let |algorithm| be a new instance of a {{KeyAlgorithm}} object.
-                      </p>
-                    </li>
-                    <li>
-                      <p>
-                        Set the {{KeyAlgorithm/name}} attribute of
-                        |algorithm| to the {{Algorithm/name}} member of |normalizedAlgorithm|.
-                      </p>
-                    </li>
-                    <li>
-                      <p>
-                        Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a>
-                        internal slot of |key| to |algorithm|.
-                      </p>
-                    </li>
-                  </ol>
-                </dd>
-                <dt>Otherwise:</dt>
-                <dd>
                   [= exception/throw =] a
                   {{NotSupportedError}}.
-                </dd>
-              </dl>
-            </li>
-            <li>
-              <p>
-                Return |key|.
-              </p>
-            </li>
-          </ol>
-        </dd>
-        <dt>Export Key</dt>
-        <dd>
-          <ol>
-            <li>
-              <p>
-                If the underlying cryptographic key material represented by the <a data-cite="webcrypto#dfn-CryptoKey-slot-handle">`[[handle]]`</a> internal slot of |key|
-                cannot be accessed, then [= exception/throw =] an {{OperationError}}.
-              </p>
-            </li>
-            <li>
-              <dl class="switch">
-                <dt>If |format| is {{KeyFormat/"raw-public"}}:</dt>
-                <dd>
-                  <ol>
-                    <li>
-                      <p>
-                        If the <a data-cite="webcrypto#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot
-                        of |key| is not "`public`", then [= exception/throw =] an {{InvalidAccessError}}.
-                      </p>
-                    </li>
-                    <li>
-                      <p>
-                        Let |data| be a [= byte sequence =] containing
-                        the raw octets of the key represented by the <a data-cite="webcrypto#dfn-CryptoKey-slot-handle">`[[handle]]`</a> internal slot of
-                        |key|.
-                      </p>
-                    </li>
-                    <li>
-                      <p>
-                        Let |result| be |data|.
-                      </p>
-                    </li>
-                  </ol>
-                </dd>
-                <dt>If |format| is {{KeyFormat/"raw-seed"}}:</dt>
-                <dd>
-                  <ol>
-                    <li>
-                      <p>
-                        If the <a data-cite="webcrypto#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot
-                        of |key| is not "`private`", then [= exception/throw =] an {{InvalidAccessError}}.
-                      </p>
-                    </li>
-                    <li>
-                      <p>
-                        Let |data| be a [= byte sequence =] containing the concatenation of the |d| and |z|
-                        seed variables of the key represented by the <a data-cite="webcrypto#dfn-CryptoKey-slot-handle">`[[handle]]`</a>
-                        internal slot of |key|.
-                      </p>
-                      <div class=note>
-                        <p>
-                          The |d| and |z| seed variables were sampled in the ML-KEM.KeyGen function
-                          as described in Section 7.1 of [[FIPS-203]].
-                        </p>
-                      </div>
-                    </li>
-                    <li>
-                      <p>
-                        Let |result| be |data|.
-                      </p>
-                    </li>
-                  </ol>
-                </dd>
-                <dt>If |format| is {{KeyFormat/"jwk"}}:</dt>
-                <dd>
-                  <ol>
-                    <li>
-                      <p>
-                        Let |jwk| be a new {{JsonWebKey}}
-                        dictionary.
-                      </p>
-                    </li>
-                    <li>
-                      <p>
-                        Set the `kty` attribute of |jwk| to
-                        "`AKP`".
-                      </p>
-                    </li>
-                    <li>
-                      <p>
-                        Set the `alg` attribute of |jwk| to
-                        the `alg` value corresponding to the
-                        {{Algorithm/name}} member of |normalizedAlgorithm|
-                        indicated in Section 8 of [[draft-ietf-jose-pqc-kem-01]]
-                        (Figure 1).
-                      </p>
-                      <p class="example">
-                        For example, `MLKEM512` is the "alg" value
-                        used for ML-KEM-512.
-                      </p>
-                    </li>
-                    <li>
-                      <p>
-                        Set the {{JsonWebKey/pub}} attribute of |jwk|
-                        to the base64url encoded public key corresponding
-                        to the <a data-cite="webcrypto#dfn-CryptoKey-slot-handle">`[[handle]]`</a>
-                        internal slot of |key|.
-                      </p>
-                    </li>
-                    <li>
-                      <dl class="switch">
-                        <dt>
-                          If the <a data-cite="webcrypto#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot
-                          of |key| is {{KeyType/"private"}}:
-                        </dt>
-                        <dd>
-                          Set the {{JsonWebKey/priv}} attribute of |jwk|
-                          to the base64url encoded seed represented by
-                          the <a data-cite="webcrypto#dfn-CryptoKey-slot-handle">`[[handle]]`</a>
-                          internal slot of |key|.
-                        </dd>
-                      </dl>
-                    </li>
-                    <li>
-                      <p>
-                        Set the `key_ops` attribute of |jwk| to the {{CryptoKey/usages}} attribute of |key|.
-                      </p>
-                    </li>
-                    <li>
-                      <p>
-                        Set the `ext` attribute of |jwk| to the <a data-cite="webcrypto#dfn-CryptoKey-slot-extractable">`[[extractable]]`</a> internal slot
-                        of |key|.
-                      </p>
-                    </li>
-                    <li>
-                      <p>
-                        Let |result| be |jwk|.
-                      </p>
-                    </li>
-                  </ol>
-                </dd>
-                <dt>Otherwise:</dt>
-                <dd>
-                  <p>
-                    [= exception/throw =] a
-                    {{NotSupportedError}}.
-                  </p>
-                </dd>
-              </dl>
-            </li>
-            <li>
-              <p>
-                Return |result|.
-              </p>
-            </li>
-          </ol>
-        </dd>
-      </dl>
+                </p>
+              </dd>
+            </dl>
+          </li>
+          <li>
+            <p>
+              Return |result|.
+            </p>
+          </li>
+        </ol>
+      </section>
     </section>
   </section>
 
