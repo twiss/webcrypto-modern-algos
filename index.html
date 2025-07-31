@@ -778,23 +778,14 @@ enum KeyUsage { "encrypt", "decrypt", "sign", "verify", "deriveKey", "deriveBits
           </li>
           <li>
             <p>
-              Let |keyData| be the public key representation derived from |key|.
+              Let |publicKey| be a new {{CryptoKey}} representing the public key corresponding to
+              the private key represented by the <a data-cite="webcrypto#dfn-CryptoKey-slot-handle">`[[handle]]`</a>
+              internal slot of |key|.
             </p>
           </li>
           <li>
             <p>
-              If an error occurred, then [= exception/throw =] a {{NotSupportedError}}.
-            </p>
-          </li>
-          <li>
-            <p>
-              Let |publicKey| be a new {{CryptoKey}}.
-            </p>
-          </li>
-          <li>
-            <p>
-              Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-handle">`[[handle]]`</a> internal slot of
-              |publicKey| to |keyData|.
+              If an error occurred, then [= exception/throw =] a {{OperationError}}.
             </p>
           </li>
           <li>
