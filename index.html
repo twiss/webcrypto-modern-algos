@@ -1508,6 +1508,265 @@ dictionary JsonWebKey {
           </li>
           <li>
             <dl class="switch">
+              <dt>If |format| is {{KeyFormat/"spki"}}:</dt>
+              <dd>
+                <ol>
+                  <li>
+                    <li>
+                      <p>
+                        If |usages| contains an entry which is not
+                        "`encapsulateKey`" or "`encapsulateBits`"
+                        then [= exception/throw =] a
+                        {{SyntaxError}}.
+                      </p>
+                    </li>
+                  <li>
+                    <p>
+                      Let |spki| be the result of running the
+                      <a data-cite="webcrypto#concept-parse-a-spki">parse a subjectPublicKeyInfo</a>
+                      algorithm over |keyData|.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      If an error occurred while parsing,
+                      then [= exception/throw =] a
+                      {{DataError}}.
+                    </p>
+                  </li>
+                  <li>
+                    <dl class="switch">
+                      <dt>If the {{Algorithm/name}} member of |normalizedAlgorithm| is "`ML-KEM-512`":</dt>
+                      <dd>
+                        <p>
+                          Let |expectedOid| be `id-alg-ml-kem-512` (2.16.840.1.101.3.4.4.1).
+                        </p>
+                      </dd>
+                      <dt>If the {{Algorithm/name}} member of |normalizedAlgorithm| is "`ML-KEM-768`":</dt>
+                      <dd>
+                        <p>
+                          Let |expectedOid| be `id-alg-ml-kem-768` (2.16.840.1.101.3.4.4.2).
+                        </p>
+                      </dd>
+                      <dt>If the {{Algorithm/name}} member of |normalizedAlgorithm| is "`ML-KEM-1024`":</dt>
+                      <dd>
+                        <p>
+                          Let |expectedOid| be `id-alg-ml-kem-1024` (2.16.840.1.101.3.4.4.3).
+                        </p>
+                      </dd>
+                      <dt>Otherwise:</dt>
+                      <dd>
+                        <p>
+                          [= exception/throw =] a {{NotSupportedError}}.
+                        </p>
+                      </dd>
+                    </dl>
+                  </li>
+                  <li>
+                    <p>
+                      If the `algorithm` object identifier field of the
+                      `algorithm` AlgorithmIdentifier field of |spki| is
+                      not equal to |expectedOid|,
+                      then [= exception/throw =] a {{DataError}}.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      If the `parameters` field of the `algorithm`
+                      AlgorithmIdentifier field of |spki| is present,
+                      then [= exception/throw =] a
+                      {{DataError}}.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Let |publicKey| be the ML-KEM public key identified by
+                      the `subjectPublicKey` field of |spki|.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Let |key| be a new {{CryptoKey}}
+                      that represents |publicKey|.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot
+                      of |key| to "`public`"
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Let |algorithm| be a new {{KeyAlgorithm}}.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Set the {{KeyAlgorithm/name}} attribute of
+                      |algorithm| to the {{Algorithm/name}} attribute of
+                      |normalizedAlgorithm|.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a>
+                      internal slot of |key| to |algorithm|.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-extractable">`[[extractable]]`</a> internal
+                      slot of |key| to |extractable|.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-usages">`[[usages]]`</a> internal slot of
+                      |key| to |usages|.
+                    </p>
+                  </li>
+                </ol>
+              </dd>
+              <dt>If |format| is {{KeyFormat/"pkcs8"}}:</dt>
+              <dd>
+                <ol>
+                  <li>
+                    <li>
+                      <p>
+                        If |usages| contains an entry which is not
+                        "`encapsulateKey`" or "`encapsulateBits`"
+                        then [= exception/throw =] a
+                        {{SyntaxError}}.
+                      </p>
+                    </li>
+                  <li>
+                    <p>
+                      Let |privateKeyInfo| be the result of running the
+                      <a data-cite="webcrypto#concept-parse-a-privateKeyInfo">parse a privateKeyInfo</a>
+                      algorithm over |keyData|.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      If an error occurs while parsing,
+                      then [= exception/throw =] a
+                      {{DataError}}.
+                    </p>
+                  </li>
+                  <li>
+                    <dl class="switch">
+                      <dt>If the {{Algorithm/name}} member of |normalizedAlgorithm| is "`ML-KEM-512`":</dt>
+                      <dd>
+                        <p>
+                          Let |expectedOid| be `id-alg-ml-kem-512` (2.16.840.1.101.3.4.4.1).
+                        </p>
+                        <p>
+                          Let |asn1Structure| be the ASN.1 `ML-KEM-512-PrivateKey` structure.
+                        </p>
+                      </dd>
+                      <dt>If the {{Algorithm/name}} member of |normalizedAlgorithm| is "`ML-KEM-768`":</dt>
+                      <dd>
+                        <p>
+                          Let |expectedOid| be `id-alg-ml-kem-768` (2.16.840.1.101.3.4.4.2).
+                        </p>
+                        <p>
+                          Let |asn1Structure| be the ASN.1 `ML-KEM-768-PrivateKey` structure.
+                        </p>
+                      </dd>
+                      <dt>If the {{Algorithm/name}} member of |normalizedAlgorithm| is "`ML-KEM-1024`":</dt>
+                      <dd>
+                        <p>
+                          Let |expectedOid| be `id-alg-ml-kem-1024` (2.16.840.1.101.3.4.4.3).
+                        </p>
+                        <p>
+                          Let |asn1Structure| be the ASN.1 `ML-KEM-1024-PrivateKey` structure.
+                        </p>
+                      </dd>
+                      <dt>Otherwise:</dt>
+                      <dd>
+                        <p>
+                          [= exception/throw =] a {{NotSupportedError}}.
+                        </p>
+                      </dd>
+                    </dl>
+                  </li>
+                  <li>
+                    <p>
+                      If the `algorithm` object identifier field of the
+                      `privateKeyAlgorithm` PrivateKeyAlgorithm field of
+                      |privateKeyInfo| is not equal to |expectedOid|,
+                      then [= exception/throw =] a {{DataError}}.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      If the `parameters` field of the
+                      `privateKeyAlgorithm` PrivateKeyAlgorithmIdentifier field
+                      of |privateKeyInfo| is present,
+                      then [= exception/throw =] a
+                      {{DataError}}.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Let |mlKemPrivateKey| be the result of performing the
+                      <a data-cite="webcrypto#concept-parse-an-asn1-structure">parse an ASN.1 structure</a>
+                      algorithm, with |data| as the `privateKey` field
+                      of |privateKeyInfo|, |structure| as |asn1Structure|, and |exactData| set to true.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      If an error occurred while parsing,
+                      then [= exception/throw =] a
+                      {{DataError}}.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Let |key| be a new {{CryptoKey}}
+                      that represents the ML-KEM private key identified by |mlKemPrivateKey|.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot
+                      of |key| to {{KeyType/"private"}}
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Let |algorithm| be a new {{KeyAlgorithm}}.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Set the {{KeyAlgorithm/name}} attribute of
+                      |algorithm| to the {{Algorithm/name}} attribute of
+                      |normalizedAlgorithm|.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a>
+                      internal slot of |key| to |algorithm|.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-extractable">`[[extractable]]`</a> internal
+                      slot of |key| to |extractable|.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-usages">`[[usages]]`</a> internal slot of
+                      |key| to |usages|.
+                    </p>
+                  </li>
+                </ol>
+              </dd>
               <dt>If |format| is {{KeyFormat/"raw-public"}}:</dt>
               <dd>
                 <ol>
@@ -5995,6 +6254,36 @@ alg: "K256" }
             TODO
           </td>
         </tr>
+        <tr>
+          <td>id-alg-ml-kem-512 (2.16.840.1.101.3.4.4.1)</td>
+          <td>ML-KEM-512-PrivateKey</td>
+          <td>
+            "`ML-KEM-512`"
+          </td>
+          <td>
+            TODO
+          </td>
+        </tr>
+        <tr>
+          <td>id-alg-ml-kem-768 (2.16.840.1.101.3.4.4.2)</td>
+          <td>ML-KEM-768-PrivateKey</td>
+          <td>
+            "`ML-KEM-768`"
+          </td>
+          <td>
+            TODO
+          </td>
+        </tr>
+        <tr>
+          <td>id-alg-ml-kem-1024 (2.16.840.1.101.3.4.4.3)</td>
+          <td>ML-KEM-1024-PrivateKey</td>
+          <td>
+            "`ML-KEM-1024`"
+          </td>
+          <td>
+            TODO
+          </td>
+        </tr>
       </tbody>
     </table>
   </section>
@@ -6040,6 +6329,36 @@ alg: "K256" }
           <td>BIT STRING</td>
           <td>
             "`ML-DSA-87`"
+          </td>
+          <td>
+            TODO
+          </td>
+        </tr>
+        <tr>
+          <td>id-alg-ml-kem-512 (2.16.840.1.101.3.4.4.1)</td>
+          <td>BIT STRING</td>
+          <td>
+            "`ML-KEM-512`"
+          </td>
+          <td>
+            TODO
+          </td>
+        </tr>
+        <tr>
+          <td>id-alg-ml-kem-768 (2.16.840.1.101.3.4.4.2)</td>
+          <td>BIT STRING</td>
+          <td>
+            "`ML-KEM-768`"
+          </td>
+          <td>
+            TODO
+          </td>
+        </tr>
+        <tr>
+          <td>id-alg-ml-kem-1024 (2.16.840.1.101.3.4.4.3)</td>
+          <td>BIT STRING</td>
+          <td>
+            "`ML-KEM-1024`"
           </td>
           <td>
             TODO
