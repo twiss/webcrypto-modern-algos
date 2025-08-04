@@ -2224,6 +2224,263 @@ dictionary ContextParams : Algorithm {
           </li>
           <li>
             <dl class="switch">
+              <dt>If |format| is {{KeyFormat/"spki"}}:</dt>
+              <dd>
+                <ol>
+                  <li>
+                    <p>
+                      If |usages| contains a value which is not
+                      "`verify`"
+                      then [= exception/throw =] a
+                      {{SyntaxError}}.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Let |spki| be the result of running the
+                      <a data-cite="webcrypto#concept-parse-a-spki">parse a subjectPublicKeyInfo</a>
+                      algorithm over |keyData|.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      If an error occurred while parsing,
+                      then [= exception/throw =] a
+                      {{DataError}}.
+                    </p>
+                  </li>
+                  <li>
+                    <dl class="switch">
+                      <dt>If the {{Algorithm/name}} member of |normalizedAlgorithm| is "`ML-DSA-44`":</dt>
+                      <dd>
+                        <p>
+                          Let |expectedOid| be `id-ml-dsa-44` (2.16.840.1.101.3.4.3.17).
+                        </p>
+                      </dd>
+                      <dt>If the {{Algorithm/name}} member of |normalizedAlgorithm| is "`ML-DSA-65`":</dt>
+                      <dd>
+                        <p>
+                          Let |expectedOid| be `id-ml-dsa-65` (2.16.840.1.101.3.4.3.18).
+                        </p>
+                      </dd>
+                      <dt>If the {{Algorithm/name}} member of |normalizedAlgorithm| is "`ML-DSA-87`":</dt>
+                      <dd>
+                        <p>
+                          Let |expectedOid| be `id-ml-dsa-87` (2.16.840.1.101.3.4.3.19).
+                        </p>
+                      </dd>
+                      <dt>Otherwise:</dt>
+                      <dd>
+                        <p>
+                          [= exception/throw =] a {{NotSupportedError}}.
+                        </p>
+                      </dd>
+                    </dl>
+                  </li>
+                  <li>
+                    <p>
+                      If the `algorithm` object identifier field of the
+                      `algorithm` AlgorithmIdentifier field of |spki| is
+                      not equal to |expectedOid|,
+                      then [= exception/throw =] a {{DataError}}.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      If the `parameters` field of the `algorithm`
+                      AlgorithmIdentifier field of |spki| is present,
+                      then [= exception/throw =] a
+                      {{DataError}}.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Let |publicKey| be the ML-DSA public key identified by
+                      the `subjectPublicKey` field of |spki|.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Let |key| be a new {{CryptoKey}}
+                      that represents |publicKey|.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot
+                      of |key| to "`public`"
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Let |algorithm| be a new {{KeyAlgorithm}}.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Set the {{KeyAlgorithm/name}} attribute of
+                      |algorithm| to the {{Algorithm/name}} attribute of
+                      |normalizedAlgorithm|.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a>
+                      internal slot of |key| to |algorithm|.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-extractable">`[[extractable]]`</a> internal
+                      slot of |key| to |extractable|.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-usages">`[[usages]]`</a> internal slot of
+                      |key| to |usages|.
+                    </p>
+                  </li>
+                </ol>
+              </dd>
+              <dt>If |format| is {{KeyFormat/"pkcs8"}}:</dt>
+              <dd>
+                <ol>
+                  <li>
+                    <p>
+                      If |usages| contains a value which is not
+                      "`sign`"
+                      then [= exception/throw =] a
+                      {{SyntaxError}}.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Let |privateKeyInfo| be the result of running the
+                      <a data-cite="webcrypto#concept-parse-a-privateKeyInfo">parse a privateKeyInfo</a>
+                      algorithm over |keyData|.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      If an error occurs while parsing,
+                      then [= exception/throw =] a
+                      {{DataError}}.
+                    </p>
+                  </li>
+                  <li>
+                    <dl class="switch">
+                      <dt>If the {{Algorithm/name}} member of |normalizedAlgorithm| is "`ML-DSA-44`":</dt>
+                      <dd>
+                        <p>
+                          Let |expectedOid| be `id-ml-dsa-44` (2.16.840.1.101.3.4.3.17).
+                        </p>
+                        <p>
+                          Let |asn1Structure| be the ASN.1 `ML-DSA-44-PrivateKey` structure.
+                        </p>
+                      </dd>
+                      <dt>If the {{Algorithm/name}} member of |normalizedAlgorithm| is "`ML-DSA-65`":</dt>
+                      <dd>
+                        <p>
+                          Let |expectedOid| be `id-ml-dsa-65` (2.16.840.1.101.3.4.3.18).
+                        </p>
+                        <p>
+                          Let |asn1Structure| be the ASN.1 `ML-DSA-65-PrivateKey` structure.
+                        </p>
+                      </dd>
+                      <dt>If the {{Algorithm/name}} member of |normalizedAlgorithm| is "`ML-DSA-87`":</dt>
+                      <dd>
+                        <p>
+                          Let |expectedOid| be `id-ml-dsa-87` (2.16.840.1.101.3.4.3.19).
+                        </p>
+                        <p>
+                          Let |asn1Structure| be the ASN.1 `ML-DSA-87-PrivateKey` structure.
+                        </p>
+                      </dd>
+                      <dt>Otherwise:</dt>
+                      <dd>
+                        <p>
+                          [= exception/throw =] a {{NotSupportedError}}.
+                        </p>
+                      </dd>
+                    </dl>
+                  </li>
+                  <li>
+                    <p>
+                      If the `algorithm` object identifier field of the
+                      `privateKeyAlgorithm` PrivateKeyAlgorithm field of
+                      |privateKeyInfo| is not equal to |expectedOid|,
+                      then [= exception/throw =] a {{DataError}}.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      If the `parameters` field of the
+                      `privateKeyAlgorithm` PrivateKeyAlgorithmIdentifier field
+                      of |privateKeyInfo| is present,
+                      then [= exception/throw =] a
+                      {{DataError}}.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Let |mlDsaPrivateKey| be the result of performing the
+                      <a data-cite="webcrypto#concept-parse-an-asn1-structure">parse an ASN.1 structure</a>
+                      algorithm, with |data| as the `privateKey` field
+                      of |privateKeyInfo|, |structure| as |asn1Structure|, and |exactData| set to true.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      If an error occurred while parsing,
+                      then [= exception/throw =] a
+                      {{DataError}}.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Let |key| be a new {{CryptoKey}}
+                      that represents the ML-DSA private key identified by |mlDsaPrivateKey|.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot
+                      of |key| to {{KeyType/"private"}}
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Let |algorithm| be a new {{KeyAlgorithm}}.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Set the {{KeyAlgorithm/name}} attribute of
+                      |algorithm| to the {{Algorithm/name}} attribute of
+                      |normalizedAlgorithm|.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a>
+                      internal slot of |key| to |algorithm|.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-extractable">`[[extractable]]`</a> internal
+                      slot of |key| to |extractable|.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-usages">`[[usages]]`</a> internal slot of
+                      |key| to |usages|.
+                    </p>
+                  </li>
+                </ol>
+              </dd>
               <dt>If |format| is {{KeyFormat/"raw-public"}}:</dt>
               <dd>
                 <ol>
@@ -5690,6 +5947,106 @@ alg: "K256" }
     </table>
     <div class="todo">TODO: register A128OCB, A192OCB, A256OCB, C20P, K128 and K256(?) with IANA in the JSON Web Signature and Encryption Algorithms registry.</div>
     <div class="todo">TODO: register encapsulateKey, encapsulateBits, decapsulateKey and decapsulateBits with IANA in the JSON Web Key Operations registry.</div>
+  </section>
+
+  <section id="pkcs8-mapping" class="appendix informative">
+    <h2>Mapping between Algorithm and PKCS#8 PrivateKeyInfo</h2>
+    <p>
+      Refer to algorithm-specific sections for the
+      normative requirements of importing and exporting PKCS#8 PrivateKeyInfo.
+    </p>
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">privateKeyAlgorithm</th>
+          <th scope="col">privateKey format</th>
+          <th scope="col">AlgorithmIdentifier</th>
+          <th scope="col">Reference</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>id-ml-dsa-44 (2.16.840.1.101.3.4.3.17)</td>
+          <td>ML-DSA-44-PrivateKey</td>
+          <td>
+            "`ML-DSA-44`"
+          </td>
+          <td>
+            TODO
+          </td>
+        </tr>
+        <tr>
+          <td>id-ml-dsa-65 (2.16.840.1.101.3.4.3.18)</td>
+          <td>ML-DSA-65-PrivateKey</td>
+          <td>
+            "`ML-DSA-65`"
+          </td>
+          <td>
+            TODO
+          </td>
+        </tr>
+        <tr>
+          <td>id-ml-dsa-87 (2.16.840.1.101.3.4.3.19)</td>
+          <td>ML-DSA-87-PrivateKey</td>
+          <td>
+            "`ML-DSA-87`"
+          </td>
+          <td>
+            TODO
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section id="spki-mapping" class="appendix informative" >
+    <h2>Mapping between Algorithm and SubjectPublicKeyInfo</h2>
+    <p class="norm">
+      Refer to algorithm-specific sections for the
+      normative requirements of importing and exporting SPKI.
+    </p>
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">Algorithm OID</th>
+          <th scope="col">subjectPublicKey ASN.1 structure</th>
+          <th scope="col">AlgorithmIdentifier</th>
+          <th scope="col">Reference</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>id-ml-dsa-44 (2.16.840.1.101.3.4.3.17)</td>
+          <td>BIT STRING</td>
+          <td>
+            "`ML-DSA-44`"
+          </td>
+          <td>
+            TODO
+          </td>
+        </tr>
+        <tr>
+          <td>id-ml-dsa-65 (2.16.840.1.101.3.4.3.18)</td>
+          <td>BIT STRING</td>
+          <td>
+            "`ML-DSA-65`"
+          </td>
+          <td>
+            TODO
+          </td>
+        </tr>
+        <tr>
+          <td>id-ml-dsa-87 (2.16.840.1.101.3.4.3.19)</td>
+          <td>BIT STRING</td>
+          <td>
+            "`ML-DSA-87`"
+          </td>
+          <td>
+            TODO
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </section>
 
   <section id="conformance"></section>
