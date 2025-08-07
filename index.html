@@ -5355,7 +5355,7 @@ dictionary Argon2Params : Algorithm {
           'AES-OCB' :
           'AES-GCM';
       const passwordKey = await crypto.subtle.importKey(
-        'raw',
+        'raw-secret',
         new TextEncoder().encode(password),
         derivationAlg,
         /* extractable: */ false,
