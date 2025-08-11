@@ -22,4 +22,4 @@ to be able to derive a public key from its corresponding private key,
 and a `SubtleCrypto.supports` function, for improved algorithm support
 detection.
 
-See the [draft specification](https://twiss.github.io/webcrypto-modern-algos/).
+See the [draft specification](https://wicg.github.io/webcrypto-modern-algos/).
