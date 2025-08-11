@@ -1333,6 +1333,9 @@ dictionary JsonWebKey {
         <h5>Import Key</h5>
         <ol>
           <li>
+            <p>Let |keyData| be the key data to be imported.</p>
+          </li>
+          <li>
             <dl class="switch">
               <dt>If |format| is {{KeyFormat/"raw-public"}}:</dt>
               <dd>
@@ -3456,6 +3459,9 @@ dictionary AeadParams : Algorithm {
         <h5>Import Key</h5>
         <ol>
           <li>
+            <p>Let |keyData| be the key data to be imported.</p>
+          </li>
+          <li>
             <p>
               If |usages| contains an entry which is not
               one of "`encrypt`", "`decrypt`",
@@ -3974,6 +3980,9 @@ dictionary AeadParams : Algorithm {
       <section id="chacha20-poly1305-operations-import-key">
         <h5>Import Key</h5>
         <ol>
+          <li>
+            <p>Let |keyData| be the key data to be imported.</p>
+          </li>
           <li>
             <p>
               If |usages| contains an entry which is not
@@ -5262,6 +5271,9 @@ dictionary Argon2Params : Algorithm {
       <section id="argon2-operations-import-key">
         <h5>Import key</h5>
         <ol>
+          <li>
+            <p>Let |keyData| be the key data to be imported.</p>
+          </li>
           <li>
             <p>
               If |format| is not {{KeyFormat/"raw-secret"}}, [= exception/throw =] a {{NotSupportedError}}
