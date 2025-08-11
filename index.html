@@ -4450,6 +4450,257 @@ dictionary ContextParams : Algorithm {
           </li>
           <li>
             <dl class="switch">
+              <dt>If |format| is {{KeyFormat/"spki"}}:</dt>
+              <dd>
+                <ol>
+                  <li>
+                    <p>
+                      If the <a data-cite="webcrypto#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot
+                      of |key| is not "`public`", then [= exception/throw =] an {{InvalidAccessError}}.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Let |data| be an instance of the `SubjectPublicKeyInfo`
+                      ASN.1 structure defined in [[RFC5280]]
+                      with the following properties:
+                    </p>
+                    <ul>
+                      <li>
+                        <p>
+                          Set the |algorithm| field to an
+                          `AlgorithmIdentifier` ASN.1 type with the following
+                          properties:
+                        </p>
+                        <ul>
+                          <li>
+                            <dl class="switch">
+                              <dt>If the {{Algorithm/name}} member of |normalizedAlgorithm| is "`SLH-DSA-SHA2-128s`":</dt>
+                              <dd>
+                                <p>
+                                  Set the |algorithm| object identifier to the `id-slh-dsa-sha2-128s` (2.16.840.1.101.3.4.3.20) OID.
+                                </p>
+                              </dd>
+                              <dt>If the {{Algorithm/name}} member of |normalizedAlgorithm| is "`SLH-DSA-SHA2-128f`":</dt>
+                              <dd>
+                                <p>
+                                  Set the |algorithm| object identifier to the `id-slh-dsa-sha2-128f` (2.16.840.1.101.3.4.3.21) OID.
+                                </p>
+                              </dd>
+                              <dt>If the {{Algorithm/name}} member of |normalizedAlgorithm| is "`SLH-DSA-SHA2-192s`":</dt>
+                              <dd>
+                                <p>
+                                  Set the |algorithm| object identifier to the `id-slh-dsa-sha2-192s` (2.16.840.1.101.3.4.3.22) OID.
+                                </p>
+                              </dd>
+                              <dt>If the {{Algorithm/name}} member of |normalizedAlgorithm| is "`SLH-DSA-SHA2-192f`":</dt>
+                              <dd>
+                                <p>
+                                  Set the |algorithm| object identifier to the `id-slh-dsa-sha2-192f` (2.16.840.1.101.3.4.3.23) OID.
+                                </p>
+                              </dd>
+                              <dt>If the {{Algorithm/name}} member of |normalizedAlgorithm| is "`SLH-DSA-SHA2-256s`":</dt>
+                              <dd>
+                                <p>
+                                  Set the |algorithm| object identifier to the `id-slh-dsa-sha2-256s` (2.16.840.1.101.3.4.3.24) OID.
+                                </p>
+                              </dd>
+                              <dt>If the {{Algorithm/name}} member of |normalizedAlgorithm| is "`SLH-DSA-SHA2-256f`":</dt>
+                              <dd>
+                                <p>
+                                  Set the |algorithm| object identifier to the `id-slh-dsa-sha2-256f` (2.16.840.1.101.3.4.3.25) OID.
+                                </p>
+                              </dd>
+                              <dt>If the {{Algorithm/name}} member of |normalizedAlgorithm| is "`SLH-DSA-SHAKE-128s`":</dt>
+                              <dd>
+                                <p>
+                                  Set the |algorithm| object identifier to the `id-slh-dsa-shake-128s` (2.16.840.1.101.3.4.3.26) OID.
+                                </p>
+                              </dd>
+                              <dt>If the {{Algorithm/name}} member of |normalizedAlgorithm| is "`SLH-DSA-SHAKE-128f`":</dt>
+                              <dd>
+                                <p>
+                                  Set the |algorithm| object identifier to the `id-slh-dsa-shake-128f` (2.16.840.1.101.3.4.3.27) OID.
+                                </p>
+                              </dd>
+                              <dt>If the {{Algorithm/name}} member of |normalizedAlgorithm| is "`SLH-DSA-SHAKE-192s`":</dt>
+                              <dd>
+                                <p>
+                                  Set the |algorithm| object identifier to the `id-slh-dsa-shake-192s` (2.16.840.1.101.3.4.3.28) OID.
+                                </p>
+                              </dd>
+                              <dt>If the {{Algorithm/name}} member of |normalizedAlgorithm| is "`SLH-DSA-SHAKE-192f`":</dt>
+                              <dd>
+                                <p>
+                                  Set the |algorithm| object identifier to the `id-slh-dsa-shake-192f` (2.16.840.1.101.3.4.3.29) OID.
+                                </p>
+                              </dd>
+                              <dt>If the {{Algorithm/name}} member of |normalizedAlgorithm| is "`SLH-DSA-SHAKE-256s`":</dt>
+                              <dd>
+                                <p>
+                                  Set the |algorithm| object identifier to the `id-slh-dsa-shake-256s` (2.16.840.1.101.3.4.3.30) OID.
+                                </p>
+                              </dd>
+                              <dt>If the {{Algorithm/name}} member of |normalizedAlgorithm| is "`SLH-DSA-SHAKE-256f`":</dt>
+                              <dd>
+                                <p>
+                                  Set the |algorithm| object identifier to the `id-slh-dsa-shake-256f` (2.16.840.1.101.3.4.3.31) OID.
+                                </p>
+                              </dd>
+                              <dt>Otherwise:</dt>
+                              <dd>
+                                <p>
+                                  [= exception/throw =] a {{NotSupportedError}}.
+                                </p>
+                              </dd>
+                            </dl>
+                          </li>
+                        </ul>
+                      </li>
+                      <li>
+                        <p>
+                          Set the |subjectPublicKey| field to |keyData|.
+                        </p>
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    <p>
+                      Let |result| be the result of DER-encoding |data|.
+                    </p>
+                  </li>
+                </ol>
+              </dd>
+              <dt>If |format| is {{KeyFormat/"pkcs8"}}:</dt>
+              <dd>
+                <ol>
+                  <li>
+                    <p>
+                      If the <a data-cite="webcrypto#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot
+                      of |key| is not {{KeyType/"private"}}, then [= exception/throw =] an {{InvalidAccessError}}.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Let |data| be an instance of the `PrivateKeyInfo`
+                      ASN.1 structure defined in [[RFC5208]]
+                      with the following properties:
+                    </p>
+                    <ul>
+                      <li>
+                        <p>
+                          Set the |version| field to `0`.
+                        </p>
+                      </li>
+                      <li>
+                        <p>
+                          Set the |privateKeyAlgorithm| field to a
+                          `PrivateKeyAlgorithmIdentifier` ASN.1 type with the
+                          following properties:
+                        </p>
+                        <ul>
+                          <li>
+                            <dl class="switch">
+
+                              <dt>If the {{Algorithm/name}} member of |normalizedAlgorithm| is "`SLH-DSA-SHA2-128s`":</dt>
+                              <dd>
+                                <p>
+                                  Set the |algorithm| object identifier to the `id-slh-dsa-sha2-128s` (2.16.840.1.101.3.4.3.20) OID.
+                                </p>
+                              </dd>
+                              <dt>If the {{Algorithm/name}} member of |normalizedAlgorithm| is "`SLH-DSA-SHA2-128f`":</dt>
+                              <dd>
+                                <p>
+                                  Set the |algorithm| object identifier to the `id-slh-dsa-sha2-128f` (2.16.840.1.101.3.4.3.21) OID.
+                                </p>
+                              </dd>
+                              <dt>If the {{Algorithm/name}} member of |normalizedAlgorithm| is "`SLH-DSA-SHA2-192s`":</dt>
+                              <dd>
+                                <p>
+                                  Set the |algorithm| object identifier to the `id-slh-dsa-sha2-192s` (2.16.840.1.101.3.4.3.22) OID.
+                                </p>
+                              </dd>
+                              <dt>If the {{Algorithm/name}} member of |normalizedAlgorithm| is "`SLH-DSA-SHA2-192f`":</dt>
+                              <dd>
+                                <p>
+                                  Set the |algorithm| object identifier to the `id-slh-dsa-sha2-192f` (2.16.840.1.101.3.4.3.23) OID.
+                                </p>
+                              </dd>
+                              <dt>If the {{Algorithm/name}} member of |normalizedAlgorithm| is "`SLH-DSA-SHA2-256s`":</dt>
+                              <dd>
+                                <p>
+                                  Set the |algorithm| object identifier to the `id-slh-dsa-sha2-256s` (2.16.840.1.101.3.4.3.24) OID.
+                                </p>
+                              </dd>
+                              <dt>If the {{Algorithm/name}} member of |normalizedAlgorithm| is "`SLH-DSA-SHA2-256f`":</dt>
+                              <dd>
+                                <p>
+                                  Set the |algorithm| object identifier to the `id-slh-dsa-sha2-256f` (2.16.840.1.101.3.4.3.25) OID.
+                                </p>
+                              </dd>
+                              <dt>If the {{Algorithm/name}} member of |normalizedAlgorithm| is "`SLH-DSA-SHAKE-128s`":</dt>
+                              <dd>
+                                <p>
+                                  Set the |algorithm| object identifier to the `id-slh-dsa-shake-128s` (2.16.840.1.101.3.4.3.26) OID.
+                                </p>
+                              </dd>
+                              <dt>If the {{Algorithm/name}} member of |normalizedAlgorithm| is "`SLH-DSA-SHAKE-128f`":</dt>
+                              <dd>
+                                <p>
+                                  Set the |algorithm| object identifier to the `id-slh-dsa-shake-128f` (2.16.840.1.101.3.4.3.27) OID.
+                                </p>
+                              </dd>
+                              <dt>If the {{Algorithm/name}} member of |normalizedAlgorithm| is "`SLH-DSA-SHAKE-192s`":</dt>
+                              <dd>
+                                <p>
+                                  Set the |algorithm| object identifier to the `id-slh-dsa-shake-192s` (2.16.840.1.101.3.4.3.28) OID.
+                                </p>
+                              </dd>
+                              <dt>If the {{Algorithm/name}} member of |normalizedAlgorithm| is "`SLH-DSA-SHAKE-192f`":</dt>
+                              <dd>
+                                <p>
+                                  Set the |algorithm| object identifier to the `id-slh-dsa-shake-192f` (2.16.840.1.101.3.4.3.29) OID.
+                                </p>
+                              </dd>
+                              <dt>If the {{Algorithm/name}} member of |normalizedAlgorithm| is "`SLH-DSA-SHAKE-256s`":</dt>
+                              <dd>
+                                <p>
+                                  Set the |algorithm| object identifier to the `id-slh-dsa-shake-256s` (2.16.840.1.101.3.4.3.30) OID.
+                                </p>
+                              </dd>
+                              <dt>If the {{Algorithm/name}} member of |normalizedAlgorithm| is "`SLH-DSA-SHAKE-256f`":</dt>
+                              <dd>
+                                <p>
+                                  Set the |algorithm| object identifier to the `id-slh-dsa-shake-256f` (2.16.840.1.101.3.4.3.31) OID.
+                                </p>
+                              </dd>
+                              <dt>Otherwise:</dt>
+                              <dd>
+                                <p>
+                                  [= exception/throw =] a {{NotSupportedError}}.
+                                </p>
+                              </dd>
+                            </dl>
+                          </li>
+                        </ul>
+                      </li>
+                      <li>
+                        <p>
+                          Set the |privateKey| field to the result of DER-encoding
+                          a `OCTET STRING` ASN.1 type that represents the SLH-DSA private key represented
+                          by the <a data-cite="webcrypto#dfn-CryptoKey-slot-handle">`[[handle]]`</a>
+                          internal slot of |key|
+                        </p>
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    <p>
+                      Let |result| be the result of DER-encoding |data|.
+                    </p>
+                  </li>
+                </ol>
+              </dd>
               <dt>
                 If |format| is {{KeyFormat/"raw-public"}}:
               </dt>
