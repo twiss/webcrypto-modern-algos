@@ -12,12 +12,14 @@ Web Cryptography API, namely:
 - SHA-3, cSHAKE and KMAC
 - Argon2
 
-Additionally, it proposes to add functions for key encapsulation and decapsulation;
+To accommodate the usage of ML-KEM, and possibly future other KEMs,
+it proposes to add functions for key encapsulation and decapsulation;
 `SubtleCrypto.encapsulateKey`, `SubtleCrypto.encapsulateBits`,
 `SubtleCrypto.decapsulateKey` and `SubtleCrypto.decapsulateBits`.
 
-Finally, it proposes to add a `SubtleCrypto.supports` function,
-for improved algorithm support detection and a `SubtleCrypto.getPublicKey`
-to be able to derive a public key from its corresponding private key.
+Additionally, it proposes to add a `SubtleCrypto.getPublicKey` function,
+to be able to derive a public key from its corresponding private key,
+and a `SubtleCrypto.supports` function, for improved algorithm support
+detection.
 
 See the [draft specification](https://twiss.github.io/webcrypto-modern-algos/).

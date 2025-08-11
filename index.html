@@ -149,14 +149,15 @@
       </ul>
     </p>
     <p>
-      Additionally, this proposal introduces functions for key encapsulation and decapsulation;
+      To accommodate the usage of ML-KEM, and possibly future other KEMs,
+      this proposal introduces functions for key encapsulation and decapsulation;
       <a href="#dfn-SubtleCrypto-method-encapsulateKey">`SubtleCrypto.encapsulateKey`</a>,
       <a href="#dfn-SubtleCrypto-method-encapsulateBits">`SubtleCrypto.encapsulateBits`</a>,
       <a href="#dfn-SubtleCrypto-method-decapsulateKey">`SubtleCrypto.decapsulateKey`</a> and
       <a href="#dfn-SubtleCrypto-method-decapsulateBits">`SubtleCrypto.decapsulateBits`</a>.
     </p>
     <p>
-      Additionally, this proposal also introduces the <a href="#dfn-SubtleCrypto-method-getPublicKey">`SubtleCrypto.getPublicKey`</a> function,
+      Additionally, this proposal introduces the <a href="#dfn-SubtleCrypto-method-getPublicKey">`SubtleCrypto.getPublicKey`</a> function,
       which provides a convenient way to derive a public key from an asymmetric private key,
       eliminating the need to store both the public and private key separately when only the private key is needed.
     </p>
