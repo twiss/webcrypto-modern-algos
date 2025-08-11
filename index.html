@@ -192,7 +192,7 @@ partial interface SubtleCrypto {
     BufferSource ciphertext
   );
 
-  CryptoKey getPublicKey(
+  Promise&lt;CryptoKey> getPublicKey(
     CryptoKey key,
     sequence&lt;KeyUsage> keyUsages
   );
@@ -748,12 +748,6 @@ enum KeyUsage { "encrypt", "decrypt", "sign", "verify", "deriveKey", "deriveBits
           </li>
           <li>
             <p>
-              If the <a data-cite="webcrypto#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot of
-              |key| is not {{KeyType/"private"}}, then [= exception/throw =] an {{InvalidAccessError}}.
-            </p>
-          </li>
-          <li>
-            <p>
               Let |algorithm| be the <a data-cite="webcrypto#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a> internal slot of |key|.
             </p>
           </li>
@@ -761,7 +755,38 @@ enum KeyUsage { "encrypt", "decrypt", "sign", "verify", "deriveKey", "deriveBits
             <p>
               If the cryptographic algorithm identified by |algorithm|
               does not support deriving a public key from a private key,
-              then [= exception/throw =] a {{NotSupportedError}}.
+              then return a Promise rejected with a {{NotSupportedError}}.
+            </p>
+          </li>
+          <li>
+            <p>
+              Let |realm| be the [= relevant realm =] of [= this =].
+            </p>
+          </li>
+          <li>
+            <p>
+              Let |promise| be a new Promise.
+            </p>
+          </li>
+          <li>
+            <p>
+              Return |promise| and perform the remaining steps [= in parallel =].
+            </p>
+          </li>
+          <li>
+            <p>
+              If the following steps or referenced procedures say to
+              [= exception/throw =] an error,
+              [= queue a global task =] on the <a data-cite="webcrypto#dfn-crypto-task-source">crypto task source</a>,
+              given |realm|'s global object,
+              to reject |promise| with the returned error;
+              and then <a data-cite="webcrypto#terminate-the-algorithm">terminate the algorithm</a>.
+            </p>
+          </li>
+          <li>
+            <p>
+              If the <a data-cite="webcrypto#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot of
+              |key| is not {{KeyType/"private"}}, then [= exception/throw =] an {{InvalidAccessError}}.
             </p>
           </li>
           <li>
@@ -809,7 +834,19 @@ enum KeyUsage { "encrypt", "decrypt", "sign", "verify", "deriveKey", "deriveBits
           </li>
           <li>
             <p>
-              Return |publicKey|.
+              [= Queue a global task =] on the <a data-cite="webcrypto#dfn-crypto-task-source">crypto task source</a>,
+              given |realm|'s global object, to perform the remaining steps.
+            </p>
+          </li>
+          <li>
+            <p>
+              Let |result| be the result of converting |publicKey| to an ECMAScript Object in |realm|, as defined by [[WebIDL]].
+            </p>
+          </li>
+          <li>
+            <p>
+              Resolve |promise| with
+              |result|.
             </p>
           </li>
         </ol>
