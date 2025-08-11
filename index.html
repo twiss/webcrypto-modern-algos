@@ -260,8 +260,8 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       "date": "October 2024"
     }
   },
-  "publishISODate": "2025-08-08T00:00:00.000Z",
-  "generatedSubtitle": "Draft Community Group Report 08 August 2025"
+  "publishISODate": "2025-08-11T00:00:00.000Z",
+  "generatedSubtitle": "Draft Community Group Report 11 August 2025"
 }</script>
 <link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2021/cg-draft"></head>
 
@@ -270,7 +270,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     <h1 id="title" class="title">Modern Algorithms in the Web Cryptography API</h1> 
     <p id="w3c-state">
       <a href="https://www.w3.org/standards/types#reports">Draft Community Group Report</a>
-      <time class="dt-published" datetime="2025-08-08">08 August 2025</time>
+      <time class="dt-published" datetime="2025-08-11">11 August 2025</time>
     </p>
     <dl>
       
@@ -1552,6 +1552,9 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
       <section id="ml-kem-operations-import-key"><div class="header-wrapper"><h4 id="x6-3-4-import-key"><bdi class="secno">6.3.4 </bdi>Import Key</h4><a class="self-link" href="#ml-kem-operations-import-key" aria-label="Permalink for Section 6.3.4"></a></div>
         
         <ol>
+          <li>
+            <p>Let <var>keyData</var> be the key data to be imported.</p>
+          </li>
           <li>
             <dl class="switch">
               <dt>If <var>format</var> is "<a data-link-type="idl" href="#dom-keyformat-raw-public" class="internalDFN" id="ref-for-dom-keyformat-raw-public-3"><code>raw-public</code></a>":</dt>
@@ -3672,6 +3675,9 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
         
         <ol>
           <li>
+            <p>Let <var>keyData</var> be the key data to be imported.</p>
+          </li>
+          <li>
             <p>
               If <var>usages</var> contains an entry which is not
               one of "<code>encrypt</code>", "<code>decrypt</code>",
@@ -4190,6 +4196,9 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
       <section id="chacha20-poly1305-operations-import-key"><div class="header-wrapper"><h4 id="x10-3-4-import-key"><bdi class="secno">10.3.4 </bdi>Import Key</h4><a class="self-link" href="#chacha20-poly1305-operations-import-key" aria-label="Permalink for Section 10.3.4"></a></div>
         
         <ol>
+          <li>
+            <p>Let <var>keyData</var> be the key data to be imported.</p>
+          </li>
           <li>
             <p>
               If <var>usages</var> contains an entry which is not
@@ -5466,6 +5475,9 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
       <section id="argon2-operations-import-key"><div class="header-wrapper"><h4 id="x14-4-2-import-key"><bdi class="secno">14.4.2 </bdi>Import key</h4><a class="self-link" href="#argon2-operations-import-key" aria-label="Permalink for Section 14.4.2"></a></div>
         
         <ol>
+          <li>
+            <p>Let <var>keyData</var> be the key data to be imported.</p>
+          </li>
           <li>
             <p>
               If <var>format</var> is not "<a data-link-type="idl" href="#dom-keyformat-raw-secret" class="internalDFN" id="ref-for-dom-keyformat-raw-secret-12"><code>raw-secret</code></a>", <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a <a data-link-type="exception" data-lt="NotSupportedError" href="https://webidl.spec.whatwg.org/#notsupportederror"><code>NotSupportedError</code></a>
