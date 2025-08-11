@@ -264,6 +264,24 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       "href": "https://www.ietf.org/archive/id/draft-ietf-cose-sphincs-plus-05.html",
       "publisher": "IETF",
       "date": "October 2024"
+    },
+    "CSOR": {
+      "title": "Computer Security Objects Register",
+      "href": "https://csrc.nist.gov/projects/computer-security-objects-register/algorithm-registration",
+      "publisher": "NIST",
+      "id": "csor"
+    },
+    "draft-ietf-lamps-kyber-certificates": {
+      "title": "Internet X.509 Public Key Infrastructure - Algorithm Identifiers for the Module-Lattice-Based Key-Encapsulation Mechanism (ML-KEM)",
+      "href": "https://datatracker.ietf.org/doc/draft-ietf-lamps-kyber-certificates/",
+      "publisher": "IETF",
+      "id": "draft-ietf-lamps-kyber-certificates"
+    },
+    "draft-ietf-lamps-dilithium-certificates": {
+      "title": "Internet X.509 Public Key Infrastructure - Algorithm Identifiers for the Module-Lattice-Based Digital Signature Algorithm (ML-DSA)",
+      "href": "https://datatracker.ietf.org/doc/draft-ietf-lamps-dilithium-certificates/",
+      "publisher": "IETF",
+      "id": "draft-ietf-lamps-dilithium-certificates"
     }
   },
   "publishISODate": "2025-08-11T00:00:00.000Z",
@@ -347,7 +365,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           discussion of this specification.
         
     
-  </p></section><nav id="toc"><h2 class="introductory" id="table-of-contents">Table of Contents</h2><ol class="toc"><li class="tocline"><a class="tocxref" href="#abstract">Abstract</a></li><li class="tocline"><a class="tocxref" href="#sotd">Status of This Document</a></li><li class="tocline"><a class="tocxref" href="#introduction"><bdi class="secno">1. </bdi>Introduction</a></li><li class="tocline"><a class="tocxref" href="#specification-conventions"><bdi class="secno">2. </bdi>Specification Conventions</a></li><li class="tocline"><a class="tocxref" href="#partial-subtlecrypto-interface"><bdi class="secno">3. </bdi>Partial SubtleCrypto interface</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#subtlecrypto-interface-datatypes"><bdi class="secno">3.1 </bdi>Data Types</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#subtlecrypto-interface-keyformat"><bdi class="secno">3.1.1 </bdi>Key Formats</a></li><li class="tocline"><a class="tocxref" href="#subtlecrypto-interface-keyusage"><bdi class="secno">3.1.2 </bdi>Key Usages</a></li></ol></li><li class="tocline"><a class="tocxref" href="#partial-subtlecrypto-interface-methods"><bdi class="secno">3.2 </bdi>Methods and Parameters</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#SubtleCrypto-method-encapsulateKey"><bdi class="secno">3.2.1 </bdi>The encapsulateKey method</a></li><li class="tocline"><a class="tocxref" href="#SubtleCrypto-method-encapsulateBits"><bdi class="secno">3.2.2 </bdi>The encapsulateBits method</a></li><li class="tocline"><a class="tocxref" href="#SubtleCrypto-method-decapsulateKey"><bdi class="secno">3.2.3 </bdi>The decapsulateKey method</a></li><li class="tocline"><a class="tocxref" href="#SubtleCrypto-method-decapsulateBits"><bdi class="secno">3.2.4 </bdi>The decapsulateBits method</a></li><li class="tocline"><a class="tocxref" href="#SubtleCrypto-method-getPublicKey"><bdi class="secno">3.2.5 </bdi>The getPublicKey method</a></li><li class="tocline"><a class="tocxref" href="#SubtleCrypto-method-supports"><bdi class="secno">3.2.6 </bdi>The supports method</a></li></ol></li><li class="tocline"><a class="tocxref" href="#partial-subtlecrypto-interface-checking-support-for-algorithm"><bdi class="secno">3.3 </bdi>Checking support for an algorithm</a></li></ol></li><li class="tocline"><a class="tocxref" href="#encapsulation"><bdi class="secno">4. </bdi>Encapsulation dictionaries</a></li><li class="tocline"><a class="tocxref" href="#JsonWebKey-dictionary"><bdi class="secno">5. </bdi>JsonWebKey dictionary</a></li><li class="tocline"><a class="tocxref" href="#ml-kem"><bdi class="secno">6. </bdi>ML-KEM</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#ml-kem-description"><bdi class="secno">6.1 </bdi>Description</a></li><li class="tocline"><a class="tocxref" href="#ml-kem-registration"><bdi class="secno">6.2 </bdi>Registration</a></li><li class="tocline"><a class="tocxref" href="#ml-kem-operations"><bdi class="secno">6.3 </bdi>Operations</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#ml-kem-operations-encapsulate"><bdi class="secno">6.3.1 </bdi>Encapsulate</a></li><li class="tocline"><a class="tocxref" href="#ml-kem-operations-decapsulate"><bdi class="secno">6.3.2 </bdi>Decapsulate</a></li><li class="tocline"><a class="tocxref" href="#ml-kem-operations-generate-key"><bdi class="secno">6.3.3 </bdi>Generate Key</a></li><li class="tocline"><a class="tocxref" href="#ml-kem-operations-import-key"><bdi class="secno">6.3.4 </bdi>Import Key</a></li><li class="tocline"><a class="tocxref" href="#ml-kem-operations-export-key"><bdi class="secno">6.3.5 </bdi>Export Key</a></li></ol></li></ol></li><li class="tocline"><a class="tocxref" href="#ml-dsa"><bdi class="secno">7. </bdi>ML-DSA</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#ml-dsa-description"><bdi class="secno">7.1 </bdi>Description</a></li><li class="tocline"><a class="tocxref" href="#ml-dsa-registration"><bdi class="secno">7.2 </bdi>Registration</a></li><li class="tocline"><a class="tocxref" href="#context-params"><bdi class="secno">7.3 </bdi><span data-idl="dictionary" data-export="" data-dfn-type="dictionary" data-title="ContextParams" data-dfn-for=""><code>ContextParams</code></span> dictionary</a></li><li class="tocline"><a class="tocxref" href="#ml-dsa-operations"><bdi class="secno">7.4 </bdi>Operations</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#ml-dsa-operations-sign"><bdi class="secno">7.4.1 </bdi>Sign</a></li><li class="tocline"><a class="tocxref" href="#ml-dsa-operations-verify"><bdi class="secno">7.4.2 </bdi>Verify</a></li><li class="tocline"><a class="tocxref" href="#ml-dsa-operations-generate-key"><bdi class="secno">7.4.3 </bdi>Generate Key</a></li><li class="tocline"><a class="tocxref" href="#ml-dsa-operations-import-key"><bdi class="secno">7.4.4 </bdi>Import Key</a></li><li class="tocline"><a class="tocxref" href="#ml-dsa-operations-export-key"><bdi class="secno">7.4.5 </bdi>Export Key</a></li></ol></li></ol></li><li class="tocline"><a class="tocxref" href="#slh-dsa"><bdi class="secno">8. </bdi>SLH-DSA</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#slh-dsa-description"><bdi class="secno">8.1 </bdi>Description</a></li><li class="tocline"><a class="tocxref" href="#slh-dsa-registration"><bdi class="secno">8.2 </bdi>Registration</a></li><li class="tocline"><a class="tocxref" href="#slh-dsa-operations"><bdi class="secno">8.3 </bdi>Operations</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#slh-dsa-operations-sign"><bdi class="secno">8.3.1 </bdi>Sign</a></li><li class="tocline"><a class="tocxref" href="#slh-dsa-operations-verify"><bdi class="secno">8.3.2 </bdi>Verify</a></li><li class="tocline"><a class="tocxref" href="#slh-dsa-operations-generate-key"><bdi class="secno">8.3.3 </bdi>Generate Key</a></li><li class="tocline"><a class="tocxref" href="#slh-dsa-operations-import-key"><bdi class="secno">8.3.4 </bdi>Import Key</a></li><li class="tocline"><a class="tocxref" href="#slh-dsa-operations-export-key"><bdi class="secno">8.3.5 </bdi>Export Key</a></li></ol></li></ol></li><li class="tocline"><a class="tocxref" href="#aes-ocb"><bdi class="secno">9. </bdi>AES-OCB</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#aes-ocb-description"><bdi class="secno">9.1 </bdi>Description</a></li><li class="tocline"><a class="tocxref" href="#aes-ocb-registration"><bdi class="secno">9.2 </bdi>Registration</a></li><li class="tocline"><a class="tocxref" href="#aead-params"><bdi class="secno">9.3 </bdi><span data-idl="dictionary" data-export="" data-dfn-type="dictionary" data-title="AeadParams" data-dfn-for=""><code>AeadParams</code></span> dictionary</a></li><li class="tocline"><a class="tocxref" href="#aes-ocb-operations"><bdi class="secno">9.4 </bdi>Operations</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#aes-ocb-operations-encrypt"><bdi class="secno">9.4.1 </bdi>Encrypt</a></li><li class="tocline"><a class="tocxref" href="#aes-ocb-operations-decrypt"><bdi class="secno">9.4.2 </bdi>Decrypt</a></li><li class="tocline"><a class="tocxref" href="#aes-ocb-operations-generate-key"><bdi class="secno">9.4.3 </bdi>Generate Key</a></li><li class="tocline"><a class="tocxref" href="#aes-ocb-operations-import-key"><bdi class="secno">9.4.4 </bdi>Import Key</a></li><li class="tocline"><a class="tocxref" href="#aes-ocb-operations-export-key"><bdi class="secno">9.4.5 </bdi>Export Key</a></li><li class="tocline"><a class="tocxref" href="#aes-ocb-operations-get-key-length"><bdi class="secno">9.4.6 </bdi>Get key length</a></li></ol></li></ol></li><li class="tocline"><a class="tocxref" href="#chacha20-poly1305"><bdi class="secno">10. </bdi>ChaCha20-Poly1305</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#chacha20-poly1305-description"><bdi class="secno">10.1 </bdi>Description</a></li><li class="tocline"><a class="tocxref" href="#chacha20-poly1305-registration"><bdi class="secno">10.2 </bdi>Registration</a></li><li class="tocline"><a class="tocxref" href="#chacha20-poly1305-operations"><bdi class="secno">10.3 </bdi>Operations</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#chacha20-poly1305-operations-encrypt"><bdi class="secno">10.3.1 </bdi>Encrypt</a></li><li class="tocline"><a class="tocxref" href="#chacha20-poly1305-operations-decrypt"><bdi class="secno">10.3.2 </bdi>Decrypt</a></li><li class="tocline"><a class="tocxref" href="#chacha20-poly1305-operations-generate-key"><bdi class="secno">10.3.3 </bdi>Generate Key</a></li><li class="tocline"><a class="tocxref" href="#chacha20-poly1305-operations-import-key"><bdi class="secno">10.3.4 </bdi>Import Key</a></li><li class="tocline"><a class="tocxref" href="#chacha20-poly1305-operations-export-key"><bdi class="secno">10.3.5 </bdi>Export Key</a></li><li class="tocline"><a class="tocxref" href="#chacha20-poly1305-operations-get-key-length"><bdi class="secno">10.3.6 </bdi>Get key length</a></li></ol></li></ol></li><li class="tocline"><a class="tocxref" href="#sha3"><bdi class="secno">11. </bdi>SHA-3</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#sha3-description"><bdi class="secno">11.1 </bdi>Description</a></li><li class="tocline"><a class="tocxref" href="#sha3-registration"><bdi class="secno">11.2 </bdi>Registration</a></li><li class="tocline"><a class="tocxref" href="#sha3-operations"><bdi class="secno">11.3 </bdi>Operations</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#sha3-operations-digest"><bdi class="secno">11.3.1 </bdi>Digest</a></li></ol></li></ol></li><li class="tocline"><a class="tocxref" href="#cshake"><bdi class="secno">12. </bdi>cSHAKE</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#cshake-description"><bdi class="secno">12.1 </bdi>Description</a></li><li class="tocline"><a class="tocxref" href="#cshake-registration"><bdi class="secno">12.2 </bdi>Registration</a></li><li class="tocline"><a class="tocxref" href="#cshake-params"><bdi class="secno">12.3 </bdi><span data-idl="dictionary" data-export="" data-dfn-type="dictionary" data-title="CShakeParams" data-dfn-for=""><code>CShakeParams</code></span> dictionary</a></li><li class="tocline"><a class="tocxref" href="#cshake-operations"><bdi class="secno">12.4 </bdi>Operations</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#cshake-operations-digest"><bdi class="secno">12.4.1 </bdi>Digest</a></li></ol></li></ol></li><li class="tocline"><a class="tocxref" href="#kmac"><bdi class="secno">13. </bdi>KMAC</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#kmac-description"><bdi class="secno">13.1 </bdi>Description</a></li><li class="tocline"><a class="tocxref" href="#kmac-registration"><bdi class="secno">13.2 </bdi>Registration</a></li><li class="tocline"><a class="tocxref" href="#kmac-keygen-params"><bdi class="secno">13.3 </bdi><span data-idl="dictionary" data-export="" data-dfn-type="dictionary" data-title="KmacKeyGenParams" data-dfn-for=""><code>KmacKeyGenParams</code></span> dictionary</a></li><li class="tocline"><a class="tocxref" href="#kmac-importparams"><bdi class="secno">13.4 </bdi><span data-idl="dictionary" data-export="" data-dfn-type="dictionary" data-title="KmacImportParams" data-dfn-for=""><code>KmacImportParams</code></span> dictionary</a></li><li class="tocline"><a class="tocxref" href="#KmacKeyAlgorithm-dictionary"><bdi class="secno">13.5 </bdi><span data-idl="dictionary" data-export="" data-dfn-type="dictionary" data-title="KmacKeyAlgorithm" data-dfn-for=""><code>KmacKeyAlgorithm</code></span> dictionary</a></li><li class="tocline"><a class="tocxref" href="#kmac-params"><bdi class="secno">13.6 </bdi><span data-idl="dictionary" data-export="" data-dfn-type="dictionary" data-title="KmacParams" data-dfn-for=""><code>KmacParams</code></span> dictionary</a></li><li class="tocline"><a class="tocxref" href="#kmac-operations"><bdi class="secno">13.7 </bdi>Operations</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#kmac-operations-sign"><bdi class="secno">13.7.1 </bdi>Sign</a></li><li class="tocline"><a class="tocxref" href="#kmac-operations-verify"><bdi class="secno">13.7.2 </bdi>Verify</a></li><li class="tocline"><a class="tocxref" href="#kmac-operations-generate-key"><bdi class="secno">13.7.3 </bdi>Generate Key</a></li><li class="tocline"><a class="tocxref" href="#kmac-operations-import-key"><bdi class="secno">13.7.4 </bdi>Import Key</a></li><li class="tocline"><a class="tocxref" href="#kmac-operations-export-key"><bdi class="secno">13.7.5 </bdi>Export Key</a></li><li class="tocline"><a class="tocxref" href="#kmac-operations-get-key-length"><bdi class="secno">13.7.6 </bdi>Get key length</a></li></ol></li></ol></li><li class="tocline"><a class="tocxref" href="#argon2"><bdi class="secno">14. </bdi>Argon2</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#argon2-description"><bdi class="secno">14.1 </bdi>Description</a></li><li class="tocline"><a class="tocxref" href="#argon2-registration"><bdi class="secno">14.2 </bdi>Registration</a></li><li class="tocline"><a class="tocxref" href="#argon2-params"><bdi class="secno">14.3 </bdi><span data-idl="dictionary" data-export="" data-dfn-type="dictionary" data-title="Argon2Params" data-dfn-for=""><code>Argon2Params</code></span> dictionary</a></li><li class="tocline"><a class="tocxref" href="#argon2-operations"><bdi class="secno">14.4 </bdi>Operations</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#argon2-operations-derive-bits"><bdi class="secno">14.4.1 </bdi>Derive Bits</a></li><li class="tocline"><a class="tocxref" href="#argon2-operations-import-key"><bdi class="secno">14.4.2 </bdi>Import key</a></li><li class="tocline"><a class="tocxref" href="#argon2-operations-get-key-length"><bdi class="secno">14.4.3 </bdi>Get key length</a></li></ol></li></ol></li><li class="tocline"><a class="tocxref" href="#usage-example"><bdi class="secno">15. </bdi>Usage Example</a></li><li class="tocline"><a class="tocxref" href="#jwk-mapping"><bdi class="secno">A. </bdi>Mapping between JSON Web Key / JSON Web Algorithm</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#algorithm-mappings"><bdi class="secno">A.1 </bdi>Algorithm mappings</a></li></ol></li><li class="tocline"><a class="tocxref" href="#conformance"><bdi class="secno">B. </bdi>Conformance</a></li><li class="tocline"><a class="tocxref" href="#references"><bdi class="secno">C. </bdi>References</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#normative-references"><bdi class="secno">C.1 </bdi>Normative references</a></li></ol></li></ol></nav>
+  </p></section><nav id="toc"><h2 class="introductory" id="table-of-contents">Table of Contents</h2><ol class="toc"><li class="tocline"><a class="tocxref" href="#abstract">Abstract</a></li><li class="tocline"><a class="tocxref" href="#sotd">Status of This Document</a></li><li class="tocline"><a class="tocxref" href="#introduction"><bdi class="secno">1. </bdi>Introduction</a></li><li class="tocline"><a class="tocxref" href="#specification-conventions"><bdi class="secno">2. </bdi>Specification Conventions</a></li><li class="tocline"><a class="tocxref" href="#partial-subtlecrypto-interface"><bdi class="secno">3. </bdi>Partial SubtleCrypto interface</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#subtlecrypto-interface-datatypes"><bdi class="secno">3.1 </bdi>Data Types</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#subtlecrypto-interface-keyformat"><bdi class="secno">3.1.1 </bdi>Key Formats</a></li><li class="tocline"><a class="tocxref" href="#subtlecrypto-interface-keyusage"><bdi class="secno">3.1.2 </bdi>Key Usages</a></li></ol></li><li class="tocline"><a class="tocxref" href="#partial-subtlecrypto-interface-methods"><bdi class="secno">3.2 </bdi>Methods and Parameters</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#SubtleCrypto-method-encapsulateKey"><bdi class="secno">3.2.1 </bdi>The encapsulateKey method</a></li><li class="tocline"><a class="tocxref" href="#SubtleCrypto-method-encapsulateBits"><bdi class="secno">3.2.2 </bdi>The encapsulateBits method</a></li><li class="tocline"><a class="tocxref" href="#SubtleCrypto-method-decapsulateKey"><bdi class="secno">3.2.3 </bdi>The decapsulateKey method</a></li><li class="tocline"><a class="tocxref" href="#SubtleCrypto-method-decapsulateBits"><bdi class="secno">3.2.4 </bdi>The decapsulateBits method</a></li><li class="tocline"><a class="tocxref" href="#SubtleCrypto-method-getPublicKey"><bdi class="secno">3.2.5 </bdi>The getPublicKey method</a></li><li class="tocline"><a class="tocxref" href="#SubtleCrypto-method-supports"><bdi class="secno">3.2.6 </bdi>The supports method</a></li></ol></li><li class="tocline"><a class="tocxref" href="#partial-subtlecrypto-interface-checking-support-for-algorithm"><bdi class="secno">3.3 </bdi>Checking support for an algorithm</a></li></ol></li><li class="tocline"><a class="tocxref" href="#encapsulation"><bdi class="secno">4. </bdi>Encapsulation dictionaries</a></li><li class="tocline"><a class="tocxref" href="#JsonWebKey-dictionary"><bdi class="secno">5. </bdi>JsonWebKey dictionary</a></li><li class="tocline"><a class="tocxref" href="#ml-kem"><bdi class="secno">6. </bdi>ML-KEM</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#ml-kem-description"><bdi class="secno">6.1 </bdi>Description</a></li><li class="tocline"><a class="tocxref" href="#ml-kem-registration"><bdi class="secno">6.2 </bdi>Registration</a></li><li class="tocline"><a class="tocxref" href="#ml-kem-operations"><bdi class="secno">6.3 </bdi>Operations</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#ml-kem-operations-encapsulate"><bdi class="secno">6.3.1 </bdi>Encapsulate</a></li><li class="tocline"><a class="tocxref" href="#ml-kem-operations-decapsulate"><bdi class="secno">6.3.2 </bdi>Decapsulate</a></li><li class="tocline"><a class="tocxref" href="#ml-kem-operations-generate-key"><bdi class="secno">6.3.3 </bdi>Generate Key</a></li><li class="tocline"><a class="tocxref" href="#ml-kem-operations-import-key"><bdi class="secno">6.3.4 </bdi>Import Key</a></li><li class="tocline"><a class="tocxref" href="#ml-kem-operations-export-key"><bdi class="secno">6.3.5 </bdi>Export Key</a></li></ol></li></ol></li><li class="tocline"><a class="tocxref" href="#ml-dsa"><bdi class="secno">7. </bdi>ML-DSA</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#ml-dsa-description"><bdi class="secno">7.1 </bdi>Description</a></li><li class="tocline"><a class="tocxref" href="#ml-dsa-registration"><bdi class="secno">7.2 </bdi>Registration</a></li><li class="tocline"><a class="tocxref" href="#context-params"><bdi class="secno">7.3 </bdi><span data-idl="dictionary" data-export="" data-dfn-type="dictionary" data-title="ContextParams" data-dfn-for=""><code>ContextParams</code></span> dictionary</a></li><li class="tocline"><a class="tocxref" href="#ml-dsa-operations"><bdi class="secno">7.4 </bdi>Operations</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#ml-dsa-operations-sign"><bdi class="secno">7.4.1 </bdi>Sign</a></li><li class="tocline"><a class="tocxref" href="#ml-dsa-operations-verify"><bdi class="secno">7.4.2 </bdi>Verify</a></li><li class="tocline"><a class="tocxref" href="#ml-dsa-operations-generate-key"><bdi class="secno">7.4.3 </bdi>Generate Key</a></li><li class="tocline"><a class="tocxref" href="#ml-dsa-operations-import-key"><bdi class="secno">7.4.4 </bdi>Import Key</a></li><li class="tocline"><a class="tocxref" href="#ml-dsa-operations-export-key"><bdi class="secno">7.4.5 </bdi>Export Key</a></li></ol></li></ol></li><li class="tocline"><a class="tocxref" href="#slh-dsa"><bdi class="secno">8. </bdi>SLH-DSA</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#slh-dsa-description"><bdi class="secno">8.1 </bdi>Description</a></li><li class="tocline"><a class="tocxref" href="#slh-dsa-registration"><bdi class="secno">8.2 </bdi>Registration</a></li><li class="tocline"><a class="tocxref" href="#slh-dsa-operations"><bdi class="secno">8.3 </bdi>Operations</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#slh-dsa-operations-sign"><bdi class="secno">8.3.1 </bdi>Sign</a></li><li class="tocline"><a class="tocxref" href="#slh-dsa-operations-verify"><bdi class="secno">8.3.2 </bdi>Verify</a></li><li class="tocline"><a class="tocxref" href="#slh-dsa-operations-generate-key"><bdi class="secno">8.3.3 </bdi>Generate Key</a></li><li class="tocline"><a class="tocxref" href="#slh-dsa-operations-import-key"><bdi class="secno">8.3.4 </bdi>Import Key</a></li><li class="tocline"><a class="tocxref" href="#slh-dsa-operations-export-key"><bdi class="secno">8.3.5 </bdi>Export Key</a></li></ol></li></ol></li><li class="tocline"><a class="tocxref" href="#aes-ocb"><bdi class="secno">9. </bdi>AES-OCB</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#aes-ocb-description"><bdi class="secno">9.1 </bdi>Description</a></li><li class="tocline"><a class="tocxref" href="#aes-ocb-registration"><bdi class="secno">9.2 </bdi>Registration</a></li><li class="tocline"><a class="tocxref" href="#aead-params"><bdi class="secno">9.3 </bdi><span data-idl="dictionary" data-export="" data-dfn-type="dictionary" data-title="AeadParams" data-dfn-for=""><code>AeadParams</code></span> dictionary</a></li><li class="tocline"><a class="tocxref" href="#aes-ocb-operations"><bdi class="secno">9.4 </bdi>Operations</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#aes-ocb-operations-encrypt"><bdi class="secno">9.4.1 </bdi>Encrypt</a></li><li class="tocline"><a class="tocxref" href="#aes-ocb-operations-decrypt"><bdi class="secno">9.4.2 </bdi>Decrypt</a></li><li class="tocline"><a class="tocxref" href="#aes-ocb-operations-generate-key"><bdi class="secno">9.4.3 </bdi>Generate Key</a></li><li class="tocline"><a class="tocxref" href="#aes-ocb-operations-import-key"><bdi class="secno">9.4.4 </bdi>Import Key</a></li><li class="tocline"><a class="tocxref" href="#aes-ocb-operations-export-key"><bdi class="secno">9.4.5 </bdi>Export Key</a></li><li class="tocline"><a class="tocxref" href="#aes-ocb-operations-get-key-length"><bdi class="secno">9.4.6 </bdi>Get key length</a></li></ol></li></ol></li><li class="tocline"><a class="tocxref" href="#chacha20-poly1305"><bdi class="secno">10. </bdi>ChaCha20-Poly1305</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#chacha20-poly1305-description"><bdi class="secno">10.1 </bdi>Description</a></li><li class="tocline"><a class="tocxref" href="#chacha20-poly1305-registration"><bdi class="secno">10.2 </bdi>Registration</a></li><li class="tocline"><a class="tocxref" href="#chacha20-poly1305-operations"><bdi class="secno">10.3 </bdi>Operations</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#chacha20-poly1305-operations-encrypt"><bdi class="secno">10.3.1 </bdi>Encrypt</a></li><li class="tocline"><a class="tocxref" href="#chacha20-poly1305-operations-decrypt"><bdi class="secno">10.3.2 </bdi>Decrypt</a></li><li class="tocline"><a class="tocxref" href="#chacha20-poly1305-operations-generate-key"><bdi class="secno">10.3.3 </bdi>Generate Key</a></li><li class="tocline"><a class="tocxref" href="#chacha20-poly1305-operations-import-key"><bdi class="secno">10.3.4 </bdi>Import Key</a></li><li class="tocline"><a class="tocxref" href="#chacha20-poly1305-operations-export-key"><bdi class="secno">10.3.5 </bdi>Export Key</a></li><li class="tocline"><a class="tocxref" href="#chacha20-poly1305-operations-get-key-length"><bdi class="secno">10.3.6 </bdi>Get key length</a></li></ol></li></ol></li><li class="tocline"><a class="tocxref" href="#sha3"><bdi class="secno">11. </bdi>SHA-3</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#sha3-description"><bdi class="secno">11.1 </bdi>Description</a></li><li class="tocline"><a class="tocxref" href="#sha3-registration"><bdi class="secno">11.2 </bdi>Registration</a></li><li class="tocline"><a class="tocxref" href="#sha3-operations"><bdi class="secno">11.3 </bdi>Operations</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#sha3-operations-digest"><bdi class="secno">11.3.1 </bdi>Digest</a></li></ol></li></ol></li><li class="tocline"><a class="tocxref" href="#cshake"><bdi class="secno">12. </bdi>cSHAKE</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#cshake-description"><bdi class="secno">12.1 </bdi>Description</a></li><li class="tocline"><a class="tocxref" href="#cshake-registration"><bdi class="secno">12.2 </bdi>Registration</a></li><li class="tocline"><a class="tocxref" href="#cshake-params"><bdi class="secno">12.3 </bdi><span data-idl="dictionary" data-export="" data-dfn-type="dictionary" data-title="CShakeParams" data-dfn-for=""><code>CShakeParams</code></span> dictionary</a></li><li class="tocline"><a class="tocxref" href="#cshake-operations"><bdi class="secno">12.4 </bdi>Operations</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#cshake-operations-digest"><bdi class="secno">12.4.1 </bdi>Digest</a></li></ol></li></ol></li><li class="tocline"><a class="tocxref" href="#kmac"><bdi class="secno">13. </bdi>KMAC</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#kmac-description"><bdi class="secno">13.1 </bdi>Description</a></li><li class="tocline"><a class="tocxref" href="#kmac-registration"><bdi class="secno">13.2 </bdi>Registration</a></li><li class="tocline"><a class="tocxref" href="#kmac-keygen-params"><bdi class="secno">13.3 </bdi><span data-idl="dictionary" data-export="" data-dfn-type="dictionary" data-title="KmacKeyGenParams" data-dfn-for=""><code>KmacKeyGenParams</code></span> dictionary</a></li><li class="tocline"><a class="tocxref" href="#kmac-importparams"><bdi class="secno">13.4 </bdi><span data-idl="dictionary" data-export="" data-dfn-type="dictionary" data-title="KmacImportParams" data-dfn-for=""><code>KmacImportParams</code></span> dictionary</a></li><li class="tocline"><a class="tocxref" href="#KmacKeyAlgorithm-dictionary"><bdi class="secno">13.5 </bdi><span data-idl="dictionary" data-export="" data-dfn-type="dictionary" data-title="KmacKeyAlgorithm" data-dfn-for=""><code>KmacKeyAlgorithm</code></span> dictionary</a></li><li class="tocline"><a class="tocxref" href="#kmac-params"><bdi class="secno">13.6 </bdi><span data-idl="dictionary" data-export="" data-dfn-type="dictionary" data-title="KmacParams" data-dfn-for=""><code>KmacParams</code></span> dictionary</a></li><li class="tocline"><a class="tocxref" href="#kmac-operations"><bdi class="secno">13.7 </bdi>Operations</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#kmac-operations-sign"><bdi class="secno">13.7.1 </bdi>Sign</a></li><li class="tocline"><a class="tocxref" href="#kmac-operations-verify"><bdi class="secno">13.7.2 </bdi>Verify</a></li><li class="tocline"><a class="tocxref" href="#kmac-operations-generate-key"><bdi class="secno">13.7.3 </bdi>Generate Key</a></li><li class="tocline"><a class="tocxref" href="#kmac-operations-import-key"><bdi class="secno">13.7.4 </bdi>Import Key</a></li><li class="tocline"><a class="tocxref" href="#kmac-operations-export-key"><bdi class="secno">13.7.5 </bdi>Export Key</a></li><li class="tocline"><a class="tocxref" href="#kmac-operations-get-key-length"><bdi class="secno">13.7.6 </bdi>Get key length</a></li></ol></li></ol></li><li class="tocline"><a class="tocxref" href="#argon2"><bdi class="secno">14. </bdi>Argon2</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#argon2-description"><bdi class="secno">14.1 </bdi>Description</a></li><li class="tocline"><a class="tocxref" href="#argon2-registration"><bdi class="secno">14.2 </bdi>Registration</a></li><li class="tocline"><a class="tocxref" href="#argon2-params"><bdi class="secno">14.3 </bdi><span data-idl="dictionary" data-export="" data-dfn-type="dictionary" data-title="Argon2Params" data-dfn-for=""><code>Argon2Params</code></span> dictionary</a></li><li class="tocline"><a class="tocxref" href="#argon2-operations"><bdi class="secno">14.4 </bdi>Operations</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#argon2-operations-derive-bits"><bdi class="secno">14.4.1 </bdi>Derive Bits</a></li><li class="tocline"><a class="tocxref" href="#argon2-operations-import-key"><bdi class="secno">14.4.2 </bdi>Import key</a></li><li class="tocline"><a class="tocxref" href="#argon2-operations-get-key-length"><bdi class="secno">14.4.3 </bdi>Get key length</a></li></ol></li></ol></li><li class="tocline"><a class="tocxref" href="#usage-example"><bdi class="secno">15. </bdi>Usage Example</a></li><li class="tocline"><a class="tocxref" href="#jwk-mapping"><bdi class="secno">A. </bdi>Mapping between JSON Web Key / JSON Web Algorithm</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#algorithm-mappings"><bdi class="secno">A.1 </bdi>Algorithm mappings</a></li></ol></li><li class="tocline"><a class="tocxref" href="#pkcs8-mapping"><bdi class="secno">B. </bdi>Mapping between Algorithm and PKCS#8 PrivateKeyInfo</a></li><li class="tocline"><a class="tocxref" href="#spki-mapping"><bdi class="secno">C. </bdi>Mapping between Algorithm and SubjectPublicKeyInfo</a></li><li class="tocline"><a class="tocxref" href="#conformance"><bdi class="secno">D. </bdi>Conformance</a></li><li class="tocline"><a class="tocxref" href="#references"><bdi class="secno">E. </bdi>References</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#normative-references"><bdi class="secno">E.1 </bdi>Normative references</a></li><li class="tocline"><a class="tocxref" href="#informative-references"><bdi class="secno">E.2 </bdi>Informative references</a></li></ol></li></ol></nav>
   <section id="introduction" class="informative"><div class="header-wrapper"><h2 id="x1-introduction"><bdi class="secno">1. </bdi>Introduction</h2><a class="self-link" href="#introduction" aria-label="Permalink for Section 1."></a></div><p><em>This section is non-normative.</em></p>
     
     <p>
@@ -1730,6 +1748,265 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
           </li>
           <li>
             <dl class="switch">
+              <dt>If <var>format</var> is "<a data-link-type="idl" href="#dom-keyformat-spki" class="internalDFN" id="ref-for-dom-keyformat-spki-1"><code>spki</code></a>":</dt>
+              <dd>
+                <ol>
+                  <li>
+                    </li><li>
+                      <p>
+                        If <var>usages</var> contains an entry which is not
+                        "<code>encapsulateKey</code>" or "<code>encapsulateBits</code>"
+                        then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
+                        <a data-link-type="exception" data-lt="SyntaxError" href="https://webidl.spec.whatwg.org/#syntaxerror"><code>SyntaxError</code></a>.
+                      </p>
+                    </li>
+                  <li>
+                    <p>
+                      Let <var>spki</var> be the result of running the
+                      <a href="https://www.w3.org/TR/webcrypto-2/#concept-parse-a-spki">parse a subjectPublicKeyInfo</a>
+                      algorithm over <var>keyData</var>.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      If an error occurred while parsing,
+                      then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
+                      <a data-link-type="exception" data-lt="DataError" href="https://webidl.spec.whatwg.org/#dataerror"><code>DataError</code></a>.
+                    </p>
+                  </li>
+                  <li>
+                    <dl class="switch">
+                      <dt>If the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-algorithm-name"><code>name</code></a> member of <var>normalizedAlgorithm</var> is "<code>ML-KEM-512</code>":</dt>
+                      <dd>
+                        <p>
+                          Let <var>expectedOid</var> be <code>id-alg-ml-kem-512</code> (2.16.840.1.101.3.4.4.1).
+                        </p>
+                      </dd>
+                      <dt>If the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-algorithm-name"><code>name</code></a> member of <var>normalizedAlgorithm</var> is "<code>ML-KEM-768</code>":</dt>
+                      <dd>
+                        <p>
+                          Let <var>expectedOid</var> be <code>id-alg-ml-kem-768</code> (2.16.840.1.101.3.4.4.2).
+                        </p>
+                      </dd>
+                      <dt>If the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-algorithm-name"><code>name</code></a> member of <var>normalizedAlgorithm</var> is "<code>ML-KEM-1024</code>":</dt>
+                      <dd>
+                        <p>
+                          Let <var>expectedOid</var> be <code>id-alg-ml-kem-1024</code> (2.16.840.1.101.3.4.4.3).
+                        </p>
+                      </dd>
+                      <dt>Otherwise:</dt>
+                      <dd>
+                        <p>
+                          <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a <a data-link-type="exception" data-lt="NotSupportedError" href="https://webidl.spec.whatwg.org/#notsupportederror"><code>NotSupportedError</code></a>.
+                        </p>
+                      </dd>
+                    </dl>
+                  </li>
+                  <li>
+                    <p>
+                      If the <code>algorithm</code> object identifier field of the
+                      <code>algorithm</code> AlgorithmIdentifier field of <var>spki</var> is
+                      not equal to <var>expectedOid</var>,
+                      then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a <a data-link-type="exception" data-lt="DataError" href="https://webidl.spec.whatwg.org/#dataerror"><code>DataError</code></a>.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      If the <code>parameters</code> field of the <code>algorithm</code>
+                      AlgorithmIdentifier field of <var>spki</var> is present,
+                      then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
+                      <a data-link-type="exception" data-lt="DataError" href="https://webidl.spec.whatwg.org/#dataerror"><code>DataError</code></a>.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Let <var>publicKey</var> be the ML-KEM public key identified by
+                      the <code>subjectPublicKey</code> field of <var>spki</var>.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Let <var>key</var> be a new <a data-link-type="interface" data-lt="CryptoKey" href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey"><code>CryptoKey</code></a>
+                      that represents <var>publicKey</var>.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Set the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-type"><code>[[type]]</code></a> internal slot
+                      of <var>key</var> to "<code>public</code>"
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Let <var>algorithm</var> be a new <a data-link-type="dictionary" data-lt="KeyAlgorithm" href="https://www.w3.org/TR/webcrypto-2/#dfn-KeyAlgorithm"><code>KeyAlgorithm</code></a>.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Set the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-keyalgorithm-name"><code>name</code></a> attribute of
+                      <var>algorithm</var> to the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-algorithm-name"><code>name</code></a> attribute of
+                      <var>normalizedAlgorithm</var>.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Set the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-algorithm"><code>[[algorithm]]</code></a>
+                      internal slot of <var>key</var> to <var>algorithm</var>.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Set the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-extractable"><code>[[extractable]]</code></a> internal
+                      slot of <var>key</var> to <var>extractable</var>.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Set the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-usages"><code>[[usages]]</code></a> internal slot of
+                      <var>key</var> to <var>usages</var>.
+                    </p>
+                  </li>
+                </ol>
+              </dd>
+              <dt>If <var>format</var> is "<a data-link-type="idl" href="#dom-keyformat-pkcs8" class="internalDFN" id="ref-for-dom-keyformat-pkcs8-1"><code>pkcs8</code></a>":</dt>
+              <dd>
+                <ol>
+                  <li>
+                    </li><li>
+                      <p>
+                        If <var>usages</var> contains an entry which is not
+                        "<code>encapsulateKey</code>" or "<code>encapsulateBits</code>"
+                        then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
+                        <a data-link-type="exception" data-lt="SyntaxError" href="https://webidl.spec.whatwg.org/#syntaxerror"><code>SyntaxError</code></a>.
+                      </p>
+                    </li>
+                  <li>
+                    <p>
+                      Let <var>privateKeyInfo</var> be the result of running the
+                      <a href="https://www.w3.org/TR/webcrypto-2/#concept-parse-a-privateKeyInfo">parse a privateKeyInfo</a>
+                      algorithm over <var>keyData</var>.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      If an error occurs while parsing,
+                      then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
+                      <a data-link-type="exception" data-lt="DataError" href="https://webidl.spec.whatwg.org/#dataerror"><code>DataError</code></a>.
+                    </p>
+                  </li>
+                  <li>
+                    <dl class="switch">
+                      <dt>If the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-algorithm-name"><code>name</code></a> member of <var>normalizedAlgorithm</var> is "<code>ML-KEM-512</code>":</dt>
+                      <dd>
+                        <p>
+                          Let <var>expectedOid</var> be <code>id-alg-ml-kem-512</code> (2.16.840.1.101.3.4.4.1).
+                        </p>
+                        <p>
+                          Let <var>asn1Structure</var> be the ASN.1 <code>ML-KEM-512-PrivateKey</code> structure.
+                        </p>
+                      </dd>
+                      <dt>If the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-algorithm-name"><code>name</code></a> member of <var>normalizedAlgorithm</var> is "<code>ML-KEM-768</code>":</dt>
+                      <dd>
+                        <p>
+                          Let <var>expectedOid</var> be <code>id-alg-ml-kem-768</code> (2.16.840.1.101.3.4.4.2).
+                        </p>
+                        <p>
+                          Let <var>asn1Structure</var> be the ASN.1 <code>ML-KEM-768-PrivateKey</code> structure.
+                        </p>
+                      </dd>
+                      <dt>If the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-algorithm-name"><code>name</code></a> member of <var>normalizedAlgorithm</var> is "<code>ML-KEM-1024</code>":</dt>
+                      <dd>
+                        <p>
+                          Let <var>expectedOid</var> be <code>id-alg-ml-kem-1024</code> (2.16.840.1.101.3.4.4.3).
+                        </p>
+                        <p>
+                          Let <var>asn1Structure</var> be the ASN.1 <code>ML-KEM-1024-PrivateKey</code> structure.
+                        </p>
+                      </dd>
+                      <dt>Otherwise:</dt>
+                      <dd>
+                        <p>
+                          <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a <a data-link-type="exception" data-lt="NotSupportedError" href="https://webidl.spec.whatwg.org/#notsupportederror"><code>NotSupportedError</code></a>.
+                        </p>
+                      </dd>
+                    </dl>
+                  </li>
+                  <li>
+                    <p>
+                      If the <code>algorithm</code> object identifier field of the
+                      <code>privateKeyAlgorithm</code> PrivateKeyAlgorithm field of
+                      <var>privateKeyInfo</var> is not equal to <var>expectedOid</var>,
+                      then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a <a data-link-type="exception" data-lt="DataError" href="https://webidl.spec.whatwg.org/#dataerror"><code>DataError</code></a>.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      If the <code>parameters</code> field of the
+                      <code>privateKeyAlgorithm</code> PrivateKeyAlgorithmIdentifier field
+                      of <var>privateKeyInfo</var> is present,
+                      then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
+                      <a data-link-type="exception" data-lt="DataError" href="https://webidl.spec.whatwg.org/#dataerror"><code>DataError</code></a>.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Let <var>mlKemPrivateKey</var> be the result of performing the
+                      <a href="https://www.w3.org/TR/webcrypto-2/#concept-parse-an-asn1-structure">parse an ASN.1 structure</a>
+                      algorithm, with <var>data</var> as the <code>privateKey</code> field
+                      of <var>privateKeyInfo</var>, <var>structure</var> as <var>asn1Structure</var>, and <var>exactData</var> set to true.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      If an error occurred while parsing,
+                      then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
+                      <a data-link-type="exception" data-lt="DataError" href="https://webidl.spec.whatwg.org/#dataerror"><code>DataError</code></a>.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Let <var>key</var> be a new <a data-link-type="interface" data-lt="CryptoKey" href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey"><code>CryptoKey</code></a>
+                      that represents the ML-KEM private key identified by <var>mlKemPrivateKey</var>.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Set the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-type"><code>[[type]]</code></a> internal slot
+                      of <var>key</var> to "<a data-link-type="enum-value" href="https://www.w3.org/TR/webcrypto-2/#dom-keytype-private"><code>private</code></a>"
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Let <var>algorithm</var> be a new <a data-link-type="dictionary" data-lt="KeyAlgorithm" href="https://www.w3.org/TR/webcrypto-2/#dfn-KeyAlgorithm"><code>KeyAlgorithm</code></a>.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Set the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-keyalgorithm-name"><code>name</code></a> attribute of
+                      <var>algorithm</var> to the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-algorithm-name"><code>name</code></a> attribute of
+                      <var>normalizedAlgorithm</var>.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Set the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-algorithm"><code>[[algorithm]]</code></a>
+                      internal slot of <var>key</var> to <var>algorithm</var>.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Set the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-extractable"><code>[[extractable]]</code></a> internal
+                      slot of <var>key</var> to <var>extractable</var>.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Set the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-usages"><code>[[usages]]</code></a> internal slot of
+                      <var>key</var> to <var>usages</var>.
+                    </p>
+                  </li>
+                </ol>
+              </dd>
               <dt>If <var>format</var> is "<a data-link-type="idl" href="#dom-keyformat-raw-public" class="internalDFN" id="ref-for-dom-keyformat-raw-public-3"><code>raw-public</code></a>":</dt>
               <dd>
                 <ol>
@@ -2030,6 +2307,187 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
           </li>
           <li>
             <dl class="switch">
+              <dt>If <var>format</var> is "<a data-link-type="idl" href="#dom-keyformat-spki" class="internalDFN" id="ref-for-dom-keyformat-spki-2"><code>spki</code></a>":</dt>
+              <dd>
+                <ol>
+                  <li>
+                    <p>
+                      If the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-type"><code>[[type]]</code></a> internal slot
+                      of <var>key</var> is not "<code>public</code>", then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an <a data-link-type="exception" data-lt="InvalidAccessError" href="https://webidl.spec.whatwg.org/#invalidaccesserror"><code>InvalidAccessError</code></a>.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Let <var>data</var> be an instance of the <code>SubjectPublicKeyInfo</code>
+                      ASN.1 structure defined in [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc5280" title="Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile">RFC5280</a></cite>]
+                      with the following properties:
+                    </p>
+                    <ul>
+                      <li>
+                        <p>
+                          Set the <var>algorithm</var> field to an
+                          <code>AlgorithmIdentifier</code> ASN.1 type with the following
+                          properties:
+                        </p>
+                        <ul>
+                          <li>
+                            <dl class="switch">
+                              <dt>If the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-algorithm-name"><code>name</code></a> member of <var>normalizedAlgorithm</var> is "<code>ML-KEM-512</code>":</dt>
+                              <dd>
+                                <p>
+                                  Set the <var>algorithm</var> object identifier to the <code>id-alg-ml-kem-512</code> (2.16.840.1.101.3.4.4.1) OID.
+                                </p>
+                              </dd>
+                              <dt>If the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-algorithm-name"><code>name</code></a> member of <var>normalizedAlgorithm</var> is "<code>ML-KEM-768</code>":</dt>
+                              <dd>
+                                <p>
+                                  Set the <var>algorithm</var> object identifier to the <code>id-alg-ml-kem-768</code> (2.16.840.1.101.3.4.4.2) OID.
+                                </p>
+                              </dd>
+                              <dt>If the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-algorithm-name"><code>name</code></a> member of <var>normalizedAlgorithm</var> is "<code>ML-KEM-1024</code>":</dt>
+                              <dd>
+                                <p>
+                                  Set the <var>algorithm</var> object identifier to the <code>id-alg-ml-kem-1024</code> (2.16.840.1.101.3.4.4.3) OID.
+                                </p>
+                              </dd>
+                              <dt>Otherwise:</dt>
+                              <dd>
+                                <p>
+                                  <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a <a data-link-type="exception" data-lt="NotSupportedError" href="https://webidl.spec.whatwg.org/#notsupportederror"><code>NotSupportedError</code></a>.
+                                </p>
+                              </dd>
+                            </dl>
+                          </li>
+                        </ul>
+                      </li>
+                      <li>
+                        <p>
+                          Set the <var>subjectPublicKey</var> field to <var>keyData</var>.
+                        </p>
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    <p>
+                      Let <var>result</var> be the result of DER-encoding <var>data</var>.
+                    </p>
+                  </li>
+                </ol>
+              </dd>
+              <dt>If <var>format</var> is "<a data-link-type="idl" href="#dom-keyformat-pkcs8" class="internalDFN" id="ref-for-dom-keyformat-pkcs8-2"><code>pkcs8</code></a>":</dt>
+              <dd>
+                <ol>
+                  <li>
+                    <p>
+                      If the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-type"><code>[[type]]</code></a> internal slot
+                      of <var>key</var> is not "<a data-link-type="enum-value" href="https://www.w3.org/TR/webcrypto-2/#dom-keytype-private"><code>private</code></a>", then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an <a data-link-type="exception" data-lt="InvalidAccessError" href="https://webidl.spec.whatwg.org/#invalidaccesserror"><code>InvalidAccessError</code></a>.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Let <var>data</var> be an instance of the <code>PrivateKeyInfo</code>
+                      ASN.1 structure defined in [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc5208" title="Public-Key Cryptography Standards (PKCS) #8: Private-Key Information Syntax Specification Version 1.2">RFC5208</a></cite>]
+                      with the following properties:
+                    </p>
+                    <ul>
+                      <li>
+                        <p>
+                          Set the <var>version</var> field to <code>0</code>.
+                        </p>
+                      </li>
+                      <li>
+                        <p>
+                          Set the <var>privateKeyAlgorithm</var> field to a
+                          <code>PrivateKeyAlgorithmIdentifier</code> ASN.1 type with the
+                          following properties:
+                        </p>
+                        <ul>
+                          <li>
+                            <dl class="switch">
+                              <dt>If the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-algorithm-name"><code>name</code></a> member of <var>normalizedAlgorithm</var> is "<code>ML-KEM-512</code>":</dt>
+                              <dd>
+                                <p>
+                                  Set the <var>algorithm</var> object identifier to the <code>id-alg-ml-kem-512</code> (2.16.840.1.101.3.4.4.1) OID.
+                                </p>
+                              </dd>
+                              <dt>If the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-algorithm-name"><code>name</code></a> member of <var>normalizedAlgorithm</var> is "<code>ML-KEM-768</code>":</dt>
+                              <dd>
+                                <p>
+                                  Set the <var>algorithm</var> object identifier to the <code>id-alg-ml-kem-768</code> (2.16.840.1.101.3.4.4.2) OID.
+                                </p>
+                              </dd>
+                              <dt>If the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-algorithm-name"><code>name</code></a> member of <var>normalizedAlgorithm</var> is "<code>ML-KEM-1024</code>":</dt>
+                              <dd>
+                                <p>
+                                  Set the <var>algorithm</var> object identifier to the <code>id-alg-ml-kem-1024</code> (2.16.840.1.101.3.4.4.3) OID.
+                                </p>
+                              </dd>
+                              <dt>Otherwise:</dt>
+                              <dd>
+                                <p>
+                                  <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a <a data-link-type="exception" data-lt="NotSupportedError" href="https://webidl.spec.whatwg.org/#notsupportederror"><code>NotSupportedError</code></a>.
+                                </p>
+                              </dd>
+                            </dl>
+                          </li>
+                        </ul>
+                      </li>
+                      <li>
+                        <p>
+                          Set the <var>privateKey</var> field as follows:
+                        </p>
+                        <ul>
+                          <li>
+                            <dl class="switch">
+                              <dt>If the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-algorithm-name"><code>name</code></a> member of <var>normalizedAlgorithm</var> is "<code>ML-KEM-512</code>":</dt>
+                              <dd>
+                                <p>
+                                  Set the <var>privateKey</var> field to the result of DER-encoding
+                                  a <code>ML-KEM-512-PrivateKey</code> ASN.1 type that represents the ML-KEM
+                                  private key seed represented by the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-handle"><code>[[handle]]</code></a>
+                                  internal slot of <var>key</var> using the seed-only format (using a context-specific [0] primitive tag
+                                  with an implicit encoding of OCTET STRING).
+                                </p>
+                              </dd>
+                              <dt>If the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-algorithm-name"><code>name</code></a> member of <var>normalizedAlgorithm</var> is "<code>ML-KEM-768</code>":</dt>
+                              <dd>
+                                <p>
+                                  Set the <var>privateKey</var> field to the result of DER-encoding
+                                  a <code>ML-KEM-768-PrivateKey</code> ASN.1 type that represents the ML-KEM
+                                  private key seed represented by the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-handle"><code>[[handle]]</code></a>
+                                  internal slot of <var>key</var> using the seed-only format (using a context-specific [0] primitive tag
+                                  with an implicit encoding of OCTET STRING).
+                                </p>
+                              </dd>
+                              <dt>If the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-algorithm-name"><code>name</code></a> member of <var>normalizedAlgorithm</var> is "<code>ML-KEM-1024</code>":</dt>
+                              <dd>
+                                <p>
+                                  Set the <var>privateKey</var> field to the result of DER-encoding
+                                  a <code>ML-KEM-1024-PrivateKey</code> ASN.1 type that represents the ML-KEM
+                                  private key seed represented by the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-handle"><code>[[handle]]</code></a>
+                                  internal slot of <var>key</var> using the seed-only format (using a context-specific [0] primitive tag
+                                  with an implicit encoding of OCTET STRING).
+                                </p>
+                              </dd>
+                              <dt>Otherwise:</dt>
+                              <dd>
+                                <p>
+                                  <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a <a data-link-type="exception" data-lt="NotSupportedError" href="https://webidl.spec.whatwg.org/#notsupportederror"><code>NotSupportedError</code></a>.
+                                </p>
+                              </dd>
+                            </dl>
+                          </li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    <p>
+                      Let <var>result</var> be the result of DER-encoding <var>data</var>.
+                    </p>
+                  </li>
+                </ol>
+              </dd>
               <dt>If <var>format</var> is "<a data-link-type="idl" href="#dom-keyformat-raw-public" class="internalDFN" id="ref-for-dom-keyformat-raw-public-4"><code>raw-public</code></a>":</dt>
               <dd>
                 <ol>
@@ -2444,6 +2902,263 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
           </li>
           <li>
             <dl class="switch">
+              <dt>If <var>format</var> is "<a data-link-type="idl" href="#dom-keyformat-spki" class="internalDFN" id="ref-for-dom-keyformat-spki-3"><code>spki</code></a>":</dt>
+              <dd>
+                <ol>
+                  <li>
+                    <p>
+                      If <var>usages</var> contains a value which is not
+                      "<code>verify</code>"
+                      then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
+                      <a data-link-type="exception" data-lt="SyntaxError" href="https://webidl.spec.whatwg.org/#syntaxerror"><code>SyntaxError</code></a>.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Let <var>spki</var> be the result of running the
+                      <a href="https://www.w3.org/TR/webcrypto-2/#concept-parse-a-spki">parse a subjectPublicKeyInfo</a>
+                      algorithm over <var>keyData</var>.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      If an error occurred while parsing,
+                      then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
+                      <a data-link-type="exception" data-lt="DataError" href="https://webidl.spec.whatwg.org/#dataerror"><code>DataError</code></a>.
+                    </p>
+                  </li>
+                  <li>
+                    <dl class="switch">
+                      <dt>If the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-algorithm-name"><code>name</code></a> member of <var>normalizedAlgorithm</var> is "<code>ML-DSA-44</code>":</dt>
+                      <dd>
+                        <p>
+                          Let <var>expectedOid</var> be <code>id-ml-dsa-44</code> (2.16.840.1.101.3.4.3.17).
+                        </p>
+                      </dd>
+                      <dt>If the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-algorithm-name"><code>name</code></a> member of <var>normalizedAlgorithm</var> is "<code>ML-DSA-65</code>":</dt>
+                      <dd>
+                        <p>
+                          Let <var>expectedOid</var> be <code>id-ml-dsa-65</code> (2.16.840.1.101.3.4.3.18).
+                        </p>
+                      </dd>
+                      <dt>If the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-algorithm-name"><code>name</code></a> member of <var>normalizedAlgorithm</var> is "<code>ML-DSA-87</code>":</dt>
+                      <dd>
+                        <p>
+                          Let <var>expectedOid</var> be <code>id-ml-dsa-87</code> (2.16.840.1.101.3.4.3.19).
+                        </p>
+                      </dd>
+                      <dt>Otherwise:</dt>
+                      <dd>
+                        <p>
+                          <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a <a data-link-type="exception" data-lt="NotSupportedError" href="https://webidl.spec.whatwg.org/#notsupportederror"><code>NotSupportedError</code></a>.
+                        </p>
+                      </dd>
+                    </dl>
+                  </li>
+                  <li>
+                    <p>
+                      If the <code>algorithm</code> object identifier field of the
+                      <code>algorithm</code> AlgorithmIdentifier field of <var>spki</var> is
+                      not equal to <var>expectedOid</var>,
+                      then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a <a data-link-type="exception" data-lt="DataError" href="https://webidl.spec.whatwg.org/#dataerror"><code>DataError</code></a>.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      If the <code>parameters</code> field of the <code>algorithm</code>
+                      AlgorithmIdentifier field of <var>spki</var> is present,
+                      then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
+                      <a data-link-type="exception" data-lt="DataError" href="https://webidl.spec.whatwg.org/#dataerror"><code>DataError</code></a>.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Let <var>publicKey</var> be the ML-DSA public key identified by
+                      the <code>subjectPublicKey</code> field of <var>spki</var>.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Let <var>key</var> be a new <a data-link-type="interface" data-lt="CryptoKey" href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey"><code>CryptoKey</code></a>
+                      that represents <var>publicKey</var>.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Set the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-type"><code>[[type]]</code></a> internal slot
+                      of <var>key</var> to "<code>public</code>"
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Let <var>algorithm</var> be a new <a data-link-type="dictionary" data-lt="KeyAlgorithm" href="https://www.w3.org/TR/webcrypto-2/#dfn-KeyAlgorithm"><code>KeyAlgorithm</code></a>.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Set the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-keyalgorithm-name"><code>name</code></a> attribute of
+                      <var>algorithm</var> to the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-algorithm-name"><code>name</code></a> attribute of
+                      <var>normalizedAlgorithm</var>.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Set the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-algorithm"><code>[[algorithm]]</code></a>
+                      internal slot of <var>key</var> to <var>algorithm</var>.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Set the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-extractable"><code>[[extractable]]</code></a> internal
+                      slot of <var>key</var> to <var>extractable</var>.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Set the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-usages"><code>[[usages]]</code></a> internal slot of
+                      <var>key</var> to <var>usages</var>.
+                    </p>
+                  </li>
+                </ol>
+              </dd>
+              <dt>If <var>format</var> is "<a data-link-type="idl" href="#dom-keyformat-pkcs8" class="internalDFN" id="ref-for-dom-keyformat-pkcs8-3"><code>pkcs8</code></a>":</dt>
+              <dd>
+                <ol>
+                  <li>
+                    <p>
+                      If <var>usages</var> contains a value which is not
+                      "<code>sign</code>"
+                      then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
+                      <a data-link-type="exception" data-lt="SyntaxError" href="https://webidl.spec.whatwg.org/#syntaxerror"><code>SyntaxError</code></a>.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Let <var>privateKeyInfo</var> be the result of running the
+                      <a href="https://www.w3.org/TR/webcrypto-2/#concept-parse-a-privateKeyInfo">parse a privateKeyInfo</a>
+                      algorithm over <var>keyData</var>.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      If an error occurs while parsing,
+                      then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
+                      <a data-link-type="exception" data-lt="DataError" href="https://webidl.spec.whatwg.org/#dataerror"><code>DataError</code></a>.
+                    </p>
+                  </li>
+                  <li>
+                    <dl class="switch">
+                      <dt>If the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-algorithm-name"><code>name</code></a> member of <var>normalizedAlgorithm</var> is "<code>ML-DSA-44</code>":</dt>
+                      <dd>
+                        <p>
+                          Let <var>expectedOid</var> be <code>id-ml-dsa-44</code> (2.16.840.1.101.3.4.3.17).
+                        </p>
+                        <p>
+                          Let <var>asn1Structure</var> be the ASN.1 <code>ML-DSA-44-PrivateKey</code> structure.
+                        </p>
+                      </dd>
+                      <dt>If the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-algorithm-name"><code>name</code></a> member of <var>normalizedAlgorithm</var> is "<code>ML-DSA-65</code>":</dt>
+                      <dd>
+                        <p>
+                          Let <var>expectedOid</var> be <code>id-ml-dsa-65</code> (2.16.840.1.101.3.4.3.18).
+                        </p>
+                        <p>
+                          Let <var>asn1Structure</var> be the ASN.1 <code>ML-DSA-65-PrivateKey</code> structure.
+                        </p>
+                      </dd>
+                      <dt>If the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-algorithm-name"><code>name</code></a> member of <var>normalizedAlgorithm</var> is "<code>ML-DSA-87</code>":</dt>
+                      <dd>
+                        <p>
+                          Let <var>expectedOid</var> be <code>id-ml-dsa-87</code> (2.16.840.1.101.3.4.3.19).
+                        </p>
+                        <p>
+                          Let <var>asn1Structure</var> be the ASN.1 <code>ML-DSA-87-PrivateKey</code> structure.
+                        </p>
+                      </dd>
+                      <dt>Otherwise:</dt>
+                      <dd>
+                        <p>
+                          <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a <a data-link-type="exception" data-lt="NotSupportedError" href="https://webidl.spec.whatwg.org/#notsupportederror"><code>NotSupportedError</code></a>.
+                        </p>
+                      </dd>
+                    </dl>
+                  </li>
+                  <li>
+                    <p>
+                      If the <code>algorithm</code> object identifier field of the
+                      <code>privateKeyAlgorithm</code> PrivateKeyAlgorithm field of
+                      <var>privateKeyInfo</var> is not equal to <var>expectedOid</var>,
+                      then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a <a data-link-type="exception" data-lt="DataError" href="https://webidl.spec.whatwg.org/#dataerror"><code>DataError</code></a>.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      If the <code>parameters</code> field of the
+                      <code>privateKeyAlgorithm</code> PrivateKeyAlgorithmIdentifier field
+                      of <var>privateKeyInfo</var> is present,
+                      then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
+                      <a data-link-type="exception" data-lt="DataError" href="https://webidl.spec.whatwg.org/#dataerror"><code>DataError</code></a>.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Let <var>mlDsaPrivateKey</var> be the result of performing the
+                      <a href="https://www.w3.org/TR/webcrypto-2/#concept-parse-an-asn1-structure">parse an ASN.1 structure</a>
+                      algorithm, with <var>data</var> as the <code>privateKey</code> field
+                      of <var>privateKeyInfo</var>, <var>structure</var> as <var>asn1Structure</var>, and <var>exactData</var> set to true.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      If an error occurred while parsing,
+                      then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
+                      <a data-link-type="exception" data-lt="DataError" href="https://webidl.spec.whatwg.org/#dataerror"><code>DataError</code></a>.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Let <var>key</var> be a new <a data-link-type="interface" data-lt="CryptoKey" href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey"><code>CryptoKey</code></a>
+                      that represents the ML-DSA private key identified by <var>mlDsaPrivateKey</var>.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Set the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-type"><code>[[type]]</code></a> internal slot
+                      of <var>key</var> to "<a data-link-type="enum-value" href="https://www.w3.org/TR/webcrypto-2/#dom-keytype-private"><code>private</code></a>"
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Let <var>algorithm</var> be a new <a data-link-type="dictionary" data-lt="KeyAlgorithm" href="https://www.w3.org/TR/webcrypto-2/#dfn-KeyAlgorithm"><code>KeyAlgorithm</code></a>.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Set the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-keyalgorithm-name"><code>name</code></a> attribute of
+                      <var>algorithm</var> to the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-algorithm-name"><code>name</code></a> attribute of
+                      <var>normalizedAlgorithm</var>.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Set the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-algorithm"><code>[[algorithm]]</code></a>
+                      internal slot of <var>key</var> to <var>algorithm</var>.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Set the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-extractable"><code>[[extractable]]</code></a> internal
+                      slot of <var>key</var> to <var>extractable</var>.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Set the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-usages"><code>[[usages]]</code></a> internal slot of
+                      <var>key</var> to <var>usages</var>.
+                    </p>
+                  </li>
+                </ol>
+              </dd>
               <dt>If <var>format</var> is "<a data-link-type="idl" href="#dom-keyformat-raw-public" class="internalDFN" id="ref-for-dom-keyformat-raw-public-5"><code>raw-public</code></a>":</dt>
               <dd>
                 <ol>
@@ -2734,6 +3449,187 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
           </li>
           <li>
             <dl class="switch">
+              <dt>If <var>format</var> is "<a data-link-type="idl" href="#dom-keyformat-spki" class="internalDFN" id="ref-for-dom-keyformat-spki-4"><code>spki</code></a>":</dt>
+              <dd>
+                <ol>
+                  <li>
+                    <p>
+                      If the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-type"><code>[[type]]</code></a> internal slot
+                      of <var>key</var> is not "<code>public</code>", then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an <a data-link-type="exception" data-lt="InvalidAccessError" href="https://webidl.spec.whatwg.org/#invalidaccesserror"><code>InvalidAccessError</code></a>.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Let <var>data</var> be an instance of the <code>SubjectPublicKeyInfo</code>
+                      ASN.1 structure defined in [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc5280" title="Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile">RFC5280</a></cite>]
+                      with the following properties:
+                    </p>
+                    <ul>
+                      <li>
+                        <p>
+                          Set the <var>algorithm</var> field to an
+                          <code>AlgorithmIdentifier</code> ASN.1 type with the following
+                          properties:
+                        </p>
+                        <ul>
+                          <li>
+                            <dl class="switch">
+                              <dt>If the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-algorithm-name"><code>name</code></a> member of <var>normalizedAlgorithm</var> is "<code>ML-DSA-44</code>":</dt>
+                              <dd>
+                                <p>
+                                  Set the <var>algorithm</var> object identifier to the <code>id-ml-dsa-44</code> (2.16.840.1.101.3.4.3.17) OID.
+                                </p>
+                              </dd>
+                              <dt>If the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-algorithm-name"><code>name</code></a> member of <var>normalizedAlgorithm</var> is "<code>ML-DSA-65</code>":</dt>
+                              <dd>
+                                <p>
+                                  Set the <var>algorithm</var> object identifier to the <code>id-ml-dsa-65</code> (2.16.840.1.101.3.4.3.18) OID.
+                                </p>
+                              </dd>
+                              <dt>If the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-algorithm-name"><code>name</code></a> member of <var>normalizedAlgorithm</var> is "<code>ML-DSA-87</code>":</dt>
+                              <dd>
+                                <p>
+                                  Set the <var>algorithm</var> object identifier to the <code>id-ml-dsa-87</code> (2.16.840.1.101.3.4.3.19) OID.
+                                </p>
+                              </dd>
+                              <dt>Otherwise:</dt>
+                              <dd>
+                                <p>
+                                  <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a <a data-link-type="exception" data-lt="NotSupportedError" href="https://webidl.spec.whatwg.org/#notsupportederror"><code>NotSupportedError</code></a>.
+                                </p>
+                              </dd>
+                            </dl>
+                          </li>
+                        </ul>
+                      </li>
+                      <li>
+                        <p>
+                          Set the <var>subjectPublicKey</var> field to <var>keyData</var>.
+                        </p>
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    <p>
+                      Let <var>result</var> be the result of DER-encoding <var>data</var>.
+                    </p>
+                  </li>
+                </ol>
+              </dd>
+              <dt>If <var>format</var> is "<a data-link-type="idl" href="#dom-keyformat-pkcs8" class="internalDFN" id="ref-for-dom-keyformat-pkcs8-4"><code>pkcs8</code></a>":</dt>
+              <dd>
+                <ol>
+                  <li>
+                    <p>
+                      If the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-type"><code>[[type]]</code></a> internal slot
+                      of <var>key</var> is not "<a data-link-type="enum-value" href="https://www.w3.org/TR/webcrypto-2/#dom-keytype-private"><code>private</code></a>", then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an <a data-link-type="exception" data-lt="InvalidAccessError" href="https://webidl.spec.whatwg.org/#invalidaccesserror"><code>InvalidAccessError</code></a>.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Let <var>data</var> be an instance of the <code>PrivateKeyInfo</code>
+                      ASN.1 structure defined in [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc5208" title="Public-Key Cryptography Standards (PKCS) #8: Private-Key Information Syntax Specification Version 1.2">RFC5208</a></cite>]
+                      with the following properties:
+                    </p>
+                    <ul>
+                      <li>
+                        <p>
+                          Set the <var>version</var> field to <code>0</code>.
+                        </p>
+                      </li>
+                      <li>
+                        <p>
+                          Set the <var>privateKeyAlgorithm</var> field to a
+                          <code>PrivateKeyAlgorithmIdentifier</code> ASN.1 type with the
+                          following properties:
+                        </p>
+                        <ul>
+                          <li>
+                            <dl class="switch">
+                              <dt>If the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-algorithm-name"><code>name</code></a> member of <var>normalizedAlgorithm</var> is "<code>ML-DSA-44</code>":</dt>
+                              <dd>
+                                <p>
+                                  Set the <var>algorithm</var> object identifier to the <code>id-ml-dsa-44</code> (2.16.840.1.101.3.4.3.17) OID.
+                                </p>
+                              </dd>
+                              <dt>If the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-algorithm-name"><code>name</code></a> member of <var>normalizedAlgorithm</var> is "<code>ML-DSA-65</code>":</dt>
+                              <dd>
+                                <p>
+                                  Set the <var>algorithm</var> object identifier to the <code>id-ml-dsa-65</code> (2.16.840.1.101.3.4.3.18) OID.
+                                </p>
+                              </dd>
+                              <dt>If the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-algorithm-name"><code>name</code></a> member of <var>normalizedAlgorithm</var> is "<code>ML-DSA-87</code>":</dt>
+                              <dd>
+                                <p>
+                                  Set the <var>algorithm</var> object identifier to the <code>id-ml-dsa-87</code> (2.16.840.1.101.3.4.3.19) OID.
+                                </p>
+                              </dd>
+                              <dt>Otherwise:</dt>
+                              <dd>
+                                <p>
+                                  <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a <a data-link-type="exception" data-lt="NotSupportedError" href="https://webidl.spec.whatwg.org/#notsupportederror"><code>NotSupportedError</code></a>.
+                                </p>
+                              </dd>
+                            </dl>
+                          </li>
+                        </ul>
+                      </li>
+                      <li>
+                        <p>
+                          Set the <var>privateKey</var> field as follows:
+                        </p>
+                        <ul>
+                          <li>
+                            <dl class="switch">
+                              <dt>If the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-algorithm-name"><code>name</code></a> member of <var>normalizedAlgorithm</var> is "<code>ML-DSA-44</code>":</dt>
+                              <dd>
+                                <p>
+                                  Set the <var>privateKey</var> field to the result of DER-encoding
+                                  a <code>ML-DSA-44-PrivateKey</code> ASN.1 type that represents the ML-DSA
+                                  private key seed represented by the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-handle"><code>[[handle]]</code></a>
+                                  internal slot of <var>key</var> using the seed-only format (using a context-specific [0] primitive tag
+                                  with an implicit encoding of OCTET STRING).
+                                </p>
+                              </dd>
+                              <dt>If the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-algorithm-name"><code>name</code></a> member of <var>normalizedAlgorithm</var> is "<code>ML-DSA-65</code>":</dt>
+                              <dd>
+                                <p>
+                                  Set the <var>privateKey</var> field to the result of DER-encoding
+                                  a <code>ML-DSA-65-PrivateKey</code> ASN.1 type that represents the ML-DSA
+                                  private key seed represented by the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-handle"><code>[[handle]]</code></a>
+                                  internal slot of <var>key</var> using the seed-only format (using a context-specific [0] primitive tag
+                                  with an implicit encoding of OCTET STRING).
+                                </p>
+                              </dd>
+                              <dt>If the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-algorithm-name"><code>name</code></a> member of <var>normalizedAlgorithm</var> is "<code>ML-DSA-87</code>":</dt>
+                              <dd>
+                                <p>
+                                  Set the <var>privateKey</var> field to the result of DER-encoding
+                                  a <code>ML-DSA-87-PrivateKey</code> ASN.1 type that represents the ML-DSA
+                                  private key seed represented by the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-handle"><code>[[handle]]</code></a>
+                                  internal slot of <var>key</var> using the seed-only format (using a context-specific [0] primitive tag
+                                  with an implicit encoding of OCTET STRING).
+                                </p>
+                              </dd>
+                              <dt>Otherwise:</dt>
+                              <dd>
+                                <p>
+                                  <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a <a data-link-type="exception" data-lt="NotSupportedError" href="https://webidl.spec.whatwg.org/#notsupportederror"><code>NotSupportedError</code></a>.
+                                </p>
+                              </dd>
+                            </dl>
+                          </li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    <p>
+                      Let <var>result</var> be the result of DER-encoding <var>data</var>.
+                    </p>
+                  </li>
+                </ol>
+              </dd>
               <dt>
                 If <var>format</var> is "<a data-link-type="idl" href="#dom-keyformat-raw-public" class="internalDFN" id="ref-for-dom-keyformat-raw-public-6"><code>raw-public</code></a>":
               </dt>
@@ -3134,6 +4030,362 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
           </li>
           <li>
             <dl class="switch">
+              <dt>If <var>format</var> is "<a data-link-type="idl" href="#dom-keyformat-spki" class="internalDFN" id="ref-for-dom-keyformat-spki-5"><code>spki</code></a>":</dt>
+              <dd>
+                <ol>
+                  <li>
+                    <p>
+                      If <var>usages</var> contains a value which is not
+                      "<code>verify</code>"
+                      then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
+                      <a data-link-type="exception" data-lt="SyntaxError" href="https://webidl.spec.whatwg.org/#syntaxerror"><code>SyntaxError</code></a>.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Let <var>spki</var> be the result of running the
+                      <a href="https://www.w3.org/TR/webcrypto-2/#concept-parse-a-spki">parse a subjectPublicKeyInfo</a>
+                      algorithm over <var>keyData</var>.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      If an error occurred while parsing,
+                      then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
+                      <a data-link-type="exception" data-lt="DataError" href="https://webidl.spec.whatwg.org/#dataerror"><code>DataError</code></a>.
+                    </p>
+                  </li>
+                  <li>
+                    <dl class="switch">
+                      <dt>If the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-algorithm-name"><code>name</code></a> member of <var>normalizedAlgorithm</var> is "<code>SLH-DSA-SHA2-128s</code>":</dt>
+                      <dd>
+                        <p>
+                          Let <var>expectedOid</var> be <code>id-slh-dsa-sha2-128s</code> (2.16.840.1.101.3.4.3.20).
+                        </p>
+                      </dd>
+                      <dt>If the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-algorithm-name"><code>name</code></a> member of <var>normalizedAlgorithm</var> is "<code>SLH-DSA-SHA2-128f</code>":</dt>
+                      <dd>
+                        <p>
+                          Let <var>expectedOid</var> be <code>id-slh-dsa-sha2-128f</code> (2.16.840.1.101.3.4.3.21).
+                        </p>
+                      </dd>
+                      <dt>If the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-algorithm-name"><code>name</code></a> member of <var>normalizedAlgorithm</var> is "<code>SLH-DSA-SHA2-192s</code>":</dt>
+                      <dd>
+                        <p>
+                          Let <var>expectedOid</var> be <code>id-slh-dsa-sha2-192s</code> (2.16.840.1.101.3.4.3.22).
+                        </p>
+                      </dd>
+                      <dt>If the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-algorithm-name"><code>name</code></a> member of <var>normalizedAlgorithm</var> is "<code>SLH-DSA-SHA2-192f</code>":</dt>
+                      <dd>
+                        <p>
+                          Let <var>expectedOid</var> be <code>id-slh-dsa-sha2-192f</code> (2.16.840.1.101.3.4.3.23).
+                        </p>
+                      </dd>
+                      <dt>If the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-algorithm-name"><code>name</code></a> member of <var>normalizedAlgorithm</var> is "<code>SLH-DSA-SHA2-256s</code>":</dt>
+                      <dd>
+                        <p>
+                          Let <var>expectedOid</var> be <code>id-slh-dsa-sha2-256s</code> (2.16.840.1.101.3.4.3.24).
+                        </p>
+                      </dd>
+                      <dt>If the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-algorithm-name"><code>name</code></a> member of <var>normalizedAlgorithm</var> is "<code>SLH-DSA-SHA2-256f</code>":</dt>
+                      <dd>
+                        <p>
+                          Let <var>expectedOid</var> be <code>id-slh-dsa-sha2-256f</code> (2.16.840.1.101.3.4.3.25).
+                        </p>
+                      </dd>
+                      <dt>If the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-algorithm-name"><code>name</code></a> member of <var>normalizedAlgorithm</var> is "<code>SLH-DSA-SHAKE-128s</code>":</dt>
+                      <dd>
+                        <p>
+                          Let <var>expectedOid</var> be <code>id-slh-dsa-shake-128s</code> (2.16.840.1.101.3.4.3.26).
+                        </p>
+                      </dd>
+                      <dt>If the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-algorithm-name"><code>name</code></a> member of <var>normalizedAlgorithm</var> is "<code>SLH-DSA-SHAKE-128f</code>":</dt>
+                      <dd>
+                        <p>
+                          Let <var>expectedOid</var> be <code>id-slh-dsa-shake-128f</code> (2.16.840.1.101.3.4.3.27).
+                        </p>
+                      </dd>
+                      <dt>If the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-algorithm-name"><code>name</code></a> member of <var>normalizedAlgorithm</var> is "<code>SLH-DSA-SHAKE-192s</code>":</dt>
+                      <dd>
+                        <p>
+                          Let <var>expectedOid</var> be <code>id-slh-dsa-shake-192s</code> (2.16.840.1.101.3.4.3.28).
+                        </p>
+                      </dd>
+                      <dt>If the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-algorithm-name"><code>name</code></a> member of <var>normalizedAlgorithm</var> is "<code>SLH-DSA-SHAKE-192f</code>":</dt>
+                      <dd>
+                        <p>
+                          Let <var>expectedOid</var> be <code>id-slh-dsa-shake-192f</code> (2.16.840.1.101.3.4.3.29).
+                        </p>
+                      </dd>
+                      <dt>If the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-algorithm-name"><code>name</code></a> member of <var>normalizedAlgorithm</var> is "<code>SLH-DSA-SHAKE-256s</code>":</dt>
+                      <dd>
+                        <p>
+                          Let <var>expectedOid</var> be <code>id-slh-dsa-shake-256s</code> (2.16.840.1.101.3.4.3.30).
+                        </p>
+                      </dd>
+                      <dt>If the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-algorithm-name"><code>name</code></a> member of <var>normalizedAlgorithm</var> is "<code>SLH-DSA-SHAKE-256f</code>":</dt>
+                      <dd>
+                        <p>
+                          Let <var>expectedOid</var> be <code>id-slh-dsa-shake-256f</code> (2.16.840.1.101.3.4.3.31).
+                        </p>
+                      </dd>
+                      <dt>Otherwise:</dt>
+                      <dd>
+                        <p>
+                          <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a <a data-link-type="exception" data-lt="NotSupportedError" href="https://webidl.spec.whatwg.org/#notsupportederror"><code>NotSupportedError</code></a>.
+                        </p>
+                      </dd>
+                    </dl>
+                  </li>
+                  <li>
+                    <p>
+                      If the <code>algorithm</code> object identifier field of the
+                      <code>algorithm</code> AlgorithmIdentifier field of <var>spki</var> is
+                      not equal to <var>expectedOid</var>,
+                      then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a <a data-link-type="exception" data-lt="DataError" href="https://webidl.spec.whatwg.org/#dataerror"><code>DataError</code></a>.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      If the <code>parameters</code> field of the <code>algorithm</code>
+                      AlgorithmIdentifier field of <var>spki</var> is present,
+                      then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
+                      <a data-link-type="exception" data-lt="DataError" href="https://webidl.spec.whatwg.org/#dataerror"><code>DataError</code></a>.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Let <var>publicKey</var> be the SLH-DSA public key identified by
+                      the <code>subjectPublicKey</code> field of <var>spki</var>.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Let <var>key</var> be a new <a data-link-type="interface" data-lt="CryptoKey" href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey"><code>CryptoKey</code></a>
+                      that represents <var>publicKey</var>.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Set the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-type"><code>[[type]]</code></a> internal slot
+                      of <var>key</var> to "<code>public</code>"
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Let <var>algorithm</var> be a new <a data-link-type="dictionary" data-lt="KeyAlgorithm" href="https://www.w3.org/TR/webcrypto-2/#dfn-KeyAlgorithm"><code>KeyAlgorithm</code></a>.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Set the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-keyalgorithm-name"><code>name</code></a> attribute of
+                      <var>algorithm</var> to the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-algorithm-name"><code>name</code></a> attribute of
+                      <var>normalizedAlgorithm</var>.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Set the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-algorithm"><code>[[algorithm]]</code></a>
+                      internal slot of <var>key</var> to <var>algorithm</var>.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Set the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-extractable"><code>[[extractable]]</code></a> internal
+                      slot of <var>key</var> to <var>extractable</var>.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Set the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-usages"><code>[[usages]]</code></a> internal slot of
+                      <var>key</var> to <var>usages</var>.
+                    </p>
+                  </li>
+                </ol>
+              </dd>
+              <dt>If <var>format</var> is "<a data-link-type="idl" href="#dom-keyformat-pkcs8" class="internalDFN" id="ref-for-dom-keyformat-pkcs8-5"><code>pkcs8</code></a>":</dt>
+              <dd>
+                <ol>
+                  <li>
+                    <p>
+                      If <var>usages</var> contains a value which is not
+                      "<code>sign</code>"
+                      then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
+                      <a data-link-type="exception" data-lt="SyntaxError" href="https://webidl.spec.whatwg.org/#syntaxerror"><code>SyntaxError</code></a>.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Let <var>privateKeyInfo</var> be the result of running the
+                      <a href="https://www.w3.org/TR/webcrypto-2/#concept-parse-a-privateKeyInfo">parse a privateKeyInfo</a>
+                      algorithm over <var>keyData</var>.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      If an error occurs while parsing,
+                      then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
+                      <a data-link-type="exception" data-lt="DataError" href="https://webidl.spec.whatwg.org/#dataerror"><code>DataError</code></a>.
+                    </p>
+                  </li>
+                  <li>
+                    <dl class="switch">
+                      <dt>If the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-algorithm-name"><code>name</code></a> member of <var>normalizedAlgorithm</var> is "<code>SLH-DSA-SHA2-128s</code>":</dt>
+                      <dd>
+                        <p>
+                          Let <var>expectedOid</var> be <code>id-slh-dsa-sha2-128s</code> (2.16.840.1.101.3.4.3.20).
+                        </p>
+                      </dd>
+                      <dt>If the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-algorithm-name"><code>name</code></a> member of <var>normalizedAlgorithm</var> is "<code>SLH-DSA-SHA2-128f</code>":</dt>
+                      <dd>
+                        <p>
+                          Let <var>expectedOid</var> be <code>id-slh-dsa-sha2-128f</code> (2.16.840.1.101.3.4.3.21).
+                        </p>
+                      </dd>
+                      <dt>If the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-algorithm-name"><code>name</code></a> member of <var>normalizedAlgorithm</var> is "<code>SLH-DSA-SHA2-192s</code>":</dt>
+                      <dd>
+                        <p>
+                          Let <var>expectedOid</var> be <code>id-slh-dsa-sha2-192s</code> (2.16.840.1.101.3.4.3.22).
+                        </p>
+                      </dd>
+                      <dt>If the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-algorithm-name"><code>name</code></a> member of <var>normalizedAlgorithm</var> is "<code>SLH-DSA-SHA2-192f</code>":</dt>
+                      <dd>
+                        <p>
+                          Let <var>expectedOid</var> be <code>id-slh-dsa-sha2-192f</code> (2.16.840.1.101.3.4.3.23).
+                        </p>
+                      </dd>
+                      <dt>If the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-algorithm-name"><code>name</code></a> member of <var>normalizedAlgorithm</var> is "<code>SLH-DSA-SHA2-256s</code>":</dt>
+                      <dd>
+                        <p>
+                          Let <var>expectedOid</var> be <code>id-slh-dsa-sha2-256s</code> (2.16.840.1.101.3.4.3.24).
+                        </p>
+                      </dd>
+                      <dt>If the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-algorithm-name"><code>name</code></a> member of <var>normalizedAlgorithm</var> is "<code>SLH-DSA-SHA2-256f</code>":</dt>
+                      <dd>
+                        <p>
+                          Let <var>expectedOid</var> be <code>id-slh-dsa-sha2-256f</code> (2.16.840.1.101.3.4.3.25).
+                        </p>
+                      </dd>
+                      <dt>If the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-algorithm-name"><code>name</code></a> member of <var>normalizedAlgorithm</var> is "<code>SLH-DSA-SHAKE-128s</code>":</dt>
+                      <dd>
+                        <p>
+                          Let <var>expectedOid</var> be <code>id-slh-dsa-shake-128s</code> (2.16.840.1.101.3.4.3.26).
+                        </p>
+                      </dd>
+                      <dt>If the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-algorithm-name"><code>name</code></a> member of <var>normalizedAlgorithm</var> is "<code>SLH-DSA-SHAKE-128f</code>":</dt>
+                      <dd>
+                        <p>
+                          Let <var>expectedOid</var> be <code>id-slh-dsa-shake-128f</code> (2.16.840.1.101.3.4.3.27).
+                        </p>
+                      </dd>
+                      <dt>If the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-algorithm-name"><code>name</code></a> member of <var>normalizedAlgorithm</var> is "<code>SLH-DSA-SHAKE-192s</code>":</dt>
+                      <dd>
+                        <p>
+                          Let <var>expectedOid</var> be <code>id-slh-dsa-shake-192s</code> (2.16.840.1.101.3.4.3.28).
+                        </p>
+                      </dd>
+                      <dt>If the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-algorithm-name"><code>name</code></a> member of <var>normalizedAlgorithm</var> is "<code>SLH-DSA-SHAKE-192f</code>":</dt>
+                      <dd>
+                        <p>
+                          Let <var>expectedOid</var> be <code>id-slh-dsa-shake-192f</code> (2.16.840.1.101.3.4.3.29).
+                        </p>
+                      </dd>
+                      <dt>If the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-algorithm-name"><code>name</code></a> member of <var>normalizedAlgorithm</var> is "<code>SLH-DSA-SHAKE-256s</code>":</dt>
+                      <dd>
+                        <p>
+                          Let <var>expectedOid</var> be <code>id-slh-dsa-shake-256s</code> (2.16.840.1.101.3.4.3.30).
+                        </p>
+                      </dd>
+                      <dt>If the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-algorithm-name"><code>name</code></a> member of <var>normalizedAlgorithm</var> is "<code>SLH-DSA-SHAKE-256f</code>":</dt>
+                      <dd>
+                        <p>
+                          Let <var>expectedOid</var> be <code>id-slh-dsa-shake-256f</code> (2.16.840.1.101.3.4.3.31).
+                        </p>
+                      </dd>
+                      <dt>Otherwise:</dt>
+                      <dd>
+                        <p>
+                          <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a <a data-link-type="exception" data-lt="NotSupportedError" href="https://webidl.spec.whatwg.org/#notsupportederror"><code>NotSupportedError</code></a>.
+                        </p>
+                      </dd>
+                    </dl>
+                  </li>
+                  <li>
+                    <p>
+                      If the <code>algorithm</code> object identifier field of the
+                      <code>privateKeyAlgorithm</code> PrivateKeyAlgorithm field of
+                      <var>privateKeyInfo</var> is not equal to <var>expectedOid</var>,
+                      then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a <a data-link-type="exception" data-lt="DataError" href="https://webidl.spec.whatwg.org/#dataerror"><code>DataError</code></a>.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      If the <code>parameters</code> field of the
+                      <code>privateKeyAlgorithm</code> PrivateKeyAlgorithmIdentifier field
+                      of <var>privateKeyInfo</var> is present,
+                      then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
+                      <a data-link-type="exception" data-lt="DataError" href="https://webidl.spec.whatwg.org/#dataerror"><code>DataError</code></a>.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Let <var>slhDsaPrivateKey</var> be the result of performing the
+                      <a href="https://www.w3.org/TR/webcrypto-2/#concept-parse-an-asn1-structure">parse an ASN.1 structure</a>
+                      algorithm, with <var>data</var> as the <code>privateKey</code> field
+                      of <var>privateKeyInfo</var>, <var>structure</var> as OCTET STRING, and <var>exactData</var> set to true.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      If an error occurred while parsing,
+                      then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a
+                      <a data-link-type="exception" data-lt="DataError" href="https://webidl.spec.whatwg.org/#dataerror"><code>DataError</code></a>.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Let <var>key</var> be a new <a data-link-type="interface" data-lt="CryptoKey" href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey"><code>CryptoKey</code></a>
+                      that represents the SLH-DSA private key identified by <var>slhDsaPrivateKey</var>.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Set the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-type"><code>[[type]]</code></a> internal slot
+                      of <var>key</var> to "<a data-link-type="enum-value" href="https://www.w3.org/TR/webcrypto-2/#dom-keytype-private"><code>private</code></a>"
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Let <var>algorithm</var> be a new <a data-link-type="dictionary" data-lt="KeyAlgorithm" href="https://www.w3.org/TR/webcrypto-2/#dfn-KeyAlgorithm"><code>KeyAlgorithm</code></a>.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Set the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-keyalgorithm-name"><code>name</code></a> attribute of
+                      <var>algorithm</var> to the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-algorithm-name"><code>name</code></a> attribute of
+                      <var>normalizedAlgorithm</var>.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Set the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-algorithm"><code>[[algorithm]]</code></a>
+                      internal slot of <var>key</var> to <var>algorithm</var>.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Set the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-extractable"><code>[[extractable]]</code></a> internal
+                      slot of <var>key</var> to <var>extractable</var>.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Set the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-usages"><code>[[usages]]</code></a> internal slot of
+                      <var>key</var> to <var>usages</var>.
+                    </p>
+                  </li>
+                </ol>
+              </dd>
               <dt>If <var>format</var> is "<a data-link-type="idl" href="#dom-keyformat-raw-public" class="internalDFN" id="ref-for-dom-keyformat-raw-public-7"><code>raw-public</code></a>":</dt>
               <dd>
                 <ol>
@@ -3421,6 +4673,257 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
           </li>
           <li>
             <dl class="switch">
+              <dt>If <var>format</var> is "<a data-link-type="idl" href="#dom-keyformat-spki" class="internalDFN" id="ref-for-dom-keyformat-spki-6"><code>spki</code></a>":</dt>
+              <dd>
+                <ol>
+                  <li>
+                    <p>
+                      If the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-type"><code>[[type]]</code></a> internal slot
+                      of <var>key</var> is not "<code>public</code>", then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an <a data-link-type="exception" data-lt="InvalidAccessError" href="https://webidl.spec.whatwg.org/#invalidaccesserror"><code>InvalidAccessError</code></a>.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Let <var>data</var> be an instance of the <code>SubjectPublicKeyInfo</code>
+                      ASN.1 structure defined in [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc5280" title="Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile">RFC5280</a></cite>]
+                      with the following properties:
+                    </p>
+                    <ul>
+                      <li>
+                        <p>
+                          Set the <var>algorithm</var> field to an
+                          <code>AlgorithmIdentifier</code> ASN.1 type with the following
+                          properties:
+                        </p>
+                        <ul>
+                          <li>
+                            <dl class="switch">
+                              <dt>If the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-algorithm-name"><code>name</code></a> member of <var>normalizedAlgorithm</var> is "<code>SLH-DSA-SHA2-128s</code>":</dt>
+                              <dd>
+                                <p>
+                                  Set the <var>algorithm</var> object identifier to the <code>id-slh-dsa-sha2-128s</code> (2.16.840.1.101.3.4.3.20) OID.
+                                </p>
+                              </dd>
+                              <dt>If the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-algorithm-name"><code>name</code></a> member of <var>normalizedAlgorithm</var> is "<code>SLH-DSA-SHA2-128f</code>":</dt>
+                              <dd>
+                                <p>
+                                  Set the <var>algorithm</var> object identifier to the <code>id-slh-dsa-sha2-128f</code> (2.16.840.1.101.3.4.3.21) OID.
+                                </p>
+                              </dd>
+                              <dt>If the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-algorithm-name"><code>name</code></a> member of <var>normalizedAlgorithm</var> is "<code>SLH-DSA-SHA2-192s</code>":</dt>
+                              <dd>
+                                <p>
+                                  Set the <var>algorithm</var> object identifier to the <code>id-slh-dsa-sha2-192s</code> (2.16.840.1.101.3.4.3.22) OID.
+                                </p>
+                              </dd>
+                              <dt>If the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-algorithm-name"><code>name</code></a> member of <var>normalizedAlgorithm</var> is "<code>SLH-DSA-SHA2-192f</code>":</dt>
+                              <dd>
+                                <p>
+                                  Set the <var>algorithm</var> object identifier to the <code>id-slh-dsa-sha2-192f</code> (2.16.840.1.101.3.4.3.23) OID.
+                                </p>
+                              </dd>
+                              <dt>If the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-algorithm-name"><code>name</code></a> member of <var>normalizedAlgorithm</var> is "<code>SLH-DSA-SHA2-256s</code>":</dt>
+                              <dd>
+                                <p>
+                                  Set the <var>algorithm</var> object identifier to the <code>id-slh-dsa-sha2-256s</code> (2.16.840.1.101.3.4.3.24) OID.
+                                </p>
+                              </dd>
+                              <dt>If the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-algorithm-name"><code>name</code></a> member of <var>normalizedAlgorithm</var> is "<code>SLH-DSA-SHA2-256f</code>":</dt>
+                              <dd>
+                                <p>
+                                  Set the <var>algorithm</var> object identifier to the <code>id-slh-dsa-sha2-256f</code> (2.16.840.1.101.3.4.3.25) OID.
+                                </p>
+                              </dd>
+                              <dt>If the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-algorithm-name"><code>name</code></a> member of <var>normalizedAlgorithm</var> is "<code>SLH-DSA-SHAKE-128s</code>":</dt>
+                              <dd>
+                                <p>
+                                  Set the <var>algorithm</var> object identifier to the <code>id-slh-dsa-shake-128s</code> (2.16.840.1.101.3.4.3.26) OID.
+                                </p>
+                              </dd>
+                              <dt>If the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-algorithm-name"><code>name</code></a> member of <var>normalizedAlgorithm</var> is "<code>SLH-DSA-SHAKE-128f</code>":</dt>
+                              <dd>
+                                <p>
+                                  Set the <var>algorithm</var> object identifier to the <code>id-slh-dsa-shake-128f</code> (2.16.840.1.101.3.4.3.27) OID.
+                                </p>
+                              </dd>
+                              <dt>If the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-algorithm-name"><code>name</code></a> member of <var>normalizedAlgorithm</var> is "<code>SLH-DSA-SHAKE-192s</code>":</dt>
+                              <dd>
+                                <p>
+                                  Set the <var>algorithm</var> object identifier to the <code>id-slh-dsa-shake-192s</code> (2.16.840.1.101.3.4.3.28) OID.
+                                </p>
+                              </dd>
+                              <dt>If the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-algorithm-name"><code>name</code></a> member of <var>normalizedAlgorithm</var> is "<code>SLH-DSA-SHAKE-192f</code>":</dt>
+                              <dd>
+                                <p>
+                                  Set the <var>algorithm</var> object identifier to the <code>id-slh-dsa-shake-192f</code> (2.16.840.1.101.3.4.3.29) OID.
+                                </p>
+                              </dd>
+                              <dt>If the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-algorithm-name"><code>name</code></a> member of <var>normalizedAlgorithm</var> is "<code>SLH-DSA-SHAKE-256s</code>":</dt>
+                              <dd>
+                                <p>
+                                  Set the <var>algorithm</var> object identifier to the <code>id-slh-dsa-shake-256s</code> (2.16.840.1.101.3.4.3.30) OID.
+                                </p>
+                              </dd>
+                              <dt>If the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-algorithm-name"><code>name</code></a> member of <var>normalizedAlgorithm</var> is "<code>SLH-DSA-SHAKE-256f</code>":</dt>
+                              <dd>
+                                <p>
+                                  Set the <var>algorithm</var> object identifier to the <code>id-slh-dsa-shake-256f</code> (2.16.840.1.101.3.4.3.31) OID.
+                                </p>
+                              </dd>
+                              <dt>Otherwise:</dt>
+                              <dd>
+                                <p>
+                                  <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a <a data-link-type="exception" data-lt="NotSupportedError" href="https://webidl.spec.whatwg.org/#notsupportederror"><code>NotSupportedError</code></a>.
+                                </p>
+                              </dd>
+                            </dl>
+                          </li>
+                        </ul>
+                      </li>
+                      <li>
+                        <p>
+                          Set the <var>subjectPublicKey</var> field to <var>keyData</var>.
+                        </p>
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    <p>
+                      Let <var>result</var> be the result of DER-encoding <var>data</var>.
+                    </p>
+                  </li>
+                </ol>
+              </dd>
+              <dt>If <var>format</var> is "<a data-link-type="idl" href="#dom-keyformat-pkcs8" class="internalDFN" id="ref-for-dom-keyformat-pkcs8-6"><code>pkcs8</code></a>":</dt>
+              <dd>
+                <ol>
+                  <li>
+                    <p>
+                      If the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-type"><code>[[type]]</code></a> internal slot
+                      of <var>key</var> is not "<a data-link-type="enum-value" href="https://www.w3.org/TR/webcrypto-2/#dom-keytype-private"><code>private</code></a>", then <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> an <a data-link-type="exception" data-lt="InvalidAccessError" href="https://webidl.spec.whatwg.org/#invalidaccesserror"><code>InvalidAccessError</code></a>.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Let <var>data</var> be an instance of the <code>PrivateKeyInfo</code>
+                      ASN.1 structure defined in [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc5208" title="Public-Key Cryptography Standards (PKCS) #8: Private-Key Information Syntax Specification Version 1.2">RFC5208</a></cite>]
+                      with the following properties:
+                    </p>
+                    <ul>
+                      <li>
+                        <p>
+                          Set the <var>version</var> field to <code>0</code>.
+                        </p>
+                      </li>
+                      <li>
+                        <p>
+                          Set the <var>privateKeyAlgorithm</var> field to a
+                          <code>PrivateKeyAlgorithmIdentifier</code> ASN.1 type with the
+                          following properties:
+                        </p>
+                        <ul>
+                          <li>
+                            <dl class="switch">
+
+                              <dt>If the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-algorithm-name"><code>name</code></a> member of <var>normalizedAlgorithm</var> is "<code>SLH-DSA-SHA2-128s</code>":</dt>
+                              <dd>
+                                <p>
+                                  Set the <var>algorithm</var> object identifier to the <code>id-slh-dsa-sha2-128s</code> (2.16.840.1.101.3.4.3.20) OID.
+                                </p>
+                              </dd>
+                              <dt>If the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-algorithm-name"><code>name</code></a> member of <var>normalizedAlgorithm</var> is "<code>SLH-DSA-SHA2-128f</code>":</dt>
+                              <dd>
+                                <p>
+                                  Set the <var>algorithm</var> object identifier to the <code>id-slh-dsa-sha2-128f</code> (2.16.840.1.101.3.4.3.21) OID.
+                                </p>
+                              </dd>
+                              <dt>If the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-algorithm-name"><code>name</code></a> member of <var>normalizedAlgorithm</var> is "<code>SLH-DSA-SHA2-192s</code>":</dt>
+                              <dd>
+                                <p>
+                                  Set the <var>algorithm</var> object identifier to the <code>id-slh-dsa-sha2-192s</code> (2.16.840.1.101.3.4.3.22) OID.
+                                </p>
+                              </dd>
+                              <dt>If the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-algorithm-name"><code>name</code></a> member of <var>normalizedAlgorithm</var> is "<code>SLH-DSA-SHA2-192f</code>":</dt>
+                              <dd>
+                                <p>
+                                  Set the <var>algorithm</var> object identifier to the <code>id-slh-dsa-sha2-192f</code> (2.16.840.1.101.3.4.3.23) OID.
+                                </p>
+                              </dd>
+                              <dt>If the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-algorithm-name"><code>name</code></a> member of <var>normalizedAlgorithm</var> is "<code>SLH-DSA-SHA2-256s</code>":</dt>
+                              <dd>
+                                <p>
+                                  Set the <var>algorithm</var> object identifier to the <code>id-slh-dsa-sha2-256s</code> (2.16.840.1.101.3.4.3.24) OID.
+                                </p>
+                              </dd>
+                              <dt>If the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-algorithm-name"><code>name</code></a> member of <var>normalizedAlgorithm</var> is "<code>SLH-DSA-SHA2-256f</code>":</dt>
+                              <dd>
+                                <p>
+                                  Set the <var>algorithm</var> object identifier to the <code>id-slh-dsa-sha2-256f</code> (2.16.840.1.101.3.4.3.25) OID.
+                                </p>
+                              </dd>
+                              <dt>If the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-algorithm-name"><code>name</code></a> member of <var>normalizedAlgorithm</var> is "<code>SLH-DSA-SHAKE-128s</code>":</dt>
+                              <dd>
+                                <p>
+                                  Set the <var>algorithm</var> object identifier to the <code>id-slh-dsa-shake-128s</code> (2.16.840.1.101.3.4.3.26) OID.
+                                </p>
+                              </dd>
+                              <dt>If the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-algorithm-name"><code>name</code></a> member of <var>normalizedAlgorithm</var> is "<code>SLH-DSA-SHAKE-128f</code>":</dt>
+                              <dd>
+                                <p>
+                                  Set the <var>algorithm</var> object identifier to the <code>id-slh-dsa-shake-128f</code> (2.16.840.1.101.3.4.3.27) OID.
+                                </p>
+                              </dd>
+                              <dt>If the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-algorithm-name"><code>name</code></a> member of <var>normalizedAlgorithm</var> is "<code>SLH-DSA-SHAKE-192s</code>":</dt>
+                              <dd>
+                                <p>
+                                  Set the <var>algorithm</var> object identifier to the <code>id-slh-dsa-shake-192s</code> (2.16.840.1.101.3.4.3.28) OID.
+                                </p>
+                              </dd>
+                              <dt>If the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-algorithm-name"><code>name</code></a> member of <var>normalizedAlgorithm</var> is "<code>SLH-DSA-SHAKE-192f</code>":</dt>
+                              <dd>
+                                <p>
+                                  Set the <var>algorithm</var> object identifier to the <code>id-slh-dsa-shake-192f</code> (2.16.840.1.101.3.4.3.29) OID.
+                                </p>
+                              </dd>
+                              <dt>If the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-algorithm-name"><code>name</code></a> member of <var>normalizedAlgorithm</var> is "<code>SLH-DSA-SHAKE-256s</code>":</dt>
+                              <dd>
+                                <p>
+                                  Set the <var>algorithm</var> object identifier to the <code>id-slh-dsa-shake-256s</code> (2.16.840.1.101.3.4.3.30) OID.
+                                </p>
+                              </dd>
+                              <dt>If the <a data-link-type="dict-member" href="https://www.w3.org/TR/webcrypto-2/#dom-algorithm-name"><code>name</code></a> member of <var>normalizedAlgorithm</var> is "<code>SLH-DSA-SHAKE-256f</code>":</dt>
+                              <dd>
+                                <p>
+                                  Set the <var>algorithm</var> object identifier to the <code>id-slh-dsa-shake-256f</code> (2.16.840.1.101.3.4.3.31) OID.
+                                </p>
+                              </dd>
+                              <dt>Otherwise:</dt>
+                              <dd>
+                                <p>
+                                  <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-throw">throw</a> a <a data-link-type="exception" data-lt="NotSupportedError" href="https://webidl.spec.whatwg.org/#notsupportederror"><code>NotSupportedError</code></a>.
+                                </p>
+                              </dd>
+                            </dl>
+                          </li>
+                        </ul>
+                      </li>
+                      <li>
+                        <p>
+                          Set the <var>privateKey</var> field to the result of DER-encoding
+                          a <code>OCTET STRING</code> ASN.1 type that represents the SLH-DSA private key represented
+                          by the <a href="https://www.w3.org/TR/webcrypto-2/#dfn-CryptoKey-slot-handle"><code>[[handle]]</code></a>
+                          internal slot of <var>key</var>
+                        </p>
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    <p>
+                      Let <var>result</var> be the result of DER-encoding <var>data</var>.
+                    </p>
+                  </li>
+                </ol>
+              </dd>
               <dt>
                 If <var>format</var> is "<a data-link-type="idl" href="#dom-keyformat-raw-public" class="internalDFN" id="ref-for-dom-keyformat-raw-public-8"><code>raw-public</code></a>":
               </dt>
@@ -5876,7 +7379,407 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
     <div class="todo">TODO: register encapsulateKey, encapsulateBits, decapsulateKey and decapsulateBits with IANA in the JSON Web Key Operations registry.</div>
   </section></section>
 
-  <section id="conformance"><div class="header-wrapper"><h2 id="b-conformance"><bdi class="secno">B. </bdi>Conformance</h2><a class="self-link" href="#conformance" aria-label="Permalink for Section B."></a></div><p>As well as sections marked as non-normative, all authoring guidelines, diagrams, examples, and notes in this specification are non-normative. Everything else in this specification is normative.</p><p>
+  <section id="pkcs8-mapping" class="appendix informative"><div class="header-wrapper"><h2 id="b-mapping-between-algorithm-and-pkcs-8-privatekeyinfo"><bdi class="secno">B. </bdi>Mapping between Algorithm and PKCS#8 PrivateKeyInfo</h2><a class="self-link" href="#pkcs8-mapping" aria-label="Permalink for Appendix B."></a></div><p><em>This section is non-normative.</em></p>
+    
+    <p>
+      Refer to algorithm-specific sections for the
+      normative requirements of importing and exporting PKCS#8 PrivateKeyInfo.
+    </p>
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">privateKeyAlgorithm</th>
+          <th scope="col">privateKey format</th>
+          <th scope="col">AlgorithmIdentifier</th>
+          <th scope="col">Reference</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>id-ml-dsa-44 (2.16.840.1.101.3.4.3.17)</td>
+          <td>ML-DSA-44-PrivateKey</td>
+          <td>
+            "<code>ML-DSA-44</code>"
+          </td>
+          <td>
+            [<cite><a class="bibref" data-link-type="biblio" href="#bib-csor" title="Computer Security Objects Register">CSOR</a></cite>], [<cite><a class="bibref" data-link-type="biblio" href="#bib-draft-ietf-lamps-dilithium-certificates" title="Internet X.509 Public Key Infrastructure - Algorithm Identifiers for the Module-Lattice-Based Digital Signature Algorithm (ML-DSA)">draft-ietf-lamps-dilithium-certificates</a></cite>]
+          </td>
+        </tr>
+        <tr>
+          <td>id-ml-dsa-65 (2.16.840.1.101.3.4.3.18)</td>
+          <td>ML-DSA-65-PrivateKey</td>
+          <td>
+            "<code>ML-DSA-65</code>"
+          </td>
+          <td>
+            [<cite><a class="bibref" data-link-type="biblio" href="#bib-csor" title="Computer Security Objects Register">CSOR</a></cite>], [<cite><a class="bibref" data-link-type="biblio" href="#bib-draft-ietf-lamps-dilithium-certificates" title="Internet X.509 Public Key Infrastructure - Algorithm Identifiers for the Module-Lattice-Based Digital Signature Algorithm (ML-DSA)">draft-ietf-lamps-dilithium-certificates</a></cite>]
+          </td>
+        </tr>
+        <tr>
+          <td>id-ml-dsa-87 (2.16.840.1.101.3.4.3.19)</td>
+          <td>ML-DSA-87-PrivateKey</td>
+          <td>
+            "<code>ML-DSA-87</code>"
+          </td>
+          <td>
+            [<cite><a class="bibref" data-link-type="biblio" href="#bib-csor" title="Computer Security Objects Register">CSOR</a></cite>], [<cite><a class="bibref" data-link-type="biblio" href="#bib-draft-ietf-lamps-dilithium-certificates" title="Internet X.509 Public Key Infrastructure - Algorithm Identifiers for the Module-Lattice-Based Digital Signature Algorithm (ML-DSA)">draft-ietf-lamps-dilithium-certificates</a></cite>]
+          </td>
+        </tr>
+        <tr>
+          <td>id-alg-ml-kem-512 (2.16.840.1.101.3.4.4.1)</td>
+          <td>ML-KEM-512-PrivateKey</td>
+          <td>
+            "<code>ML-KEM-512</code>"
+          </td>
+          <td>
+            [<cite><a class="bibref" data-link-type="biblio" href="#bib-csor" title="Computer Security Objects Register">CSOR</a></cite>], [<cite><a class="bibref" data-link-type="biblio" href="#bib-draft-ietf-lamps-kyber-certificates" title="Internet X.509 Public Key Infrastructure - Algorithm Identifiers for the Module-Lattice-Based Key-Encapsulation Mechanism (ML-KEM)">draft-ietf-lamps-kyber-certificates</a></cite>]
+          </td>
+        </tr>
+        <tr>
+          <td>id-alg-ml-kem-768 (2.16.840.1.101.3.4.4.2)</td>
+          <td>ML-KEM-768-PrivateKey</td>
+          <td>
+            "<code>ML-KEM-768</code>"
+          </td>
+          <td>
+            [<cite><a class="bibref" data-link-type="biblio" href="#bib-csor" title="Computer Security Objects Register">CSOR</a></cite>], [<cite><a class="bibref" data-link-type="biblio" href="#bib-draft-ietf-lamps-kyber-certificates" title="Internet X.509 Public Key Infrastructure - Algorithm Identifiers for the Module-Lattice-Based Key-Encapsulation Mechanism (ML-KEM)">draft-ietf-lamps-kyber-certificates</a></cite>]
+          </td>
+        </tr>
+        <tr>
+          <td>id-alg-ml-kem-1024 (2.16.840.1.101.3.4.4.3)</td>
+          <td>ML-KEM-1024-PrivateKey</td>
+          <td>
+            "<code>ML-KEM-1024</code>"
+          </td>
+          <td>
+            [<cite><a class="bibref" data-link-type="biblio" href="#bib-csor" title="Computer Security Objects Register">CSOR</a></cite>], [<cite><a class="bibref" data-link-type="biblio" href="#bib-draft-ietf-lamps-kyber-certificates" title="Internet X.509 Public Key Infrastructure - Algorithm Identifiers for the Module-Lattice-Based Key-Encapsulation Mechanism (ML-KEM)">draft-ietf-lamps-kyber-certificates</a></cite>]
+          </td>
+        </tr>
+        <tr>
+          <td>id-slh-dsa-sha2-128s (2.16.840.1.101.3.4.3.20)</td>
+          <td>OCTET STRING</td>
+          <td>
+            "<code>SLH-DSA-SHA2-128s</code>"
+          </td>
+          <td>
+            [<cite><a class="bibref" data-link-type="biblio" href="#bib-csor" title="Computer Security Objects Register">CSOR</a></cite>], [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc9814" title="Use of the SLH-DSA Signature Algorithm in the Cryptographic Message Syntax (CMS)">RFC9814</a></cite>]
+          </td>
+        </tr>
+        <tr>
+          <td>id-slh-dsa-sha2-128f (2.16.840.1.101.3.4.3.21)</td>
+          <td>OCTET STRING</td>
+          <td>
+            "<code>SLH-DSA-SHA2-128f</code>"
+          </td>
+          <td>
+            [<cite><a class="bibref" data-link-type="biblio" href="#bib-csor" title="Computer Security Objects Register">CSOR</a></cite>], [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc9814" title="Use of the SLH-DSA Signature Algorithm in the Cryptographic Message Syntax (CMS)">RFC9814</a></cite>]
+          </td>
+        </tr>
+        <tr>
+          <td>id-slh-dsa-sha2-192s (2.16.840.1.101.3.4.3.22)</td>
+          <td>OCTET STRING</td>
+          <td>
+            "<code>SLH-DSA-SHA2-192s</code>"
+          </td>
+          <td>
+            [<cite><a class="bibref" data-link-type="biblio" href="#bib-csor" title="Computer Security Objects Register">CSOR</a></cite>], [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc9814" title="Use of the SLH-DSA Signature Algorithm in the Cryptographic Message Syntax (CMS)">RFC9814</a></cite>]
+          </td>
+        </tr>
+        <tr>
+          <td>id-slh-dsa-sha2-192f (2.16.840.1.101.3.4.3.23)</td>
+          <td>OCTET STRING</td>
+          <td>
+            "<code>SLH-DSA-SHA2-192f</code>"
+          </td>
+          <td>
+            [<cite><a class="bibref" data-link-type="biblio" href="#bib-csor" title="Computer Security Objects Register">CSOR</a></cite>], [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc9814" title="Use of the SLH-DSA Signature Algorithm in the Cryptographic Message Syntax (CMS)">RFC9814</a></cite>]
+          </td>
+        </tr>
+        <tr>
+          <td>id-slh-dsa-sha2-256s (2.16.840.1.101.3.4.3.24)</td>
+          <td>OCTET STRING</td>
+          <td>
+            "<code>SLH-DSA-SHA2-256s</code>"
+          </td>
+          <td>
+            [<cite><a class="bibref" data-link-type="biblio" href="#bib-csor" title="Computer Security Objects Register">CSOR</a></cite>], [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc9814" title="Use of the SLH-DSA Signature Algorithm in the Cryptographic Message Syntax (CMS)">RFC9814</a></cite>]
+          </td>
+        </tr>
+        <tr>
+          <td>id-slh-dsa-sha2-256f (2.16.840.1.101.3.4.3.25)</td>
+          <td>OCTET STRING</td>
+          <td>
+            "<code>SLH-DSA-SHA2-256f</code>"
+          </td>
+          <td>
+            [<cite><a class="bibref" data-link-type="biblio" href="#bib-csor" title="Computer Security Objects Register">CSOR</a></cite>], [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc9814" title="Use of the SLH-DSA Signature Algorithm in the Cryptographic Message Syntax (CMS)">RFC9814</a></cite>]
+          </td>
+        </tr>
+        <tr>
+          <td>id-slh-dsa-shake-128s (2.16.840.1.101.3.4.3.26)</td>
+          <td>OCTET STRING</td>
+          <td>
+            "<code>SLH-DSA-SHAKE-128s</code>"
+          </td>
+          <td>
+            [<cite><a class="bibref" data-link-type="biblio" href="#bib-csor" title="Computer Security Objects Register">CSOR</a></cite>], [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc9814" title="Use of the SLH-DSA Signature Algorithm in the Cryptographic Message Syntax (CMS)">RFC9814</a></cite>]
+          </td>
+        </tr>
+        <tr>
+          <td>id-slh-dsa-shake-128f (2.16.840.1.101.3.4.3.27)</td>
+          <td>OCTET STRING</td>
+          <td>
+            "<code>SLH-DSA-SHAKE-128f</code>"
+          </td>
+          <td>
+            [<cite><a class="bibref" data-link-type="biblio" href="#bib-csor" title="Computer Security Objects Register">CSOR</a></cite>], [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc9814" title="Use of the SLH-DSA Signature Algorithm in the Cryptographic Message Syntax (CMS)">RFC9814</a></cite>]
+          </td>
+        </tr>
+        <tr>
+          <td>id-slh-dsa-shake-192s (2.16.840.1.101.3.4.3.28)</td>
+          <td>OCTET STRING</td>
+          <td>
+            "<code>SLH-DSA-SHAKE-192s</code>"
+          </td>
+          <td>
+            [<cite><a class="bibref" data-link-type="biblio" href="#bib-csor" title="Computer Security Objects Register">CSOR</a></cite>], [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc9814" title="Use of the SLH-DSA Signature Algorithm in the Cryptographic Message Syntax (CMS)">RFC9814</a></cite>]
+          </td>
+        </tr>
+        <tr>
+          <td>id-slh-dsa-shake-192f (2.16.840.1.101.3.4.3.29)</td>
+          <td>OCTET STRING</td>
+          <td>
+            "<code>SLH-DSA-SHAKE-192f</code>"
+          </td>
+          <td>
+            [<cite><a class="bibref" data-link-type="biblio" href="#bib-csor" title="Computer Security Objects Register">CSOR</a></cite>], [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc9814" title="Use of the SLH-DSA Signature Algorithm in the Cryptographic Message Syntax (CMS)">RFC9814</a></cite>]
+          </td>
+        </tr>
+        <tr>
+          <td>id-slh-dsa-shake-256s (2.16.840.1.101.3.4.3.30)</td>
+          <td>OCTET STRING</td>
+          <td>
+            "<code>SLH-DSA-SHAKE-256s</code>"
+          </td>
+          <td>
+            [<cite><a class="bibref" data-link-type="biblio" href="#bib-csor" title="Computer Security Objects Register">CSOR</a></cite>], [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc9814" title="Use of the SLH-DSA Signature Algorithm in the Cryptographic Message Syntax (CMS)">RFC9814</a></cite>]
+          </td>
+        </tr>
+        <tr>
+          <td>id-slh-dsa-shake-256f (2.16.840.1.101.3.4.3.31)</td>
+          <td>OCTET STRING</td>
+          <td>
+            "<code>SLH-DSA-SHAKE-256f</code>"
+          </td>
+          <td>
+            [<cite><a class="bibref" data-link-type="biblio" href="#bib-csor" title="Computer Security Objects Register">CSOR</a></cite>], [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc9814" title="Use of the SLH-DSA Signature Algorithm in the Cryptographic Message Syntax (CMS)">RFC9814</a></cite>]
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section id="spki-mapping" class="appendix informative"><div class="header-wrapper"><h2 id="c-mapping-between-algorithm-and-subjectpublickeyinfo"><bdi class="secno">C. </bdi>Mapping between Algorithm and SubjectPublicKeyInfo</h2><a class="self-link" href="#spki-mapping" aria-label="Permalink for Appendix C."></a></div><p><em>This section is non-normative.</em></p>
+    
+    <p class="norm">
+      Refer to algorithm-specific sections for the
+      normative requirements of importing and exporting SPKI.
+    </p>
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">Algorithm OID</th>
+          <th scope="col">subjectPublicKey ASN.1 structure</th>
+          <th scope="col">AlgorithmIdentifier</th>
+          <th scope="col">Reference</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>id-ml-dsa-44 (2.16.840.1.101.3.4.3.17)</td>
+          <td>BIT STRING</td>
+          <td>
+            "<code>ML-DSA-44</code>"
+          </td>
+          <td>
+            [<cite><a class="bibref" data-link-type="biblio" href="#bib-csor" title="Computer Security Objects Register">CSOR</a></cite>], [<cite><a class="bibref" data-link-type="biblio" href="#bib-draft-ietf-lamps-dilithium-certificates" title="Internet X.509 Public Key Infrastructure - Algorithm Identifiers for the Module-Lattice-Based Digital Signature Algorithm (ML-DSA)">draft-ietf-lamps-dilithium-certificates</a></cite>]
+          </td>
+        </tr>
+        <tr>
+          <td>id-ml-dsa-65 (2.16.840.1.101.3.4.3.18)</td>
+          <td>BIT STRING</td>
+          <td>
+            "<code>ML-DSA-65</code>"
+          </td>
+          <td>
+            [<cite><a class="bibref" data-link-type="biblio" href="#bib-csor" title="Computer Security Objects Register">CSOR</a></cite>], [<cite><a class="bibref" data-link-type="biblio" href="#bib-draft-ietf-lamps-dilithium-certificates" title="Internet X.509 Public Key Infrastructure - Algorithm Identifiers for the Module-Lattice-Based Digital Signature Algorithm (ML-DSA)">draft-ietf-lamps-dilithium-certificates</a></cite>]
+          </td>
+        </tr>
+        <tr>
+          <td>id-ml-dsa-87 (2.16.840.1.101.3.4.3.19)</td>
+          <td>BIT STRING</td>
+          <td>
+            "<code>ML-DSA-87</code>"
+          </td>
+          <td>
+            [<cite><a class="bibref" data-link-type="biblio" href="#bib-csor" title="Computer Security Objects Register">CSOR</a></cite>], [<cite><a class="bibref" data-link-type="biblio" href="#bib-draft-ietf-lamps-dilithium-certificates" title="Internet X.509 Public Key Infrastructure - Algorithm Identifiers for the Module-Lattice-Based Digital Signature Algorithm (ML-DSA)">draft-ietf-lamps-dilithium-certificates</a></cite>]
+          </td>
+        </tr>
+        <tr>
+          <td>id-alg-ml-kem-512 (2.16.840.1.101.3.4.4.1)</td>
+          <td>BIT STRING</td>
+          <td>
+            "<code>ML-KEM-512</code>"
+          </td>
+          <td>
+            [<cite><a class="bibref" data-link-type="biblio" href="#bib-csor" title="Computer Security Objects Register">CSOR</a></cite>], [<cite><a class="bibref" data-link-type="biblio" href="#bib-draft-ietf-lamps-kyber-certificates" title="Internet X.509 Public Key Infrastructure - Algorithm Identifiers for the Module-Lattice-Based Key-Encapsulation Mechanism (ML-KEM)">draft-ietf-lamps-kyber-certificates</a></cite>]
+          </td>
+        </tr>
+        <tr>
+          <td>id-alg-ml-kem-768 (2.16.840.1.101.3.4.4.2)</td>
+          <td>BIT STRING</td>
+          <td>
+            "<code>ML-KEM-768</code>"
+          </td>
+          <td>
+            [<cite><a class="bibref" data-link-type="biblio" href="#bib-csor" title="Computer Security Objects Register">CSOR</a></cite>], [<cite><a class="bibref" data-link-type="biblio" href="#bib-draft-ietf-lamps-kyber-certificates" title="Internet X.509 Public Key Infrastructure - Algorithm Identifiers for the Module-Lattice-Based Key-Encapsulation Mechanism (ML-KEM)">draft-ietf-lamps-kyber-certificates</a></cite>]
+          </td>
+        </tr>
+        <tr>
+          <td>id-alg-ml-kem-1024 (2.16.840.1.101.3.4.4.3)</td>
+          <td>BIT STRING</td>
+          <td>
+            "<code>ML-KEM-1024</code>"
+          </td>
+          <td>
+            [<cite><a class="bibref" data-link-type="biblio" href="#bib-csor" title="Computer Security Objects Register">CSOR</a></cite>], [<cite><a class="bibref" data-link-type="biblio" href="#bib-draft-ietf-lamps-kyber-certificates" title="Internet X.509 Public Key Infrastructure - Algorithm Identifiers for the Module-Lattice-Based Key-Encapsulation Mechanism (ML-KEM)">draft-ietf-lamps-kyber-certificates</a></cite>]
+          </td>
+        </tr>
+        <tr>
+          <td>id-slh-dsa-sha2-128s (2.16.840.1.101.3.4.3.20)</td>
+          <td>BIT STRING</td>
+          <td>
+            "<code>SLH-DSA-SHA2-128s</code>"
+          </td>
+          <td>
+            [<cite><a class="bibref" data-link-type="biblio" href="#bib-csor" title="Computer Security Objects Register">CSOR</a></cite>], [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc9814" title="Use of the SLH-DSA Signature Algorithm in the Cryptographic Message Syntax (CMS)">RFC9814</a></cite>]
+          </td>
+        </tr>
+        <tr>
+          <td>id-slh-dsa-sha2-128f (2.16.840.1.101.3.4.3.21)</td>
+          <td>BIT STRING</td>
+          <td>
+            "<code>SLH-DSA-SHA2-128f</code>"
+          </td>
+          <td>
+            [<cite><a class="bibref" data-link-type="biblio" href="#bib-csor" title="Computer Security Objects Register">CSOR</a></cite>], [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc9814" title="Use of the SLH-DSA Signature Algorithm in the Cryptographic Message Syntax (CMS)">RFC9814</a></cite>]
+          </td>
+        </tr>
+        <tr>
+          <td>id-slh-dsa-sha2-192s (2.16.840.1.101.3.4.3.22)</td>
+          <td>BIT STRING</td>
+          <td>
+            "<code>SLH-DSA-SHA2-192s</code>"
+          </td>
+          <td>
+            [<cite><a class="bibref" data-link-type="biblio" href="#bib-csor" title="Computer Security Objects Register">CSOR</a></cite>], [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc9814" title="Use of the SLH-DSA Signature Algorithm in the Cryptographic Message Syntax (CMS)">RFC9814</a></cite>]
+          </td>
+        </tr>
+        <tr>
+          <td>id-slh-dsa-sha2-192f (2.16.840.1.101.3.4.3.23)</td>
+          <td>BIT STRING</td>
+          <td>
+            "<code>SLH-DSA-SHA2-192f</code>"
+          </td>
+          <td>
+            [<cite><a class="bibref" data-link-type="biblio" href="#bib-csor" title="Computer Security Objects Register">CSOR</a></cite>], [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc9814" title="Use of the SLH-DSA Signature Algorithm in the Cryptographic Message Syntax (CMS)">RFC9814</a></cite>]
+          </td>
+        </tr>
+        <tr>
+          <td>id-slh-dsa-sha2-256s (2.16.840.1.101.3.4.3.24)</td>
+          <td>BIT STRING</td>
+          <td>
+            "<code>SLH-DSA-SHA2-256s</code>"
+          </td>
+          <td>
+            [<cite><a class="bibref" data-link-type="biblio" href="#bib-csor" title="Computer Security Objects Register">CSOR</a></cite>], [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc9814" title="Use of the SLH-DSA Signature Algorithm in the Cryptographic Message Syntax (CMS)">RFC9814</a></cite>]
+          </td>
+        </tr>
+        <tr>
+          <td>id-slh-dsa-sha2-256f (2.16.840.1.101.3.4.3.25)</td>
+          <td>BIT STRING</td>
+          <td>
+            "<code>SLH-DSA-SHA2-256f</code>"
+          </td>
+          <td>
+            [<cite><a class="bibref" data-link-type="biblio" href="#bib-csor" title="Computer Security Objects Register">CSOR</a></cite>], [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc9814" title="Use of the SLH-DSA Signature Algorithm in the Cryptographic Message Syntax (CMS)">RFC9814</a></cite>]
+          </td>
+        </tr>
+        <tr>
+          <td>id-slh-dsa-shake-128s (2.16.840.1.101.3.4.3.26)</td>
+          <td>BIT STRING</td>
+          <td>
+            "<code>SLH-DSA-SHAKE-128s</code>"
+          </td>
+          <td>
+            [<cite><a class="bibref" data-link-type="biblio" href="#bib-csor" title="Computer Security Objects Register">CSOR</a></cite>], [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc9814" title="Use of the SLH-DSA Signature Algorithm in the Cryptographic Message Syntax (CMS)">RFC9814</a></cite>]
+          </td>
+        </tr>
+        <tr>
+          <td>id-slh-dsa-shake-128f (2.16.840.1.101.3.4.3.27)</td>
+          <td>BIT STRING</td>
+          <td>
+            "<code>SLH-DSA-SHAKE-128f</code>"
+          </td>
+          <td>
+            [<cite><a class="bibref" data-link-type="biblio" href="#bib-csor" title="Computer Security Objects Register">CSOR</a></cite>], [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc9814" title="Use of the SLH-DSA Signature Algorithm in the Cryptographic Message Syntax (CMS)">RFC9814</a></cite>]
+          </td>
+        </tr>
+        <tr>
+          <td>id-slh-dsa-shake-192s (2.16.840.1.101.3.4.3.28)</td>
+          <td>BIT STRING</td>
+          <td>
+            "<code>SLH-DSA-SHAKE-192s</code>"
+          </td>
+          <td>
+            [<cite><a class="bibref" data-link-type="biblio" href="#bib-csor" title="Computer Security Objects Register">CSOR</a></cite>], [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc9814" title="Use of the SLH-DSA Signature Algorithm in the Cryptographic Message Syntax (CMS)">RFC9814</a></cite>]
+          </td>
+        </tr>
+        <tr>
+          <td>id-slh-dsa-shake-192f (2.16.840.1.101.3.4.3.29)</td>
+          <td>BIT STRING</td>
+          <td>
+            "<code>SLH-DSA-SHAKE-192f</code>"
+          </td>
+          <td>
+            [<cite><a class="bibref" data-link-type="biblio" href="#bib-csor" title="Computer Security Objects Register">CSOR</a></cite>], [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc9814" title="Use of the SLH-DSA Signature Algorithm in the Cryptographic Message Syntax (CMS)">RFC9814</a></cite>]
+          </td>
+        </tr>
+        <tr>
+          <td>id-slh-dsa-shake-256s (2.16.840.1.101.3.4.3.30)</td>
+          <td>BIT STRING</td>
+          <td>
+            "<code>SLH-DSA-SHAKE-256s</code>"
+          </td>
+          <td>
+            [<cite><a class="bibref" data-link-type="biblio" href="#bib-csor" title="Computer Security Objects Register">CSOR</a></cite>], [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc9814" title="Use of the SLH-DSA Signature Algorithm in the Cryptographic Message Syntax (CMS)">RFC9814</a></cite>]
+          </td>
+        </tr>
+        <tr>
+          <td>id-slh-dsa-shake-256f (2.16.840.1.101.3.4.3.31)</td>
+          <td>BIT STRING</td>
+          <td>
+            "<code>SLH-DSA-SHAKE-256f</code>"
+          </td>
+          <td>
+            [<cite><a class="bibref" data-link-type="biblio" href="#bib-csor" title="Computer Security Objects Register">CSOR</a></cite>], [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc9814" title="Use of the SLH-DSA Signature Algorithm in the Cryptographic Message Syntax (CMS)">RFC9814</a></cite>]
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section id="conformance"><div class="header-wrapper"><h2 id="d-conformance"><bdi class="secno">D. </bdi>Conformance</h2><a class="self-link" href="#conformance" aria-label="Permalink for Section D."></a></div><p>As well as sections marked as non-normative, all authoring guidelines, diagrams, examples, and notes in this specification are non-normative. Everything else in this specification is normative.</p><p>
         The key word <em class="rfc2119">MUST</em> in this document
         is to be interpreted as described in
         <a href="https://www.rfc-editor.org/info/bcp14">BCP 14</a>
@@ -5887,7 +7790,7 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
 
 
 
-<section id="references" class="appendix"><div class="header-wrapper"><h2 id="c-references"><bdi class="secno">C. </bdi>References</h2><a class="self-link" href="#references" aria-label="Permalink for Appendix C."></a></div><section id="normative-references"><div class="header-wrapper"><h3 id="c-1-normative-references"><bdi class="secno">C.1 </bdi>Normative references</h3><a class="self-link" href="#normative-references" aria-label="Permalink for Appendix C.1"></a></div>
+<section id="references" class="appendix"><div class="header-wrapper"><h2 id="e-references"><bdi class="secno">E. </bdi>References</h2><a class="self-link" href="#references" aria-label="Permalink for Appendix E."></a></div><section id="normative-references"><div class="header-wrapper"><h3 id="e-1-normative-references"><bdi class="secno">E.1 </bdi>Normative references</h3><a class="self-link" href="#normative-references" aria-label="Permalink for Appendix E.1"></a></div>
     
     <dl class="bibliography"><dt id="bib-draft-ietf-cose-dilithium-07">[draft-ietf-cose-dilithium-07]</dt><dd>
       <a href="https://www.ietf.org/archive/id/draft-ietf-cose-dilithium-07.html"><cite>ML-DSA for JOSE and COSE</cite></a>.  IETF. June 2025. URL: <a href="https://www.ietf.org/archive/id/draft-ietf-cose-dilithium-07.html">https://www.ietf.org/archive/id/draft-ietf-cose-dilithium-07.html</a>
@@ -5913,6 +7816,10 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
       <a href="https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-185.pdf"><cite>NIST Special Publication 800-185: SHA-3 Derived Functions: cSHAKE, KMAC, TupleHash and ParallelHash</cite></a>.  NIST. December 2016. URL: <a href="https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-185.pdf">https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-185.pdf</a>
     </dd><dt id="bib-rfc2119">[RFC2119]</dt><dd>
       <a href="https://www.rfc-editor.org/rfc/rfc2119"><cite>Key words for use in RFCs to Indicate Requirement Levels</cite></a>. S. Bradner.  IETF. March 1997. Best Current Practice. URL: <a href="https://www.rfc-editor.org/rfc/rfc2119">https://www.rfc-editor.org/rfc/rfc2119</a>
+    </dd><dt id="bib-rfc5208">[RFC5208]</dt><dd>
+      <a href="https://www.rfc-editor.org/rfc/rfc5208"><cite>Public-Key Cryptography Standards (PKCS) #8: Private-Key Information Syntax Specification Version 1.2</cite></a>. B. Kaliski.  IETF. May 2008. Informational. URL: <a href="https://www.rfc-editor.org/rfc/rfc5208">https://www.rfc-editor.org/rfc/rfc5208</a>
+    </dd><dt id="bib-rfc5280">[RFC5280]</dt><dd>
+      <a href="https://www.rfc-editor.org/rfc/rfc5280"><cite>Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile</cite></a>. D. Cooper; S. Santesson; S. Farrell; S. Boeyen; R. Housley; W. Polk.  IETF. May 2008. Proposed Standard. URL: <a href="https://www.rfc-editor.org/rfc/rfc5280">https://www.rfc-editor.org/rfc/rfc5280</a>
     </dd><dt id="bib-rfc7253">[RFC7253]</dt><dd>
       <a href="https://www.rfc-editor.org/rfc/rfc7253"><cite>The OCB Authenticated-Encryption Algorithm</cite></a>. T. Krovetz; P. Rogaway.  IETF. May 2014. Informational. URL: <a href="https://www.rfc-editor.org/rfc/rfc7253">https://www.rfc-editor.org/rfc/rfc7253</a>
     </dd><dt id="bib-rfc8174">[RFC8174]</dt><dd>
@@ -5925,6 +7832,17 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
       <a href="https://www.w3.org/TR/webcrypto-2/"><cite>Web Cryptography Level 2</cite></a>. Daniel Huigens.  W3C. 22 April 2025. FPWD. URL: <a href="https://www.w3.org/TR/webcrypto-2/">https://www.w3.org/TR/webcrypto-2/</a>
     </dd><dt id="bib-webidl">[WebIDL]</dt><dd>
       <a href="https://webidl.spec.whatwg.org/"><cite>Web IDL Standard</cite></a>. Edgar Chen; Timothy Gu.  WHATWG. Living Standard. URL: <a href="https://webidl.spec.whatwg.org/">https://webidl.spec.whatwg.org/</a>
+    </dd></dl>
+  </section><section id="informative-references"><div class="header-wrapper"><h3 id="e-2-informative-references"><bdi class="secno">E.2 </bdi>Informative references</h3><a class="self-link" href="#informative-references" aria-label="Permalink for Appendix E.2"></a></div>
+    
+    <dl class="bibliography"><dt id="bib-csor">[CSOR]</dt><dd>
+      <a href="https://csrc.nist.gov/projects/computer-security-objects-register/algorithm-registration"><cite>Computer Security Objects Register</cite></a>.  NIST. URL: <a href="https://csrc.nist.gov/projects/computer-security-objects-register/algorithm-registration">https://csrc.nist.gov/projects/computer-security-objects-register/algorithm-registration</a>
+    </dd><dt id="bib-draft-ietf-lamps-dilithium-certificates">[draft-ietf-lamps-dilithium-certificates]</dt><dd>
+      <a href="https://datatracker.ietf.org/doc/draft-ietf-lamps-dilithium-certificates/"><cite>Internet X.509 Public Key Infrastructure - Algorithm Identifiers for the Module-Lattice-Based Digital Signature Algorithm (ML-DSA)</cite></a>.  IETF. URL: <a href="https://datatracker.ietf.org/doc/draft-ietf-lamps-dilithium-certificates/">https://datatracker.ietf.org/doc/draft-ietf-lamps-dilithium-certificates/</a>
+    </dd><dt id="bib-draft-ietf-lamps-kyber-certificates">[draft-ietf-lamps-kyber-certificates]</dt><dd>
+      <a href="https://datatracker.ietf.org/doc/draft-ietf-lamps-kyber-certificates/"><cite>Internet X.509 Public Key Infrastructure - Algorithm Identifiers for the Module-Lattice-Based Key-Encapsulation Mechanism (ML-KEM)</cite></a>.  IETF. URL: <a href="https://datatracker.ietf.org/doc/draft-ietf-lamps-kyber-certificates/">https://datatracker.ietf.org/doc/draft-ietf-lamps-kyber-certificates/</a>
+    </dd><dt id="bib-rfc9814">[RFC9814]</dt><dd>
+      <a href="https://www.rfc-editor.org/rfc/rfc9814"><cite>Use of the SLH-DSA Signature Algorithm in the Cryptographic Message Syntax (CMS)</cite></a>. R. Housley; S. Fluhrer; P. Kampanakis; B. Westerbaan.  IETF. July 2025. Proposed Standard. URL: <a href="https://www.rfc-editor.org/rfc/rfc9814">https://www.rfc-editor.org/rfc/rfc9814</a>
     </dd></dl>
   </section></section><p role="navigation" id="back-to-top">
     <a href="#title"><abbr title="Back to Top">↑</abbr></a>
@@ -5958,8 +7876,20 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
-      <li>Not referenced in this document.</li>
-    </ul>
+    <li>
+      <a href="#ref-for-dom-keyformat-spki-1" title="§ 6.3.4 Import Key">§ 6.3.4 Import Key</a> 
+    </li><li>
+      <a href="#ref-for-dom-keyformat-spki-2" title="§ 6.3.5 Export Key">§ 6.3.5 Export Key</a> 
+    </li><li>
+      <a href="#ref-for-dom-keyformat-spki-3" title="§ 7.4.4 Import Key">§ 7.4.4 Import Key</a> 
+    </li><li>
+      <a href="#ref-for-dom-keyformat-spki-4" title="§ 7.4.5 Export Key">§ 7.4.5 Export Key</a> 
+    </li><li>
+      <a href="#ref-for-dom-keyformat-spki-5" title="§ 8.3.4 Import Key">§ 8.3.4 Import Key</a> 
+    </li><li>
+      <a href="#ref-for-dom-keyformat-spki-6" title="§ 8.3.5 Export Key">§ 8.3.5 Export Key</a> 
+    </li>
+  </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dom-keyformat-pkcs8" aria-label="Links in this document to definition: pkcs8">
       <span class="caret"></span>
       <div>
@@ -5968,8 +7898,20 @@ dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dfn-E
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
-      <li>Not referenced in this document.</li>
-    </ul>
+    <li>
+      <a href="#ref-for-dom-keyformat-pkcs8-1" title="§ 6.3.4 Import Key">§ 6.3.4 Import Key</a> 
+    </li><li>
+      <a href="#ref-for-dom-keyformat-pkcs8-2" title="§ 6.3.5 Export Key">§ 6.3.5 Export Key</a> 
+    </li><li>
+      <a href="#ref-for-dom-keyformat-pkcs8-3" title="§ 7.4.4 Import Key">§ 7.4.4 Import Key</a> 
+    </li><li>
+      <a href="#ref-for-dom-keyformat-pkcs8-4" title="§ 7.4.5 Export Key">§ 7.4.5 Export Key</a> 
+    </li><li>
+      <a href="#ref-for-dom-keyformat-pkcs8-5" title="§ 8.3.4 Import Key">§ 8.3.4 Import Key</a> 
+    </li><li>
+      <a href="#ref-for-dom-keyformat-pkcs8-6" title="§ 8.3.5 Export Key">§ 8.3.5 Export Key</a> 
+    </li>
+  </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dom-keyformat-jwk" aria-label="Links in this document to definition: jwk">
       <span class="caret"></span>
       <div>
