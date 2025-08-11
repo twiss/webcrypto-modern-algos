@@ -3430,6 +3430,362 @@ dictionary ContextParams : Algorithm {
           </li>
           <li>
             <dl class="switch">
+              <dt>If |format| is {{KeyFormat/"spki"}}:</dt>
+              <dd>
+                <ol>
+                  <li>
+                    <p>
+                      If |usages| contains a value which is not
+                      "`verify`"
+                      then [= exception/throw =] a
+                      {{SyntaxError}}.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Let |spki| be the result of running the
+                      <a data-cite="webcrypto#concept-parse-a-spki">parse a subjectPublicKeyInfo</a>
+                      algorithm over |keyData|.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      If an error occurred while parsing,
+                      then [= exception/throw =] a
+                      {{DataError}}.
+                    </p>
+                  </li>
+                  <li>
+                    <dl class="switch">
+                      <dt>If the {{Algorithm/name}} member of |normalizedAlgorithm| is "`SLH-DSA-SHA2-128s`":</dt>
+                      <dd>
+                        <p>
+                          Let |expectedOid| be `id-slh-dsa-sha2-128s` (2.16.840.1.101.3.4.3.20).
+                        </p>
+                      </dd>
+                      <dt>If the {{Algorithm/name}} member of |normalizedAlgorithm| is "`SLH-DSA-SHA2-128f`":</dt>
+                      <dd>
+                        <p>
+                          Let |expectedOid| be `id-slh-dsa-sha2-128f` (2.16.840.1.101.3.4.3.21).
+                        </p>
+                      </dd>
+                      <dt>If the {{Algorithm/name}} member of |normalizedAlgorithm| is "`SLH-DSA-SHA2-192s`":</dt>
+                      <dd>
+                        <p>
+                          Let |expectedOid| be `id-slh-dsa-sha2-192s` (2.16.840.1.101.3.4.3.22).
+                        </p>
+                      </dd>
+                      <dt>If the {{Algorithm/name}} member of |normalizedAlgorithm| is "`SLH-DSA-SHA2-192f`":</dt>
+                      <dd>
+                        <p>
+                          Let |expectedOid| be `id-slh-dsa-sha2-192f` (2.16.840.1.101.3.4.3.23).
+                        </p>
+                      </dd>
+                      <dt>If the {{Algorithm/name}} member of |normalizedAlgorithm| is "`SLH-DSA-SHA2-256s`":</dt>
+                      <dd>
+                        <p>
+                          Let |expectedOid| be `id-slh-dsa-sha2-256s` (2.16.840.1.101.3.4.3.24).
+                        </p>
+                      </dd>
+                      <dt>If the {{Algorithm/name}} member of |normalizedAlgorithm| is "`SLH-DSA-SHA2-256f`":</dt>
+                      <dd>
+                        <p>
+                          Let |expectedOid| be `id-slh-dsa-sha2-256f` (2.16.840.1.101.3.4.3.25).
+                        </p>
+                      </dd>
+                      <dt>If the {{Algorithm/name}} member of |normalizedAlgorithm| is "`SLH-DSA-SHAKE-128s`":</dt>
+                      <dd>
+                        <p>
+                          Let |expectedOid| be `id-slh-dsa-shake-128s` (2.16.840.1.101.3.4.3.26).
+                        </p>
+                      </dd>
+                      <dt>If the {{Algorithm/name}} member of |normalizedAlgorithm| is "`SLH-DSA-SHAKE-128f`":</dt>
+                      <dd>
+                        <p>
+                          Let |expectedOid| be `id-slh-dsa-shake-128f` (2.16.840.1.101.3.4.3.27).
+                        </p>
+                      </dd>
+                      <dt>If the {{Algorithm/name}} member of |normalizedAlgorithm| is "`SLH-DSA-SHAKE-192s`":</dt>
+                      <dd>
+                        <p>
+                          Let |expectedOid| be `id-slh-dsa-shake-192s` (2.16.840.1.101.3.4.3.28).
+                        </p>
+                      </dd>
+                      <dt>If the {{Algorithm/name}} member of |normalizedAlgorithm| is "`SLH-DSA-SHAKE-192f`":</dt>
+                      <dd>
+                        <p>
+                          Let |expectedOid| be `id-slh-dsa-shake-192f` (2.16.840.1.101.3.4.3.29).
+                        </p>
+                      </dd>
+                      <dt>If the {{Algorithm/name}} member of |normalizedAlgorithm| is "`SLH-DSA-SHAKE-256s`":</dt>
+                      <dd>
+                        <p>
+                          Let |expectedOid| be `id-slh-dsa-shake-256s` (2.16.840.1.101.3.4.3.30).
+                        </p>
+                      </dd>
+                      <dt>If the {{Algorithm/name}} member of |normalizedAlgorithm| is "`SLH-DSA-SHAKE-256f`":</dt>
+                      <dd>
+                        <p>
+                          Let |expectedOid| be `id-slh-dsa-shake-256f` (2.16.840.1.101.3.4.3.31).
+                        </p>
+                      </dd>
+                      <dt>Otherwise:</dt>
+                      <dd>
+                        <p>
+                          [= exception/throw =] a {{NotSupportedError}}.
+                        </p>
+                      </dd>
+                    </dl>
+                  </li>
+                  <li>
+                    <p>
+                      If the `algorithm` object identifier field of the
+                      `algorithm` AlgorithmIdentifier field of |spki| is
+                      not equal to |expectedOid|,
+                      then [= exception/throw =] a {{DataError}}.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      If the `parameters` field of the `algorithm`
+                      AlgorithmIdentifier field of |spki| is present,
+                      then [= exception/throw =] a
+                      {{DataError}}.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Let |publicKey| be the SLH-DSA public key identified by
+                      the `subjectPublicKey` field of |spki|.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Let |key| be a new {{CryptoKey}}
+                      that represents |publicKey|.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot
+                      of |key| to "`public`"
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Let |algorithm| be a new {{KeyAlgorithm}}.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Set the {{KeyAlgorithm/name}} attribute of
+                      |algorithm| to the {{Algorithm/name}} attribute of
+                      |normalizedAlgorithm|.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a>
+                      internal slot of |key| to |algorithm|.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-extractable">`[[extractable]]`</a> internal
+                      slot of |key| to |extractable|.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-usages">`[[usages]]`</a> internal slot of
+                      |key| to |usages|.
+                    </p>
+                  </li>
+                </ol>
+              </dd>
+              <dt>If |format| is {{KeyFormat/"pkcs8"}}:</dt>
+              <dd>
+                <ol>
+                  <li>
+                    <p>
+                      If |usages| contains a value which is not
+                      "`sign`"
+                      then [= exception/throw =] a
+                      {{SyntaxError}}.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Let |privateKeyInfo| be the result of running the
+                      <a data-cite="webcrypto#concept-parse-a-privateKeyInfo">parse a privateKeyInfo</a>
+                      algorithm over |keyData|.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      If an error occurs while parsing,
+                      then [= exception/throw =] a
+                      {{DataError}}.
+                    </p>
+                  </li>
+                  <li>
+                    <dl class="switch">
+                      <dt>If the {{Algorithm/name}} member of |normalizedAlgorithm| is "`SLH-DSA-SHA2-128s`":</dt>
+                      <dd>
+                        <p>
+                          Let |expectedOid| be `id-slh-dsa-sha2-128s` (2.16.840.1.101.3.4.3.20).
+                        </p>
+                      </dd>
+                      <dt>If the {{Algorithm/name}} member of |normalizedAlgorithm| is "`SLH-DSA-SHA2-128f`":</dt>
+                      <dd>
+                        <p>
+                          Let |expectedOid| be `id-slh-dsa-sha2-128f` (2.16.840.1.101.3.4.3.21).
+                        </p>
+                      </dd>
+                      <dt>If the {{Algorithm/name}} member of |normalizedAlgorithm| is "`SLH-DSA-SHA2-192s`":</dt>
+                      <dd>
+                        <p>
+                          Let |expectedOid| be `id-slh-dsa-sha2-192s` (2.16.840.1.101.3.4.3.22).
+                        </p>
+                      </dd>
+                      <dt>If the {{Algorithm/name}} member of |normalizedAlgorithm| is "`SLH-DSA-SHA2-192f`":</dt>
+                      <dd>
+                        <p>
+                          Let |expectedOid| be `id-slh-dsa-sha2-192f` (2.16.840.1.101.3.4.3.23).
+                        </p>
+                      </dd>
+                      <dt>If the {{Algorithm/name}} member of |normalizedAlgorithm| is "`SLH-DSA-SHA2-256s`":</dt>
+                      <dd>
+                        <p>
+                          Let |expectedOid| be `id-slh-dsa-sha2-256s` (2.16.840.1.101.3.4.3.24).
+                        </p>
+                      </dd>
+                      <dt>If the {{Algorithm/name}} member of |normalizedAlgorithm| is "`SLH-DSA-SHA2-256f`":</dt>
+                      <dd>
+                        <p>
+                          Let |expectedOid| be `id-slh-dsa-sha2-256f` (2.16.840.1.101.3.4.3.25).
+                        </p>
+                      </dd>
+                      <dt>If the {{Algorithm/name}} member of |normalizedAlgorithm| is "`SLH-DSA-SHAKE-128s`":</dt>
+                      <dd>
+                        <p>
+                          Let |expectedOid| be `id-slh-dsa-shake-128s` (2.16.840.1.101.3.4.3.26).
+                        </p>
+                      </dd>
+                      <dt>If the {{Algorithm/name}} member of |normalizedAlgorithm| is "`SLH-DSA-SHAKE-128f`":</dt>
+                      <dd>
+                        <p>
+                          Let |expectedOid| be `id-slh-dsa-shake-128f` (2.16.840.1.101.3.4.3.27).
+                        </p>
+                      </dd>
+                      <dt>If the {{Algorithm/name}} member of |normalizedAlgorithm| is "`SLH-DSA-SHAKE-192s`":</dt>
+                      <dd>
+                        <p>
+                          Let |expectedOid| be `id-slh-dsa-shake-192s` (2.16.840.1.101.3.4.3.28).
+                        </p>
+                      </dd>
+                      <dt>If the {{Algorithm/name}} member of |normalizedAlgorithm| is "`SLH-DSA-SHAKE-192f`":</dt>
+                      <dd>
+                        <p>
+                          Let |expectedOid| be `id-slh-dsa-shake-192f` (2.16.840.1.101.3.4.3.29).
+                        </p>
+                      </dd>
+                      <dt>If the {{Algorithm/name}} member of |normalizedAlgorithm| is "`SLH-DSA-SHAKE-256s`":</dt>
+                      <dd>
+                        <p>
+                          Let |expectedOid| be `id-slh-dsa-shake-256s` (2.16.840.1.101.3.4.3.30).
+                        </p>
+                      </dd>
+                      <dt>If the {{Algorithm/name}} member of |normalizedAlgorithm| is "`SLH-DSA-SHAKE-256f`":</dt>
+                      <dd>
+                        <p>
+                          Let |expectedOid| be `id-slh-dsa-shake-256f` (2.16.840.1.101.3.4.3.31).
+                        </p>
+                      </dd>
+                      <dt>Otherwise:</dt>
+                      <dd>
+                        <p>
+                          [= exception/throw =] a {{NotSupportedError}}.
+                        </p>
+                      </dd>
+                    </dl>
+                  </li>
+                  <li>
+                    <p>
+                      If the `algorithm` object identifier field of the
+                      `privateKeyAlgorithm` PrivateKeyAlgorithm field of
+                      |privateKeyInfo| is not equal to |expectedOid|,
+                      then [= exception/throw =] a {{DataError}}.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      If the `parameters` field of the
+                      `privateKeyAlgorithm` PrivateKeyAlgorithmIdentifier field
+                      of |privateKeyInfo| is present,
+                      then [= exception/throw =] a
+                      {{DataError}}.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Let |slhDsaPrivateKey| be the result of performing the
+                      <a data-cite="webcrypto#concept-parse-an-asn1-structure">parse an ASN.1 structure</a>
+                      algorithm, with |data| as the `privateKey` field
+                      of |privateKeyInfo|, |structure| as OCTET STRING, and |exactData| set to true.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      If an error occurred while parsing,
+                      then [= exception/throw =] a
+                      {{DataError}}.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Let |key| be a new {{CryptoKey}}
+                      that represents the SLH-DSA private key identified by |slhDsaPrivateKey|.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-type">`[[type]]`</a> internal slot
+                      of |key| to {{KeyType/"private"}}
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Let |algorithm| be a new {{KeyAlgorithm}}.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Set the {{KeyAlgorithm/name}} attribute of
+                      |algorithm| to the {{Algorithm/name}} attribute of
+                      |normalizedAlgorithm|.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-algorithm">`[[algorithm]]`</a>
+                      internal slot of |key| to |algorithm|.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-extractable">`[[extractable]]`</a> internal
+                      slot of |key| to |extractable|.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Set the <a data-cite="webcrypto#dfn-CryptoKey-slot-usages">`[[usages]]`</a> internal slot of
+                      |key| to |usages|.
+                    </p>
+                  </li>
+                </ol>
+              </dd>
               <dt>If |format| is {{KeyFormat/"raw-public"}}:</dt>
               <dd>
                 <ol>
@@ -6284,6 +6640,126 @@ alg: "K256" }
             TODO
           </td>
         </tr>
+        <tr>
+          <td>id-slh-dsa-sha2-128s (2.16.840.1.101.3.4.3.20)</td>
+          <td>OCTET STRING</td>
+          <td>
+            "`SLH-DSA-SHA2-128s`"
+          </td>
+          <td>
+            TODO
+          </td>
+        </tr>
+        <tr>
+          <td>id-slh-dsa-sha2-128f (2.16.840.1.101.3.4.3.21)</td>
+          <td>OCTET STRING</td>
+          <td>
+            "`SLH-DSA-SHA2-128f`"
+          </td>
+          <td>
+            TODO
+          </td>
+        </tr>
+        <tr>
+          <td>id-slh-dsa-sha2-192s (2.16.840.1.101.3.4.3.22)</td>
+          <td>OCTET STRING</td>
+          <td>
+            "`SLH-DSA-SHA2-192s`"
+          </td>
+          <td>
+            TODO
+          </td>
+        </tr>
+        <tr>
+          <td>id-slh-dsa-sha2-192f (2.16.840.1.101.3.4.3.23)</td>
+          <td>OCTET STRING</td>
+          <td>
+            "`SLH-DSA-SHA2-192f`"
+          </td>
+          <td>
+            TODO
+          </td>
+        </tr>
+        <tr>
+          <td>id-slh-dsa-sha2-256s (2.16.840.1.101.3.4.3.24)</td>
+          <td>OCTET STRING</td>
+          <td>
+            "`SLH-DSA-SHA2-256s`"
+          </td>
+          <td>
+            TODO
+          </td>
+        </tr>
+        <tr>
+          <td>id-slh-dsa-sha2-256f (2.16.840.1.101.3.4.3.25)</td>
+          <td>OCTET STRING</td>
+          <td>
+            "`SLH-DSA-SHA2-256f`"
+          </td>
+          <td>
+            TODO
+          </td>
+        </tr>
+        <tr>
+          <td>id-slh-dsa-shake-128s (2.16.840.1.101.3.4.3.26)</td>
+          <td>OCTET STRING</td>
+          <td>
+            "`SLH-DSA-SHAKE-128s`"
+          </td>
+          <td>
+            TODO
+          </td>
+        </tr>
+        <tr>
+          <td>id-slh-dsa-shake-128f (2.16.840.1.101.3.4.3.27)</td>
+          <td>OCTET STRING</td>
+          <td>
+            "`SLH-DSA-SHAKE-128f`"
+          </td>
+          <td>
+            TODO
+          </td>
+        </tr>
+        <tr>
+          <td>id-slh-dsa-shake-192s (2.16.840.1.101.3.4.3.28)</td>
+          <td>OCTET STRING</td>
+          <td>
+            "`SLH-DSA-SHAKE-192s`"
+          </td>
+          <td>
+            TODO
+          </td>
+        </tr>
+        <tr>
+          <td>id-slh-dsa-shake-192f (2.16.840.1.101.3.4.3.29)</td>
+          <td>OCTET STRING</td>
+          <td>
+            "`SLH-DSA-SHAKE-192f`"
+          </td>
+          <td>
+            TODO
+          </td>
+        </tr>
+        <tr>
+          <td>id-slh-dsa-shake-256s (2.16.840.1.101.3.4.3.30)</td>
+          <td>OCTET STRING</td>
+          <td>
+            "`SLH-DSA-SHAKE-256s`"
+          </td>
+          <td>
+            TODO
+          </td>
+        </tr>
+        <tr>
+          <td>id-slh-dsa-shake-256f (2.16.840.1.101.3.4.3.31)</td>
+          <td>OCTET STRING</td>
+          <td>
+            "`SLH-DSA-SHAKE-256f`"
+          </td>
+          <td>
+            TODO
+          </td>
+        </tr>
       </tbody>
     </table>
   </section>
@@ -6359,6 +6835,126 @@ alg: "K256" }
           <td>BIT STRING</td>
           <td>
             "`ML-KEM-1024`"
+          </td>
+          <td>
+            TODO
+          </td>
+        </tr>
+        <tr>
+          <td>id-slh-dsa-sha2-128s (2.16.840.1.101.3.4.3.20)</td>
+          <td>BIT STRING</td>
+          <td>
+            "`SLH-DSA-SHA2-128s`"
+          </td>
+          <td>
+            TODO
+          </td>
+        </tr>
+        <tr>
+          <td>id-slh-dsa-sha2-128f (2.16.840.1.101.3.4.3.21)</td>
+          <td>BIT STRING</td>
+          <td>
+            "`SLH-DSA-SHA2-128f`"
+          </td>
+          <td>
+            TODO
+          </td>
+        </tr>
+        <tr>
+          <td>id-slh-dsa-sha2-192s (2.16.840.1.101.3.4.3.22)</td>
+          <td>BIT STRING</td>
+          <td>
+            "`SLH-DSA-SHA2-192s`"
+          </td>
+          <td>
+            TODO
+          </td>
+        </tr>
+        <tr>
+          <td>id-slh-dsa-sha2-192f (2.16.840.1.101.3.4.3.23)</td>
+          <td>BIT STRING</td>
+          <td>
+            "`SLH-DSA-SHA2-192f`"
+          </td>
+          <td>
+            TODO
+          </td>
+        </tr>
+        <tr>
+          <td>id-slh-dsa-sha2-256s (2.16.840.1.101.3.4.3.24)</td>
+          <td>BIT STRING</td>
+          <td>
+            "`SLH-DSA-SHA2-256s`"
+          </td>
+          <td>
+            TODO
+          </td>
+        </tr>
+        <tr>
+          <td>id-slh-dsa-sha2-256f (2.16.840.1.101.3.4.3.25)</td>
+          <td>BIT STRING</td>
+          <td>
+            "`SLH-DSA-SHA2-256f`"
+          </td>
+          <td>
+            TODO
+          </td>
+        </tr>
+        <tr>
+          <td>id-slh-dsa-shake-128s (2.16.840.1.101.3.4.3.26)</td>
+          <td>BIT STRING</td>
+          <td>
+            "`SLH-DSA-SHAKE-128s`"
+          </td>
+          <td>
+            TODO
+          </td>
+        </tr>
+        <tr>
+          <td>id-slh-dsa-shake-128f (2.16.840.1.101.3.4.3.27)</td>
+          <td>BIT STRING</td>
+          <td>
+            "`SLH-DSA-SHAKE-128f`"
+          </td>
+          <td>
+            TODO
+          </td>
+        </tr>
+        <tr>
+          <td>id-slh-dsa-shake-192s (2.16.840.1.101.3.4.3.28)</td>
+          <td>BIT STRING</td>
+          <td>
+            "`SLH-DSA-SHAKE-192s`"
+          </td>
+          <td>
+            TODO
+          </td>
+        </tr>
+        <tr>
+          <td>id-slh-dsa-shake-192f (2.16.840.1.101.3.4.3.29)</td>
+          <td>BIT STRING</td>
+          <td>
+            "`SLH-DSA-SHAKE-192f`"
+          </td>
+          <td>
+            TODO
+          </td>
+        </tr>
+        <tr>
+          <td>id-slh-dsa-shake-256s (2.16.840.1.101.3.4.3.30)</td>
+          <td>BIT STRING</td>
+          <td>
+            "`SLH-DSA-SHAKE-256s`"
+          </td>
+          <td>
+            TODO
+          </td>
+        </tr>
+        <tr>
+          <td>id-slh-dsa-shake-256f (2.16.840.1.101.3.4.3.31)</td>
+          <td>BIT STRING</td>
+          <td>
+            "`SLH-DSA-SHAKE-256f`"
           </td>
           <td>
             TODO
