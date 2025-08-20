@@ -1738,6 +1738,11 @@ dictionary JsonWebKey {
                       then [= exception/throw =] a
                       {{DataError}}.
                     </p>
+                    <p class=note>
+                      The import operation shall accept `ML-KEM-512-PrivateKey`, `ML-KEM-768-PrivateKey`, or `ML-KEM-1024-PrivateKey`
+                      structures in either one of the three CHOICEs (seed-only, private-only, or both). The absence of a seed
+                      or presence of the expanded private key is not a reason to [= exception/throw =] a {{DataError}}.
+                    </p>
                   </li>
                   <li>
                     <p>
@@ -2891,6 +2896,11 @@ dictionary ContextParams : Algorithm {
                       If an error occurred while parsing,
                       then [= exception/throw =] a
                       {{DataError}}.
+                    </p>
+                    <p class=note>
+                      The import operation shall accept `ML-DSA-44-PrivateKey`, `ML-DSA-65-PrivateKey`, or `ML-DSA-87-PrivateKey`
+                      structures in either one of the three CHOICEs (seed-only, private-only, or both). The absence of a seed
+                      or presence of the expanded private key is not a reason to [= exception/throw =] a {{DataError}}.
                     </p>
                   </li>
                   <li>
