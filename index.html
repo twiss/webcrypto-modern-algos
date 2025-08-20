@@ -2464,6 +2464,12 @@ dictionary ContextParams : Algorithm {
 };
       </pre>
       <p>The <dfn data-idl data-dfn-for=ContextParams id="dfn-ContextParams-context">context</dfn> member represents the optional context data to associate with the message.</p>
+      <div class=note>
+        <p>
+          The {{ContextParams}} dictionary is identical to the {{Ed448Params}} dictionary of [[webcrypto-secure-curves]],
+          and the latter may be replaced by the former when merging this proposal.
+        </p>
+      </div>
     </section>
     <section id="ml-dsa-operations">
       <h4>Operations</h4>
