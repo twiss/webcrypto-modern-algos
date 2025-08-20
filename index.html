@@ -1900,6 +1900,10 @@ dictionary JsonWebKey {
               <dd>
                 <ol>
                   <li>
+                    <p class="issue">
+                      The JWK format for ML-KEM is still under discussion in the IETF JOSE Working Group and therefore not final.
+                      Implementers should be aware that the format may change in future revisions of this document.
+                    </p>
                     <dl class="switch">
                       <dt>If |keyData| is a {{JsonWebKey}} dictionary:</dt>
                       <dd><p>Let |jwk| equal |keyData|.</p></dd>
@@ -2320,6 +2324,10 @@ dictionary JsonWebKey {
               <dd>
                 <ol>
                   <li>
+                    <p class="issue">
+                      The JWK format for ML-KEM is still under discussion in the IETF JOSE Working Group and therefore not final.
+                      Implementers should be aware that the format may change in future revisions of this document.
+                    </p>
                     <p>
                       Let |jwk| be a new {{JsonWebKey}}
                       dictionary.
@@ -4272,6 +4280,10 @@ dictionary ContextParams : Algorithm {
               <dd>
                 <ol>
                   <li>
+                    <p class="issue">
+                      The JWK format for SLH-DSA is not going to progress into an RFC within the IETF JOSE or COSE Working Groups.
+                      TODO: Its definition and "alg" IANA registration shall be done from within this document.
+                    </p>
                     <dl class="switch">
                       <dt>If |keyData| is a {{JsonWebKey}} dictionary:</dt>
                       <dd><p>Let |jwk| equal |keyData|.</p></dd>
@@ -4754,6 +4766,10 @@ dictionary ContextParams : Algorithm {
               <dd>
                 <ol>
                   <li>
+                    <p class="issue">
+                      The JWK format for SLH-DSA is not going to progress into an RFC within the IETF JOSE or COSE Working Groups.
+                      TODO: Its definition and "alg" IANA registration shall be done from within this document.
+                    </p>
                     <p>
                       Let |jwk| be a new {{JsonWebKey}}
                       dictionary.
